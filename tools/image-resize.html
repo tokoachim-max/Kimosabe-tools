@@ -4,29 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Resize Image Online – Free Image Resizer</title>
-  <meta name="description" content="Resize images online for free. Change image dimensions quickly while maintaining quality."/>
+  <meta name="description" content="Resize images online by width and height. Keep aspect ratio or customize size freely."/>
   <link rel="stylesheet" href="../assets/css/style.css"/>
 </head>
 <body>
 
 <header class="header">
   <h1>Image Resize</h1>
-  <p>Resize images easily while keeping quality</p>
+  <p>Resize images by width and height</p>
+  <p><a href="../index.html">← Back to Home</a></p>
 </header>
 
 <main class="container">
   <input type="file" id="resizeInput" accept="image/*" />
   <br><br>
 
+  <label>Width (px):
+    <input type="number" id="widthInput" />
+  </label>
+
+  <label>Height (px):
+    <input type="number" id="heightInput" />
+  </label>
+
+  <br><br>
   <label>
-    Width (px):
-    <input type="number" id="widthInput" placeholder="e.g. 800" />
+    <input type="checkbox" id="lockRatio" checked />
+    Keep aspect ratio
   </label>
 
   <br><br>
   <button id="resizeBtn">Resize Image</button>
 
-  <div id="resizeResult" style="margin-top:20px;"></div>
+  <p id="resizeStatus"></p>
+  <div id="resizeResult"></div>
 </main>
 
 <footer class="footer">
