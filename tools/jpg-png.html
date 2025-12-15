@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JPG to PNG & PNG to JPG Converter – Free Online Tool</title>
+  <meta name="description" content="Convert JPG to PNG or PNG to JPG online for free. Fast image conversion with no quality loss."/>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+</head>
+<body>
+
+<header class="header">
+  <h1>JPG ↔ PNG Converter</h1>
+  <p>Convert images between JPG and PNG formats</p>
+  <p><a href="../index.html">← Back to Home</a></p>
+</header>
+
+<main class="container">
+  <input type="file" id="imageInput" accept="image/jpeg,image/png" />
+  <br><br>
+
+  <label>
+    Convert to:
+    <select id="formatSelect">
+      <option value="png">PNG</option>
+      <option value="jpeg">JPG</option>
+    </select>
+  </label>
+
+  <br><br>
+  <button id="convertBtn">Convert Image</button>
+
+  <p id="status"></p>
+  <div id="result"></div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Kimosabe Tools</p>
+</footer>
+
+<script src="../assets/js/jpg-png.js"></script>
+</body>
+</html>
