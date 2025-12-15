@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Image to PDF Converter</title>
-  <meta name="description" content="Convert images to PDF online."/>
-  <link rel="stylesheet" href="/assets/css/style.css"/>
+  <title>Image to PDF Converter – Free Online Tool</title>
+  <meta name="description" content="Convert images to PDF online for free. Combine multiple JPG or PNG images into one PDF file."/>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
 </head>
 <body>
-<header>
+
+<header class="header">
   <h1>Image to PDF</h1>
-  <a href="/">← Back to Home</a>
+  <p>Convert images into a single PDF file</p>
+  <p><a href="../index.html">← Back to Home</a></p>
 </header>
-<main>
-  <p>Convert images to PDF online.</p>
-  <input type="file"/>
-  <p class="note">Tool logic will be added in the next step.</p>
+
+<main class="container">
+  <input type="file" id="imageInput" accept="image/*" multiple />
+  <br><br>
+  <button id="convertBtn">Convert to PDF</button>
+
+  <p id="status"></p>
+  <div id="result"></div>
 </main>
-<footer>
+
+<footer class="footer">
   <p>© 2025 Kimosabe Tools</p>
 </footer>
+
+<!-- jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../assets/js/image-to-pdf.js"></script>
 </body>
 </html>
