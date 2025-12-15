@@ -26,9 +26,8 @@ button.addEventListener("click", () => {
 
     const ctx = canvas.getContext("2d");
 
-    // Fill background white for JPG
     if (formatSelect.value === "jpeg") {
-      ctx.fillStyle = "#fff";
+      ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
