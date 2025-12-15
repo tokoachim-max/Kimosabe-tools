@@ -1,58 +1,48 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kimosabe Tools – Free Online PDF & Image Tools</title>
-  <meta name="description" content="Free online tools to compress PDFs, reduce PDF size, merge PDFs, convert images, resize and compress images. Fast, simple and secure."/>
-  <link rel="canonical" href="/" />
-  <link rel="stylesheet" href="/assets/css/style.css"/>
-  <!-- Google Analytics (replace GA_MEASUREMENT_ID later) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'GA_MEASUREMENT_ID');
-  </script>
+  <meta name="description" content="Free online tools to compress images, resize images, convert images to PDF, merge PDFs and more. Simple, fast and secure."/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
 </head>
 <body>
-<header>
+
+<header class="header">
   <h1>Kimosabe Tools</h1>
   <p>Simple, fast & free online PDF and image tools</p>
 </header>
 
-<main>
-  <section class="tools-grid">
-    <a href="/tools/compress-pdf.html">Compress PDF</a>
-    <a href="/tools/reduce-pdf-size.html">Reduce PDF Size</a>
-    <a href="/tools/merge-pdf.html">Merge PDF</a>
-    <a href="/tools/pdf-to-image.html">PDF to Image</a>
-    <a href="/tools/image-compressor.html">Image Compressor</a>
-    <a href="/tools/image-resize.html">Image Resize</a>
-    <a href="/tools/image-to-pdf.html">Image to PDF</a>
-    <a href="/tools/image-converter.html">JPEG / PNG Converter</a>
-  </section>
+<main class="container">
+  <h2>Image Tools</h2>
+
+  <div class="tools-grid">
+    <a class="tool-card" href="tools/image-compressor.html">
+      <h3>Image Compressor</h3>
+      <p>Compress images online without losing quality.</p>
+    </a>
+
+    <a class="tool-card" href="tools/image-resize.html">
+      <h3>Resize Image</h3>
+      <p>Resize images to any dimension easily.</p>
+    </a>
+
+    <a class="tool-card" href="tools/image-to-pdf.html">
+      <h3>Image to PDF</h3>
+      <p>Convert images to PDF files online.</p>
+    </a>
+
+    <a class="tool-card" href="tools/image-converter.html">
+      <h3>JPG to PNG</h3>
+      <p>Convert JPG to PNG and other formats.</p>
+    </a>
+  </div>
 </main>
 
-<footer>
-  <button id="donateBtn">Donate</button>
+<footer class="footer">
   <p>© 2025 Kimosabe Tools</p>
 </footer>
 
-<div id="donateModal" class="modal">
-  <div class="modal-content">
-    <span id="closeDonate">&times;</span>
-    <h2>Support Kimosabe Tools</h2>
-    <ul>
-      <li><a href="#" target="_blank">Flutterwave</a></li>
-      <li><a href="#" target="_blank">MTN Mobile Money</a></li>
-      <li><a href="#" target="_blank">Airtel Money</a></li>
-    </ul>
-  </div>
-</div>
-
-<script src="/assets/js/main.js"></script>
 </body>
 </html>
