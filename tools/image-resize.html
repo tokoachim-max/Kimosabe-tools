@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Resize Images Online</title>
-  <meta name="description" content="Resize images quickly and easily."/>
-  <link rel="stylesheet" href="/assets/css/style.css"/>
+  <title>Resize Image Online – Free Image Resizer</title>
+  <meta name="description" content="Resize images online for free. Change image dimensions quickly while maintaining quality."/>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
 </head>
 <body>
-<header>
+
+<header class="header">
   <h1>Image Resize</h1>
-  <a href="/">← Back to Home</a>
+  <p>Resize images easily while keeping quality</p>
 </header>
-<main>
-  <p>Resize images quickly and easily.</p>
-  <input type="file"/>
-  <p class="note">Tool logic will be added in the next step.</p>
+
+<main class="container">
+  <input type="file" id="resizeInput" accept="image/*" />
+  <br><br>
+
+  <label>
+    Width (px):
+    <input type="number" id="widthInput" placeholder="e.g. 800" />
+  </label>
+
+  <br><br>
+  <button id="resizeBtn">Resize Image</button>
+
+  <div id="resizeResult" style="margin-top:20px;"></div>
 </main>
-<footer>
+
+<footer class="footer">
   <p>© 2025 Kimosabe Tools</p>
 </footer>
+
+<script src="../assets/js/image-resize.js"></script>
 </body>
 </html>
