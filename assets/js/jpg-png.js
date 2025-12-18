@@ -43,9 +43,10 @@ button.addEventListener("click", () => {
         <a class="tool-card" href="${url}" download="converted.${ext}">
           Download Converted Image
         </a>
-        <p style="margin-top:12px; text-align:center;">
-    ❤️ <a href="../donate.html">Support Kimosabe Tools</a>
+        <p class="donate-inline">
+  ❤️ <a href="../donate.html">Support Kimosabe Tools</a>
         </p>
+
       `;
     }, `image/${formatSelect.value}`, 0.95);
   };
