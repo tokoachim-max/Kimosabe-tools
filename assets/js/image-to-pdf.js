@@ -35,9 +35,10 @@ button.addEventListener("click", async () => {
   status.textContent = "Done!";
   result.innerHTML = `
     <button class="tool-card" id="downloadPdf">Download PDF</button>
-    <p style="margin-top:12px; text-align:center;">
-    ❤️ <a href="../donate.html">Support Kimosabe Tools</a>
+    <p class="donate-inline">
+  ❤️ <a href="../donate.html">Support Kimosabe Tools</a>
     </p>
+
   `;
 
   document.getElementById("downloadPdf").onclick = () => {
