@@ -75,3 +75,9 @@ h2 {
   cursor: not-allowed;
 }
 
+.donate-inline {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
