@@ -32,9 +32,10 @@ button.addEventListener("click", () => {
         <a class="tool-card" href="${url}" download="compressed-${file.name}">
           Download Compressed Image
         </a>
-        <p style="margin-top:12px; text-align:center;">
-    ❤️ <a href="../donate.html">Support Kimosabe Tools</a>
+        <p class="donate-inline">
+  ❤️ <a href="../donate.html">Support Kimosabe Tools</a>
         </p>
+
       `;
     }, "image/jpeg", 0.7);
   };
