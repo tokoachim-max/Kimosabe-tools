@@ -61,9 +61,10 @@ button.addEventListener("click", () => {
         <a class="tool-card" href="${url}" download="resized-${file.name}">
           Download Resized Image
         </a>
-        <p style="margin-top:12px; text-align:center;">
-    ❤️ <a href="../donate.html">Support Kimosabe Tools</a>
+        <p class="donate-inline">
+  ❤️ <a href="../donate.html">Support Kimosabe Tools</a>
         </p>
+
       `;
     }, "image/jpeg", 0.9);
   };
