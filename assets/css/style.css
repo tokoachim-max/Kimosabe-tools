@@ -48,3 +48,30 @@ h2 {
   padding: 30px 10px;
   color: #777;
 }
+.donate-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.donate-btn {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  border-radius: 6px;
+  background: #2d89ef;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.donate-btn:hover {
+  opacity: 0.9;
+}
+
+.donate-btn.disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
