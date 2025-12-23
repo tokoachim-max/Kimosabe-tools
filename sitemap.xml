@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://tokoachim-max.github.io/Kimosabe-tools/</loc>
+    <loc>https://kimosabetools.netlify.app/</loc>
   </url>
 
   <url>
-    <loc>https://tokoachim-max.github.io/Kimosabe-tools/tools/image-compressor.html</loc>
+    <loc>https://kimosabetools.netlify.app/tools/image-compressor.html</loc>
   </url>
 
   <url>
-    <loc>https://tokoachim-max.github.io/Kimosabe-tools/tools/image-resize.html</loc>
+    <loc>https://kimosabetools.netlify.app/tools/image-resize.html</loc>
   </url>
 
   <url>
-    <loc>https://tokoachim-max.github.io/Kimosabe-tools/tools/image-to-pdf.html</loc>
+    <loc>https://kimosabetools.netlify.app/tools/image-to-pdf.html</loc>
   </url>
 
   <url>
-    <loc>https://tokoachim-max.github.io/Kimosabe-tools/tools/jpg-png.html</loc>
+    <loc>https://kimosabetools.netlify.app/tools/jpg-png.html</loc>
   </url>
 
 </urlset>
