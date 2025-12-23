@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tokoachim-max.github.io/Kimosabe-tools/sitemap.xml
+Sitemap: https://kimosabetools.netlify.app/sitemap.xml
