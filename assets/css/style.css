@@ -1,91 +1,139 @@
+/* Modern Reset & Variables */
+:root {
+  --primary: #2563eb;       /* Modern Blue */
+  --primary-hover: #1d4ed8;
+  --bg: #f8fafc;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --card-bg: #ffffff;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f9fafb;
-  color: #333;
+  /* System font stack looks more modern than just Arial */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.5;
 }
 
+/* Header Refinement */
 .header {
   background: #ffffff;
-  padding: 40px 20px;
+  padding: 60px 20px;
   text-align: center;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
 }
 
+.header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: var(--primary);
+  letter-spacing: -0.025em;
+}
+
+.header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-top: 8px;
+}
+
+/* Layout */
 .container {
   max-width: 1000px;
-  margin: 24px auto;
-  padding: 0 20px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-.tool-description {
-  margin-top: 30px;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-
-h2 {
-  margin-bottom: 20px;
-}
-
+/* Grid Improvements */
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px; /* Space before the description */
 }
 
+/* Card Styling */
 .tool-card {
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 20px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px;
   text-decoration: none;
   color: inherit;
-  border: 1px solid #e5e7eb;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-card h3 {
+  margin: 0 0 10px 0;
+  color: var(--primary);
+  font-size: 1.25rem;
+}
+
+.tool-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
 }
 
 .tool-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
 }
 
+/* Description Section */
+.tool-description {
+  background: #f1f5f9;
+  padding: 30px;
+  border-radius: 12px;
+  margin-top: 40px;
+}
+
+.tool-description h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+/* Footer & Links */
 .footer {
   text-align: center;
-  padding: 30px 10px;
-  color: #777;
-}
-.donate-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
+  padding: 60px 20px;
+  background: #ffffff;
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
 }
 
-.donate-btn {
-  display: block;
-  text-align: center;
-  padding: 12px;
-  border-radius: 6px;
-  background: #2d89ef;
-  color: white;
+.footer p {
+  margin: 10px 0;
+  color: var(--text-muted);
+}
+
+.footer a {
+  color: var(--primary);
   text-decoration: none;
+  font-weight: 500;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Donation Button (Buy Me a Coffee Style) */
+.donate-btn {
+  display: inline-block;
+  background: #ffdd00; /* Classic BMC Yellow */
+  color: #000000;
+  padding: 10px 24px;
+  border-radius: 8px;
   font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.2s;
 }
 
 .donate-btn:hover {
-  opacity: 0.9;
+  transform: scale(1.05);
 }
-
-.donate-btn.disabled {
-  background: #999;
-  cursor: not-allowed;
-}
-
-.donate-inline {
-  margin-top: 12px;
-  text-align: center;
-  font-size: 14px;
-}
-
