@@ -15,7 +15,7 @@ body {
 .container {
   max-width: 1000px;
   margin: 24px auto;
-  padding: 0 16px;
+  padding: 0 20px;
 }
 
 .tool-description {
@@ -31,8 +31,9 @@ h2 {
 
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: start;
 }
 
 .tool-card {
