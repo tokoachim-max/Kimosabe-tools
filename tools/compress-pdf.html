@@ -7,6 +7,8 @@
   <title>Compress PDF Online – Shrink PDF File Size | Kimosabe Tools</title>
   <meta name="description" content="Reduce PDF file size without losing quality. Our secure browser-based tool keeps your files private."/>
 
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,13 +17,13 @@
     gtag('config', 'G-H50NB3F51Q');
   </script>
 
-  <link rel="stylesheet" href="/assets/css/style.css"/>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
 </head>
 <body>
 
 <header class="header">
   <div class="header-content">
-    <nav class="breadcrumb"><a href="/">🏠 Home</a> / <span>Compress PDF</span></nav>
+    <nav class="breadcrumb"><a href="../index.html">🏠 Home</a> / <span>Compress PDF</span></nav>
     <h1>Compress PDF</h1>
     <p>Shrink your PDF files while maintaining high quality.</p>
   </div>
@@ -29,19 +31,19 @@
 
 <main class="container">
   <section class="tool-wrapper">
-    <div id="drop-zone" class="drop-zone">
+    <div id="drop-zone" class="drop-zone" onclick="document.getElementById('file-input').click()">
       <div class="drop-zone-content">
         <span class="icon">📄</span>
         <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
-        <span class="file-limit">Maximum size: 50MB</span>
+        <span id="file-name-label" class="file-limit">Maximum size: 50MB</span>
       </div>
       <input type="file" id="file-input" accept=".pdf" hidden />
     </div>
 
-    <div id="status-area" class="status-area" style="display:none;">
-      <div class="loader"></div>
+    <div id="status-area" class="status-area" style="display:none; margin-top: 20px; text-align: center;">
       <p id="status-text">Processing your PDF...</p>
-      <a href="#" id="download-btn" class="donate-btn" style="background: var(--primary); color: white; display: none;">Download Compressed PDF</a>
+      <div id="stats" style="margin: 10px 0; font-weight: bold; color: #2563eb;"></div>
+      <a href="#" id="download-btn" class="donate-btn" style="background: #2563eb; color: white; display: none; text-decoration: none; margin: 0 auto;">Download Compressed PDF</a>
     </div>
   </section>
 
@@ -53,7 +55,7 @@
       This tool helps you reduce the file size of your PDF documents without noticeable loss of quality. 
       It is perfect for making files small enough for email attachments or faster website loading.
     </p>
-    <div class="feature-grid">
+    <div class="feature-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
       <div class="feature-item">
         <strong>🔒 100% Private</strong>
         <p>Files are processed in your browser and never touch our servers.</p>
@@ -65,7 +67,7 @@
     </div>
   </section>
 
-  <nav class="more-tools">
+  <nav class="more-tools" style="margin-top: 40px;">
     <h3>Other Handy Tools</h3>
     <div class="tools-grid">
       <a href="image-compressor.html" class="tool-card">Image Compressor</a>
@@ -78,6 +80,83 @@
 <footer class="footer">
   <p>© 2025 Kimosabe Tools</p>
 </footer>
+
+<script>
+  const dropZone = document.getElementById('drop-zone');
+  const fileInput = document.getElementById('file-input');
+  const statusArea = document.getElementById('status-area');
+  const statusText = document.getElementById('status-text');
+  const downloadBtn = document.getElementById('download-btn');
+  const statsDiv = document.getElementById('stats');
+
+  // Trigger when file is selected
+  fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+  // Drag and Drop Logic
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = "#2563eb";
+  });
+
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.style.borderColor = "#e2e8f0";
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = "#e2e8f0";
+    handleFiles(e.dataTransfer.files);
+  });
+
+  async function handleFiles(files) {
+    const file = files[0];
+    if (!file || file.type !== "application/pdf") {
+      alert("Please upload a valid PDF file.");
+      return;
+    }
+
+    // UI Feedback
+    statusArea.style.display = "block";
+    downloadBtn.style.display = "none";
+    statsDiv.innerText = "";
+    statusText.innerText = "Compressing " + file.name + "...";
+
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+      
+      // Basic Compression: Strip metadata & optimize structure
+      pdfDoc.setTitle("");
+      pdfDoc.setAuthor("");
+      pdfDoc.setCreator("");
+      
+      const pdfBytes = await pdfDoc.save({ 
+        useObjectStreams: true,
+        addDefaultPage: false
+      });
+
+      // Calculate Savings
+      const oldSize = (file.size / 1024).toFixed(1);
+      const newSize = (pdfBytes.length / 1024).toFixed(1);
+      const saved = Math.max(0, (((file.size - pdfBytes.length) / file.size) * 100)).toFixed(1);
+
+      // Setup Download
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      
+      statusText.innerText = "Compression Complete!";
+      statsDiv.innerText = `Size: ${oldSize}KB → ${newSize}KB (${saved}% saved)`;
+      
+      downloadBtn.href = url;
+      downloadBtn.download = `compressed_${file.name}`;
+      downloadBtn.style.display = "inline-block";
+
+    } catch (err) {
+      console.error(err);
+      statusText.innerText = "Error compressing PDF. The file might be protected or too complex.";
+    }
+  }
+</script>
 
 </body>
 </html>
