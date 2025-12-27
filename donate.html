@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support Kimosabe Tools</title>
+  <title>Support Kimosabe Tools – Help keep us free & private</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -15,38 +14,101 @@
   </script>
 
   <link rel="stylesheet" href="assets/css/style.css">
+  
+  <style>
+    .donate-container {
+      max-width: 600px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .donate-card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--border);
+    }
+    .donate-options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    .method-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .method-btn:hover {
+      transform: translateY(-2px);
+    }
+    .flw { background: #ff5100; color: white; }
+    .mtn { background: #ffcc00; color: #000; }
+    .airtel { background: #e11d48; color: white; }
+    
+    .why-support {
+      margin-top: 40px;
+      text-align: left;
+      font-size: 0.95rem;
+      color: #64748b;
+      line-height: 1.6;
+    }
+    .disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      filter: grayscale(1);
+    }
+  </style>
 </head>
 <body>
 
 <header class="header">
-  <h1>Support Kimosabe Tools ❤️</h1>
-  <p><a href="index.html">← Back to Home</a></p>
+  <div class="header-content">
+    <nav class="breadcrumb"><a href="index.html">🏠 Home</a> / <span>Support Us</span></nav>
+    <h1>Support Kimosabe Tools ❤️</h1>
+    <p>Help us keep these tools free, fast, and 100% private.</p>
+  </div>
 </header>
 
-<main class="container">
-  <p>
-    Kimosabe Tools is free to use. If these tools helped you,
-    consider supporting development and hosting costs.
-  </p>
+<main class="container donate-container">
+  <div class="donate-card">
+    <p style="font-size: 1.1rem; color: #1e293b;">
+      Kimosabe Tools is a solo project built to provide high-quality PDF and Image tools without annoying ads or privacy-invasive tracking.
+    </p>
 
-  <div class="donate-buttons">
+    <div class="donate-options">
+      <a class="method-btn flw" href="https://flutterwave.com/pay/your-link-here" target="_blank">
+        <span>💳</span> Donate via Flutterwave
+      </a>
 
-    <!-- Flutterwave placeholder -->
-    <a class="donate-btn disabled" href="#">
-      💳 Donate via Flutterwave (Coming Soon)
-    </a>
+      <a class="method-btn mtn" href="#" onclick="alert('MTN MoMo integration is being finalized. Please check back in a few hours!'); return false;">
+        <span>📱</span> Donate via MTN MoMo
+      </a>
 
-    <!-- MTN Mobile Money -->
-    <a class="donate-btn" href="#" onclick="alert('MTN Mobile Money payment page will be added soon.');">
-      📱 Donate via MTN Mobile Money
-    </a>
+      <a class="method-btn airtel" href="#" onclick="alert('Airtel Money integration is being finalized. Please check back in a few hours!'); return false;">
+        <span>📱</span> Donate via Airtel Money
+      </a>
+    </div>
 
-    <!-- Airtel Money -->
-    <a class="donate-btn" href="#" onclick="alert('Airtel Money payment page will be added soon.');">
-      📱 Donate via Airtel Money
-    </a>
-
+    <div class="why-support">
+      <h3>Where does the money go?</h3>
+      <ul style="padding-left: 20px;">
+        <li><strong>Server Costs:</strong> Keeping the website live and fast.</li>
+        <li><strong>Development:</strong> Adding new features like "PDF to Word" or "Batch Processing."</li>
+        <li><strong>Privacy:</strong> We don't sell your data, so we rely entirely on your generosity.</li>
+      </ul>
+    </div>
   </div>
+
+  <p style="margin-top: 30px;">
+    <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: bold;">← Back to Tools</a>
+  </p>
 </main>
 
 <footer class="footer">
