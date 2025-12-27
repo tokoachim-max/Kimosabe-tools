@@ -3,104 +3,210 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-H50NB3F51Q');
-</script>
+  
   <title>Resize Images Online Free | Change Image Dimensions – Kimosabe Tools</title>
-  <meta name="description" content="Resize images online for free. Change image width and height easily without installing software. Fast and secure.">
+  <meta name="description" content="Resize images online for free. Change image width and height easily without installing software. Fast, secure, and private browser-based resizer.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q');
+  </script>
+
   <link rel="stylesheet" href="../assets/css/style.css"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I resize an image online for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your image, set your desired width and height, and download the resized version instantly. All processing happens in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my images safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Kimosabe Tools resizes images locally. Your files are never uploaded to any server."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
 <header class="header">
-  <h1> Image Resize</h1>
-  <p>Resize images by width and height</p>
-  <p><a href="../index.html">← Back to Home</a></p>
+  <div class="header-content">
+    <nav class="breadcrumb"><a href="../index.html">🏠 Home</a> / <span>Image Resize</span></nav>
+    <h1>Image Resize</h1>
+    <p>Change your image dimensions exactly how you need them.</p>
+  </div>
 </header>
 
 <main class="container">
-  <input type="file" id="resizeInput" accept="image/*" />
-  <br><br>
+  <section class="tool-wrapper">
+    <div id="drop-zone" class="drop-zone" onclick="document.getElementById('resizeInput').click()">
+      <div class="drop-zone-content">
+        <span class="icon">📐</span>
+        <p><strong>Click to upload</strong> or drag your image here</p>
+        <span class="file-limit">Supports JPG, PNG, and WebP</span>
+      </div>
+      <input type="file" id="resizeInput" accept="image/*" hidden />
+    </div>
 
-  <label>Width (px):
-    <input type="number" id="widthInput" />
-  </label>
+    <div id="controls" style="display:none; margin-top: 25px; background: #f8fafc; padding: 25px; border-radius: 12px; border: 1px solid var(--border);">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+        <div>
+          <label style="display:block; font-weight:bold; margin-bottom:5px;">Width (px)</label>
+          <input type="number" id="widthInput" style="width:100%; padding:10px; border-radius:6px; border:1px solid var(--border);">
+        </div>
+        <div>
+          <label style="display:block; font-weight:bold; margin-bottom:5px;">Height (px)</label>
+          <input type="number" id="heightInput" style="width:100%; padding:10px; border-radius:6px; border:1px solid var(--border);">
+        </div>
+      </div>
+      
+      <label style="display: flex; align-items: center; cursor: pointer; margin-bottom: 20px;">
+        <input type="checkbox" id="lockRatio" checked style="margin-right: 10px; width: 18px; height: 18px;">
+        Keep aspect ratio (recommended)
+      </label>
 
-  <label>Height (px):
-    <input type="number" id="heightInput" />
-  </label>
+      <button id="resizeBtn" class="donate-btn" style="width: 100%; background: var(--primary); color: white;">
+        Resize Image
+      </button>
+    </div>
 
-  <br><br>
-  <label>
-    <input type="checkbox" id="lockRatio" checked />
-    Keep aspect ratio
-  </label>
+    <div id="status-area" style="display:none; text-align: center; margin-top: 30px;">
+      <p id="resizeStatus">Processing...</p>
+      <a id="downloadBtn" class="donate-btn" style="display:none; background: #22c55e; color: white; margin: 15px auto;">Download Resized Image</a>
+    </div>
+  </section>
 
-  <br><br>
-  <button id="resizeBtn">Resize Image</button>
+  <hr class="divider">
 
-  <p id="resizeStatus"></p>
-  <div id="resizeResult"></div>
   <section class="tool-description">
-  <h2>Resize Images Online</h2>
-  <p>
-    This free image resize tool allows you to change the width and height of images quickly.
-    The resizing process happens directly in your browser, keeping your images private.
-  </p>
-  <p>
-    Use this tool to resize images for websites, social media, email, and mobile devices.
-  </p>
-</section>
-<p>
-  Try more tools:
-  <a href="../tools/image-compressor.html">Image Compressor</a> |
-  <a href="../tools/image-resize.html">Image Resize</a> |
-  <a href="../tools/image-to-pdf.html">Image to PDF</a> |
-  <a href="../tools/jpg-png.html">JPG ↔ PNG</a>
-</p>
+    <h2>Fast & Accurate Resizing</h2>
+    <p>
+      Whether you need to fit a specific social media requirement or reduce dimensions for a website, our tool uses high-quality bicubic interpolation logic built into your browser's engine.
+    </p>
+    <div class="feature-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+      <div class="feature-item">
+        <strong>🔒 Private</strong>
+        <p>Your photos stay on your device throughout the process.</p>
+      </div>
+      <div class="feature-item">
+        <strong>⚡ Precise</strong>
+        <p>Set exact pixels for perfect dimension control.</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="more-tools" style="margin-top: 40px;">
+    <h3>All Kimosabe Tools</h3>
+    <div class="tools-grid">
+      <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Image Compressor</span></a>
+      <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
+      <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+      <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+      <a href="jpg-png.html" class="tool-card"><div class="card-icon">🔄</div><span>JPG ↔ PNG</span></a>
+    </div>
+  </nav>
 </main>
 
 <footer class="footer">
   <p>© 2025 Kimosabe Tools</p>
 </footer>
 
-<script src="../assets/js/image-resize.js"></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How do I resize an image online for free?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "You can resize images online for free using the Image Resize tool on Kimosabe Tools. Upload your image, set the width and height, and download the resized image instantly."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does image resizing reduce quality?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Resizing images may slightly affect quality depending on the size change, but Kimosabe Tools optimizes the process to maintain good image clarity."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are images uploaded to a server?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All image resizing is done directly in your browser. Images are not uploaded or stored on any server."
-      }
+<script>
+  const resizeInput = document.getElementById('resizeInput');
+  const dropZone = document.getElementById('drop-zone');
+  const widthInput = document.getElementById('widthInput');
+  const heightInput = document.getElementById('heightInput');
+  const lockRatio = document.getElementById('lockRatio');
+  const resizeBtn = document.getElementById('resizeBtn');
+  const statusArea = document.getElementById('status-area');
+  const resizeStatus = document.getElementById('resizeStatus');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const controls = document.getElementById('controls');
+
+  let originalImg = null;
+  let aspectRatio = 1;
+
+  // File selection
+  resizeInput.addEventListener('change', (e) => {
+    if (e.target.files[0]) handleFile(e.target.files[0]);
+  });
+
+  // Drag & Drop
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; });
+  dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = 'var(--border)'; });
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = 'var(--border)';
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+
+  function handleFile(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      originalImg = new Image();
+      originalImg.onload = () => {
+        widthInput.value = originalImg.width;
+        heightInput.value = originalImg.height;
+        aspectRatio = originalImg.width / originalImg.height;
+        controls.style.display = 'block';
+        statusArea.style.display = 'none';
+      };
+      originalImg.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Auto-calculation logic
+  widthInput.addEventListener('input', () => {
+    if (lockRatio.checked && originalImg) {
+      heightInput.value = Math.round(widthInput.value / aspectRatio);
     }
-  ]
-}
+  });
+
+  heightInput.addEventListener('input', () => {
+    if (lockRatio.checked && originalImg) {
+      widthInput.value = Math.round(heightInput.value * aspectRatio);
+    }
+  });
+
+  resizeBtn.addEventListener('click', () => {
+    if (!originalImg) return;
+    
+    statusArea.style.display = 'block';
+    resizeStatus.innerText = "Resizing image...";
+    downloadBtn.style.display = 'none';
+
+    const canvas = document.createElement('canvas');
+    canvas.width = parseInt(widthInput.value);
+    canvas.height = parseInt(heightInput.value);
+    
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(originalImg, 0, 0, canvas.width, canvas.height);
+
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      resizeStatus.innerText = "Success! Image resized.";
+      downloadBtn.href = url;
+      downloadBtn.download = `resized_kimosabe_${Math.random().toString(36).substr(2, 5)}.png`;
+      downloadBtn.style.display = 'inline-block';
+    }, 'image/png');
+  });
 </script>
 
 </body>
