@@ -3,90 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-H50NB3F51Q');
-</script>
-  <title>Image to PDF Converter Online Free – Kimosabe Tools</title>
-  <meta name="description" content="Convert images to PDF online for free. Combine images into a single PDF securely in your browser.">
+  
+  <title>Image to PDF Converter – Combine Photos into PDF | Kimosabe Tools</title>
+  <meta name="description" content="Convert images to PDF online for free. Combine multiple JPG, PNG, or WebP images into one secure PDF document instantly.">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q');
+  </script>
+
   <link rel="stylesheet" href="../assets/css/style.css"/>
 </head>
 <body>
 
 <header class="header">
-  <h1>Image to PDF</h1>
-  <p>Convert images into a single PDF file</p>
-  <p><a href="../index.html">← Back to Home</a></p>
+  <div class="header-content">
+    <nav class="breadcrumb"><a href="../index.html">🏠 Home</a> / <span>Image to PDF</span></nav>
+    <h1>Image to PDF</h1>
+    <p>Combine multiple images into one clean PDF document.</p>
+  </div>
 </header>
 
 <main class="container">
-  <input type="file" id="imageInput" accept="image/*" multiple />
-  <br><br>
-  <button id="convertBtn">Convert to PDF</button>
+  <section class="tool-wrapper">
+    <div id="drop-zone" class="drop-zone" onclick="document.getElementById('imageInput').click()">
+      <div class="drop-zone-content">
+        <span class="icon">🖼️📄</span>
+        <p><strong>Click to upload</strong> or drag multiple images here</p>
+        <span class="file-limit">Supports JPG, PNG, WebP (Multiple allowed)</span>
+      </div>
+      <input type="file" id="imageInput" accept="image/*" multiple hidden />
+    </div>
 
-  <p id="status"></p>
-  <div id="result"></div>
+    <div id="file-list-container" style="display:none; margin-top: 20px;">
+      <h4 style="margin-bottom: 10px;">Selected Files:</h4>
+      <ul id="file-list" style="list-style: none; padding: 0; background: #fff; border: 1px solid var(--border); border-radius: 8px;"></ul>
+      
+      <button id="convertBtn" class="donate-btn" style="width: 100%; margin-top: 15px; background: var(--primary); color: white;">
+        Convert All to PDF
+      </button>
+    </div>
+
+    <div id="status-area" style="display:none; text-align: center; margin-top: 30px;">
+      <div class="loader" id="loader" style="display:none;"></div>
+      <p id="status-text">Creating your PDF...</p>
+      <a id="downloadBtn" class="donate-btn" style="display:none; background: #22c55e; color: white; margin: 15px auto;">Download PDF</a>
+    </div>
+  </section>
+
+  <hr class="divider">
+
   <section class="tool-description">
-  <h2>Convert Images to PDF Online</h2>
-  <p>
-    This free image to PDF converter allows you to combine one or more images into a single PDF file.
-    All processing happens directly in your browser, ensuring privacy and fast performance.
-  </p>
-  <p>
-    Use this tool to create PDFs from photos, scanned documents, or images for easy sharing and printing.
-  </p>
-</section>
-<p>
-  Try more tools:
-  <a href="../tools/image-compressor.html">Image Compressor</a> |
-  <a href="../tools/image-resize.html">Image Resize</a> |
-  <a href="../tools/image-to-pdf.html">Image to PDF</a> |
-  <a href="../tools/jpg-png.html">JPG ↔ PNG</a>
-</p>
+    <h2>Secure & Fast PDF Conversion</h2>
+    <p>
+      Turn your photos into professional documents. Whether you have one receipt or twenty pages of notes, this tool bundles them into a single PDF file perfectly.
+    </p>
+    
+    <div class="feature-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+      <div class="feature-item">
+        <strong>📄 Multi-Page Support</strong>
+        <p>Every image you upload becomes a new page in the same PDF.</p>
+      </div>
+      <div class="feature-item">
+        <strong>🔒 Private & Local</strong>
+        <p>Your document is generated in your browser. No data is sent to us.</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="more-tools" style="margin-top: 40px;">
+    <h3>Explore More Utilities</h3>
+    <div class="tools-grid">
+      <a href="image-compressor.html" class="tool-card">Image Compressor</a>
+      <a href="image-resize.html" class="tool-card">Resize Image</a>
+      <a href="compress-pdf.html" class="tool-card">Compress PDF</a>
+    </div>
+  </nav>
 </main>
 
 <footer class="footer">
   <p>© 2025 Kimosabe Tools</p>
 </footer>
 
-<!-- jsPDF library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="../assets/js/image-to-pdf.js"></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How do I convert images to PDF?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Select one or more images, click convert, and download a single PDF file instantly. No uploads required."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is Image to PDF free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Kimosabe Tools provides unlimited free image to PDF conversion directly in your browser."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are my images uploaded to a server?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All processing happens locally in your browser for full privacy."
-      }
+<script>
+  const { jsPDF } = window.jspdf;
+  const imageInput = document.getElementById('imageInput');
+  const dropZone = document.getElementById('drop-zone');
+  const fileListContainer = document.getElementById('file-list-container');
+  const fileList = document.getElementById('file-list');
+  const convertBtn = document.getElementById('convertBtn');
+  const statusArea = document.getElementById('status-area');
+  const statusText = document.getElementById('status-text');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  let selectedFiles = [];
+
+  // Handle Input Selection
+  imageInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+  // Drag & Drop Logic
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; });
+  dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = 'var(--border)'; });
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = 'var(--border)';
+    handleFiles(e.dataTransfer.files);
+  });
+
+  function handleFiles(files) {
+    selectedFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
+    if (selectedFiles.length === 0) return;
+
+    fileList.innerHTML = '';
+    selectedFiles.forEach((file, index) => {
+      const li = document.createElement('li');
+      li.style.padding = '10px 15px';
+      li.style.borderBottom = index === selectedFiles.length - 1 ? 'none' : '1px solid var(--border)';
+      li.innerText = `📄 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+      fileList.appendChild(li);
+    });
+
+    fileListContainer.style.display = 'block';
+    statusArea.style.display = 'none';
+  }
+
+  convertBtn.addEventListener('click', async () => {
+    statusArea.style.display = 'block';
+    statusText.innerText = "Generating PDF...";
+    downloadBtn.style.display = 'none';
+
+    const doc = new jsPDF();
+
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const file = selectedFiles[i];
+      const imgData = await readFileAsDataURL(file);
+      
+      // Get image dimensions
+      const img = new Image();
+      img.src = imgData;
+      await img.decode();
+
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      
+      // Scale image to fit page
+      const ratio = Math.min(pageWidth / img.width, pageHeight / img.height);
+      const width = img.width * ratio;
+      const height = img.height * ratio;
+
+      if (i > 0) doc.addPage();
+      doc.addImage(imgData, 'JPEG', (pageWidth - width) / 2, (pageHeight - height) / 2, width, height);
     }
-  ]
-}
+
+    const pdfBlob = doc.output('blob');
+    const url = URL.createObjectURL(pdfBlob);
+    
+    statusText.innerText = "Done! Your PDF is ready.";
+    downloadBtn.href = url;
+    downloadBtn.download = "kimosabe_document.pdf";
+    downloadBtn.style.display = 'inline-block';
+  });
+
+  function readFileAsDataURL(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.readAsDataURL(file);
+    });
+  }
 </script>
 
 </body>
