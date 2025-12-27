@@ -18,6 +18,23 @@
   </script>
 
   <link rel="stylesheet" href="../assets/css/style.css"/>
+
+  <style>
+    /* Styling for the donate reminder success state */
+    .donate-reminder {
+      background: #fffbeb;
+      border: 1px dashed #f59e0b;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 25px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
@@ -43,13 +60,15 @@
     <div id="status-area" class="status-area" style="display:none; margin-top: 20px; text-align: center;">
       <p id="status-text">Processing your PDF...</p>
       <div id="stats" style="margin: 10px 0; font-weight: bold; color: #2563eb;"></div>
-      <a href="#" id="download-btn" class="donate-btn" style="background: #2563eb; color: white; display: none; text-decoration: none; margin: 0 auto;">Download Compressed PDF</a>
+      
+      <a href="#" id="download-btn" class="donate-btn" style="background: #2563eb; color: white; display: none; text-decoration: none; margin: 0 auto; padding: 12px 24px; border-radius: 8px;">Download Compressed PDF</a>
+      
       <div id="donate-reminder" style="display:none;" class="donate-reminder">
-  <p>Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
-  <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-    <a href="donate.html" style="font-size: 0.8rem; color: #b45309;">Support Kimosabe Tools</a>
-  </div>
-</div>
+        <p style="color: #92400e; margin-bottom: 10px;">Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <a href="donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -76,9 +95,11 @@
   <nav class="more-tools" style="margin-top: 40px;">
     <h3>Other Handy Tools</h3>
     <div class="tools-grid">
-      <a href="image-compressor.html" class="tool-card">Image Compressor</a>
-      <a href="image-resize.html" class="tool-card">Resize Image</a>
-      <a href="image-to-pdf.html" class="tool-card">Image to PDF</a>
+      <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Image Compressor</span></a>
+      <a href="image-resize.html" class="tool-card"><div class="card-icon">📐</div><span>Resize Image</span></a>
+      <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
+      <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+      <a href="jpg-png.html" class="tool-card"><div class="card-icon">🔄</div><span>JPG ↔ PNG</span></a>
     </div>
   </nav>
 </main>
@@ -94,6 +115,7 @@
   const statusText = document.getElementById('status-text');
   const downloadBtn = document.getElementById('download-btn');
   const statsDiv = document.getElementById('stats');
+  const donateReminder = document.getElementById('donate-reminder');
 
   // Trigger when file is selected
   fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
@@ -121,9 +143,10 @@
       return;
     }
 
-    // UI Feedback
+    // UI Feedback & Reset Reminder
     statusArea.style.display = "block";
     downloadBtn.style.display = "none";
+    donateReminder.style.display = "none";
     statsDiv.innerText = "";
     statusText.innerText = "Compressing " + file.name + "...";
 
@@ -154,10 +177,11 @@
       statsDiv.innerText = `Size: ${oldSize}KB → ${newSize}KB (${saved}% saved)`;
       
       downloadBtn.href = url;
-      downloadBtn.download = `compressed_${file.name}`;
+      downloadBtn.download = `compressed_kimosabe_${file.name}`;
       downloadBtn.style.display = "inline-block";
-      // ... after downloadBtn.style.display = 'inline-block';
-      document.getElementById('donate-reminder').style.display = 'block';
+      
+      // TRIGGER DONATE REMINDER
+      donateReminder.style.display = 'block';
 
     } catch (err) {
       console.error(err);
