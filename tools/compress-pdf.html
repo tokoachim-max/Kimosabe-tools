@@ -3,45 +3,81 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-H50NB3F51Q');
-</script>
+  
+  <title>Compress PDF Online – Shrink PDF File Size | Kimosabe Tools</title>
+  <meta name="description" content="Reduce PDF file size without losing quality. Our secure browser-based tool keeps your files private."/>
 
-  <title>Compress PDF Online – Free PDF Compressor</title>
-  <meta name="description" content="Compress PDF files online for free."/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q');
+  </script>
+
   <link rel="stylesheet" href="/assets/css/style.css"/>
 </head>
 <body>
-<header>
-  <h1>Compress PDF</h1>
-  <a href="/">← Back to Home</a>
+
+<header class="header">
+  <div class="header-content">
+    <nav class="breadcrumb"><a href="/">🏠 Home</a> / <span>Compress PDF</span></nav>
+    <h1>Compress PDF</h1>
+    <p>Shrink your PDF files while maintaining high quality.</p>
+  </div>
 </header>
-<main>
-  <p>Compress PDF files online for free.</p>
-  <input type="file"/>
-  <p class="note">Tool logic will be added in the next step.</p>
-  <section class="container">
-  <h2>Compress Images Online</h2>
-  <p>
-    This free PDF compressor helps reduce PDF file size without noticeable loss of quality.
-    Perfect for websites, social media, and faster uploads.
-  </p>
-</section>
-<p>
-  Try more tools:
-  <a href="../tools/image-compressor.html">Image Compressor</a> |
-  <a href="../tools/image-resize.html">Image Resize</a> |
-  <a href="../tools/image-to-pdf.html">Image to PDF</a> |
-  <a href="../tools/jpg-png.html">JPG ↔ PNG</a>
-</p>
+
+<main class="container">
+  <section class="tool-wrapper">
+    <div id="drop-zone" class="drop-zone">
+      <div class="drop-zone-content">
+        <span class="icon">📄</span>
+        <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
+        <span class="file-limit">Maximum size: 50MB</span>
+      </div>
+      <input type="file" id="file-input" accept=".pdf" hidden />
+    </div>
+
+    <div id="status-area" class="status-area" style="display:none;">
+      <div class="loader"></div>
+      <p id="status-text">Processing your PDF...</p>
+      <a href="#" id="download-btn" class="donate-btn" style="background: var(--primary); color: white; display: none;">Download Compressed PDF</a>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="tool-description">
+    <h2>Secure Online PDF Compression</h2>
+    <p>
+      This tool helps you reduce the file size of your PDF documents without noticeable loss of quality. 
+      It is perfect for making files small enough for email attachments or faster website loading.
+    </p>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <strong>🔒 100% Private</strong>
+        <p>Files are processed in your browser and never touch our servers.</p>
+      </div>
+      <div class="feature-item">
+        <strong>⚡ Instant Results</strong>
+        <p>Optimized algorithms compress your files in seconds.</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="more-tools">
+    <h3>Other Handy Tools</h3>
+    <div class="tools-grid">
+      <a href="image-compressor.html" class="tool-card">Image Compressor</a>
+      <a href="image-resize.html" class="tool-card">Resize Image</a>
+      <a href="image-to-pdf.html" class="tool-card">Image to PDF</a>
+    </div>
+  </nav>
 </main>
-<footer>
+
+<footer class="footer">
   <p>© 2025 Kimosabe Tools</p>
 </footer>
+
 </body>
 </html>
