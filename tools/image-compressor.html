@@ -16,6 +16,23 @@
   </script>
 
   <link rel="stylesheet" href="../assets/css/style.css"/>
+
+  <style>
+    /* Styling for the donate reminder success state */
+    .donate-reminder {
+      background: #fffbeb;
+      border: 1px dashed #f59e0b;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 25px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
@@ -38,30 +55,34 @@
       <input type="file" id="imageInput" accept="image/*" hidden />
     </div>
 
-    <div id="controls" style="display:none; margin-top: 30px; text-align: center; background: #f1f5f9; padding: 20px; border-radius: 12px;">
+    <div id="controls" style="display:none; margin-top: 30px; text-align: center; background: #f1f5f9; padding: 20px; border-radius: 12px; border: 1px solid var(--border);">
       <label for="qualityRange" style="display: block; margin-bottom: 10px; font-weight: bold;">
         Compression Quality: <span id="qualityVal">80</span>%
       </label>
-      <input type="range" id="qualityRange" min="10" max="100" value="80" style="width: 100%; max-width: 300px;">
+      <input type="range" id="qualityRange" min="10" max="100" value="80" style="width: 100%; max-width: 300px; cursor: pointer;">
+      <p style="font-size: 0.85rem; color: #64748b; margin-top: 10px;">Lower quality results in a smaller file size.</p>
     </div>
 
     <div id="status-area" style="display:none; text-align: center; margin-top: 30px;">
       <p id="status-text">Processing image...</p>
       <div id="stats" style="margin: 15px 0; font-weight: bold; color: var(--primary);"></div>
-      <a id="downloadBtn" class="donate-btn" style="display:none; background: var(--primary); color: white; margin: 0 auto;">Download Compressed Image</a>
+      
+      <a id="downloadBtn" class="donate-btn" style="display:none; background: #22c55e; color: white; margin: 0 auto; text-decoration: none; padding: 12px 24px; border-radius: 8px;">Download Compressed Image</a>
+      
       <div id="donate-reminder" style="display:none;" class="donate-reminder">
-  <p>Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
-  <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-    <a href="donate.html" style="font-size: 0.8rem; color: #b45309;">Support Kimosabe Tools</a>
-  </div>
-</div>
+        <p style="color: #92400e; margin-bottom: 10px;">Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <a href="donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
+        </div>
+      </div>
     </div>
   </section>
+
   <nav class="more-tools" style="margin-top: 40px;">
-    <h3>All Kimosabe Tools</h3>
+    <h3>Explore More Tools</h3>
     <div class="tools-grid">
-      <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Image Compressor</span></a>
       <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
+      <a href="image-resize.html" class="tool-card"><div class="card-icon">📐</div><span>Resize Image</span></a>
       <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
       <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
       <a href="jpg-png.html" class="tool-card"><div class="card-icon">🔄</div><span>JPG ↔ PNG</span></a>
@@ -71,19 +92,19 @@
   <hr class="divider">
 
   <section class="tool-description">
-    <h2>How Browser-Based Compression Works</h2>
+    <h2>Privacy-Focused Image Compression</h2>
     <p>
-      Unlike other sites, Kimosabe Tools uses your computer's processing power to shrink images. We use the <strong>HTML5 Canvas API</strong> to re-render your image at a more efficient data density.
+      Kimosabe Tools handles all compression directly in your browser. We never see your images, and they are never uploaded to a server. This makes the process instant and 100% private.
     </p>
     
     <div class="feature-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
       <div class="feature-item">
-        <strong>🔒 Private</strong>
-        <p>Your photos never leave your device.</p>
+        <strong>🔒 100% Private</strong>
+        <p>Your photos stay on your device.</p>
       </div>
       <div class="feature-item">
-        <strong>⚡ Fast</strong>
-        <p>No waiting for uploads or server queues.</p>
+        <strong>⚡ Instant Results</strong>
+        <p>No waiting for server uploads or downloads.</p>
       </div>
     </div>
   </section>
@@ -102,16 +123,17 @@
   const statsDiv = document.getElementById('stats');
   const downloadBtn = document.getElementById('downloadBtn');
   const controls = document.getElementById('controls');
+  const donateReminder = document.getElementById('donate-reminder');
 
   let activeFile = null;
 
-  // Update quality display
+  // Update quality display & re-compress
   qualityRange.addEventListener('input', (e) => {
     qualityVal.innerText = e.target.value;
     if (activeFile) compressImage(activeFile);
   });
 
-  // Handle Selection
+  // Handle Input Selection
   imageInput.addEventListener('change', (e) => {
     if (e.target.files[0]) {
       activeFile = e.target.files[0];
@@ -136,7 +158,8 @@
   function compressImage(file) {
     statusArea.style.display = 'block';
     downloadBtn.style.display = 'none';
-    statsDiv.innerText = "Processing...";
+    donateReminder.style.display = 'none'; // Hide reminder while re-processing
+    statsDiv.innerText = "Compressing...";
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -152,7 +175,8 @@
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
         const quality = qualityRange.value / 100;
-        // Convert to Blob (Works for JPG and WebP)
+        
+        // Compress as JPEG for size reduction
         canvas.toBlob((blob) => {
           const oldSize = (file.size / 1024).toFixed(1);
           const newSize = (blob.size / 1024).toFixed(1);
@@ -162,10 +186,11 @@
           statsDiv.innerText = `Original: ${oldSize}KB | Compressed: ${newSize}KB (Saved ${saved}%)`;
           
           downloadBtn.href = url;
-          downloadBtn.download = `kimosabe_${file.name}`;
+          downloadBtn.download = `compressed_kimosabe_${file.name}`;
           downloadBtn.style.display = 'inline-block';
-          // ... after downloadBtn.style.display = 'inline-block';
-          document.getElementById('donate-reminder').style.display = 'block';
+          
+          // Show the donate reminder on success
+          donateReminder.style.display = 'block';
         }, 'image/jpeg', quality);
       };
     };
