@@ -164,6 +164,8 @@
           downloadBtn.href = url;
           downloadBtn.download = `kimosabe_${file.name}`;
           downloadBtn.style.display = 'inline-block';
+          // ... after downloadBtn.style.display = 'inline-block';
+          document.getElementById('donate-reminder').style.display = 'block';
         }, 'image/jpeg', quality);
       };
     };
