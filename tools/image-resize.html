@@ -17,6 +17,23 @@
 
   <link rel="stylesheet" href="../assets/css/style.css"/>
 
+  <style>
+    /* Styling for the donate reminder success state */
+    .donate-reminder {
+      background: #fffbeb;
+      border: 1px dashed #f59e0b;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 25px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -87,13 +104,15 @@
 
     <div id="status-area" style="display:none; text-align: center; margin-top: 30px;">
       <p id="resizeStatus">Processing...</p>
-      <a id="downloadBtn" class="donate-btn" style="display:none; background: #22c55e; color: white; margin: 15px auto;">Download Resized Image</a>
+      
+      <a id="downloadBtn" class="donate-btn" style="display:none; background: #22c55e; color: white; margin: 15px auto; text-decoration: none;">Download Resized Image</a>
+      
       <div id="donate-reminder" style="display:none;" class="donate-reminder">
-  <p>Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
-  <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-    <a href="donate.html" style="font-size: 0.8rem; color: #b45309;">Support Kimosabe Tools</a>
-  </div>
-</div>
+        <p style="color: #92400e; margin-bottom: 10px;">Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <a href="donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -143,6 +162,7 @@
   const resizeStatus = document.getElementById('resizeStatus');
   const downloadBtn = document.getElementById('downloadBtn');
   const controls = document.getElementById('controls');
+  const donateReminder = document.getElementById('donate-reminder');
 
   let originalImg = null;
   let aspectRatio = 1;
@@ -171,6 +191,7 @@
         aspectRatio = originalImg.width / originalImg.height;
         controls.style.display = 'block';
         statusArea.style.display = 'none';
+        donateReminder.style.display = 'none'; // Hide reminder for new image
       };
       originalImg.src = e.target.result;
     };
@@ -196,6 +217,7 @@
     statusArea.style.display = 'block';
     resizeStatus.innerText = "Resizing image...";
     downloadBtn.style.display = 'none';
+    donateReminder.style.display = 'none';
 
     const canvas = document.createElement('canvas');
     canvas.width = parseInt(widthInput.value);
@@ -211,6 +233,9 @@
       downloadBtn.href = url;
       downloadBtn.download = `resized_kimosabe_${Math.random().toString(36).substr(2, 5)}.png`;
       downloadBtn.style.display = 'inline-block';
+      
+      // SHOW REMINDER HERE
+      donateReminder.style.display = 'block';
     }, 'image/png');
   });
 </script>
