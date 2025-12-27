@@ -18,6 +18,23 @@
   </script>
 
   <link rel="stylesheet" href="../assets/css/style.css"/>
+  
+  <style>
+    /* Styling for the donate reminder specifically */
+    .donate-reminder {
+      background: #fffbeb;
+      border: 1px dashed #f59e0b;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
@@ -52,13 +69,15 @@
     <div id="status-area" style="display:none; text-align: center; margin-top: 30px;">
       <div class="loader" id="loader" style="display:none;"></div>
       <p id="status-text">Creating your PDF...</p>
+      
       <a id="downloadBtn" class="donate-btn" style="display:none; background: #22c55e; color: white; margin: 15px auto;">Download PDF</a>
+      
       <div id="donate-reminder" style="display:none;" class="donate-reminder">
-  <p>Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
-  <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-    <a href="donate.html" style="font-size: 0.8rem; color: #b45309;">Support Kimosabe Tools</a>
-  </div>
-</div>
+        <p style="color: #92400e; margin-bottom: 10px;">Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <a href="donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -106,6 +125,7 @@
   const statusArea = document.getElementById('status-area');
   const statusText = document.getElementById('status-text');
   const downloadBtn = document.getElementById('downloadBtn');
+  const donateReminder = document.getElementById('donate-reminder');
 
   let selectedFiles = [];
 
@@ -136,12 +156,14 @@
 
     fileListContainer.style.display = 'block';
     statusArea.style.display = 'none';
+    donateReminder.style.display = 'none'; // Reset reminder on new selection
   }
 
   convertBtn.addEventListener('click', async () => {
     statusArea.style.display = 'block';
     statusText.innerText = "Generating PDF...";
     downloadBtn.style.display = 'none';
+    donateReminder.style.display = 'none';
 
     const doc = new jsPDF();
 
@@ -149,7 +171,6 @@
       const file = selectedFiles[i];
       const imgData = await readFileAsDataURL(file);
       
-      // Get image dimensions
       const img = new Image();
       img.src = imgData;
       await img.decode();
@@ -157,7 +178,6 @@
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
       
-      // Scale image to fit page
       const ratio = Math.min(pageWidth / img.width, pageHeight / img.height);
       const width = img.width * ratio;
       const height = img.height * ratio;
@@ -173,6 +193,9 @@
     downloadBtn.href = url;
     downloadBtn.download = "kimosabe_document.pdf";
     downloadBtn.style.display = 'inline-block';
+    
+    // TRIGGER REMINDER HERE
+    donateReminder.style.display = 'block';
   });
 
   function readFileAsDataURL(file) {
