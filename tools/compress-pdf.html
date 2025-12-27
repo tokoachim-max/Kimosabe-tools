@@ -156,6 +156,8 @@
       downloadBtn.href = url;
       downloadBtn.download = `compressed_${file.name}`;
       downloadBtn.style.display = "inline-block";
+      // ... after downloadBtn.style.display = 'inline-block';
+      document.getElementById('donate-reminder').style.display = 'block';
 
     } catch (err) {
       console.error(err);
