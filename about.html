@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About – Kimosabe Tools</title>
+  <title>About Us – Kimosabe Tools | Privacy-First File Tools</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -15,23 +14,81 @@
   </script>
 
   <link rel="stylesheet" href="assets/css/style.css">
+  
+  <style>
+    .about-section {
+      line-height: 1.8;
+      color: #334155;
+    }
+    .mission-box {
+      background: #f1f5f9;
+      padding: 30px;
+      border-radius: 12px;
+      margin: 30px 0;
+      border-left: 5px solid var(--primary);
+    }
+    .privacy-graphic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    @media (max-width: 600px) {
+      .privacy-graphic { grid-template-columns: 1fr; }
+    }
+    .stat-card {
+      padding: 20px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .stat-card h3 { color: var(--primary); margin-bottom: 5px; }
+  </style>
 </head>
 <body>
 
 <header class="header">
-  <h1>About Kimosabe Tools</h1>
-  <p><a href="index.html">← Back to Home</a></p>
+  <div class="header-content">
+    <nav class="breadcrumb"><a href="index.html">🏠 Home</a> / <span>About</span></nav>
+    <h1>About Kimosabe Tools</h1>
+    <p>Simple, Fast, and 100% Private.</p>
+  </div>
 </header>
 
-<main class="container">
+<main class="container about-section">
+  <h2>The Kimosabe Philosophy</h2>
   <p>
-    Kimosabe Tools was created to provide simple, fast, and free online tools
-    for working with images and PDF files.
+    Kimosabe Tools was born out of a simple observation: most online file tools are slow, cluttered with ads, and—most importantly—require you to upload your personal documents to their servers. 
   </p>
 
+  <div class="mission-box">
+    <strong>Our Mission:</strong> To provide high-quality image and PDF utilities that run entirely within your web browser. No uploads, no server storage, and no compromise on your data privacy.
+  </div>
+
+  <h3>How it works</h3>
   <p>
-    Our goal is to help users complete common tasks without installing software
-    or uploading files to servers.
+    Unlike traditional converters, Kimosabe Tools uses modern web technologies (like <code>Canvas API</code> and <code>PDF-Lib</code>) to process your files <strong>locally</strong> on your device. When you "upload" a file here, it stays in your computer's memory and never touches the internet.
+  </p>
+
+  <div class="privacy-graphic">
+    <div class="stat-card">
+      <h3>0</h3>
+      <p>Files uploaded to servers</p>
+    </div>
+    <div class="stat-card">
+      <h3>100%</h3>
+      <p>Client-side processing</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 40px;">Support the Project</h3>
+  <p>
+    This project is maintained by a solo developer dedicated to keeping the web helpful and ad-free. If these tools have saved you time or money, please consider <a href="donate.html" style="color: var(--primary); font-weight: bold;">supporting the development</a> to keep Kimosabe Tools running for everyone.
+  </p>
+
+  <p style="margin-top: 30px; text-align: center;">
+    <a href="index.html" class="donate-btn" style="background: var(--primary); color: white; text-decoration: none;">Start Using Tools</a>
   </p>
 </main>
 
