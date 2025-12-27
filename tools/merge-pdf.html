@@ -3,127 +3,204 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-H50NB3F51Q');
-</script>
-  <title>Merge PDF Files Online – Free PDF Merger | Kimosabe Tools</title>
-  <meta name="description" content="Merge multiple PDF files into one document online for free. Fast, secure, and browser-based PDF merger by Kimosabe Tools."/>
-  <link rel="stylesheet" href="/assets/css/style.css"/>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How do I merge PDF files online?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Select multiple PDF files, click Merge PDFs, and download the combined file instantly."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is this PDF merge tool free?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Kimosabe Tools offers free PDF merging with no registration required."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are my PDF files uploaded to a server?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All PDF processing happens directly in your browser for maximum privacy."
-      }
-    }
-  ]
-}
-</script>
+  
+  <title>Merge PDF Files Online – Combined PDF | Kimosabe Tools</title>
+  <meta name="description" content="Combine multiple PDF files into one document safely and quickly. No file uploads, 100% browser-based merging for maximum privacy."/>
 
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q');
+  </script>
+
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I merge PDF files online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Select multiple PDF files, click Merge PDFs, and download the combined file instantly. No registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my PDF files uploaded to a server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All PDF processing happens directly in your browser using Kimosabe Tools for maximum privacy."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-<header>
-  <h1>Merge PDF</h1>
- <a href="../index.html">← Back to Home</a>
+
+<header class="header">
+  <div class="header-content">
+    <nav class="breadcrumb"><a href="../index.html">🏠 Home</a> / <span>Merge PDF</span></nav>
+    <h1>Merge PDF</h1>
+    <p>Combine multiple PDF documents into a single file securely.</p>
+  </div>
 </header>
-<main>
-  <p>Combine multiple PDFs into one file.</p>
-  <input type="file" id="pdfInput" multiple accept="application/pdf"/>
-  <button id="mergeBtn">Merge PDFs</button>
 
-  <div id="result"></div>
-  <section class="container">
-  <h2>Merge PDF Files Online</h2>
-  <p>
-    Kimosabe Tools lets you merge multiple PDF files into one document quickly and securely.
-    All processing happens in your browser, so your files are never uploaded to a server.
-  </p>
-  <p>
-    Use this free PDF merger to combine reports, invoices, ebooks, or scanned documents
-    into a single PDF file.
-  </p>
-</section>
-<!-- Donate Section -->
-  <section class="donate">
-    <h3>Support Kimosabe Tools ❤️</h3>
-    <p>If this tool helped you, consider donating.</p>
+<main class="container">
+  <section class="tool-wrapper">
+    <div id="drop-zone" class="drop-zone" onclick="document.getElementById('pdfInput').click()">
+      <div class="drop-zone-content">
+        <span class="icon">🔗</span>
+        <p><strong>Click to upload</strong> or drag multiple PDFs here</p>
+        <span class="file-limit">Select 2 or more PDF files</span>
+      </div>
+      <input type="file" id="pdfInput" accept="application/pdf" multiple hidden />
+    </div>
 
-    <a class="donate-btn" href="https://flutterwave.com/pay/YOUR-LINK" target="_blank">Donate via Flutterwave</a>
-    <a class="donate-btn" href="https://mtnmomo.com/YOUR-LINK" target="_blank">MTN MoMo</a>
-    <a class="donate-btn" href="https://airtel.africa/YOUR-LINK" target="_blank">Airtel Money</a>
+    <div id="file-list-container" style="display:none; margin-top: 20px;">
+      <h4 style="margin-bottom: 10px;">Files to Merge:</h4>
+      <ul id="file-list" style="list-style: none; padding: 0; background: #fff; border: 1px solid var(--border); border-radius: 8px;"></ul>
+      
+      <button id="mergeBtn" class="donate-btn" style="width: 100%; margin-top: 15px; background: var(--primary); color: white;">
+        Combine All PDFs
+      </button>
+    </div>
+
+    <div id="status-area" style="display:none; text-align: center; margin-top: 30px;">
+      <p id="status-text">Merging your documents...</p>
+      <a id="downloadBtn" class="donate-btn" style="display:none; background: #22c55e; color: white; margin: 15px auto;">Download Merged PDF</a>
+    </div>
   </section>
 
-<p>
-  Try more tools:
-  <a href="../tools/image-compressor.html">Image Compressor</a> |
-  <a href="../tools/image-resize.html">Image Resize</a> |
-  <a href="../tools/image-to-pdf.html">Image to PDF</a> |
-  <a href="../tools/jpg-png.html">JPG ↔ PNG</a>
-</p>
+  <hr class="divider">
+
+  <section class="tool-description">
+    <h2>Privacy-First PDF Merging</h2>
+    <p>
+      Kimosabe Tools allows you to combine reports, invoices, or scanned documents into one. 
+      Because the merger runs inside your browser tab, your sensitive data never leaves your computer.
+    </p>
+    
+    
+
+    <div class="feature-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+      <div class="feature-item">
+        <strong>🔒 Private Processing</strong>
+        <p>Your documents are never uploaded to our servers.</p>
+      </div>
+      <div class="feature-item">
+        <strong>📂 Unlimited Files</strong>
+        <p>Merge as many PDFs as you need for free.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool-description" style="background: #fffbeb; border: 1px solid #fde68a;">
+    <h3 style="margin-top:0;">Support Kimosabe Tools ❤️</h3>
+    <p>If this tool helped you, consider supporting the developer to keep it free and ad-free.</p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+      <a class="donate-btn" href="https://flutterwave.com/pay/YOUR-LINK" target="_blank" style="background:#f59e0b; color:white; font-size: 0.9rem;">Donate (Flutterwave)</a>
+      <a class="donate-btn" href="https://mtnmomo.com/YOUR-LINK" target="_blank" style="background:#ffcc00; color:#000; font-size: 0.9rem;">MTN MoMo</a>
+      <a class="donate-btn" href="https://airtel.africa/YOUR-LINK" target="_blank" style="background:#e11d48; color:white; font-size: 0.9rem;">Airtel Money</a>
+    </div>
+  </section>
+
+  <nav class="more-tools" style="margin-top: 40px;">
+    <h3>Other Handy Tools</h3>
+    <div class="tools-grid">
+      <a href="image-compressor.html" class="tool-card">Image Compressor</a>
+      <a href="image-to-pdf.html" class="tool-card">Image to PDF</a>
+      <a href="compress-pdf.html" class="tool-card">Compress PDF</a>
+    </div>
+  </nav>
 </main>
-<footer>
+
+<footer class="footer">
   <p>© 2025 Kimosabe Tools</p>
 </footer>
-<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
 <script>
-const input = document.getElementById("pdfInput");
-const button = document.getElementById("mergeBtn");
-const result = document.getElementById("result");
+  const pdfInput = document.getElementById('pdfInput');
+  const dropZone = document.getElementById('drop-zone');
+  const fileListContainer = document.getElementById('file-list-container');
+  const fileList = document.getElementById('file-list');
+  const mergeBtn = document.getElementById('mergeBtn');
+  const statusArea = document.getElementById('status-area');
+  const statusText = document.getElementById('status-text');
+  const downloadBtn = document.getElementById('downloadBtn');
 
-button.addEventListener("click", async () => {
-  if (input.files.length < 2) {
-    alert("Please select at least two PDF files.");
-    return;
+  let selectedFiles = [];
+
+  // Input selection
+  pdfInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+  // Drag & Drop
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; });
+  dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = 'var(--border)'; });
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = 'var(--border)';
+    handleFiles(e.dataTransfer.files);
+  });
+
+  function handleFiles(files) {
+    selectedFiles = Array.from(files).filter(f => f.type === 'application/pdf');
+    if (selectedFiles.length < 2) {
+      alert("Please select at least two PDF files to merge.");
+      return;
+    }
+
+    fileList.innerHTML = '';
+    selectedFiles.forEach((file, index) => {
+      const li = document.createElement('li');
+      li.style.padding = '10px 15px';
+      li.style.borderBottom = index === selectedFiles.length - 1 ? 'none' : '1px solid var(--border)';
+      li.innerText = `📄 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+      fileList.appendChild(li);
+    });
+
+    fileListContainer.style.display = 'block';
+    statusArea.style.display = 'none';
   }
 
-  result.innerHTML = "<p>Merging PDFs...</p>";
+  mergeBtn.addEventListener('click', async () => {
+    statusArea.style.display = 'block';
+    statusText.innerText = "Merging PDFs into one...";
+    downloadBtn.style.display = 'none';
 
-  const mergedPdf = await PDFLib.PDFDocument.create();
+    try {
+      const mergedPdf = await PDFLib.PDFDocument.create();
 
-  for (const file of input.files) {
-    const bytes = await file.arrayBuffer();
-    const pdf = await PDFLib.PDFDocument.load(bytes);
-    const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-    pages.forEach(page => mergedPdf.addPage(page));
-  }
+      for (const file of selectedFiles) {
+        const bytes = await file.arrayBuffer();
+        const pdf = await PDFLib.PDFDocument.load(bytes);
+        const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        pages.forEach(page => mergedPdf.addPage(page));
+      }
 
-  const mergedBytes = await mergedPdf.save();
-  const blob = new Blob([mergedBytes], { type: "application/pdf" });
-  const url = URL.createObjectURL(blob);
+      const mergedBytes = await mergedPdf.save();
+      const blob = new Blob([mergedBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      
+      statusText.innerText = "Success! Your files are merged.";
+      downloadBtn.href = url;
+      downloadBtn.download = "kimosabe_merged_document.pdf";
+      downloadBtn.style.display = 'inline-block';
 
-  result.innerHTML = `
-    <a class="tool-card" href="${url}" download="merged.pdf">
-      Download Merged PDF
-    </a>
-  `;
-});
+    } catch (err) {
+      console.error(err);
+      statusText.innerText = "Error: Could not merge files. One of the PDFs may be encrypted.";
+    }
+  });
 </script>
+
 </body>
 </html>
