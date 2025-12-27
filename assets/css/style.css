@@ -149,3 +149,30 @@ body {
   justify-content: center;
   border-radius: 50%;
 }
+
+.drop-zone {
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 60px 20px;
+  text-align: center;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.drop-zone:hover {
+  border-color: var(--primary);
+}
+
+.drop-zone .icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.file-limit {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  display: block;
+}
