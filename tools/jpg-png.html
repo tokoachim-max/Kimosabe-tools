@@ -3,99 +3,188 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-H50NB3F51Q');
-</script>
-  <title>JPG to PNG Converter & PNG to JPG Online – Kimosabe Tools</title>
-  <meta name="description" content="Convert JPG to PNG or PNG to JPG online for free. High-quality image conversion directly in your browser.">
+  
+  <title>JPG ↔ PNG Converter Online – Fast & Private | Kimosabe Tools</title>
+  <meta name="description" content="Convert JPG to PNG or PNG to JPG online for free. Secure browser-based image conversion that keeps your files 100% private.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q');
+  </script>
+
   <link rel="stylesheet" href="../assets/css/style.css"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert JPG to PNG online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your JPG image, select PNG as the output, and download the converted file instantly. No uploads required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is image conversion on Kimosabe Tools private?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. All image conversions happen locally in your browser. Your files are never sent to a server."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
 <header class="header">
-  <h1>JPG ↔ PNG Converter</h1>
-  <p>Convert images between JPG and PNG formats</p>
-  <p><a href="../index.html">← Back to Home</a></p>
+  <div class="header-content">
+    <nav class="breadcrumb"><a href="../index.html">🏠 Home</a> / <span>JPG ↔ PNG</span></nav>
+    <h1>JPG ↔ PNG Converter</h1>
+    <p>Switch between image formats instantly without quality loss.</p>
+  </div>
 </header>
 
 <main class="container">
-  <input type="file" id="imageInput" accept="image/jpeg,image/png" />
-  <br><br>
+  <section class="tool-wrapper">
+    <div id="drop-zone" class="drop-zone" onclick="document.getElementById('imageInput').click()">
+      <div class="drop-zone-content">
+        <span class="icon">🔄</span>
+        <p><strong>Click to upload</strong> or drag your image here</p>
+        <span class="file-limit">Supports JPG, PNG, and WebP</span>
+      </div>
+      <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp" hidden />
+    </div>
 
-  <label>
-    Convert to:
-    <select id="formatSelect">
-      <option value="png">PNG</option>
-      <option value="jpeg">JPG</option>
-    </select>
-  </label>
+    <div id="controls" style="display:none; margin-top: 20px; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid var(--border);">
+      <div style="margin-bottom: 15px;">
+        <label style="font-weight: bold; margin-right: 10px;">Convert to:</label>
+        <select id="formatSelect" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border);">
+          <option value="image/png">PNG (.png)</option>
+          <option value="image/jpeg">JPG (.jpg)</option>
+          <option value="image/webp">WebP (.webp)</option>
+        </select>
+      </div>
+      <button id="convertBtn" class="donate-btn" style="width: 100%; background: var(--primary); color: white;">
+        Convert Now
+      </button>
+    </div>
 
-  <br><br>
-  <button id="convertBtn">Convert Image</button>
+    <div id="status-area" style="display:none; text-align: center; margin-top: 30px;">
+      <p id="status-text">Processing image...</p>
+      <a id="downloadBtn" class="donate-btn" style="display:none; background: #22c55e; color: white; margin: 15px auto;">Download Converted Image</a>
+    </div>
+  </section>
 
-  <p id="status"></p>
-  <div id="result"></div>
+  <hr class="divider">
+
   <section class="tool-description">
-  <h2>JPG to PNG and PNG to JPG Converter</h2>
-  <p>
-    This free online image converter allows you to convert JPG images to PNG format
-    and PNG images back to JPG quickly and easily.
-  </p>
-  <p>
-    The conversion runs entirely in your browser, ensuring your images remain private
-    and are never uploaded to any server.
-  </p>
-</section>
-<p>
-  Try more tools:
-  <a href="../tools/image-compressor.html">Image Compressor</a> |
-  <a href="../tools/image-resize.html">Image Resize</a> |
-  <a href="../tools/image-to-pdf.html">Image to PDF</a> |
-  <a href="../tools/jpg-png.html">JPG ↔ PNG</a>
-</p>
+    <h2>Why Convert Locally?</h2>
+    <p>
+      Most online converters upload your personal photos to their servers. <strong>Kimosabe Tools</strong> does the work right inside your browser tab. It's faster, safer, and works even with a slow internet connection once the page is loaded.
+    </p>
+    <div class="feature-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+      <div class="feature-item">
+        <strong>⚡ High Quality</strong>
+        <p>Lossless conversion between formats when possible.</p>
+      </div>
+      <div class="feature-item">
+        <strong>🔒 Private</strong>
+        <p>No images are ever stored or seen by us.</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="more-tools" style="margin-top: 40px;">
+    <h3>Explore All Kimosabe Tools</h3>
+    <div class="tools-grid">
+      <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Image Compressor</span></a>
+      <a href="image-resize.html" class="tool-card"><div class="card-icon">📐</div><span>Resize Image</span></a>
+      <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
+      <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+      <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+    </div>
+  </nav>
 </main>
 
 <footer class="footer">
   <p>© 2025 Kimosabe Tools</p>
 </footer>
 
-<script src="../assets/js/jpg-png.js"></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How do I convert JPG to PNG online?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Upload your JPG image, and the tool will instantly convert it to PNG format directly in your browser."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is JPG to PNG conversion free?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. The JPG to PNG converter is completely free and does not require registration."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are my images uploaded to a server?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All image conversions happen locally in your browser to keep your files private."
-      }
-    }
-  ]
-}
+<script>
+  const imageInput = document.getElementById('imageInput');
+  const dropZone = document.getElementById('drop-zone');
+  const formatSelect = document.getElementById('formatSelect');
+  const convertBtn = document.getElementById('convertBtn');
+  const statusArea = document.getElementById('status-area');
+  const statusText = document.getElementById('status-text');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const controls = document.getElementById('controls');
+
+  let currentFile = null;
+
+  imageInput.addEventListener('change', (e) => {
+    if (e.target.files[0]) prepareFile(e.target.files[0]);
+  });
+
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; });
+  dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = 'var(--border)'; });
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = 'var(--border)';
+    if (e.dataTransfer.files[0]) prepareFile(e.dataTransfer.files[0]);
+  });
+
+  function prepareFile(file) {
+    currentFile = file;
+    controls.style.display = 'block';
+    statusArea.style.display = 'none';
+  }
+
+  convertBtn.addEventListener('click', () => {
+    if (!currentFile) return;
+
+    statusArea.style.display = 'block';
+    statusText.innerText = "Converting image...";
+    downloadBtn.style.display = 'none';
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        
+        // Fill background white for JPG conversion (transparency fix)
+        if (formatSelect.value === 'image/jpeg') {
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        ctx.drawImage(img, 0, 0);
+
+        const targetFormat = formatSelect.value;
+        const dataUrl = canvas.toDataURL(targetFormat, 0.92);
+        
+        statusText.innerText = "Conversion Complete!";
+        downloadBtn.href = dataUrl;
+        const ext = targetFormat.split('/')[1];
+        downloadBtn.download = `kimosabe_converted.${ext}`;
+        downloadBtn.style.display = 'inline-block';
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(currentFile);
+  });
 </script>
 
 </body>
