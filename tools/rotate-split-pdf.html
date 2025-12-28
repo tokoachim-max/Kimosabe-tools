@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Rotate & Split PDF Online – 100% Private | Kimosabe Tools</title>
+    <meta name="description" content="Rotate PDF pages or split PDF documents into multiple files instantly. 100% private, browser-based processing. No file uploads to servers.">
+    <meta name="keywords" content="rotate pdf, split pdf, extract pdf pages, private pdf tools, kimosabe tools">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Rotate & Split PDF Online - Kimosabe Tools">
+    <meta property="og:description" content="Securely rotate or split your PDF files directly in your browser.">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-H50NB3F51Q');
+    </script>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+    <style>
+        .pdf-action-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .preview-text {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            width: 100%;
+        }
+        .btn-rotate { background: #6366f1; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; }
+        .btn-split { background: #22c55e; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <nav class="breadcrumb"><a href="../index.html">🏠 Home</a> / <span>Rotate & Split PDF</span></nav>
+        <h1>Rotate & Split PDF</h1>
+        <p>Manage your PDF pages privately. No files ever leave your device.</p>
+    </div>
+</header>
+
+<main class="container">
+    <section class="tool-wrapper">
+        <div id="drop-zone" class="drop-zone" onclick="document.getElementById('pdfInput').click()">
+            <div class="drop-zone-content">
+                <span class="icon">📑</span>
+                <p><strong>Click to upload</strong> or drag PDF here</p>
+                <span class="file-limit">Processed locally in your browser</span>
+            </div>
+            <input type="file" id="pdfInput" accept="application/pdf" hidden />
+        </div>
+
+        <div id="action-box" class="pdf-action-box">
+            <p id="file-info" class="preview-text">File loaded: <strong>document.pdf</strong></p>
+            
+            <div class="action-grid">
+                <div style="border-right: 1px solid #e2e8f0; padding-right: 15px;">
+                    <h3>Rotate All Pages</h3>
+                    <p class="preview-text">Rotate the entire document clockwise.</p>
+                    <button onclick="rotatePdf(90)" class="btn-rotate">Rotate 90°</button>
+                    <button onclick="rotatePdf(180)" class="btn-rotate">180°</button>
+                </div>
+
+                <div>
+                    <h3>Split / Extract</h3>
+                    <p class="preview-text">Enter range (e.g., 1-3 or 2, 5).</p>
+                    <input type="text" id="pageRange" placeholder="e.g. 1-2">
+                    <button onclick="splitPdf()" class="btn-split" style="margin-top: 10px; width: 100%;">Extract Pages</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="status" style="margin-top: 20px; display: none; text-align: center;">
+            <p id="status-message">Processing...</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <section class="tool-description">
+        <h2>How it works</h2>
+        <div class="feature-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+                <strong>🔄 Rotate PDF</strong>
+                <p>Quickly fix upside-down scans by rotating all pages at once.</p>
+            </div>
+            <div>
+                <strong>✂️ Split PDF</strong>
+                <p>Extract specific pages into a new file without losing quality.</p>
+            </div>
+        </div>
+    </section>
+
+    <nav class="more-tools" style="margin-top: 40px;">
+        <h3>Other PDF & Image Tools</h3>
+        <div class="tools-grid">
+            <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+            <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+            <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
+            <a href="image-converter.html" class="tool-card"><div class="card-icon">🔄</div><span>Image Converter</span></a>
+        </div>
+    </nav>
+</main>
+
+<footer class="footer">
+    <nav class="footer-links" style="margin-bottom: 20px;">
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../donate.html" style="color: #b45309;">Support Us</a>
+    </nav>
+    <p>© 2025 Kimosabe Tools. 100% Browser-Based.</p>
+</footer>
+
+<script>
+    const pdfInput = document.getElementById('pdfInput');
+    const actionBox = document.getElementById('action-box');
+    const fileInfo = document.getElementById('file-info');
+    const statusDiv = document.getElementById('status');
+    const statusMsg = document.getElementById('status-message');
+
+    let pdfBytes;
+    let originalFileName = "";
+
+    pdfInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            originalFileName = file.name.replace('.pdf', '');
+            pdfBytes = await file.arrayBuffer();
+            fileInfo.innerHTML = `File loaded: <strong>${file.name}</strong>`;
+            actionBox.style.display = 'block';
+        }
+    });
+
+    async function rotatePdf(degrees) {
+        showStatus("Rotating pages...");
+        const { PDFDocument, degrees: pdfDegrees } = PDFLib;
+        const pdfDoc = await PDFDocument.load(pdfBytes);
+        const pages = pdfDoc.getPages();
+
+        pages.forEach(page => {
+            const currentRotation = page.getRotation().angle;
+            page.setRotation(pdfDegrees(currentRotation + degrees));
+        });
+
+        const savedBytes = await pdfDoc.save();
+        download(savedBytes, `${originalFileName}_rotated.pdf`);
+    }
+
+    async function splitPdf() {
+        const range = document.getElementById('pageRange').value;
+        if (!range) return alert("Please enter a page range (e.g., 1-2)");
+
+        showStatus("Extracting pages...");
+        try {
+            const { PDFDocument } = PDFLib;
+            const sourceDoc = await PDFDocument.load(pdfBytes);
+            const newDoc = await PDFDocument.create();
+            
+            // Simple range parser (e.g., "1-3")
+            const [start, end] = range.split('-').map(num => parseInt(num.trim()) - 1);
+            
+            const indices = [];
+            for (let i = start; i <= end; i++) indices.push(i);
+            
+            const copiedPages = await newDoc.copyPages(sourceDoc, indices);
+            copiedPages.forEach(page => newDoc.addPage(page));
+
+            const savedBytes = await newDoc.save();
+            download(savedBytes, `${originalFileName}_extracted.pdf`);
+        } catch (err) {
+            alert("Error: Check your page range format.");
+            hideStatus();
+        }
+    }
+
+    function download(bytes, name) {
+        const blob = new Blob([bytes], { type: "application/pdf" });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = name;
+        link.click();
+        showStatus("Success! File downloaded.");
+        setTimeout(hideStatus, 3000);
+    }
+
+    function showStatus(msg) { statusDiv.style.display = 'block'; statusMsg.innerText = msg; }
+    function hideStatus() { statusDiv.style.display = 'none'; }
+</script>
+
+</body>
+</html>
