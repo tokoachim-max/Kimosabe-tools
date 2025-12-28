@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="../assets/css/style.css"/>
 
   <style>
-    /* Styling for the donate reminder success state */
     .donate-reminder {
       background: #fffbeb;
       border: 1px dashed #f59e0b;
@@ -58,15 +57,15 @@
     </div>
 
     <div id="status-area" class="status-area" style="display:none; margin-top: 20px; text-align: center;">
-      <p id="status-text">Processing your PDF...</p>
-      <div id="stats" style="margin: 10px 0; font-weight: bold; color: #2563eb;"></div>
+      <p id="status-text" style="font-weight: bold;">Processing your PDF...</p>
+      <div id="stats" style="margin: 10px 0; font-weight: bold; color: var(--primary);"></div>
       
-      <a href="#" id="download-btn" class="donate-btn" style="background: #2563eb; color: white; display: none; text-decoration: none; margin: 0 auto; padding: 12px 24px; border-radius: 8px;">Download Compressed PDF</a>
+      <a href="#" id="download-btn" class="donate-btn" style="background: #22c55e; color: white; display: none; text-decoration: none; margin: 0 auto; padding: 12px 24px; border-radius: 8px;">Download Compressed PDF</a>
       
       <div id="donate-reminder" style="display:none;" class="donate-reminder">
         <p style="color: #92400e; margin-bottom: 10px;">Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-          <a href="donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
+          <a href="../donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
         </div>
       </div>
     </div>
@@ -117,22 +116,22 @@
   const statsDiv = document.getElementById('stats');
   const donateReminder = document.getElementById('donate-reminder');
 
-  // Trigger when file is selected
+  let currentDownloadUrl = null;
+
   fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
-  // Drag and Drop Logic
   dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
-    dropZone.style.borderColor = "#2563eb";
+    dropZone.style.borderColor = "var(--primary)";
   });
 
   dropZone.addEventListener('dragleave', () => {
-    dropZone.style.borderColor = "#e2e8f0";
+    dropZone.style.borderColor = "var(--border)";
   });
 
   dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
-    dropZone.style.borderColor = "#e2e8f0";
+    dropZone.style.borderColor = "var(--border)";
     handleFiles(e.dataTransfer.files);
   });
 
@@ -143,49 +142,49 @@
       return;
     }
 
-    // UI Feedback & Reset Reminder
+    if (currentDownloadUrl) URL.revokeObjectURL(currentDownloadUrl);
+
     statusArea.style.display = "block";
     downloadBtn.style.display = "none";
     donateReminder.style.display = "none";
     statsDiv.innerText = "";
     statusText.innerText = "Compressing " + file.name + "...";
+    statusText.style.color = "inherit";
 
     try {
       const arrayBuffer = await file.arrayBuffer();
       const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
       
-      // Basic Compression: Strip metadata & optimize structure
+      // Optimization: Stripping metadata helps reduce size
       pdfDoc.setTitle("");
       pdfDoc.setAuthor("");
       pdfDoc.setCreator("");
       
       const pdfBytes = await pdfDoc.save({ 
         useObjectStreams: true,
-        addDefaultPage: false
+        // This is a browser-level optimization for PDF-Lib
+        updateFieldAppearances: false 
       });
 
-      // Calculate Savings
       const oldSize = (file.size / 1024).toFixed(1);
       const newSize = (pdfBytes.length / 1024).toFixed(1);
       const saved = Math.max(0, (((file.size - pdfBytes.length) / file.size) * 100)).toFixed(1);
 
-      // Setup Download
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
+      currentDownloadUrl = URL.createObjectURL(blob);
       
       statusText.innerText = "Compression Complete!";
       statsDiv.innerText = `Size: ${oldSize}KB → ${newSize}KB (${saved}% saved)`;
       
-      downloadBtn.href = url;
-      downloadBtn.download = `compressed_kimosabe_${file.name}`;
+      downloadBtn.href = currentDownloadUrl;
+      downloadBtn.download = `compressed_kimosabe_${Date.now()}.pdf`;
       downloadBtn.style.display = "inline-block";
-      
-      // TRIGGER DONATE REMINDER
       donateReminder.style.display = 'block';
 
     } catch (err) {
       console.error(err);
-      statusText.innerText = "Error compressing PDF. The file might be protected or too complex.";
+      statusText.innerText = "Error: This PDF might be encrypted or corrupted.";
+      statusText.style.color = "#e11d48";
     }
   }
 </script>
