@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Sign PDF Online – Draw & Add Electronic Signatures | Kimosabe Tools</title>
+    <meta name="description" content="Sign PDF documents online for free. Draw your signature or type it and place it anywhere on your document. 100% private - your files never leave your browser.">
+    <meta name="keywords" content="sign pdf, electronic signature, e-sign pdf, private pdf signer, kimosabe tools">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-H50NB3F51Q');
+    </script>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+
+    <style>
+        .signature-app { display: none; margin-top: 20px; }
+        .canvas-container { 
+            background: #fff; 
+            border: 2px dashed #cbd5e1; 
+            border-radius: 8px; 
+            margin: 20px 0;
+            position: relative;
+        }
+        canvas { width: 100%; height: 200px; touch-action: none; cursor: crosshair; }
+        .controls { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+        
+        .btn-sign { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
+        .btn-clear { background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+        
+        .step-card { background: white; padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .page-preview { color: #64748b; font-size: 0.9rem; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <nav class="breadcrumb"><a href="../index.html">🏠 Home</a> / <span>Sign PDF</span></nav>
+        <h1>Sign PDF Privately</h1>
+        <p>Draw your signature and apply it to your document instantly.</p>
+    </div>
+</header>
+
+<main class="container">
+    <section class="tool-wrapper">
+        <div id="drop-zone" class="drop-zone" onclick="document.getElementById('pdfInput').click()">
+            <div class="drop-zone-content">
+                <span class="icon">✍️</span>
+                <p><strong>Step 1: Upload PDF</strong></p>
+                <span class="file-limit">No file size limit • Processed locally</span>
+            </div>
+            <input type="file" id="pdfInput" accept="application/pdf" hidden />
+        </div>
+
+        <div id="signature-app" class="signature-app">
+            <div class="step-card">
+                <h3>Step 2: Draw Your Signature</h3>
+                <div class="canvas-container">
+                    <canvas id="signature-pad"></canvas>
+                </div>
+                <div class="controls">
+                    <button id="clear" class="btn-clear">Clear Drawing</button>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3>Step 3: Finalize</h3>
+                <p class="page-preview">Signature will be placed on the <strong>bottom-right</strong> of all pages.</p>
+                <button id="download-btn" class="btn-sign">Sign & Download PDF</button>
+            </div>
+        </div>
+
+        <div id="status" style="display:none; text-align:center; margin-top:20px;">
+            <p id="status-text">Processing...</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <section class="tool-description">
+        <h2>Why sign with Kimosabe Tools?</h2>
+        <div class="feature-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div>
+                <strong>🖋️ Smooth Drawing</strong>
+                <p>Uses vector-based technology to ensure your signature looks sharp and natural.</p>
+            </div>
+            <div>
+                <strong>🔐 True Privacy</strong>
+                <p>Most "Online Signers" store a copy of your signature on their servers. We don't even have a server to store it on.</p>
+            </div>
+        </div>
+    </section>
+
+    <nav class="more-tools" style="margin-top: 40px;">
+        <h3>Other PDF Tools</h3>
+        <div class="tools-grid">
+            <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+            <a href="rotate-split-pdf.html" class="tool-card"><div class="card-icon">✂️</div><span>Rotate & Split</span></a>
+            <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+        </div>
+    </nav>
+</main>
+
+<footer class="footer">
+    <nav class="footer-links" style="margin-bottom: 20px;">
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+    </nav>
+    <p>© 2025 Kimosabe Tools. Secure Browser Processing.</p>
+</footer>
+
+<script>
+    const canvas = document.getElementById('signature-pad');
+    const signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgba(255, 255, 255, 0)', // Transparent
+        penColor: 'rgb(0, 0, 0)'
+    });
+
+    // Handle Canvas Resizing
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear();
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    document.getElementById('clear').addEventListener('click', () => signaturePad.clear());
+
+    let pdfBytes;
+    let fileName = "";
+
+    document.getElementById('pdfInput').addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            pdfBytes = await file.arrayBuffer();
+            fileName = file.name.replace('.pdf', '');
+            document.getElementById('signature-app').style.display = 'block';
+            document.getElementById('drop-zone').style.display = 'none';
+        }
+    });
+
+    document.getElementById('download-btn').addEventListener('click', async () => {
+        if (signaturePad.isEmpty()) return alert("Please draw your signature first.");
+
+        showStatus("Applying signature...");
+        
+        try {
+            const { PDFDocument } = PDFLib;
+            const pdfDoc = await PDFDocument.load(pdfBytes);
+            
+            // Get signature as PNG
+            const sigImageBase64 = signaturePad.toDataURL("image/png");
+            const sigImage = await pdfDoc.embedPng(sigImageBase64);
+            const sigDims = sigImage.scale(0.25); // Scale down signature
+
+            const pages = pdfDoc.getPages();
+            pages.forEach(page => {
+                const { width, height } = page.getSize();
+                // Draw at bottom right
+                page.drawImage(sigImage, {
+                    x: width - sigDims.width - 50,
+                    y: 50,
+                    width: sigDims.width,
+                    height: sigDims.height,
+                });
+            });
+
+            const savedBytes = await pdfDoc.save();
+            const blob = new Blob([savedBytes], { type: "application/pdf" });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${fileName}_signed.pdf`;
+            link.click();
+            
+            showStatus("Success! Signed PDF downloaded.");
+            setTimeout(() => { location.reload(); }, 3000);
+        } catch (err) {
+            alert("Error processing PDF.");
+            console.error(err);
+        }
+    });
+
+    function showStatus(msg) {
+        document.getElementById('status').style.display = 'block';
+        document.getElementById('status-text').innerText = msg;
+    }
+</script>
+
+</body>
+</html>
