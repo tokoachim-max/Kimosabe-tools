@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="../assets/css/style.css"/>
   
   <style>
-    /* Styling for the donate reminder specifically */
     .donate-reminder {
       background: #fffbeb;
       border: 1px dashed #f59e0b;
@@ -34,6 +33,14 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    #file-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 15px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    #file-list li:last-child { border-bottom: none; }
   </style>
 </head>
 <body>
@@ -52,7 +59,7 @@
       <div class="drop-zone-content">
         <span class="icon">🖼️📄</span>
         <p><strong>Click to upload</strong> or drag multiple images here</p>
-        <span class="file-limit">Supports JPG, PNG, WebP (Multiple allowed)</span>
+        <span class="file-limit">Supports JPG, PNG, WebP</span>
       </div>
       <input type="file" id="imageInput" accept="image/*" multiple hidden />
     </div>
@@ -67,15 +74,14 @@
     </div>
 
     <div id="status-area" style="display:none; text-align: center; margin-top: 30px;">
-      <div class="loader" id="loader" style="display:none;"></div>
-      <p id="status-text">Creating your PDF...</p>
+      <p id="status-text" style="font-weight: bold; color: var(--primary);">Creating your PDF...</p>
       
-      <a id="downloadBtn" class="donate-btn" style="display:none; background: #22c55e; color: white; margin: 15px auto;">Download PDF</a>
+      <a id="downloadBtn" class="donate-btn" style="display:none; background: #22c55e; color: white; margin: 15px auto; text-decoration: none;">Download PDF</a>
       
       <div id="donate-reminder" style="display:none;" class="donate-reminder">
         <p style="color: #92400e; margin-bottom: 10px;">Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-          <a href="donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
+          <a href="../donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
         </div>
       </div>
     </div>
@@ -92,11 +98,11 @@
     <div class="feature-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
       <div class="feature-item">
         <strong>📄 Multi-Page Support</strong>
-        <p>Every image you upload becomes a new page in the same PDF.</p>
+        <p>Every image you upload becomes a new page in the same PDF document.</p>
       </div>
       <div class="feature-item">
         <strong>🔒 Private & Local</strong>
-        <p>Your document is generated in your browser. No data is sent to us.</p>
+        <p>Your document is generated in your browser. Your images never touch our servers.</p>
       </div>
     </div>
   </section>
@@ -104,9 +110,9 @@
   <nav class="more-tools" style="margin-top: 40px;">
     <h3>Explore More Utilities</h3>
     <div class="tools-grid">
-      <a href="image-compressor.html" class="tool-card">Image Compressor</a>
-      <a href="image-resize.html" class="tool-card">Resize Image</a>
-      <a href="compress-pdf.html" class="tool-card">Compress PDF</a>
+      <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Image Compressor</span></a>
+      <a href="image-resize.html" class="tool-card"><div class="card-icon">📐</div><span>Resize Image</span></a>
+      <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
     </div>
   </nav>
 </main>
@@ -128,11 +134,10 @@
   const donateReminder = document.getElementById('donate-reminder');
 
   let selectedFiles = [];
+  let currentPdfUrl = null;
 
-  // Handle Input Selection
   imageInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
-  // Drag & Drop Logic
   dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; });
   dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = 'var(--border)'; });
   dropZone.addEventListener('drop', (e) => {
@@ -148,26 +153,30 @@
     fileList.innerHTML = '';
     selectedFiles.forEach((file, index) => {
       const li = document.createElement('li');
-      li.style.padding = '10px 15px';
-      li.style.borderBottom = index === selectedFiles.length - 1 ? 'none' : '1px solid var(--border)';
-      li.innerText = `📄 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+      li.innerHTML = `<span>📄 ${file.name}</span> <span>${(file.size / 1024).toFixed(1)} KB</span>`;
       fileList.appendChild(li);
     });
 
     fileListContainer.style.display = 'block';
     statusArea.style.display = 'none';
-    donateReminder.style.display = 'none'; // Reset reminder on new selection
+    donateReminder.style.display = 'none';
   }
 
   convertBtn.addEventListener('click', async () => {
+    if (selectedFiles.length === 0) return;
+    
+    // Memory cleanup
+    if (currentPdfUrl) URL.revokeObjectURL(currentPdfUrl);
+
     statusArea.style.display = 'block';
-    statusText.innerText = "Generating PDF...";
     downloadBtn.style.display = 'none';
     donateReminder.style.display = 'none';
 
     const doc = new jsPDF();
 
     for (let i = 0; i < selectedFiles.length; i++) {
+      statusText.innerText = `Processing image ${i + 1} of ${selectedFiles.length}...`;
+      
       const file = selectedFiles[i];
       const imgData = await readFileAsDataURL(file);
       
@@ -183,18 +192,21 @@
       const height = img.height * ratio;
 
       if (i > 0) doc.addPage();
-      doc.addImage(imgData, 'JPEG', (pageWidth - width) / 2, (pageHeight - height) / 2, width, height);
+      
+      // Center the image on the page
+      const x = (pageWidth - width) / 2;
+      const y = (pageHeight - height) / 2;
+      
+      doc.addImage(imgData, 'JPEG', x, y, width, height);
     }
 
     const pdfBlob = doc.output('blob');
-    const url = URL.createObjectURL(pdfBlob);
+    currentPdfUrl = URL.createObjectURL(pdfBlob);
     
     statusText.innerText = "Done! Your PDF is ready.";
-    downloadBtn.href = url;
-    downloadBtn.download = "kimosabe_document.pdf";
+    downloadBtn.href = currentPdfUrl;
+    downloadBtn.download = `kimosabe_doc_${Date.now()}.pdf`;
     downloadBtn.style.display = 'inline-block';
-    
-    // TRIGGER REMINDER HERE
     donateReminder.style.display = 'block';
   });
 
