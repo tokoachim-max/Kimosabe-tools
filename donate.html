@@ -61,10 +61,20 @@
       border-radius: 12px;
       color: #1e293b;
       font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
     }
     .mtn-bg { background: #ffcc00; border: 1px solid #eab308; }
-    .airtel-bg { background: #ffeded; border: 1px solid #fecaca; }
-    .momo-number { display: block; font-family: monospace; font-size: 1.2rem; font-weight: bold; margin-top: 5px; }
+    .airtel-bg { background: #ffffff; border: 1px solid #e11d48; }
+    
+    .momo-number { 
+        display: block; 
+        font-family: 'Courier New', monospace; 
+        font-size: 1.15rem; 
+        font-weight: bold; 
+        margin: 8px 0;
+        letter-spacing: 1px;
+    }
     
     .why-support {
       margin-top: 40px;
@@ -74,6 +84,8 @@
       border-top: 1px solid #eee;
       padding-top: 25px;
     }
+    .why-support h3 { margin-bottom: 12px; }
+    .why-support li { margin-bottom: 8px; }
   </style>
 </head>
 <body>
@@ -92,7 +104,7 @@
       Help me keep the servers running.
     </p>
     <p style="color: #64748b; margin-top: 10px;">
-      Your donation helps cover hosting costs and keeps this site 100% ad-free.
+      Your donation helps cover domain costs and keeps this site 100% ad-free.
     </p>
 
     <div class="donate-options">
@@ -103,19 +115,19 @@
 
       <div class="momo-section">
         <h3 style="margin-top:0; font-size: 1rem; color: #334155;">Direct Mobile Money (Local)</h3>
-        <p style="font-size: 0.85rem; color: #64748b;">If you are in the region, you can send support directly:</p>
+        <p style="font-size: 0.85rem; color: #64748b;">For local supporters in the region:</p>
         
         <div class="momo-grid">
           <div class="momo-card mtn-bg">
             <strong>MTN Mobile Money</strong>
             <span class="momo-number">07XX XXX XXX</span>
-            <small>Name: [Your Name]</small>
+            <small>Name: [YOUR NAME]</small>
           </div>
           
           <div class="momo-card airtel-bg">
             <strong style="color: #e11d48;">Airtel Money</strong>
             <span class="momo-number">07XX XXX XXX</span>
-            <small>Name: [Your Name]</small>
+            <small>Name: [YOUR NAME]</small>
           </div>
         </div>
       </div>
@@ -124,9 +136,9 @@
     <div class="why-support">
       <h3 style="font-size: 1rem; color: #1e293b;">Why your support matters:</h3>
       <ul style="padding-left: 20px; color: #475569;">
-        <li><strong>Privacy:</strong> We don't sell your data to advertisers.</li>
-        <li><strong>Independence:</strong> No "Premium" tiers or paywalls.</li>
-        <li><strong>Growth:</strong> Helps me build more tools (like PDF to Word).</li>
+        <li><strong>Stay Private:</strong> I don't sell your data because I never see it.</li>
+        <li><strong>Stay Free:</strong> No "Premium" features locked behind paywalls.</li>
+        <li><strong>New Tools:</strong> Funding helps build tools for PDF-to-Doc and more.</li>
       </ul>
     </div>
   </div>
