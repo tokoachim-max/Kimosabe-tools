@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us – Kimosabe Tools</title>
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <style>
+    .contact-container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    .contact-card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .form-group { margin-bottom: 20px; text-align: left; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #334155; }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    .submit-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .submit-btn:hover { opacity: 0.9; }
+
+    .contact-info {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <nav class="breadcrumb"><a href="index.html">🏠 Home</a> / <span>Contact</span></nav>
+    <h1>Get in Touch</h1>
+    <p>Have a suggestion or found a bug? I'd love to hear from you.</p>
+  </div>
+</header>
+
+<main class="contact-container">
+  <div class="contact-card">
+    <form action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST">
+      
+      <div class="form-group">
+        <label for="full-name">Name</label>
+        <input type="text" name="name" id="full-name" class="form-control" placeholder="Your Name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email-address">Email Address</label>
+        <input type="email" name="_replyto" id="email-address" class="form-control" placeholder="email@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">How can I help?</label>
+        <select name="subject" id="subject" class="form-control">
+          <option value="Feature Request">Feature Request</option>
+          <option value="Bug Report">Bug Report</option>
+          <option value="Support/Donation">Support / Donation Issue</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea rows="5" name="message" id="message" class="form-control" placeholder="Tell me more..." required></textarea>
+      </div>
+
+      <input type="text" name="_gotcha" style="display:none">
+
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+  </div>
+
+  <div class="contact-info">
+    <p>I usually respond within 24–48 hours.</p>
+    <p style="margin-top: 10px;">
+        <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: bold;">← Back to Home</a>
+    </p>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Kimosabe Tools</p>
+</footer>
+
+</body>
+</html>
