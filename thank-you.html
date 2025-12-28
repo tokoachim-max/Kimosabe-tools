@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You! – Kimosabe Tools</title>
+  <meta name="robots" content="noindex"> <link rel="stylesheet" href="assets/css/style.css"/>
+
+  <style>
+    .thank-you-wrapper {
+      text-align: center;
+      padding: 60px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .heart-icon {
+      font-size: 5rem;
+      color: #e11d48;
+      margin-bottom: 20px;
+      display: block;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    .confetti-text {
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .back-home-btn {
+      display: inline-block;
+      margin-top: 30px;
+      background: var(--primary);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+    .back-home-btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <h1>Kimosabe Tools</h1>
+  </div>
+</header>
+
+<main class="container">
+  <section class="thank-you-wrapper">
+    <span class="heart-icon">❤️</span>
+    <p class="confetti-text">You are awesome!</p>
+    <h2>Thank You for Your Support</h2>
+    <p style="line-height: 1.6; color: #64748b; margin-top: 15px;">
+      Your contribution helps keep <strong>Kimosabe Tools</strong> free, fast, and 100% private for everyone. 
+      I truly appreciate you helping me cover the hosting costs and keep this project ad-free.
+    </p>
+
+    <a href="index.html" class="back-home-btn">← Back to Tools</a>
+  </section>
+</main>
+
+<footer class="footer" style="margin-top: 50px; text-align: center;">
+  <p>© 2025 Kimosabe Tools. Built for Privacy.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+  window.onload = function() {
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#2563eb', '#f59e0b', '#e11d48']
+    });
+  };
+</script>
+
+</body>
+</html>
