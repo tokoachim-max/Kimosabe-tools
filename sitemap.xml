@@ -2,23 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://kimosabetools.netlify.app/</loc>
+    <loc>https://kimosabetools.com/</loc>
+    <priority>1.00</priority>
   </url>
 
   <url>
-    <loc>https://kimosabetools.netlify.app/tools/image-compressor.html</loc>
+    <loc>https://kimosabetools.com/tools/image-compressor.html</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://kimosabetools.com/tools/image-resize.html</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://kimosabetools.com/tools/image-converter.html</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://kimosabetools.com/tools/image-to-pdf.html</loc>
+    <priority>0.80</priority>
   </url>
 
   <url>
-    <loc>https://kimosabetools.netlify.app/tools/image-resize.html</loc>
+    <loc>https://kimosabetools.com/tools/edit-pdf.html</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://kimosabetools.com/tools/merge-pdf.html</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://kimosabetools.com/tools/rotate-split-pdf.html</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://kimosabetools.com/tools/compress-pdf.html</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://kimosabetools.com/tools/sign-pdf.html</loc>
+    <priority>0.90</priority>
   </url>
 
   <url>
-    <loc>https://kimosabetools.netlify.app/tools/image-to-pdf.html</loc>
+    <loc>https://kimosabetools.com/about.html</loc>
+    <priority>0.50</priority>
   </url>
-
   <url>
-    <loc>https://kimosabetools.netlify.app/tools/jpg-png.html</loc>
+    <loc>https://kimosabetools.com/contact.html</loc>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://kimosabetools.com/privacy.html</loc>
+    <priority>0.30</priority>
   </url>
 
 </urlset>
