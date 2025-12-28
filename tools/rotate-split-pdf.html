@@ -38,6 +38,8 @@
             gap: 15px;
             margin-top: 15px;
         }
+        @media (max-width: 500px) { .action-grid { grid-template-columns: 1fr; } }
+        
         .preview-text {
             font-size: 0.9rem;
             color: #64748b;
@@ -48,9 +50,21 @@
             border: 1px solid var(--border);
             border-radius: 6px;
             width: 100%;
+            margin-bottom: 10px;
         }
-        .btn-rotate { background: #6366f1; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; }
-        .btn-split { background: #22c55e; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; }
+        .btn-rotate { background: #6366f1; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-right: 5px; }
+        .btn-split { background: #22c55e; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        
+        /* Support Notification Style */
+        .support-notice { 
+            background: #fffbeb; 
+            border: 1px solid #fde68a; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-top: 25px; 
+            display: none; 
+            text-align: center; 
+        }
     </style>
 </head>
 <body>
@@ -87,15 +101,21 @@
 
                 <div>
                     <h3>Split / Extract</h3>
-                    <p class="preview-text">Enter range (e.g., 1-3 or 2, 5).</p>
+                    <p class="preview-text">Enter range (e.g., 1-3 or 2-5).</p>
                     <input type="text" id="pageRange" placeholder="e.g. 1-2">
-                    <button onclick="splitPdf()" class="btn-split" style="margin-top: 10px; width: 100%;">Extract Pages</button>
+                    <button onclick="splitPdf()" class="btn-split" style="width: 100%;">Extract Pages</button>
                 </div>
             </div>
         </div>
 
+        <div id="support-box" class="support-notice">
+            <p>✅ <strong>Task Completed!</strong></p>
+            <p style="font-size: 0.9rem; margin: 5px 0 10px 0;">If this tool helped you, please consider supporting the project to keep it ad-free.</p>
+            <a href="../donate.html" style="color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools ❤️</a>
+        </div>
+
         <div id="status" style="margin-top: 20px; display: none; text-align: center;">
-            <p id="status-message">Processing...</p>
+            <p id="status-message" style="font-weight: bold; color: var(--primary);">Processing...</p>
         </div>
     </section>
 
@@ -106,11 +126,11 @@
         <div class="feature-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div>
                 <strong>🔄 Rotate PDF</strong>
-                <p>Quickly fix upside-down scans by rotating all pages at once.</p>
+                <p>Quickly fix upside-down scans by rotating all pages at once using browser-based calculation.</p>
             </div>
             <div>
                 <strong>✂️ Split PDF</strong>
-                <p>Extract specific pages into a new file without losing quality.</p>
+                <p>Extract a specific range of pages into a brand new file without any data leaving your RAM.</p>
             </div>
         </div>
     </section>
@@ -118,10 +138,10 @@
     <nav class="more-tools" style="margin-top: 40px;">
         <h3>Other PDF & Image Tools</h3>
         <div class="tools-grid">
+            <a href="sign-pdf.html" class="tool-card"><div class="card-icon">✍️</div><span>Sign PDF</span></a>
+            <a href="edit-pdf.html" class="tool-card"><div class="card-icon">📝</div><span>Edit PDF</span></a>
             <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
             <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
-            <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
-            <a href="image-converter.html" class="tool-card"><div class="card-icon">🔄</div><span>Image Converter</span></a>
         </div>
     </nav>
 </main>
@@ -132,7 +152,7 @@
         <a href="../contact.html">Contact</a>
         <a href="../privacy.html">Privacy</a>
         <a href="../terms.html">Terms</a>
-        <a href="../donate.html" style="color: #b45309;">Support Us</a>
+        <a href="../donate.html" style="color: #b45309; font-weight: bold;">Support Us</a>
     </nav>
     <p>© 2025 Kimosabe Tools. 100% Browser-Based.</p>
 </footer>
@@ -143,6 +163,7 @@
     const fileInfo = document.getElementById('file-info');
     const statusDiv = document.getElementById('status');
     const statusMsg = document.getElementById('status-message');
+    const supportBox = document.getElementById('support-box');
 
     let pdfBytes;
     let originalFileName = "";
@@ -154,22 +175,28 @@
             pdfBytes = await file.arrayBuffer();
             fileInfo.innerHTML = `File loaded: <strong>${file.name}</strong>`;
             actionBox.style.display = 'block';
+            supportBox.style.display = 'none';
         }
     });
 
     async function rotatePdf(degrees) {
         showStatus("Rotating pages...");
-        const { PDFDocument, degrees: pdfDegrees } = PDFLib;
-        const pdfDoc = await PDFDocument.load(pdfBytes);
-        const pages = pdfDoc.getPages();
+        try {
+            const { PDFDocument, degrees: pdfDegrees } = PDFLib;
+            const pdfDoc = await PDFDocument.load(pdfBytes);
+            const pages = pdfDoc.getPages();
 
-        pages.forEach(page => {
-            const currentRotation = page.getRotation().angle;
-            page.setRotation(pdfDegrees(currentRotation + degrees));
-        });
+            pages.forEach(page => {
+                const currentRotation = page.getRotation().angle;
+                page.setRotation(pdfDegrees(currentRotation + degrees));
+            });
 
-        const savedBytes = await pdfDoc.save();
-        download(savedBytes, `${originalFileName}_rotated.pdf`);
+            const savedBytes = await pdfDoc.save();
+            download(savedBytes, `${originalFileName}_rotated.pdf`);
+        } catch (err) {
+            alert("Error rotating PDF.");
+            hideStatus();
+        }
     }
 
     async function splitPdf() {
@@ -182,8 +209,9 @@
             const sourceDoc = await PDFDocument.load(pdfBytes);
             const newDoc = await PDFDocument.create();
             
-            // Simple range parser (e.g., "1-3")
             const [start, end] = range.split('-').map(num => parseInt(num.trim()) - 1);
+            
+            if (isNaN(start) || isNaN(end)) throw new Error("Invalid range");
             
             const indices = [];
             for (let i = start; i <= end; i++) indices.push(i);
@@ -194,7 +222,7 @@
             const savedBytes = await newDoc.save();
             download(savedBytes, `${originalFileName}_extracted.pdf`);
         } catch (err) {
-            alert("Error: Check your page range format.");
+            alert("Error: Check your page range format (e.g. 1-3).");
             hideStatus();
         }
     }
@@ -205,11 +233,16 @@
         link.href = URL.createObjectURL(blob);
         link.download = name;
         link.click();
-        showStatus("Success! File downloaded.");
-        setTimeout(hideStatus, 3000);
+        
+        hideStatus();
+        supportBox.style.display = 'block';
     }
 
-    function showStatus(msg) { statusDiv.style.display = 'block'; statusMsg.innerText = msg; }
+    function showStatus(msg) { 
+        statusDiv.style.display = 'block'; 
+        statusMsg.innerText = msg; 
+        supportBox.style.display = 'none';
+    }
     function hideStatus() { statusDiv.style.display = 'none'; }
 </script>
 
