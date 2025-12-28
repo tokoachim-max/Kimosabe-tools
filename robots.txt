@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kimosabetools.netlify.app/sitemap.xml
+# Replace 'kimosabe-tools' with your actual Cloudflare project name
+Sitemap: https://kimosabe-tools.pages.dev/sitemap.xml
