@@ -18,7 +18,6 @@
   <link rel="stylesheet" href="../assets/css/style.css"/>
 
   <style>
-    /* Styling for the donate reminder success state */
     .donate-reminder {
       background: #fffbeb;
       border: 1px dashed #f59e0b;
@@ -44,7 +43,7 @@
         "name": "How do I resize an image online for free?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Upload your image, set your desired width and height, and download the resized version instantly. All processing happens in your browser."
+          "text": "Upload your image, set your desired width and height, and download the resized version instantly."
         }
       },
       {
@@ -98,7 +97,7 @@
       </label>
 
       <button id="resizeBtn" class="donate-btn" style="width: 100%; background: var(--primary); color: white;">
-        Resize Image
+        Resize Image Now
       </button>
     </div>
 
@@ -110,7 +109,7 @@
       <div id="donate-reminder" style="display:none;" class="donate-reminder">
         <p style="color: #92400e; margin-bottom: 10px;">Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-          <a href="donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
+          <a href="../donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
         </div>
       </div>
     </div>
@@ -166,13 +165,12 @@
 
   let originalImg = null;
   let aspectRatio = 1;
+  let currentDownloadUrl = null;
 
-  // File selection
   resizeInput.addEventListener('change', (e) => {
     if (e.target.files[0]) handleFile(e.target.files[0]);
   });
 
-  // Drag & Drop
   dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; });
   dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = 'var(--border)'; });
   dropZone.addEventListener('drop', (e) => {
@@ -191,22 +189,21 @@
         aspectRatio = originalImg.width / originalImg.height;
         controls.style.display = 'block';
         statusArea.style.display = 'none';
-        donateReminder.style.display = 'none'; // Hide reminder for new image
+        donateReminder.style.display = 'none';
       };
       originalImg.src = e.target.result;
     };
     reader.readAsDataURL(file);
   }
 
-  // Auto-calculation logic
   widthInput.addEventListener('input', () => {
-    if (lockRatio.checked && originalImg) {
+    if (lockRatio.checked && originalImg && widthInput.value) {
       heightInput.value = Math.round(widthInput.value / aspectRatio);
     }
   });
 
   heightInput.addEventListener('input', () => {
-    if (lockRatio.checked && originalImg) {
+    if (lockRatio.checked && originalImg && heightInput.value) {
       widthInput.value = Math.round(heightInput.value * aspectRatio);
     }
   });
@@ -214,27 +211,29 @@
   resizeBtn.addEventListener('click', () => {
     if (!originalImg) return;
     
+    // Clean up previous URL to save memory
+    if (currentDownloadUrl) URL.revokeObjectURL(currentDownloadUrl);
+    
     statusArea.style.display = 'block';
     resizeStatus.innerText = "Resizing image...";
     downloadBtn.style.display = 'none';
     donateReminder.style.display = 'none';
 
     const canvas = document.createElement('canvas');
-    canvas.width = parseInt(widthInput.value);
-    canvas.height = parseInt(heightInput.value);
+    canvas.width = parseInt(widthInput.value) || originalImg.width;
+    canvas.height = parseInt(heightInput.value) || originalImg.height;
     
     const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(originalImg, 0, 0, canvas.width, canvas.height);
 
     canvas.toBlob((blob) => {
-      const url = URL.createObjectURL(blob);
+      currentDownloadUrl = URL.createObjectURL(blob);
       resizeStatus.innerText = "Success! Image resized.";
-      downloadBtn.href = url;
-      downloadBtn.download = `resized_kimosabe_${Math.random().toString(36).substr(2, 5)}.png`;
+      downloadBtn.href = currentDownloadUrl;
+      downloadBtn.download = `resized_kimosabe_${Date.now()}.png`;
       downloadBtn.style.display = 'inline-block';
-      
-      // SHOW REMINDER HERE
       donateReminder.style.display = 'block';
     }, 'image/png');
   });
