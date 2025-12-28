@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Edit PDF Online – Add Text & Annotate | Kimosabe Tools</title>
+    <meta name="description" content="Edit your PDF files for free. Add text annotations or white out sensitive information directly in your browser. 100% private, no file uploads required.">
+    <meta name="keywords" content="edit pdf, annotate pdf, add text to pdf, whiteout pdf, private pdf editor, kimosabe tools">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-H50NB3F51Q');
+    </script>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+    <style>
+        .edit-app { display: none; margin-top: 20px; }
+        .edit-card { background: white; padding: 25px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #1e293b; }
+        .form-control { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; }
+        
+        .btn-edit-main { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: opacity 0.2s; }
+        .btn-edit-main:hover { opacity: 0.9; }
+
+        .support-notice { 
+            background: #fffbeb; 
+            border: 1px solid #fde68a; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-top: 25px; 
+            display: none; 
+            text-align: center; 
+        }
+        .tip-text { font-size: 0.85rem; color: #64748b; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <nav class="breadcrumb"><a href="../index.html">🏠 Home</a> / <span>Edit PDF</span></nav>
+        <h1>Edit PDF</h1>
+        <p>Annotate your documents privately. Your files never leave your computer.</p>
+    </div>
+</header>
+
+<main class="container">
+    <section class="tool-wrapper">
+        <div id="drop-zone" class="drop-zone" onclick="document.getElementById('pdfInput').click()">
+            <div class="drop-zone-content">
+                <span class="icon">📝</span>
+                <p><strong>Click to upload PDF to Edit</strong></p>
+                <span class="file-limit">Files are processed in your RAM</span>
+            </div>
+            <input type="file" id="pdfInput" accept="application/pdf" hidden />
+        </div>
+
+        <div id="edit-app" class="edit-app">
+            <div class="edit-card">
+                <div class="input-group">
+                    <label for="addText">Add Text to First Page:</label>
+                    <input type="text" id="addText" class="form-control" placeholder="Type text to add...">
+                    <p class="tip-text">Text will appear at the top-left of the first page.</p>
+                </div>
+
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="whiteoutHeader"> Apply Whiteout to Header?
+                    </label>
+                    <p class="tip-text">Covers the top 50px of the first page with a white block.</p>
+                </div>
+
+                <button id="save-pdf" class="btn-edit-main">Apply Changes & Download</button>
+            </div>
+        </div>
+
+        <div id="support-box" class="support-notice">
+            <p>✅ <strong>Edits Applied Successfully!</strong></p>
+            <p style="font-size: 0.9rem; margin: 5px 0 10px 0;">Kimosabe Tools is a solo project. If this helped you, consider supporting it!</p>
+            <a href="../donate.html" style="color: #b45309; font-weight: bold; text-decoration: underline;">Support the Developer ❤️</a>
+        </div>
+
+        <div id="status" style="display:none; text-align:center; margin-top:20px;">
+            <p id="status-text" style="color: var(--primary); font-weight: bold;">Processing changes...</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <section class="tool-description">
+        <h2>Safe & Secure PDF Editing</h2>
+        <div class="feature-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div>
+                <strong>📝 Annotations</strong>
+                <p>Add notes, names, or dates to existing documents without needing Adobe Acrobat.</p>
+            </div>
+            <div>
+                <strong>🔒 Local Privacy</strong>
+                <p>Unlike other editors, we don't store your documents. All editing happens inside your browser window.</p>
+            </div>
+        </div>
+    </section>
+
+    <nav class="more-tools" style="margin-top: 40px;">
+        <h3>Other PDF & Image Tools</h3>
+        <div class="tools-grid">
+            <a href="sign-pdf.html" class="tool-card"><div class="card-icon">✍️</div><span>Sign PDF</span></a>
+            <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+            <a href="rotate-split-pdf.html" class="tool-card"><div class="card-icon">✂️</div><span>Rotate & Split</span></a>
+            <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+        </div>
+    </nav>
+</main>
+
+<footer class="footer">
+    <nav class="footer-links" style="margin-bottom: 20px;">
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../donate.html" style="color: #b45309; font-weight: bold;">Support Us</a>
+    </nav>
+    <p>© 2025 Kimosabe Tools. Built for Privacy.</p>
+</footer>
+
+<script>
+    let pdfBytes;
+    let fileName = "";
+
+    document.getElementById('pdfInput').addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            pdfBytes = await file.arrayBuffer();
+            fileName = file.name;
+            document.getElementById('edit-app').style.display = 'block';
+            document.getElementById('drop-zone').style.display = 'none';
+            document.getElementById('support-box').style.display = 'none';
+        }
+    });
+
+    document.getElementById('save-pdf').addEventListener('click', async () => {
+        showStatus("Saving changes...");
+        
+        try {
+            const { PDFDocument, rgb } = PDFLib;
+            const pdfDoc = await PDFDocument.load(pdfBytes);
+            const pages = pdfDoc.getPages();
+            const firstPage = pages[0];
+            const { width, height } = firstPage.getSize();
+
+            // 1. Add Whiteout if checked
+            if (document.getElementById('whiteoutHeader').checked) {
+                firstPage.drawRectangle({
+                    x: 0,
+                    y: height - 60,
+                    width: width,
+                    height: 60,
+                    color: rgb(1, 1, 1),
+                });
+            }
+
+            // 2. Add Text if input exists
+            const textToAdd = document.getElementById('addText').value;
+            if (textToAdd.trim() !== "") {
+                firstPage.drawText(textToAdd, {
+                    x: 50,
+                    y: height - 40,
+                    size: 18,
+                    color: rgb(0, 0, 0),
+                });
+            }
+
+            const savedBytes = await pdfDoc.save();
+            const blob = new Blob([savedBytes], { type: "application/pdf" });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = "edited_" + fileName;
+            link.click();
+            
+            hideStatus();
+            document.getElementById('support-box').style.display = 'block';
+        } catch (err) {
+            alert("Error editing PDF.");
+            hideStatus();
+        }
+    });
+
+    function showStatus(msg) {
+        document.getElementById('status').style.display = 'block';
+        document.getElementById('status-text').innerText = msg;
+    }
+    function hideStatus() {
+        document.getElementById('status').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
