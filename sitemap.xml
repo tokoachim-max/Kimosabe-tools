@@ -2,58 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://kimosabetools.com/</loc>
+    <loc>https://kimosabe-tools.pages.dev/</loc>
     <priority>1.00</priority>
   </url>
 
   <url>
-    <loc>https://kimosabetools.com/tools/image-compressor.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/tools/image-compressor.html</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://kimosabetools.com/tools/image-resize.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/tools/image-resize.html</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://kimosabetools.com/tools/image-converter.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/tools/image-converter.html</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://kimosabetools.com/tools/image-to-pdf.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/tools/image-to-pdf.html</loc>
     <priority>0.80</priority>
   </url>
 
   <url>
-    <loc>https://kimosabetools.com/tools/edit-pdf.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/tools/edit-pdf.html</loc>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://kimosabetools.com/tools/merge-pdf.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/tools/merge-pdf.html</loc>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://kimosabetools.com/tools/rotate-split-pdf.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/tools/rotate-split-pdf.html</loc>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://kimosabetools.com/tools/compress-pdf.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/tools/compress-pdf.html</loc>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://kimosabetools.com/tools/sign-pdf.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/tools/sign-pdf.html</loc>
     <priority>0.90</priority>
   </url>
 
   <url>
-    <loc>https://kimosabetools.com/about.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/about.html</loc>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://kimosabetools.com/contact.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/contact.html</loc>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://kimosabetools.com/privacy.html</loc>
+    <loc>https://kimosabe-tools.pages.dev/privacy.html</loc>
     <priority>0.30</priority>
   </url>
 
