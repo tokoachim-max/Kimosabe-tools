@@ -3,204 +3,190 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
-    <title>Kimosabe Tools – 100% Private PDF & Image Tools Online</title>
+    <title>Kimosabe Tools – 100% Private PDF & Image Tools</title>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
-    <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
-
-    <meta name="description" content="Fast, free, and secure online tools to compress images, resize, merge, rotate, split, edit, and sign PDFs. No uploads required—everything stays in your browser."/>
-    <meta property="og:title" content="Kimosabe Tools | Private PDF & Image Suite">
-    <meta property="og:description" content="Edit, Merge, and Compress files 100% locally in your browser. No server uploads, no tracking.">
-    <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
-    <meta property="og:url" content="https://kimosabe-tools.pages.dev/">
-    <meta property="og:type" content="website">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Kimosabe Tools | Private PDF & Image Suite">
-    <meta name="twitter:description" content="Secure, browser-based tools for your daily tasks.">
-    <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
-    
     <link rel="stylesheet" href="assets/css/style.css"/>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Kimosabe Tools",
-      "url": "https://kimosabe-tools.pages.dev",
-      "operatingSystem": "Any",
-      "applicationCategory": "UtilitiesApplication",
-      "browserRequirements": "Requires JavaScript enabled",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": "A collection of privacy-focused tools for PDF editing, merging, rotating, splitting, image compression, and format conversion."
-    }
-    </script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-H50NB3F51Q');
-    </script>
+    <style>
+        /* MODERN COLOR PALETTE & UI UPGRADE */
+        :root {
+            --primary: #4f46e5; /* Electric Indigo */
+            --primary-hover: #4338ca;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .header {
+            padding: 60px 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #4f46e5, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
+        /* MODERN TOOL CARDS */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid white;
+            border-radius: 16px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: #f1f5f9;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* THE SHARE BUTTON */
+        .share-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .share-btn {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        }
+
+        .share-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .personal-note {
+            background: white !important;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+        }
+    </style>
 </head>
 <body>
 
 <header class="header">
-  <div class="header-content" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-    <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-        <img src="favicon-32x32.png" alt="Kimosabe Tools Logo" style="width: 40px; height: 40px;">
-        <h1 style="margin: 0; color: inherit;">Kimosabe Tools</h1>
+  <div class="header-content">
+    <a href="index.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center;">
+        <img src="favicon-32x32.png" alt="Logo" style="width: 50px; height: 50px; margin-bottom: 10px;">
+        <h1>Kimosabe Tools</h1>
     </a>
-    <p>Simple, fast & <strong>100% Private</strong> online utilities</p>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">Privacy-First Utilities. <strong>Zero Server Uploads.</strong></p>
   </div>
 </header>
 
 <main class="container">
-  <section class="tools-section">
-    <header class="section-header">
-      <h2>Image & PDF Tools</h2>
-      <p>Powerful utilities that process files locally on your device.</p>
-    </header>
-
     <div class="tools-grid">
       <a class="tool-card" href="tools/image-compressor.html">
-        <div class="card-icon">📁</div>
-        <article>
-          <h3>Image Compressor</h3>
-          <p>Shrink JPG, PNG, and WebP files without losing quality.</p>
-        </article>
-      </a>
-
-      <a class="tool-card" href="tools/image-resize.html">
-        <div class="card-icon">📐</div>
-        <article>
-          <h3>Resize Image</h3>
-          <p>Exact pixel control for social media or web dimensions.</p>
-        </article>
-      </a>
-
-      <a class="tool-card" href="tools/image-converter.html">
-        <div class="card-icon">🔄</div>
-        <article>
-          <h3>Image Converter</h3>
-          <p>Convert between JPG, PNG, and WebP formats instantly.</p>
-        </article>
-      </a>
-
-      <a class="tool-card" href="tools/edit-pdf.html">
-        <div class="card-icon">📝</div>
-        <article>
-          <h3>Edit PDF</h3>
-          <p>Add text annotations or whiteout sections securely.</p>
-        </article>
+        <div class="card-icon">🖼️</div>
+        <h3>Image Compressor</h3>
+        <p style="color: var(--text-muted);">Shrink images without losing quality.</p>
       </a>
 
       <a class="tool-card" href="tools/merge-pdf.html">
-        <div class="card-icon">🔗</div>
-        <article>
-          <h3>Merge PDF</h3>
-          <p>Combine multiple PDF documents into one instantly.</p>
-        </article>
-      </a>
-
-      <a class="tool-card" href="tools/rotate-split-pdf.html">
-        <div class="card-icon">✂️</div>
-        <article>
-          <h3>Rotate & Split PDF</h3>
-          <p>Fix page orientation or extract specific pages securely.</p>
-        </article>
-      </a>
-
-      <a class="tool-card" href="tools/image-to-pdf.html">
         <div class="card-icon">📄</div>
-        <article>
-          <h3>Image to PDF</h3>
-          <p>Convert multiple photos into a single, clean PDF.</p>
-        </article>
-      </a>
-
-      <a class="tool-card" href="tools/compress-pdf.html">
-        <div class="card-icon">📉</div>
-        <article>
-          <h3>Compress PDF</h3>
-          <p>Reduce document size for email and faster sharing.</p>
-        </article>
+        <h3>Merge PDF</h3>
+        <p style="color: var(--text-muted);">Combine documents safely in your browser.</p>
       </a>
 
       <a class="tool-card" href="tools/sign-pdf.html">
         <div class="card-icon">✍️</div>
-        <article>
-          <h3>Sign PDF</h3>
-          <p>Add your digital signature to any document privately.</p>
-        </article>
+        <h3>Sign PDF</h3>
+        <p style="color: var(--text-muted);">Add digital signatures privately.</p>
       </a>
-    </div>
-  </section>
+      
+      </div>
 
-  <hr class="divider">
-
-  <section class="tool-description">
-    <h2 style="text-align: center;">Processing on your device, not our servers</h2>
-    
-    <div class="feature-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 30px;">
-      <div class="feature-item">
-        <strong>🔒 Privacy First</strong>
-        <p>Traditional tools upload your data to their servers. We don't. Your files never leave your computer, making it safe for sensitive documents.</p>
-      </div>
-      <div class="feature-item">
-        <strong>⚡ Blazing Speed</strong>
-        <p>Since there is no upload or download time to a remote server, processing happens as fast as your computer can think.</p>
-      </div>
-      <div class="feature-item">
-        <strong>💸 No Limits</strong>
-        <p>Enjoy free access to all tools with no "Premium" tiers, no file size limits, and no registration required.</p>
-      </div>
+    <div class="share-container">
+        <p style="margin-bottom: 15px; font-weight: 500;">Found this tool useful?</p>
+        <button id="shareBtn" class="share-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share with a Friend
+        </button>
     </div>
-  </section>
 </main>
 
-<section class="personal-note" style="background: #f1f5f9; padding: 40px 20px; border-radius: 12px; margin-top: 40px; text-align: center;">
-    <div style="max-width: 700px; margin: 0 auto;">
-        <h2 style="margin-bottom: 15px;">Why I built Kimosabe Tools</h2>
-        <p style="line-height: 1.6; color: #475569;">
-            I noticed that most "free" PDF tools online actually take your files and upload them to their servers. 
-            I wanted to create a space where you can get your work done without ever worrying about your 
-            privacy or data security. 
-        </p>
-        <p style="line-height: 1.6; color: #475569; margin-top: 10px;">
-            <strong>Kimosabe Tools</strong> is a solo project built on a simple promise: 
-            Your files never leave your device. If these tools save you time, 
-            a small donation helps me keep the servers running and the tools ad-free.
-        </p>
-        <p style="margin-top: 20px; font-weight: bold; color: var(--primary);">— The Kimosabe Developer</p>
+<section class="personal-note">
+    <div style="max-width: 700px; margin: 0 auto; padding: 40px 20px; text-align: center;">
+        <h2 style="color: var(--primary);">Why Privacy Matters</h2>
+        <p>Most "free" tools online sell your data or store your files. Kimosabe Tools processes everything <strong>on your hardware</strong>. No cloud, no risk, no trackers.</p>
+        <p style="margin-top: 20px; font-weight: bold;">— The Kimosabe Developer</p>
     </div>
 </section>
 
-<footer class="footer">
-  <div class="footer-cta" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-bottom: 30px; border: 1px solid var(--border); text-align: center;">
-    <p><strong>Enjoying Kimosabe Tools?</strong></p>
-    <p style="margin-bottom: 15px; font-size: 0.9rem;">Help keep this project ad-free and private.</p>
-    <a href="donate.html" class="donate-btn" style="background: #f59e0b; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">☕ Support the Developer</a>
-  </div>
-  
-  <nav class="footer-links" style="margin-bottom: 20px; text-align: center;">
-    <a href="about.html" style="margin: 0 10px; text-decoration: none; color: inherit;">About</a>
-    <a href="contact.html" style="margin: 0 10px; text-decoration: none; color: inherit;">Contact</a>
-    <a href="privacy.html" style="margin: 0 10px; text-decoration: none; color: inherit;">Privacy</a>
-    <a href="terms.html" style="margin: 0 10px; text-decoration: none; color: inherit;">Terms</a>
-    <a href="donate.html" style="margin: 0 10px; color: #b45309; text-decoration: none; font-weight: bold;">Support Us</a>
-  </nav>
-  
-  <p class="copyright" style="text-align: center;">© 2026 Kimosabe Tools. Built for Privacy.</p>
-</footer>
+<script>
+    document.getElementById('shareBtn').addEventListener('click', async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: 'Kimosabe Tools',
+                    text: 'I found these 100% private PDF & Image tools. No uploads required!',
+                    url: window.location.href
+                });
+            } catch (err) {
+                console.log('Share failed');
+            }
+        } else {
+            alert("Copy this link to share: " + window.location.href);
+        }
+    });
+</script>
 
 </body>
 </html>
