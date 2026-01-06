@@ -4,431 +4,862 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <!-- Primary Meta Tags -->
   <title>Kimosabe Tools – 100% Private PDF & Image Tools Online</title>
   <meta name="description" content="Fast, free, and secure online tools to compress images, resize, merge, rotate, split, edit, and sign PDFs. No uploads required—everything stays in your browser.">
   <meta name="keywords" content="PDF tools, image compressor, privacy tools, online utilities, PDF editor, image converter">
   <meta name="author" content="Kimosabe Tools">
-  <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="theme-color" content="#2563eb">
   
-  <!-- Canonical & Preloads -->
-  <link rel="canonical" href="https://kimosabetools.com/">
-  <link rel="preload" href="assets/css/style.css" as="style">
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
-  
-  <!-- Icons -->
+  <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
   <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
-  <link rel="mask-icon" href="https://kimosabe-tools.pages.dev/safari-pinned-tab.svg" color="#2563eb">
   
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kimosabetools.com/">
-  <meta property="og:title" content="Kimosabe Tools – Privacy-First PDF & Image Suite">
-  <meta property="og:description" content="Edit, Merge, and Compress files 100% locally in your browser. No server uploads, no tracking.">
-  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="Kimosabe Tools">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@KimosabeTools">
-  <meta name="twitter:creator" content="@KimosabeTools">
-  <meta name="twitter:title" content="Kimosabe Tools | Private PDF & Image Suite">
-  <meta name="twitter:description" content="Secure, browser-based tools for your daily tasks. Your files never leave your device.">
-  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
-  
-  <!-- CSS with fallback -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css" media="all">
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "name": "Kimosabe Tools",
-        "url": "https://kimosabetools.com",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "Any",
-        "browserRequirements": "Requires JavaScript and modern browser",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "description": "A collection of privacy-focused tools for PDF editing, merging, rotating, splitting, image compression, and format conversion that run entirely in the browser.",
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.8",
-          "ratingCount": "1247"
-        }
-      },
-      {
-        "@type": "WebSite",
-        "name": "Kimosabe Tools",
-        "url": "https://kimosabetools.com",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://kimosabetools.com/search?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      },
-      {
-        "@type": "Organization",
-        "name": "Kimosabe Tools",
-        "url": "https://kimosabetools.com",
-        "logo": "https://kimosabe-tools.pages.dev/favicon-32x32.png",
-        "sameAs": [
-          "https://twitter.com/KimosabeTools",
-          "https://github.com/kimosabe-tools"
-        ]
-      }
-    ]
-  }
-  </script>
-
-  <!-- Google Analytics with enhanced privacy -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H50NB3F51Q', {
-      'anonymize_ip': true,
-      'allow_google_signals': false,
-      'allow_ad_personalization_signals': false
-    });
+  <!-- Styles -->
+  <style>
+    :root {
+      /* Modern Color Palette */
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #7209b7;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-600: #6c757d;
+      --gray-800: #343a40;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+      --shadow-hover: 0 15px 35px rgba(67, 97, 238, 0.15);
+      
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+    }
     
-    // Track tool usage
-    document.addEventListener('DOMContentLoaded', function() {
-      const toolLinks = document.querySelectorAll('.tool-card');
-      toolLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          const toolName = this.querySelector('h3').textContent;
-          gtag('event', 'tool_click', {
-            'event_category': 'engagement',
-            'event_label': toolName,
-            'transport_type': 'beacon'
-          });
-        });
-      });
-    });
-  </script>
-  
-  <!-- Performance monitoring -->
-  <script>
-    window.addEventListener('load', function() {
-      const timing = performance.timing;
-      const loadTime = timing.loadEventEnd - timing.navigationStart;
-      gtag('event', 'timing_complete', {
-        'name': 'page_load',
-        'value': loadTime,
-        'event_category': 'Performance'
-      });
-    });
-  </script>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    
+    /* Header */
+    .main-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: var(--space-xl) var(--space-md);
+      border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+      text-align: center;
+      margin-bottom: var(--space-xl);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .main-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    }
+    
+    .main-header h1 {
+      font-size: 3rem;
+      margin-bottom: var(--space-xs);
+      position: relative;
+    }
+    
+    .main-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    /* Navigation */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 1rem 0;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: var(--gray-800);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .support-btn {
+      background: linear-gradient(135deg, var(--accent) 0%, #ff6b9d 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .support-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+    
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin: var(--space-xl) 0;
+    }
+    
+    .stat-card {
+      background: white;
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Tools Grid */
+    .section-header {
+      text-align: center;
+      margin: var(--space-xl) 0 var(--space-lg);
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .section-header p {
+      color: var(--gray-600);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-md);
+      margin: var(--space-lg) 0;
+    }
+    
+    .tool-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      text-decoration: none;
+      color: inherit;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s ease;
+      border: 1px solid var(--gray-200);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .tool-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-sm);
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .tool-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: var(--space-xs);
+      color: var(--dark);
+    }
+    
+    .tool-card p {
+      color: var(--gray-600);
+      margin-bottom: var(--space-sm);
+      font-size: 0.95rem;
+    }
+    
+    .tool-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--gray-100);
+      color: var(--gray-600);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    /* Features */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      margin: var(--space-xl) 0;
+    }
+    
+    .feature-card {
+      background: white;
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-sm);
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--success), #2ec4b6);
+      color: white;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* About Section */
+    .about-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      margin: var(--space-xl) 0;
+      text-align: center;
+    }
+    
+    .about-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: var(--space-md);
+      color: var(--dark);
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      margin-top: var(--space-lg);
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    /* Footer */
+    .main-footer {
+      background: var(--dark);
+      color: white;
+      padding: var(--space-xl) 0;
+      margin-top: var(--space-xl);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      margin: var(--space-lg) 0;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--gray-300);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      margin: var(--space-lg) 0;
+    }
+    
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s;
+    }
+    
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      text-align: center;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      margin-top: var(--space-lg);
+    }
+    
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --light: #1a1a1a;
+        --dark: #ffffff;
+        --gray-100: #2d2d2d;
+        --gray-200: #404040;
+        --gray-600: #a0a0a0;
+        --gray-800: #e0e0e0;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        color: var(--gray-800);
+      }
+      
+      .tool-card,
+      .feature-card,
+      .stat-card {
+        background: var(--gray-100);
+        border-color: var(--gray-200);
+      }
+      
+      .about-section {
+        background: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Skip to content for accessibility -->
-  <a href="#main-content" class="skip-to-content" style="position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;">
-    Skip to main content
-  </a>
-
-  <!-- Sticky Navigation -->
-  <nav class="sticky-nav" style="position: sticky; top: 0; z-index: 1000; background: white; padding: 15px 0; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
-      <a href="/" style="text-decoration: none; font-weight: 700; font-size: 1.2rem; color: #1e293b;">
-        Kimosabe Tools
+  <!-- Navigation -->
+  <nav class="sticky-nav fade-in">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <span>🔒</span> Kimosabe Tools
       </a>
-      <div class="nav-links" style="display: flex; gap: 25px; align-items: center;">
-        <a href="#tools" style="text-decoration: none; color: #475569; font-weight: 500;">Tools</a>
-        <a href="#features" style="text-decoration: none; color: #475569; font-weight: 500;">Features</a>
-        <a href="#about" style="text-decoration: none; color: #475569; font-weight: 500;">About</a>
-        <a href="donate.html" style="background: #f59e0b; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">
-          ☕ Support
-        </a>
+      <div class="nav-links">
+        <a href="#tools">Tools</a>
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="donate.html" class="support-btn">☕ Support</a>
       </div>
     </div>
   </nav>
 
-  <header class="header" role="banner" aria-label="Site header">
-    <div class="header-content">
-      <h1>Kimosabe Tools</h1>
-      <p>Simple, fast & <strong>100% Private</strong> online utilities</p>
-      <div style="margin-top: 20px;">
-        <span class="trust-badge" style="display: inline-block; background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-size: 0.9rem; margin: 0 5px;">
-          🔒 No file uploads
-        </span>
-        <span class="trust-badge" style="display: inline-block; background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 20px; font-size: 0.9rem; margin: 0 5px;">
-          ⚡ 100% Browser-based
-        </span>
-        <span class="trust-badge" style="display: inline-block; background: #fef3c7; color: #92400e; padding: 6px 12px; border-radius: 20px; font-size: 0.9rem; margin: 0 5px;">
-          💸 Completely free
-        </span>
-      </div>
+  <!-- Header -->
+  <header class="main-header">
+    <h1>Kimosabe Tools</h1>
+    <p>100% Private PDF & Image Tools That Stay in Your Browser</p>
+    <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+      <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem;">
+        🔒 No Uploads
+      </span>
+      <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem;">
+        ⚡ Instant Processing
+      </span>
+      <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem;">
+        💸 Completely Free
+      </span>
     </div>
   </header>
 
-  <main id="main-content" class="container" role="main">
-    <!-- Quick Stats -->
-    <section class="stats-section" style="text-align: center; padding: 30px 0; margin-bottom: 40px; background: #f8fafc; border-radius: 12px;">
-      <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
-        <div class="stat">
-          <div style="font-size: 2rem; font-weight: 700; color: #2563eb;">10K+</div>
-          <div style="font-size: 0.9rem; color: #64748b;">Monthly Users</div>
-        </div>
-        <div class="stat">
-          <div style="font-size: 2rem; font-weight: 700; color: #2563eb;">50K+</div>
-          <div style="font-size: 0.9rem; color: #64748b;">Files Processed</div>
-        </div>
-        <div class="stat">
-          <div style="font-size: 2rem; font-weight: 700; color: #2563eb;">100%</div>
-          <div style="font-size: 0.9rem; color: #64748b;">Privacy Guarantee</div>
-        </div>
+  <main class="container">
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card fade-in">
+        <div class="stat-number">10K+</div>
+        <div>Monthly Users</div>
       </div>
-    </section>
+      <div class="stat-card fade-in" style="animation-delay: 0.1s">
+        <div class="stat-number">50K+</div>
+        <div>Files Processed</div>
+      </div>
+      <div class="stat-card fade-in" style="animation-delay: 0.2s">
+        <div class="stat-number">100%</div>
+        <div>Privacy Guarantee</div>
+      </div>
+    </div>
 
-    <section id="tools" class="tools-section">
-      <header class="section-header">
-        <h2>Image & PDF Tools</h2>
-        <p>Powerful utilities that process files locally on your device.</p>
-      </header>
+    <!-- Tools Section -->
+    <section id="tools">
+      <div class="section-header">
+        <h2>Powerful Privacy-First Tools</h2>
+        <p>All processing happens locally in your browser—your files never leave your device</p>
+      </div>
 
       <div class="tools-grid">
-        <a class="tool-card" href="tools/image-compressor.html" aria-label="Go to Image Compressor tool">
-          <div class="card-icon" role="img" aria-hidden="true">📁</div>
-          <article>
-            <h3>Image Compressor</h3>
-            <p>Shrink JPG, PNG, and WebP files without losing quality.</p>
-            <span class="tool-tag" style="display: inline-block; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px;">Image</span>
-          </article>
+        <!-- Image Tools -->
+        <a href="tools/image-compressor.html" class="tool-card fade-in" aria-label="Image Compressor">
+          <div class="card-icon">📁</div>
+          <h3>Image Compressor</h3>
+          <p>Reduce image size without quality loss</p>
+          <span class="tool-tag">Image Tool</span>
         </a>
 
-        <a class="tool-card" href="tools/image-resize.html" aria-label="Go to Image Resize tool">
-          <div class="card-icon" role="img" aria-hidden="true">📐</div>
-          <article>
-            <h3>Resize Image</h3>
-            <p>Exact pixel control for social media or web dimensions.</p>
-            <span class="tool-tag" style="display: inline-block; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px;">Image</span>
-          </article>
+        <a href="tools/image-resize.html" class="tool-card fade-in" style="animation-delay: 0.1s" aria-label="Image Resizer">
+          <div class="card-icon">📐</div>
+          <h3>Resize Image</h3>
+          <p>Adjust dimensions for any platform</p>
+          <span class="tool-tag">Image Tool</span>
         </a>
 
-        <a class="tool-card" href="tools/image-converter.html" aria-label="Go to Image Converter tool">
-          <div class="card-icon" role="img" aria-hidden="true">🔄</div>
-          <article>
-            <h3>Image Converter</h3>
-            <p>Convert between JPG, PNG, and WebP formats instantly.</p>
-            <span class="tool-tag" style="display: inline-block; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px;">Image</span>
-          </article>
+        <a href="tools/image-converter.html" class="tool-card fade-in" style="animation-delay: 0.2s" aria-label="Image Converter">
+          <div class="card-icon">🔄</div>
+          <h3>Image Converter</h3>
+          <p>Convert between formats instantly</p>
+          <span class="tool-tag">Image Tool</span>
         </a>
 
-        <a class="tool-card" href="tools/edit-pdf.html" aria-label="Go to Edit PDF tool">
-          <div class="card-icon" role="img" aria-hidden="true">📝</div>
-          <article>
-            <h3>Edit PDF</h3>
-            <p>Add text annotations or whiteout sections securely.</p>
-            <span class="tool-tag" style="display: inline-block; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px;">PDF</span>
-          </article>
+        <!-- PDF Tools -->
+        <a href="tools/edit-pdf.html" class="tool-card fade-in" style="animation-delay: 0.3s" aria-label="PDF Editor">
+          <div class="card-icon">📝</div>
+          <h3>Edit PDF</h3>
+          <p>Add text, annotations, and whiteout</p>
+          <span class="tool-tag">PDF Tool</span>
         </a>
 
-        <a class="tool-card" href="tools/merge-pdf.html" aria-label="Go to Merge PDF tool">
-          <div class="card-icon" role="img" aria-hidden="true">🔗</div>
-          <article>
-            <h3>Merge PDF</h3>
-            <p>Combine multiple PDF documents into one instantly.</p>
-            <span class="tool-tag" style="display: inline-block; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px;">PDF</span>
-          </article>
+        <a href="tools/merge-pdf.html" class="tool-card fade-in" style="animation-delay: 0.4s" aria-label="PDF Merger">
+          <div class="card-icon">🔗</div>
+          <h3>Merge PDF</h3>
+          <p>Combine multiple documents</p>
+          <span class="tool-tag">PDF Tool</span>
         </a>
 
-        <a class="tool-card" href="tools/rotate-split-pdf.html" aria-label="Go to Rotate & Split PDF tool">
-          <div class="card-icon" role="img" aria-hidden="true">✂️</div>
-          <article>
-            <h3>Rotate & Split PDF</h3>
-            <p>Fix page orientation or extract specific pages securely.</p>
-            <span class="tool-tag" style="display: inline-block; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px;">PDF</span>
-          </article>
+        <a href="tools/rotate-split-pdf.html" class="tool-card fade-in" style="animation-delay: 0.5s" aria-label="PDF Rotate & Split">
+          <div class="card-icon">✂️</div>
+          <h3>Rotate & Split PDF</h3>
+          <p>Fix orientation or extract pages</p>
+          <span class="tool-tag">PDF Tool</span>
         </a>
 
-        <a class="tool-card" href="tools/image-to-pdf.html" aria-label="Go to Image to PDF tool">
-          <div class="card-icon" role="img" aria-hidden="true">📄</div>
-          <article>
-            <h3>Image to PDF</h3>
-            <p>Convert multiple photos into a single, clean PDF.</p>
-            <span class="tool-tag" style="display: inline-block; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px;">Converter</span>
-          </article>
+        <a href="tools/image-to-pdf.html" class="tool-card fade-in" style="animation-delay: 0.6s" aria-label="Image to PDF Converter">
+          <div class="card-icon">📄</div>
+          <h3>Image to PDF</h3>
+          <p>Convert photos to documents</p>
+          <span class="tool-tag">Converter</span>
         </a>
 
-        <a class="tool-card" href="tools/compress-pdf.html" aria-label="Go to Compress PDF tool">
-          <div class="card-icon" role="img" aria-hidden="true">📉</div>
-          <article>
-            <h3>Compress PDF</h3>
-            <p>Reduce document size for email and faster sharing.</p>
-            <span class="tool-tag" style="display: inline-block; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px;">PDF</span>
-          </article>
+        <a href="tools/compress-pdf.html" class="tool-card fade-in" style="animation-delay: 0.7s" aria-label="PDF Compressor">
+          <div class="card-icon">📉</div>
+          <h3>Compress PDF</h3>
+          <p>Reduce document size</p>
+          <span class="tool-tag">PDF Tool</span>
         </a>
 
-        <a class="tool-card" href="tools/sign-pdf.html" aria-label="Go to Sign PDF tool">
-          <div class="card-icon" role="img" aria-hidden="true">✍️</div>
-          <article>
-            <h3>Sign PDF</h3>
-            <p>Add your digital signature to any document privately.</p>
-            <span class="tool-tag" style="display: inline-block; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px;">PDF</span>
-          </article>
+        <a href="tools/sign-pdf.html" class="tool-card fade-in" style="animation-delay: 0.8s" aria-label="PDF Signer">
+          <div class="card-icon">✍️</div>
+          <h3>Sign PDF</h3>
+          <p>Add digital signatures securely</p>
+          <span class="tool-tag">PDF Tool</span>
         </a>
       </div>
     </section>
 
-    <hr class="divider" aria-hidden="true">
+    <!-- Features -->
+    <section id="features">
+      <div class="section-header">
+        <h2>Why Choose Kimosabe Tools?</h2>
+        <p>We're different from traditional online tools</p>
+      </div>
 
-    <section id="features" class="tool-description">
-      <h2 style="text-align: center;">Processing on your device, not our servers</h2>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon">🔒</div>
+          <h3>Complete Privacy</h3>
+          <p>Your files never leave your device. No uploads to our servers means maximum security for sensitive documents.</p>
+        </div>
+
+        <div class="feature-card fade-in" style="animation-delay: 0.1s">
+          <div class="feature-icon">⚡</div>
+          <h3>Blazing Fast</h3>
+          <p>Process files at local device speed. No waiting for uploads or downloads to remote servers.</p>
+        </div>
+
+        <div class="feature-card fade-in" style="animation-delay: 0.2s">
+          <div class="feature-icon">🎯</div>
+          <h3>No Limits</h3>
+          <p>No file size limits, no watermarks, no registration required. All tools are completely free to use.</p>
+        </div>
+
+        <div class="feature-card fade-in" style="animation-delay: 0.3s">
+          <div class="feature-icon">🌐</div>
+          <h3>Works Everywhere</h3>
+          <p>Use on any device with a modern browser. No installation required—just open and start using.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section fade-in">
+      <h2>Built for Privacy, Driven by Purpose</h2>
+      <p style="max-width: 700px; margin: 0 auto 1.5rem; color: var(--gray-600);">
+        After seeing how most "free" online tools secretly upload your files to their servers, 
+        I created Kimosabe Tools with one simple promise: your files stay on your device.
+      </p>
+      <p style="max-width: 700px; margin: 0 auto; color: var(--gray-600);">
+        This is a passion project maintained by a solo developer. If these tools save you time 
+        and protect your privacy, consider supporting the project to keep it ad-free and running.
+      </p>
       
-      <div class="feature-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 30px;">
-        <div class="feature-item" style="background: white; padding: 25px; border-radius: 10px; border: 1px solid #e2e8f0;">
-          <strong style="display: block; margin-bottom: 10px; font-size: 1.1rem;">🔒 Privacy First</strong>
-          <p style="color: #475569; line-height: 1.6;">Traditional tools upload your data to their servers. We don't. Your files never leave your computer, making it safe for sensitive documents.</p>
-        </div>
-        <div class="feature-item" style="background: white; padding: 25px; border-radius: 10px; border: 1px solid #e2e8f0;">
-          <strong style="display: block; margin-bottom: 10px; font-size: 1.1rem;">⚡ Blazing Speed</strong>
-          <p style="color: #475569; line-height: 1.6;">Since there is no upload or download time to a remote server, processing happens as fast as your computer can think.</p>
-        </div>
-        <div class="feature-item" style="background: white; padding: 25px; border-radius: 10px; border: 1px solid #e2e8f0;">
-          <strong style="display: block; margin-bottom: 10px; font-size: 1.1rem;">💸 No Limits</strong>
-          <p style="color: #475569; line-height: 1.6;">Enjoy free access to all tools with no "Premium" tiers, no file size limits, and no registration required.</p>
-        </div>
+      <div class="cta-buttons">
+        <a href="privacy.html" class="btn btn-primary">
+          📖 Read Our Privacy Promise
+        </a>
+        <a href="donate.html" class="btn btn-secondary">
+          ☕ Support the Project
+        </a>
       </div>
-    </section>
-
-    <section id="about" class="personal-note" style="background: #f1f5f9; padding: 40px 20px; border-radius: 12px; margin-top: 40px; text-align: center;">
-      <div style="max-width: 700px; margin: 0 auto;">
-        <h2 style="margin-bottom: 15px;">Why I built Kimosabe Tools</h2>
-        <p style="line-height: 1.6; color: #475569;">
-          I noticed that most "free" PDF tools online actually take your files and upload them to their servers. 
-          I wanted to create a space where you can get your work done without ever worrying about your 
-          privacy or data security. 
-        </p>
-        <p style="line-height: 1.6; color: #475569; margin-top: 10px;">
-          <strong>Kimosabe Tools</strong> is a solo project built on a simple promise: 
-          Your files never leave your device. If these tools save you time, 
-          a small donation helps me keep the servers running and the tools ad-free.
-        </p>
-        <div style="margin-top: 25px;">
-          <a href="privacy.html" style="display: inline-block; background: #3b82f6; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; margin: 5px;">
-            📖 Read Our Privacy Promise
-          </a>
-          <a href="about.html" style="display: inline-block; background: white; color: #475569; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; border: 1px solid #cbd5e1; margin: 5px;">
-            ℹ️ Learn More About Us
-          </a>
-        </div>
-        <p style="margin-top: 25px; font-weight: bold; color: #2563eb;">— The Kimosabe Developer</p>
-      </div>
+      
+      <p style="margin-top: 2rem; font-weight: 600; color: var(--primary);">
+        — The Kimosabe Developer
+      </p>
     </section>
   </main>
 
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Ready to get started?</h3>
+        <p style="color: var(--gray-300); max-width: 500px; margin: 0 auto 1.5rem;">
+          Join thousands of users who trust their privacy to Kimosabe Tools
+        </p>
+        <a href="#tools" class="support-btn" style="display: inline-block;">
+          🚀 Start Using Tools
+        </a>
+      </div>
+
+      <nav class="footer-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="sitemap.xml">Sitemap</a>
+        <a href="donate.html" style="color: #ffd166;">Support Us</a>
+      </nav>
+
+      <div class="social-links">
+        <a href="https://twitter.com/KimosabeTools" aria-label="Twitter">
+          🐦
+        </a>
+        <a href="https://github.com/kimosabe-tools" aria-label="GitHub">
+          💻
+        </a>
+        <a href="mailto:hello@kimosabetools.com" aria-label="Email">
+          ✉️
+        </a>
+      </div>
+
+      <p class="copyright">
+        © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
+        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+      </p>
+    </div>
+  </footer>
+
   <!-- Back to Top Button -->
-  <button id="back-to-top" style="position: fixed; bottom: 30px; right: 30px; background: #3b82f6; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: none; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); z-index: 1000;" 
-          aria-label="Scroll back to top">
+  <button class="back-to-top" aria-label="Back to top">
     ↑
   </button>
 
-  <footer class="footer" role="contentinfo">
-    <div class="footer-cta" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #e2e8f0; text-align: center;">
-      <p><strong>Enjoying Kimosabe Tools?</strong></p>
-      <p style="margin-bottom: 15px; font-size: 0.9rem;">Help keep this project ad-free and private.</p>
-      <a href="donate.html" class="donate-btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; transition: transform 0.2s;">
-        ☕ Buy me a coffee to keep tools free
-      </a>
-    </div>
-    
-    <nav class="footer-links" style="margin-bottom: 20px; text-align: center;" aria-label="Footer navigation">
-      <a href="about.html" style="margin: 0 10px; text-decoration: none; color: #475569;">About</a>
-      <a href="contact.html" style="margin: 0 10px; text-decoration: none; color: #475569;">Contact</a>
-      <a href="privacy.html" style="margin: 0 10px; text-decoration: none; color: #475569;">Privacy</a>
-      <a href="terms.html" style="margin: 0 10px; text-decoration: none; color: #475569;">Terms</a>
-      <a href="sitemap.xml" style="margin: 0 10px; text-decoration: none; color: #475569;">Sitemap</a>
-      <a href="donate.html" style="margin: 0 10px; color: #b45309; text-decoration: none; font-weight: bold;">Support Us</a>
-    </nav>
-    
-    <div class="social-links" style="margin: 20px 0; text-align: center;">
-      <a href="https://twitter.com/KimosabeTools" aria-label="Follow us on Twitter" style="margin: 0 8px; text-decoration: none; color: #475569;">🐦 Twitter</a>
-      <a href="https://github.com/kimosabe-tools" aria-label="View source on GitHub" style="margin: 0 8px; text-decoration: none; color: #475569;">💻 GitHub</a>
-      <a href="https://status.kimosabetools.com" aria-label="Check service status" style="margin: 0 8px; text-decoration: none; color: #475569;">📊 Status</a>
-    </div>
-    
-    <p class="copyright" style="text-align: center; color: #64748b; font-size: 0.9rem;">
-      © 2026 Kimosabe Tools. Built for Privacy. No cookies used. 
-      <br>
-      <span style="font-size: 0.8rem;">All processing happens locally in your browser.</span>
-    </p>
-  </footer>
-
-  <!-- NoScript Fallback -->
-  <noscript>
-    <div style="position: fixed; top: 0; left: 0; right: 0; background: #fef2f2; color: #991b1b; padding: 15px; text-align: center; z-index: 9999;">
-      <strong>⚠️ JavaScript Required:</strong> Kimosabe Tools requires JavaScript to function. Please enable JavaScript for the best experience.
-    </div>
-  </noscript>
-
-  <!-- JavaScript for enhancements -->
   <script>
-    // Back to top button
-    const backToTopButton = document.getElementById('back-to-top');
+    // Back to Top Button
+    const backToTop = document.querySelector('.back-to-top');
     
     window.addEventListener('scroll', () => {
       if (window.pageYOffset > 300) {
-        backToTopButton.style.display = 'block';
+        backToTop.style.display = 'flex';
       } else {
-        backToTopButton.style.display = 'none';
+        backToTop.style.display = 'none';
       }
     });
     
-    backToTopButton.addEventListener('click', () => {
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Tool card hover effects
-    document.addEventListener('DOMContentLoaded', () => {
-      const toolCards = document.querySelectorAll('.tool-card');
-      toolCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-          card.style.transform = 'translateY(-5px)';
-          card.style.transition = 'all 0.3s ease';
-          card.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'translateY(0)';
-          card.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.05)';
-        });
+    // Animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
       });
-      
-      // Set default styles for tool cards
-      toolCards.forEach(card => {
-        card.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.05)';
-        card.style.transition = 'all 0.3s ease';
+    }, observerOptions);
+    
+    // Observe all elements with fade-in class
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
       });
     });
     
-    // Service worker registration for PWA (optional)
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(error => {
-          console.log('ServiceWorker registration failed:', error);
-        });
-      });
+    // Dark mode detection
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
     }
     
-    // Save user preference for reduced motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (prefersReducedMotion.matches) {
-      document.documentElement.style.setProperty('--animation-speed', '0s');
+    // Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(console.error);
+      });
     }
   </script>
 </body>
