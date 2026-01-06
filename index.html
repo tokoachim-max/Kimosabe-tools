@@ -15,6 +15,19 @@
   <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
   <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
   
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q', {
+      'anonymize_ip': true,
+      'allow_google_signals': false,
+      'allow_ad_personalization_signals': false
+    });
+  </script>
+  
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -680,6 +693,7 @@
     <div class="nav-container">
       <a href="/" class="nav-logo">
         <div class="nav-logo-img">
+          <!-- Using favicon-16x16.png for navigation (small) -->
           <img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40">
         </div>
         <span>Kimosabe Tools</span>
@@ -687,7 +701,7 @@
       <div class="nav-links">
         <a href="#tools">Tools</a>
         <a href="#features">Features</a>
-        <a href="#about">About</a>
+        <a href="about.html">About</a>
         <a href="donate.html" class="support-btn">☕ Support</a>
       </div>
     </div>
@@ -697,7 +711,8 @@
   <header class="main-header">
     <div class="header-logo">
       <div class="logo-image">
-        <img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="120" height="120">
+        <!-- Using favicon-32x32.png for header (large display) -->
+        <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="120" height="120">
       </div>
     </div>
     <h1>
@@ -875,7 +890,8 @@
     <div class="footer-content">
       <div class="footer-logo">
         <div class="footer-logo-img">
-          <img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="60" height="60">
+          <!-- Using favicon-32x32.png for footer (medium display) -->
+          <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60">
         </div>
         <div class="footer-logo-text">Kimosabe Tools</div>
       </div>
@@ -972,6 +988,54 @@
         navigator.serviceWorker.register('/sw.js').catch(console.error);
       });
     }
+    
+    // Google Analytics event tracking
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track tool clicks
+      const toolLinks = document.querySelectorAll('.tool-card');
+      toolLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const toolName = this.querySelector('h3').textContent;
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'tool_click', {
+              'event_category': 'engagement',
+              'event_label': toolName,
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      });
+      
+      // Track CTA button clicks
+      const ctaButtons = document.querySelectorAll('.btn, .support-btn');
+      ctaButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          const buttonText = this.textContent || this.innerText;
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'cta_click', {
+              'event_category': 'engagement',
+              'event_label': buttonText,
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      });
+      
+      // Track navigation clicks
+      const navLinks = document.querySelectorAll('.nav-links a, .footer-links a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const linkText = this.textContent;
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'nav_click', {
+              'event_category': 'navigation',
+              'event_label': linkText,
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>
