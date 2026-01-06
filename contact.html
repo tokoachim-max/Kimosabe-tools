@@ -5,145 +5,750 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Contact Us | Kimosabe Tools – Privacy-First Help & Feedback</title>
+  
+  <!-- Favicon & Logo -->
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
-    <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
+  <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
 
-  <meta property="og:title" content="Kimosabe Tools | Private PDF & Image Suite">
-<meta property="og:description" content="Edit, Merge, and Compress files 100% locally in your browser. No server uploads, no tracking.">
-<meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
-<meta property="og:url" content="https://kimosabe-tools.pages.dev/">
-<meta property="og:type" content="website">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Contact Us | Kimosabe Tools – Privacy-First Help & Feedback">
+  <meta property="og:description" content="Get in touch with the creator of Kimosabe Tools. Have questions, suggestions, or found a bug? We're here to help.">
+  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:url" content="https://kimosabe-tools.pages.dev/contact.html">
+  <meta property="og:type" content="website">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kimosabe Tools | Private PDF & Image Suite">
-<meta name="twitter:description" content="Secure, browser-based tools for your daily tasks.">
-<meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact Us | Kimosabe Tools">
+  <meta name="twitter:description" content="Reach out for support, feature requests, or bug reports for our privacy-first tools.">
+  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  
+  <!-- Meta -->
   <meta name="description" content="Have a question or suggestion for Kimosabe Tools? Get in touch with us for bug reports, feature requests, or support. We value your privacy and feedback.">
+  <meta name="keywords" content="contact Kimosabe Tools, support, feedback, bug report, feature request, privacy tools">
+  <meta name="author" content="Kimosabe Tools">
   <meta name="robots" content="index, follow">
 
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kimosabetools.com/contact.html">
-  <meta property="og:title" content="Contact Us | Kimosabe Tools">
-  <meta property="og:description" content="Get in touch with the creator of Kimosabe Tools. We're here to help with your PDF and image utility needs.">
-  <meta property="og:image" content="assets/img/og-image.jpg">
-
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-H50NB3F51Q');
+    gtag('config', 'G-H50NB3F51Q', {
+      'anonymize_ip': true,
+      'allow_google_signals': false,
+      'allow_ad_personalization_signals': false
+    });
   </script>
 
-  <link rel="stylesheet" href="assets/css/style.css">
-  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <style>
-    .contact-container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    :root {
+      /* Modern Color Palette - Consistent with index.html */
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #7209b7;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-600: #6c757d;
+      --gray-800: #343a40;
+      --border: #e2e8f0;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+      --shadow-hover: 0 15px 35px rgba(67, 97, 238, 0.15);
+      
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    
+    /* Navigation Styling */
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 1rem 0;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .nav-logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 8px;
+    }
+    
+    .nav-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: var(--gray-800);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .support-btn {
+      background: linear-gradient(135deg, var(--accent) 0%, #ff6b9d 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .support-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    /* Header */
+    .main-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 4rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .main-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .logo-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      padding: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .logo-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+    
+    .main-header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .main-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .breadcrumb {
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+    
+    .breadcrumb a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+    }
+    
+    .breadcrumb span {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* Main Content */
+    .contact-container {
+      max-width: 600px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+    
     .contact-card {
       background: white;
-      padding: 30px;
-      border-radius: 16px;
+      padding: 2.5rem;
+      border-radius: var(--radius-xl);
       border: 1px solid var(--border);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .form-group { margin-bottom: 20px; text-align: left; }
-    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #334155; }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      font-size: 1rem;
+    }
     
     .form-control {
       width: 100%;
-      padding: 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-family: inherit;
+      padding: 0.875rem 1rem;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius-md);
+      font-family: 'Inter', sans-serif;
       font-size: 1rem;
-      transition: border-color 0.2s;
+      transition: all 0.2s;
+      background: white;
+      color: var(--gray-800);
     }
+    
     .form-control:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    }
+    
+    .form-control::placeholder {
+      color: var(--gray-600);
+      opacity: 0.7;
+    }
+    
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234361ee' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 16px;
+      padding-right: 2.5rem;
+    }
+    
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
     }
     
     .submit-btn {
       width: 100%;
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
-      padding: 14px;
+      padding: 1rem;
       border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 1rem;
+      border-radius: var(--radius-lg);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
       cursor: pointer;
-      transition: opacity 0.2s;
+      transition: all 0.3s;
+      box-shadow: var(--shadow-md);
     }
-    .submit-btn:hover { opacity: 0.9; }
-
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+    
     .contact-info {
-      margin-top: 30px;
+      margin-top: 2.5rem;
       text-align: center;
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      padding: 1.5rem;
+      background: var(--gray-100);
+      border-radius: var(--radius-lg);
+    }
+    
+    .contact-info p {
+      margin-bottom: 1rem;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: gap 0.2s;
+    }
+    
+    .back-link:hover {
+      gap: 0.75rem;
+    }
+    
+    /* Footer */
+    .main-footer {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 0;
+      margin-top: 4rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-logo-img {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .footer-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .footer-logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--gray-300);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .copyright {
+      text-align: center;
+      color: var(--gray-600);
       font-size: 0.9rem;
-      color: #64748b;
+      margin-top: 2rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .logo-image {
+        width: 100px;
+        height: 100px;
+        padding: 20px;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .contact-container {
+        margin: 2rem auto;
+      }
+      
+      .contact-card {
+        padding: 1.5rem;
+      }
+      
+      .footer-logo {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+      
+      .footer-logo-img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --light: #1a1a1a;
+        --dark: #ffffff;
+        --gray-100: #2d2d2d;
+        --gray-200: #404040;
+        --gray-300: #4a4a4a;
+        --gray-600: #a0a0a0;
+        --gray-800: #e0e0e0;
+        --border: #404040;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        color: var(--gray-800);
+      }
+      
+      .contact-card {
+        background: var(--gray-100);
+        border-color: var(--border);
+      }
+      
+      .form-control {
+        background: var(--gray-200);
+        border-color: var(--gray-300);
+        color: var(--gray-800);
+      }
+      
+      .contact-info {
+        background: var(--gray-200);
+      }
+      
+      .main-nav {
+        background: rgba(26, 26, 26, 0.95);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      
+      .nav-links a {
+        color: var(--gray-300);
+      }
+      
+      .nav-logo-img {
+        background: var(--primary);
+      }
+      
+      .footer-logo-img {
+        background: var(--gray-200);
+      }
+    }
+    
+    /* Form Spam Protection */
+    input[name="_gotcha"] {
+      display: none !important;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .logo-image {
+      animation: float 6s ease-in-out infinite;
     }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
+  <nav class="main-nav fade-in">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-img">
+          <!-- Using favicon-16x16.png for navigation -->
+          <img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40">
+        </div>
+        <span>Kimosabe Tools</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#tools">Tools</a>
+        <a href="index.html#features">Features</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" style="color: var(--primary);">Contact</a>
+        <a href="donate.html" class="support-btn">☕ Support</a>
+      </div>
+    </div>
+  </nav>
 
-<header class="header">
-  <div class="header-content">
-    <nav class="breadcrumb"><a href="index.html">🏠 Home</a> / <span>Contact</span></nav>
-    <h1>Get in Touch</h1>
-    <p>Have a suggestion or found a bug? I'd love to hear from you.</p>
-  </div>
-</header>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-content">
+      <div class="header-logo">
+        <div class="logo-image">
+          <!-- Using favicon-32x32.png for header -->
+          <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="120" height="120">
+        </div>
+      </div>
+      <nav class="breadcrumb"><a href="index.html">🏠 Home</a> / <span>Contact</span></nav>
+      <h1>Get in Touch</h1>
+      <p>Have a suggestion or found a bug? I'd love to hear from you.</p>
+    </div>
+  </header>
 
-<main class="contact-container">
-  <div class="contact-card">
-    <form action="https://formspree.io/f/xjgvejza" method="POST">
+  <main class="contact-container">
+    <div class="contact-card fade-in">
+      <form action="https://formspree.io/f/xjgvejza" method="POST">
+        
+        <div class="form-group">
+          <label for="full-name">Name</label>
+          <input type="text" name="name" id="full-name" class="form-control" placeholder="Your Name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email-address">Email Address</label>
+          <input type="email" name="email" id="email-address" class="form-control" placeholder="email@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">How can I help?</label>
+          <select name="subject" id="subject" class="form-control">
+            <option value="Feature Request">Feature Request</option>
+            <option value="Bug Report">Bug Report</option>
+            <option value="Support/Donation">Support / Donation Issue</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea rows="5" name="message" id="message" class="form-control" placeholder="Tell me more..." required></textarea>
+        </div>
+
+        <input type="text" name="_gotcha" style="display:none">
+
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+
+    <div class="contact-info fade-in">
+      <p><strong>⚡ Quick Response:</strong> I usually respond within 24–48 hours.</p>
+      <p><strong>🔒 Privacy Note:</strong> Your message is sent securely and won't be shared with third parties.</p>
+      <p style="margin-top: 1.5rem;">
+        <a href="index.html" class="back-link">
+          ← Back to Home
+        </a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-img">
+          <!-- Using favicon-32x32.png for footer -->
+          <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60">
+        </div>
+        <div class="footer-logo-text">Kimosabe Tools</div>
+      </div>
+
+      <nav class="footer-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="donate.html" style="color: #ffd166;">Support Us</a>
+      </nav>
+
+      <p class="copyright">
+        © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
+        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Google Analytics event tracking for contact page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track form submission
+      const contactForm = document.querySelector('form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          const formData = new FormData(this);
+          const subject = formData.get('subject') || 'Unknown';
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'contact_form_submit', {
+              'event_category': 'engagement',
+              'event_label': subject,
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      }
       
-      <div class="form-group">
-        <label for="full-name">Name</label>
-        <input type="text" name="name" id="full-name" class="form-control" placeholder="Your Name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="email-address">Email Address</label>
-        <input type="email" name="email" id="email-address" class="form-control" placeholder="email@example.com" required>
-      </div>
-
-      <div class="form-group">
-        <label for="subject">How can I help?</label>
-        <select name="subject" id="subject" class="form-control">
-          <option value="Feature Request">Feature Request</option>
-          <option value="Bug Report">Bug Report</option>
-          <option value="Support/Donation">Support / Donation Issue</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea rows="5" name="message" id="message" class="form-control" placeholder="Tell me more..." required></textarea>
-      </div>
-
-      <input type="text" name="_gotcha" style="display:none">
-
-      <button type="submit" class="submit-btn">Send Message</button>
-    </form>
-  </div>
-
-  <div class="contact-info">
-    <p>I usually respond within 24–48 hours.</p>
-    <p style="margin-top: 20px;">
-        <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: bold;">← Back to Home</a>
-    </p>
-  </div>
-</main>
-
-<footer class="footer">
-  <p>© 2026 Kimosabe Tools. Built for Privacy.</p>
-</footer>
-
+      // Track navigation clicks
+      const navLinks = document.querySelectorAll('.nav-links a, .footer-links a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const linkText = this.textContent;
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'nav_click', {
+              'event_category': 'navigation',
+              'event_label': linkText,
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      });
+      
+      // Track CTA button clicks
+      const ctaButtons = document.querySelectorAll('.support-btn, .back-link');
+      ctaButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          const buttonText = this.textContent || this.innerText;
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'cta_click', {
+              'event_category': 'engagement',
+              'event_label': buttonText,
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
