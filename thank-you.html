@@ -3,102 +3,825 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thank You! – Kimosabe Tools</title>
+  <title>Thank You! – Kimosabe Tools | Support Appreciation</title>
+  
+  <!-- Favicon & Logo -->
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
-    <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
+  <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
 
-  <meta property="og:title" content="Kimosabe Tools | Private PDF & Image Suite">
-<meta property="og:description" content="Edit, Merge, and Compress files 100% locally in your browser. No server uploads, no tracking.">
-<meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
-<meta property="og:url" content="https://kimosabe-tools.pages.dev/">
-<meta property="og:type" content="website">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Thank You! – Kimosabe Tools | Support Appreciation">
+  <meta property="og:description" content="Thank you for supporting Kimosabe Tools! Your contribution helps keep our privacy-focused tools free and ad-free for everyone.">
+  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:url" content="https://kimosabe-tools.pages.dev/thank-you.html">
+  <meta property="og:type" content="website">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kimosabe Tools | Private PDF & Image Suite">
-<meta name="twitter:description" content="Secure, browser-based tools for your daily tasks.">
-<meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
-  <meta name="robots" content="noindex"> <link rel="stylesheet" href="assets/css/style.css"/>
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Thank You! – Kimosabe Tools">
+  <meta name="twitter:description" content="A heartfelt thank you for supporting our privacy-first tools.">
+  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  
+  <!-- Meta -->
+  <meta name="description" content="Thank you for supporting Kimosabe Tools! Your contribution helps keep our privacy-focused PDF and image tools free, fast, and 100% private for everyone.">
+  <meta name="keywords" content="thank you, support, donation, appreciation, privacy tools">
+  <meta name="author" content="Kimosabe Tools">
+  <meta name="robots" content="noindex">
 
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q', {
+      'anonymize_ip': true,
+      'allow_google_signals': false,
+      'allow_ad_personalization_signals': false
+    });
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+  <!-- Styles -->
   <style>
-    .thank-you-wrapper {
-      text-align: center;
-      padding: 60px 20px;
-      max-width: 600px;
+    :root {
+      /* Modern Color Palette - Consistent with index.html */
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #7209b7;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-600: #6c757d;
+      --gray-800: #343a40;
+      --border: #e2e8f0;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+      --shadow-hover: 0 15px 35px rgba(67, 97, 238, 0.15);
+      
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    
+    /* Navigation Styling */
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 1rem 0;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .heart-icon {
-      font-size: 5rem;
-      color: #e11d48;
-      margin-bottom: 20px;
-      display: block;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-    .confetti-text {
-      color: var(--primary);
-      font-weight: bold;
+    
+    .nav-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
       font-size: 1.5rem;
-      margin-bottom: 10px;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
-    .back-home-btn {
-      display: inline-block;
-      margin-top: 30px;
+    
+    .nav-logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 8px;
+    }
+    
+    .nav-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: var(--gray-800);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .support-btn {
+      background: linear-gradient(135deg, var(--accent) 0%, #ff6b9d 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .support-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    /* Thank You Header */
+    .thank-you-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 4rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .thank-you-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .logo-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      padding: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .logo-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+    
+    /* Main Content */
+    .thank-you-container {
+      max-width: 600px;
+      margin: -2rem auto 3rem;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .thank-you-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .thank-you-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #e11d48, #f59e0b, #2563eb, #22c55e);
+    }
+    
+    /* Heart Icon */
+    .heart-icon {
+      font-size: 4.5rem;
+      color: #e11d48;
+      margin-bottom: 1.5rem;
+      display: block;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    
+    /* Celebration Text */
+    .celebration-text {
+      color: #e11d48;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #e11d48, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .thank-you-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    
+    .thank-you-message {
+      line-height: 1.7;
+      color: var(--gray-600);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    
+    /* Impact Cards */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.25rem;
+      margin: 2.5rem 0;
+    }
+    
+    .impact-card {
+      background: var(--gray-100);
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      transition: transform 0.3s;
+    }
+    
+    .impact-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .impact-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .impact-card h4 {
+      color: var(--dark);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .impact-card p {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .back-btn:hover {
+      gap: 0.75rem;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .tools-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      color: var(--primary);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid var(--primary);
+      transition: all 0.3s;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .tools-btn:hover {
       background: var(--primary);
       color: white;
-      padding: 15px 30px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: opacity 0.2s;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
     }
-    .back-home-btn:hover {
-      opacity: 0.9;
+    
+    /* Footer */
+    .main-footer {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 0;
+      margin-top: 4rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-logo-img {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .footer-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .footer-logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--gray-300);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .copyright {
+      text-align: center;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .thank-you-header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .logo-image {
+        width: 100px;
+        height: 100px;
+        padding: 20px;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .thank-you-container {
+        margin: -1rem auto 2rem;
+      }
+      
+      .thank-you-card {
+        padding: 1.5rem;
+      }
+      
+      .thank-you-title {
+        font-size: 2rem;
+      }
+      
+      .celebration-text {
+        font-size: 1.5rem;
+      }
+      
+      .impact-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .footer-logo {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+      
+      .footer-logo-img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --light: #1a1a1a;
+        --dark: #ffffff;
+        --gray-100: #2d2d2d;
+        --gray-200: #404040;
+        --gray-300: #4a4a4a;
+        --gray-600: #a0a0a0;
+        --gray-800: #e0e0e0;
+        --border: #404040;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        color: var(--gray-800);
+      }
+      
+      .thank-you-card {
+        background: var(--gray-100);
+        border-color: var(--border);
+      }
+      
+      .impact-card {
+        background: var(--gray-200);
+        border-color: var(--gray-300);
+      }
+      
+      .tools-btn {
+        background: var(--gray-200);
+        border-color: var(--primary);
+      }
+      
+      .main-nav {
+        background: rgba(26, 26, 26, 0.95);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      
+      .nav-links a {
+        color: var(--gray-300);
+      }
+      
+      .nav-logo-img {
+        background: var(--primary);
+      }
+      
+      .footer-logo-img {
+        background: var(--gray-200);
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .logo-image {
+      animation: float 6s ease-in-out infinite;
     }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
+  <nav class="main-nav fade-in">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-img">
+          <!-- Using favicon-16x16.png for navigation -->
+          <img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40">
+        </div>
+        <span>Kimosabe Tools</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#tools">Tools</a>
+        <a href="index.html#features">Features</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="donate.html" class="support-btn">☕ Support</a>
+      </div>
+    </div>
+  </nav>
 
-<header class="header">
-  <div class="header-content">
-    <h1>Kimosabe Tools</h1>
-  </div>
-</header>
+  <!-- Thank You Header -->
+  <header class="thank-you-header">
+    <div class="header-content">
+      <div class="header-logo">
+        <div class="logo-image">
+          <!-- Using favicon-32x32.png for header -->
+          <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="120" height="120">
+        </div>
+      </div>
+      <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Thank You! 🎉</h1>
+      <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Your support means the world to us</p>
+    </div>
+  </header>
 
-<main class="container">
-  <section class="thank-you-wrapper">
-    <span class="heart-icon">❤️</span>
-    <p class="confetti-text">You are awesome!</p>
-    <h2>Thank You for Your Support</h2>
-    <p style="line-height: 1.6; color: #64748b; margin-top: 15px;">
-      Your contribution helps keep <strong>Kimosabe Tools</strong> free, fast, and 100% private for everyone. 
-      I truly appreciate you helping me cover the hosting costs and keep this project ad-free.
-    </p>
+  <main class="thank-you-container">
+    <div class="thank-you-card fade-in">
+      <span class="heart-icon">❤️</span>
+      <p class="celebration-text">You Are Amazing!</p>
+      <h2 class="thank-you-title">Thank You for Your Support</h2>
+      <p class="thank-you-message">
+        Your generous contribution helps keep <strong>Kimosabe Tools</strong> free, fast, and 100% private for everyone. 
+        I truly appreciate you helping me cover the hosting costs and keeping this project ad-free and independent.
+      </p>
 
-    <a href="index.html" class="back-home-btn">← Back to Tools</a>
-  </section>
-</main>
+      <div class="impact-grid">
+        <div class="impact-card fade-in" style="animation-delay: 0.1s">
+          <div class="impact-icon">🔒</div>
+          <h4>Privacy First</h4>
+          <p>Your support ensures we never compromise on our privacy principles</p>
+        </div>
+        <div class="impact-card fade-in" style="animation-delay: 0.2s">
+          <div class="impact-icon">⚡</div>
+          <h4>Stay Free</h4>
+          <p>No subscription fees or hidden costs for anyone</p>
+        </div>
+        <div class="impact-card fade-in" style="animation-delay: 0.3s">
+          <div class="impact-icon">🚀</div>
+          <h4>Development</h4>
+          <p>Funds go directly into improving and maintaining the tools</p>
+        </div>
+      </div>
 
-<footer class="footer" style="margin-top: 50px; text-align: center;">
-  <p>© 2026 Kimosabe Tools. Built for Privacy.</p>
-</footer>
+      <div class="action-buttons">
+        <a href="index.html" class="back-btn">
+          🛠️ Back to Tools
+        </a>
+        <a href="index.html#tools" class="tools-btn">
+          🔄 Use More Tools
+        </a>
+      </div>
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-<script>
-  window.onload = function() {
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#2563eb', '#f59e0b', '#e11d48']
+      <p style="margin-top: 2.5rem; color: var(--gray-600); font-size: 0.95rem; font-style: italic;">
+        "Thank you for being part of our mission to make privacy-first tools accessible to everyone."<br>
+        <span style="display: inline-block; margin-top: 0.5rem; font-weight: 600; color: var(--primary);">— The Kimosabe Developer</span>
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-img">
+          <!-- Using favicon-32x32.png for footer -->
+          <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60">
+        </div>
+        <div class="footer-logo-text">Kimosabe Tools</div>
+      </div>
+
+      <nav class="footer-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="donate.html" style="color: #ffd166;">Support Us</a>
+      </nav>
+
+      <p class="copyright">
+        © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
+        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Confetti celebration
+    window.onload = function() {
+      // Multiple confetti bursts
+      setTimeout(() => {
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#4361ee', '#f59e0b', '#e11d48', '#22c55e', '#7209b7']
+        });
+      }, 200);
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 100,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0, y: 0.6 },
+          colors: ['#4361ee', '#f59e0b', '#e11d48']
+        });
+      }, 800);
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 100,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1, y: 0.6 },
+          colors: ['#4361ee', '#f59e0b', '#e11d48']
+        });
+      }, 1200);
+
+      // Shooting stars
+      setTimeout(() => {
+        const end = Date.now() + 3000;
+        const colors = ['#4361ee', '#7209b7'];
+
+        (function frame() {
+          confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0, y: 0.8 },
+            colors: colors
+          });
+          confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1, y: 0.8 },
+            colors: colors
+          });
+
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        }());
+      }, 2000);
+    };
+
+    // Google Analytics event tracking for thank you page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track navigation clicks
+      const navLinks = document.querySelectorAll('.nav-links a, .footer-links a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const linkText = this.textContent;
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'nav_click', {
+              'event_category': 'navigation',
+              'event_label': linkText,
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      });
+      
+      // Track thank you page views
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'thank_you_view', {
+          'event_category': 'engagement',
+          'event_label': 'Support Thank You',
+          'transport_type': 'beacon'
+        });
+      }
+      
+      // Track action button clicks
+      const actionButtons = document.querySelectorAll('.back-btn, .tools-btn');
+      actionButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          const buttonText = this.textContent;
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'thank_you_action', {
+              'event_category': 'engagement',
+              'event_label': buttonText,
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      });
     });
-  };
-</script>
-
+  </script>
 </body>
 </html>
