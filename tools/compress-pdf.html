@@ -6,20 +6,20 @@
   
   <title>Compress PDF Online – Shrink PDF File Size | Kimosabe Tools</title>
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
-    <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
+  <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
 
   <meta property="og:title" content="Kimosabe Tools | Private PDF & Image Suite">
-<meta property="og:description" content="Edit, Merge, and Compress files 100% locally in your browser. No server uploads, no tracking.">
-<meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
-<meta property="og:url" content="https://kimosabe-tools.pages.dev/">
-<meta property="og:type" content="website">
+  <meta property="og:description" content="Edit, Merge, and Compress files 100% locally in your browser. No server uploads, no tracking.">
+  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:url" content="https://kimosabe-tools.pages.dev/">
+  <meta property="og:type" content="website">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kimosabe Tools | Private PDF & Image Suite">
-<meta name="twitter:description" content="Secure, browser-based tools for your daily tasks.">
-<meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kimosabe Tools | Private PDF & Image Suite">
+  <meta name="twitter:description" content="Secure, browser-based tools for your daily tasks.">
+  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   
   <meta name="description" content="Reduce PDF file size without losing quality. Our secure browser-based tool keeps your files private."/>
 
@@ -36,18 +36,309 @@
   <link rel="stylesheet" href="../assets/css/style.css"/>
 
   <style>
-    .donate-reminder {
-      background: #fffbeb;
-      border: 1px dashed #f59e0b;
+    :root {
+      --success: #10b981;
+      --success-light: #d1fae5;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+    }
+    
+    .hero-section {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-radius: 16px;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #0c4a6e;
+    }
+    
+    .hero-section p {
+      font-size: 1.125rem;
+      color: #475569;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .upload-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .upload-area {
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 4rem 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      background: #f8fafc;
+    }
+    
+    .upload-area:hover {
+      border-color: #3b82f6;
+      background: #f0f9ff;
+    }
+    
+    .upload-area.dragover {
+      border-color: #3b82f6;
+      background: #dbeafe;
+      transform: translateY(-2px);
+    }
+    
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #64748b;
+    }
+    
+    .upload-area:hover .upload-icon {
+      color: #3b82f6;
+    }
+    
+    .upload-text {
+      margin-bottom: 0.5rem;
+    }
+    
+    .upload-text strong {
+      color: #0f172a;
+      font-size: 1.125rem;
+    }
+    
+    .file-info {
+      color: #64748b;
+      font-size: 0.875rem;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 2rem;
+      display: none;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .result-card {
+      display: none;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 2rem;
+      animation: slideUp 0.3s ease;
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .result-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--success-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--success);
+    }
+    
+    .result-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: #f8fafc;
       border-radius: 8px;
-      padding: 15px;
-      margin-top: 25px;
+    }
+    
+    .stat-label {
+      display: block;
+      color: #64748b;
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-value {
+      display: block;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+    
+    .stat-diff {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--success-light);
+      color: var(--success);
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn-download {
+      background: var(--success);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-download:hover {
+      background: #0da271;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+    
+    .btn-reset {
+      background: #64748b;
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-reset:hover {
+      background: #475569;
+      transform: translateY(-2px);
+    }
+    
+    .donate-reminder {
+      background: var(--warning-light);
+      border: 1px dashed var(--warning);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 2rem;
       text-align: center;
       animation: fadeIn 0.5s ease-in;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    .donate-reminder p {
+      color: #92400e;
+      margin-bottom: 1rem;
+    }
+    
+    .donate-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #b45309;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+    
+    .donate-link:hover {
+      background: #fef3c7;
+      transform: translateY(-2px);
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .feature-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .feature-card strong {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+    
+    @media (max-width: 640px) {
+      .hero-section {
+        padding: 2rem 1rem;
+      }
+      
+      .hero-section h1 {
+        font-size: 2rem;
+      }
+      
+      .upload-container {
+        padding: 1rem;
+      }
+      
+      .upload-area {
+        padding: 3rem 1rem;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn-download,
+      .btn-reset {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -56,59 +347,85 @@
 <header class="header">
   <div class="header-content">
     <nav class="breadcrumb"><a href="../index.html">🏠 Home</a> / <span>Compress PDF</span></nav>
-    <h1>Compress PDF</h1>
-    <p>Shrink your PDF files while maintaining high quality.</p>
   </div>
 </header>
 
 <main class="container">
-  <section class="tool-wrapper">
-    <div id="drop-zone" class="drop-zone" onclick="document.getElementById('file-input').click()">
-      <div class="drop-zone-content">
-        <span class="icon">📄</span>
-        <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
-        <span id="file-name-label" class="file-limit">Maximum size: 50MB</span>
+  <section class="hero-section">
+    <h1>Compress PDF Files</h1>
+    <p>Reduce PDF file size without losing quality. 100% secure browser-based compression.</p>
+  </section>
+
+  <section class="upload-container">
+    <div id="upload-area" class="upload-area">
+      <div class="upload-icon">📄</div>
+      <div class="upload-text">
+        <strong>Click to upload or drag & drop</strong>
       </div>
+      <p class="file-info">Supports PDF files up to 50MB</p>
       <input type="file" id="file-input" accept=".pdf" hidden />
     </div>
-
-    <div id="status-area" class="status-area" style="display:none; margin-top: 20px; text-align: center;">
-      <p id="status-text" style="font-weight: bold;">Processing your PDF...</p>
-      <div id="stats" style="margin: 10px 0; font-weight: bold; color: var(--primary);"></div>
-      
-      <a href="#" id="download-btn" class="donate-btn" style="background: #22c55e; color: white; display: none; text-decoration: none; margin: 0 auto; padding: 12px 24px; border-radius: 8px;">Download Compressed PDF</a>
-      
-      <div id="donate-reminder" style="display:none;" class="donate-reminder">
-        <p style="color: #92400e; margin-bottom: 10px;">Saved you some time? Consider buying me a coffee to keep this tool free! ☕</p>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-          <a href="../donate.html" style="font-size: 0.9rem; color: #b45309; font-weight: bold; text-decoration: underline;">Support Kimosabe Tools</a>
+    
+    <div class="progress-bar" id="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    
+    <div class="result-card" id="result-card">
+      <div class="result-header">
+        <div class="result-icon">✓</div>
+        <div>
+          <h3 style="margin: 0; color: var(--success);">PDF Compressed Successfully!</h3>
+          <p style="margin: 0.25rem 0 0 0; color: #64748b;" id="result-filename"></p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <hr class="divider">
-
-  <section class="tool-description">
-    <h2>Secure Online PDF Compression</h2>
-    <p>
-      This tool helps you reduce the file size of your PDF documents without noticeable loss of quality. 
-      It is perfect for making files small enough for email attachments or faster website loading.
-    </p>
-    <div class="feature-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-      <div class="feature-item">
-        <strong>🔒 100% Private</strong>
-        <p>Files are processed in your browser and never touch our servers.</p>
+      
+      <div class="result-stats" id="result-stats">
+        <!-- Stats will be populated here -->
       </div>
-      <div class="feature-item">
-        <strong>⚡ Instant Results</strong>
-        <p>Optimized algorithms compress your files in seconds.</p>
+      
+      <div class="action-buttons">
+        <a href="#" id="download-btn" class="btn-download">
+          <span>📥</span>
+          Download Compressed PDF
+        </a>
+        <button class="btn-reset" onclick="resetTool()">Compress Another PDF</button>
       </div>
     </div>
   </section>
+  
+  <div id="donate-reminder" class="donate-reminder" style="display: none;">
+    <p>💖 Saved you some time? Consider buying me a coffee to keep this tool free!</p>
+    <a href="../donate.html" class="donate-link">
+      <span>☕</span>
+      Support Kimosabe Tools
+    </a>
+  </div>
 
-  <nav class="more-tools" style="margin-top: 40px;">
-    <h3>Other Handy Tools</h3>
+  <section class="tool-description" style="margin-top: 3rem;">
+    <h2 style="text-align: center; margin-bottom: 1.5rem;">Why Use Our PDF Compressor?</h2>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <strong><span>🔒</span> Complete Privacy</strong>
+        <p>All processing happens in your browser. Your files never leave your computer.</p>
+      </div>
+      <div class="feature-card">
+        <strong><span>⚡</span> Instant Compression</strong>
+        <p>Reduce PDF size in seconds with our optimized algorithms.</p>
+      </div>
+      <div class="feature-card">
+        <strong><span>📊</span> Smart Optimization</strong>
+        <p>Removes unnecessary metadata while preserving document quality.</p>
+      </div>
+      <div class="feature-card">
+        <strong><span>🆓</span> Free Forever</strong>
+        <p>No watermarks, no file limits, no registration required.</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="more-tools" style="margin-top: 4rem;">
+    <h3 style="text-align: center; margin-bottom: 1.5rem;">More Useful Tools</h3>
     <div class="tools-grid">
       <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Image Compressor</span></a>
       <a href="image-resize.html" class="tool-card"><div class="card-icon">📐</div><span>Resize Image</span></a>
@@ -120,7 +437,7 @@
 </main>
 
 <footer class="footer">
-    <nav class="footer-links">
+  <nav class="footer-links">
     <a href="../about.html">About</a>
     <a href="../contact.html">Contact</a> 
     <a href="../privacy.html">Privacy</a>
@@ -130,32 +447,69 @@
 </footer>
 
 <script>
-  const dropZone = document.getElementById('drop-zone');
+  const uploadArea = document.getElementById('upload-area');
   const fileInput = document.getElementById('file-input');
-  const statusArea = document.getElementById('status-area');
-  const statusText = document.getElementById('status-text');
+  const progressBar = document.getElementById('progress-bar');
+  const progressFill = document.getElementById('progress-fill');
+  const resultCard = document.getElementById('result-card');
+  const resultFilename = document.getElementById('result-filename');
+  const resultStats = document.getElementById('result-stats');
   const downloadBtn = document.getElementById('download-btn');
-  const statsDiv = document.getElementById('stats');
   const donateReminder = document.getElementById('donate-reminder');
 
   let currentDownloadUrl = null;
 
   fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
-  dropZone.addEventListener('dragover', (e) => {
+  uploadArea.addEventListener('click', () => fileInput.click());
+
+  uploadArea.addEventListener('dragover', (e) => {
     e.preventDefault();
-    dropZone.style.borderColor = "var(--primary)";
+    uploadArea.classList.add('dragover');
   });
 
-  dropZone.addEventListener('dragleave', () => {
-    dropZone.style.borderColor = "var(--border)";
+  uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('dragover');
   });
 
-  dropZone.addEventListener('drop', (e) => {
+  uploadArea.addEventListener('drop', (e) => {
     e.preventDefault();
-    dropZone.style.borderColor = "var(--border)";
+    uploadArea.classList.remove('dragover');
     handleFiles(e.dataTransfer.files);
   });
+
+  function updateProgress(percentage) {
+    progressFill.style.width = `${percentage}%`;
+  }
+
+  function formatBytes(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+
+  function resetTool() {
+    if (currentDownloadUrl) {
+      URL.revokeObjectURL(currentDownloadUrl);
+      currentDownloadUrl = null;
+    }
+    
+    resultCard.style.display = 'none';
+    donateReminder.style.display = 'none';
+    progressBar.style.display = 'none';
+    updateProgress(0);
+    fileInput.value = '';
+    
+    uploadArea.innerHTML = `
+      <div class="upload-icon">📄</div>
+      <div class="upload-text">
+        <strong>Click to upload or drag & drop</strong>
+      </div>
+      <p class="file-info">Supports PDF files up to 50MB</p>
+    `;
+  }
 
   async function handleFiles(files) {
     const file = files[0];
@@ -166,47 +520,96 @@
 
     if (currentDownloadUrl) URL.revokeObjectURL(currentDownloadUrl);
 
-    statusArea.style.display = "block";
-    downloadBtn.style.display = "none";
-    donateReminder.style.display = "none";
-    statsDiv.innerText = "";
-    statusText.innerText = "Compressing " + file.name + "...";
-    statusText.style.color = "inherit";
+    // Show upload area with file info
+    uploadArea.innerHTML = `
+      <div class="upload-icon">⏳</div>
+      <div class="upload-text">
+        <strong>${file.name}</strong>
+      </div>
+      <p class="file-info">${formatBytes(file.size)} • Compressing...</p>
+    `;
+
+    progressBar.style.display = 'block';
+    resultCard.style.display = 'none';
+    donateReminder.style.display = 'none';
 
     try {
-      const arrayBuffer = await file.arrayBuffer();
-      const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+      // Simulate progress for better UX
+      updateProgress(30);
       
-      // Optimization: Stripping metadata helps reduce size
+      const arrayBuffer = await file.arrayBuffer();
+      updateProgress(60);
+      
+      const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+      updateProgress(80);
+      
+      // Strip metadata for size reduction
       pdfDoc.setTitle("");
       pdfDoc.setAuthor("");
+      pdfDoc.setSubject("");
+      pdfDoc.setKeywords([]);
+      pdfDoc.setProducer("");
       pdfDoc.setCreator("");
+      pdfDoc.setCreationDate(new Date());
+      pdfDoc.setModificationDate(new Date());
       
       const pdfBytes = await pdfDoc.save({ 
         useObjectStreams: true,
-        // This is a browser-level optimization for PDF-Lib
-        updateFieldAppearances: false 
+        updateFieldAppearances: false,
+        addDefaultPage: false
       });
+      
+      updateProgress(100);
 
-      const oldSize = (file.size / 1024).toFixed(1);
-      const newSize = (pdfBytes.length / 1024).toFixed(1);
-      const saved = Math.max(0, (((file.size - pdfBytes.length) / file.size) * 100)).toFixed(1);
+      const oldSize = file.size;
+      const newSize = pdfBytes.length;
+      const savedBytes = oldSize - newSize;
+      const savedPercent = ((savedBytes / oldSize) * 100).toFixed(1);
 
+      // Create download link
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
       currentDownloadUrl = URL.createObjectURL(blob);
       
-      statusText.innerText = "Compression Complete!";
-      statsDiv.innerText = `Size: ${oldSize}KB → ${newSize}KB (${saved}% saved)`;
+      // Update result card
+      resultFilename.textContent = file.name;
+      
+      resultStats.innerHTML = `
+        <div class="stat-item">
+          <span class="stat-label">Original Size</span>
+          <span class="stat-value">${formatBytes(oldSize)}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Compressed Size</span>
+          <span class="stat-value">${formatBytes(newSize)}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Space Saved</span>
+          <span class="stat-value">${formatBytes(savedBytes)}</span>
+          <span class="stat-diff">${savedPercent}% saved</span>
+        </div>
+      `;
       
       downloadBtn.href = currentDownloadUrl;
-      downloadBtn.download = `compressed_kimosabe_${Date.now()}.pdf`;
-      downloadBtn.style.display = "inline-block";
-      donateReminder.style.display = 'block';
+      downloadBtn.download = `compressed_${file.name.replace('.pdf', '')}_${Date.now()}.pdf`;
+      
+      // Show results
+      setTimeout(() => {
+        progressBar.style.display = 'none';
+        resultCard.style.display = 'block';
+        donateReminder.style.display = 'block';
+      }, 500);
 
     } catch (err) {
       console.error(err);
-      statusText.innerText = "Error: This PDF might be encrypted or corrupted.";
-      statusText.style.color = "#e11d48";
+      uploadArea.innerHTML = `
+        <div class="upload-icon">❌</div>
+        <div class="upload-text">
+          <strong style="color: #dc2626;">Compression Failed</strong>
+        </div>
+        <p class="file-info">${err.message || 'PDF might be encrypted or corrupted'}</p>
+        <button class="btn-reset" onclick="resetTool()" style="margin-top: 1rem;">Try Again</button>
+      `;
+      progressBar.style.display = 'none';
     }
   }
 </script>
