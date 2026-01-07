@@ -3,102 +3,938 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms of Service – Kimosabe Tools</title>
+  <title>Terms of Service – Kimosabe Tools | Usage Guidelines</title>
+  
+  <!-- Favicon & Logo -->
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
-    <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
+  <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
 
-  <meta property="og:title" content="Kimosabe Tools | Private PDF & Image Suite">
-<meta property="og:description" content="Edit, Merge, and Compress files 100% locally in your browser. No server uploads, no tracking.">
-<meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
-<meta property="og:url" content="https://kimosabe-tools.pages.dev/">
-<meta property="og:type" content="website">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Terms of Service – Kimosabe Tools | Usage Guidelines">
+  <meta property="og:description" content="Terms governing the use of Kimosabe Tools. By using our services, you agree to these terms of service for our privacy-focused tools.">
+  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:url" content="https://kimosabe-tools.pages.dev/terms.html">
+  <meta property="og:type" content="website">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kimosabe Tools | Private PDF & Image Suite">
-<meta name="twitter:description" content="Secure, browser-based tools for your daily tasks.">
-<meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terms of Service – Kimosabe Tools">
+  <meta name="twitter:description" content="Usage guidelines and terms for our privacy-first PDF and image tools.">
+  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  
+  <!-- Meta -->
+  <meta name="description" content="Terms of Service for Kimosabe Tools. Read our usage guidelines, limitations, and user responsibilities for our privacy-focused browser tools.">
+  <meta name="keywords" content="terms of service, usage guidelines, legal terms, PDF tools terms, privacy tools terms">
+  <meta name="author" content="Kimosabe Tools">
 
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-H50NB3F51Q');
+    gtag('config', 'G-H50NB3F51Q', {
+      'anonymize_ip': true,
+      'allow_google_signals': false,
+      'allow_ad_personalization_signals': false
+    });
   </script>
 
-  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <style>
-    .terms-content h2 { margin-top: 30px; color: var(--primary); font-size: 1.3rem; }
-    .terms-content p, .terms-content li { line-height: 1.7; color: #475569; margin-bottom: 15px; }
-    .disclaimer-box { 
-      background: #fef2f2; 
-      border: 1px solid #fecaca; 
-      padding: 20px; 
-      margin: 20px 0;
+    :root {
+      /* Modern Color Palette - Consistent with index.html */
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #7209b7;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-600: #6c757d;
+      --gray-800: #343a40;
+      --border: #e2e8f0;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+      --shadow-hover: 0 15px 35px rgba(67, 97, 238, 0.15);
+      
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    
+    /* Navigation Styling */
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 1rem 0;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .nav-logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 8px;
+    }
+    
+    .nav-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: var(--gray-800);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .support-btn {
+      background: linear-gradient(135deg, var(--accent) 0%, #ff6b9d 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .support-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    /* Header */
+    .main-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 4rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .main-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .logo-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      padding: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .logo-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+    
+    .main-header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .main-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .breadcrumb {
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+    
+    .breadcrumb a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+    }
+    
+    .breadcrumb span {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* Main Content */
+    .terms-container {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    .terms-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+    
+    /* Important Notice */
+    .important-notice {
+      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+      border-left: 5px solid #ef4444;
+      padding: 1.75rem;
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      margin: 2rem 0 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .important-notice::before {
+      content: '⚠️';
+      position: absolute;
+      top: -15px;
+      right: 20px;
+      font-size: 3rem;
+      opacity: 0.2;
+    }
+    
+    .important-notice strong {
+      display: block;
+      font-size: 1.2rem;
+      color: #991b1b;
+      margin-bottom: 0.75rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .important-notice p {
+      color: #991b1b;
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+    
+    /* Terms Content */
+    .terms-content h2 {
+      margin: 2.5rem 0 1rem;
+      color: var(--primary);
+      font-size: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .terms-content h2:first-of-type {
+      margin-top: 0;
+    }
+    
+    .terms-content p {
+      line-height: 1.7;
+      color: var(--gray-600);
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+    
+    .terms-content ul {
+      padding-left: 1.5rem;
+      margin: 1rem 0 1.5rem;
+      color: var(--gray-600);
+    }
+    
+    .terms-content li {
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+      position: relative;
+      padding-left: 0.5rem;
+    }
+    
+    .terms-content li::before {
+      content: '•';
+      color: var(--primary);
+      font-weight: bold;
+      position: absolute;
+      left: -1rem;
+    }
+    
+    .terms-content .section-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
       border-radius: 8px;
-      font-style: italic;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    
+    /* Key Terms Cards */
+    .key-terms {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2.5rem 0;
+    }
+    
+    .key-term {
+      background: var(--gray-100);
+      padding: 1.5rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      transition: transform 0.3s;
+      position: relative;
+    }
+    
+    .key-term:hover {
+      transform: translateY(-3px);
+    }
+    
+    .key-term.warning {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-color: #fbbf24;
+    }
+    
+    .key-term.important {
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      border-color: #60a5fa;
+    }
+    
+    .key-term-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      width: 50px;
+      height: 50px;
+      background: white;
+      color: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .key-term.warning .key-term-icon {
+      background: #fbbf24;
+      color: white;
+    }
+    
+    .key-term.important .key-term-icon {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .key-term h4 {
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .key-term p {
+      color: var(--gray-600);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    
+    /* Agreement Section */
+    .agreement-section {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      margin: 3rem 0;
+      text-align: center;
+      border: 1px solid #bbf7d0;
+    }
+    
+    .agreement-section h3 {
+      color: #166534;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+    
+    .agreement-section p {
+      color: #166534;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Back Link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      background: white;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .back-link:hover {
+      gap: 0.75rem;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    /* Footer */
+    .main-footer {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 0;
+      margin-top: 4rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-logo-img {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .footer-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .footer-logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--gray-300);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .copyright {
+      text-align: center;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .logo-image {
+        width: 100px;
+        height: 100px;
+        padding: 20px;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .terms-container {
+        margin: 2rem auto;
+      }
+      
+      .terms-card {
+        padding: 1.5rem;
+      }
+      
+      .important-notice {
+        padding: 1.5rem;
+        border-radius: var(--radius-lg);
+      }
+      
+      .key-terms {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-logo {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+      
+      .footer-logo-img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --light: #1a1a1a;
+        --dark: #ffffff;
+        --gray-100: #2d2d2d;
+        --gray-200: #404040;
+        --gray-300: #4a4a4a;
+        --gray-600: #a0a0a0;
+        --gray-800: #e0e0e0;
+        --border: #404040;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        color: var(--gray-800);
+      }
+      
+      .terms-card {
+        background: var(--gray-100);
+        border-color: var(--border);
+      }
+      
+      .important-notice {
+        background: linear-gradient(135deg, #3a1a1a 0%, #5a2a2a 100%);
+        border-left-color: #ef4444;
+      }
+      
+      .important-notice strong,
+      .important-notice p {
+        color: #fca5a5;
+      }
+      
+      .key-term {
+        background: var(--gray-200);
+        border-color: var(--gray-300);
+      }
+      
+      .key-term.warning {
+        background: linear-gradient(135deg, #3a2c1a 0%, #5a4a2a 100%);
+        border-color: #d97706;
+      }
+      
+      .key-term.important {
+        background: linear-gradient(135deg, #1a2a3a 0%, #2a4a5a 100%);
+        border-color: #3b82f6;
+      }
+      
+      .key-term-icon {
+        background: var(--gray-300);
+        color: var(--gray-800);
+      }
+      
+      .agreement-section {
+        background: linear-gradient(135deg, #1a3a2a 0%, #2a5a3a 100%);
+        border-color: #22c55e;
+      }
+      
+      .agreement-section h3,
+      .agreement-section p {
+        color: #bbf7d0;
+      }
+      
+      .back-link {
+        background: var(--gray-200);
+        border-color: var(--gray-300);
+        color: var(--primary);
+      }
+      
+      .main-nav {
+        background: rgba(26, 26, 26, 0.95);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      
+      .nav-links a {
+        color: var(--gray-300);
+      }
+      
+      .nav-logo-img {
+        background: var(--primary);
+      }
+      
+      .footer-logo-img {
+        background: var(--gray-200);
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .logo-image {
+      animation: float 6s ease-in-out infinite;
     }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
+  <nav class="main-nav fade-in">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-img">
+          <!-- Using favicon-16x16.png for navigation -->
+          <img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40">
+        </div>
+        <span>Kimosabe Tools</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#tools">Tools</a>
+        <a href="index.html#features">Features</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="donate.html" class="support-btn">☕ Support</a>
+      </div>
+    </div>
+  </nav>
 
-<header class="header">
-  <div class="header-content">
-    <nav class="breadcrumb"><a href="index.html">🏠 Home</a> / <span>Terms of Service</span></nav>
-    <h1>Terms of Service</h1>
-    <p>Please read these terms carefully before using our tools.</p>
-  </div>
-</header>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-content">
+      <div class="header-logo">
+        <div class="logo-image">
+          <!-- Using favicon-32x32.png for header -->
+          <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="120" height="120">
+        </div>
+      </div>
+      <nav class="breadcrumb"><a href="index.html">🏠 Home</a> / <span>Terms of Service</span></nav>
+      <h1>Terms of Service</h1>
+      <p>Please read these terms carefully before using our tools.</p>
+    </div>
+  </header>
 
-<main class="container terms-content">
-  
-  <h2>1. Acceptance of Terms</h2>
-  <p>
-    By accessing and using Kimosabe Tools, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these terms, please do not use our services.
-  </p>
+  <main class="terms-container">
+    <div class="terms-card fade-in">
+      <div class="important-notice">
+        <strong>Important Legal Notice:</strong>
+        <p>By accessing and using Kimosabe Tools, you accept and agree to be bound by these terms. If you do not agree to these terms, please do not use our services.</p>
+      </div>
 
-  <h2>2. Description of Service</h2>
-  <p>
-    Kimosabe Tools provides browser-based utilities for image and PDF manipulation. These tools are provided for free and process data locally on the user's device. We do not store or host your files.
-  </p>
+      <div class="terms-content">
+        <h2><span class="section-number">1</span> Acceptance of Terms</h2>
+        <p>By accessing and using Kimosabe Tools (the "Service"), you accept and agree to be bound by the terms and conditions of this agreement. If you do not agree to these terms, please do not use our services.</p>
+        
+        <div class="key-terms">
+          <div class="key-term important fade-in" style="animation-delay: 0.1s">
+            <div class="key-term-icon">📝</div>
+            <h4>Legal Agreement</h4>
+            <p>These terms constitute a legally binding agreement between you and Kimosabe Tools.</p>
+          </div>
+          <div class="key-term warning fade-in" style="animation-delay: 0.2s">
+            <div class="key-term-icon">🔞</div>
+            <h4>Age Requirement</h4>
+            <p>You must be at least 13 years old to use our services, or have parental consent.</p>
+          </div>
+          <div class="key-term fade-in" style="animation-delay: 0.3s">
+            <div class="key-term-icon">✅</div>
+            <h4>Continued Use</h4>
+            <p>Continued use of the Service constitutes ongoing acceptance of these terms.</p>
+          </div>
+        </div>
 
-  <div class="disclaimer-box">
-    <strong>3. Disclaimer of Warranties:</strong> The services are provided on an "AS IS" and "AS AVAILABLE" basis. Kimosabe Tools makes no representations or warranties of any kind, express or implied, as to the operation of the site or the information, content, or materials included.
-  </div>
+        <h2><span class="section-number">2</span> Description of Service</h2>
+        <p>Kimosabe Tools provides browser-based utilities for image and PDF manipulation. These tools are provided free of charge and process all data locally on the user's device. We do not store, host, or transmit your files to our servers.</p>
+        
+        <h2><span class="section-number">3</span> Disclaimer of Warranties</h2>
+        <p>The services are provided on an "AS IS" and "AS AVAILABLE" basis. Kimosabe Tools makes no representations or warranties of any kind, express or implied, as to:</p>
+        <ul>
+          <li>The operation of the website or its availability</li>
+          <li>The accuracy, completeness, or reliability of information provided</li>
+          <li>The suitability of the tools for any particular purpose</li>
+          <li>The security or privacy of data processed (though we implement best practices)</li>
+        </ul>
 
-  <h2>4. Limitation of Liability</h2>
-  <p>
-    Kimosabe Tools shall not be liable for any damages of any kind arising from the use of this site, including but not limited to direct, indirect, incidental, punitive, and consequential damages, or loss of data resulting from the local processing of files.
-  </p>
+        <h2><span class="section-number">4</span> Limitation of Liability</h2>
+        <p>Kimosabe Tools shall not be liable for any damages of any kind arising from the use of this site, including but not limited to:</p>
+        <ul>
+          <li>Direct, indirect, incidental, punitive, or consequential damages</li>
+          <li>Loss of data resulting from the local processing of files</li>
+          <li>Damages arising from the use or inability to use the Service</li>
+          <li>Any errors, omissions, or inaccuracies in the tools</li>
+        </ul>
+        <p>This limitation applies whether the alleged liability is based on contract, tort, negligence, strict liability, or any other basis.</p>
 
-  <h2>5. User Responsibilities</h2>
-  <p>You agree to use Kimosabe Tools only for lawful purposes. You are prohibited from:</p>
-  <ul>
-    <li>Attempting to reverse engineer the website's source code.</li>
-    <li>Using the tools to process illegal, copyrighted (without permission), or harmful content.</li>
-    <li>Using automated scripts to scrape or "flood" the service.</li>
-  </ul>
+        <h2><span class="section-number">5</span> User Responsibilities</h2>
+        <p>You agree to use Kimosabe Tools only for lawful purposes and in accordance with these terms. You are prohibited from:</p>
+        <ul>
+          <li>Attempting to reverse engineer, decompile, or disassemble the website's source code</li>
+          <li>Using the tools to process illegal, copyrighted (without permission), or harmful content</li>
+          <li>Using automated scripts, bots, or scrapers to access or "flood" the service</li>
+          <li>Attempting to gain unauthorized access to any portion of the Service</li>
+          <li>Using the Service in any manner that could disable, overburden, or impair the website</li>
+        </ul>
 
-  <h2>6. Changes to Service</h2>
-  <p>
-    We reserve the right to modify, suspend, or discontinue any part of the service at any time without prior notice.
-  </p>
+        <h2><span class="section-number">6</span> Intellectual Property</h2>
+        <p>The Service and its original content, features, and functionality are owned by Kimosabe Tools and are protected by international copyright, trademark, and other intellectual property laws. You may not:</p>
+        <ul>
+          <li>Copy, modify, or create derivative works of the Service</li>
+          <li>Use the Kimosabe Tools name, logo, or trademarks without prior written consent</li>
+          <li>Remove any copyright or proprietary notices from the Service</li>
+        </ul>
 
-  <h2>7. Governing Law</h2>
-  <p>
-    These terms are governed by and construed in accordance with the laws of the jurisdiction in which the developer operates.
-  </p>
+        <h2><span class="section-number">7</span> Changes to Service</h2>
+        <p>We reserve the right to modify, suspend, or discontinue any part of the service at any time without prior notice. We may also:</p>
+        <ul>
+          <li>Update or change these Terms of Service from time to time</li>
+          <li>Add, remove, or modify features of the tools</li>
+          <li>Change the availability of the Service</li>
+        </ul>
+        <p>Your continued use of the Service after any changes constitutes acceptance of those changes.</p>
 
-  <div style="margin-top: 40px; text-align: center;">
-    <a href="index.html" class="donate-btn" style="background: var(--primary); color: white; text-decoration: none;">I Understand, Back to Tools</a>
-  </div>
-</main>
+        <h2><span class="section-number">8</span> Termination</h2>
+        <p>We may terminate or suspend your access to the Service immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms. Upon termination, your right to use the Service will immediately cease.</p>
 
-<footer class="footer">
-  <p>© 2026 Kimosabe Tools</p>
-</footer>
+        <h2><span class="section-number">9</span> Governing Law</h2>
+        <p>These Terms shall be governed and construed in accordance with the laws of the jurisdiction in which the developer operates, without regard to its conflict of law provisions. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts in that jurisdiction.</p>
 
+        <h2><span class="section-number">10</span> Severability</h2>
+        <p>If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law, and the remaining provisions will continue in full force and effect.</p>
+
+        <div class="agreement-section fade-in" style="animation-delay: 0.4s">
+          <h3>Agreement Confirmation</h3>
+          <p>By using Kimosabe Tools, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</p>
+          <div style="margin-top: 1.5rem;">
+            <a href="index.html" class="back-link">
+              ✅ I Understand, Return to Tools
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-img">
+          <!-- Using favicon-32x32.png for footer -->
+          <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60">
+        </div>
+        <div class="footer-logo-text">Kimosabe Tools</div>
+      </div>
+
+      <nav class="footer-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html" style="color: #ef4444;">Terms</a>
+        <a href="donate.html" style="color: #ffd166;">Support Us</a>
+      </nav>
+
+      <p class="copyright">
+        © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
+        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Google Analytics event tracking for terms page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track navigation clicks
+      const navLinks = document.querySelectorAll('.nav-links a, .footer-links a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const linkText = this.textContent;
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'nav_click', {
+              'event_category': 'navigation',
+              'event_label': linkText,
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      });
+      
+      // Track agreement button click
+      const agreementButton = document.querySelector('.back-link');
+      if (agreementButton) {
+        agreementButton.addEventListener('click', function(e) {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'terms_agreed', {
+              'event_category': 'engagement',
+              'event_label': 'Terms Accepted',
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      }
+      
+      // Track section visibility (for engagement)
+      const sections = document.querySelectorAll('h2');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && typeof gtag !== 'undefined') {
+            const sectionName = entry.target.textContent.replace(/\d+\.?\s*/, '').trim();
+            gtag('event', 'terms_section_view', {
+              'event_category': 'engagement',
+              'event_label': sectionName,
+              'transport_type': 'beacon'
+            });
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      sections.forEach(section => observer.observe(section));
+    });
+  </script>
 </body>
 </html>
