@@ -1,354 +1,769 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
   <title>Compress PDF Online – Shrink PDF File Size | Kimosabe Tools</title>
+  
+  <!-- Meta Tags -->
+  <meta name="description" content="Reduce PDF file size without losing quality. Our secure browser-based tool keeps your files private. No uploads required—everything stays in your browser.">
+  <meta name="keywords" content="compress PDF, reduce PDF size, shrink PDF, PDF optimization, privacy tools">
+  <meta name="author" content="Kimosabe Tools">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Compress PDF Online – Shrink PDF File Size | Kimosabe Tools">
+  <meta property="og:description" content="Reduce PDF size 100% locally in your browser. No server uploads, no tracking.">
+  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/compress-pdf.html">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Compress PDF Online – Shrink PDF File Size | Kimosabe Tools">
+  <meta name="twitter:description" content="Secure, browser-based PDF compression that keeps your files private.">
+  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  
+  <!-- Favicon & Logo -->
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
   <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
-
-  <meta property="og:title" content="Kimosabe Tools | Private PDF & Image Suite">
-  <meta property="og:description" content="Edit, Merge, and Compress files 100% locally in your browser. No server uploads, no tracking.">
-  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
-  <meta property="og:url" content="https://kimosabe-tools.pages.dev/">
-  <meta property="og:type" content="website">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Kimosabe Tools | Private PDF & Image Suite">
-  <meta name="twitter:description" content="Secure, browser-based tools for your daily tasks.">
-  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   
-  <meta name="description" content="Reduce PDF file size without losing quality. Our secure browser-based tool keeps your files private."/>
-
-  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-H50NB3F51Q');
+    gtag('config', 'G-H50NB3F51Q', {
+      'anonymize_ip': true,
+      'allow_google_signals': false,
+      'allow_ad_personalization_signals': false
+    });
   </script>
 
-  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- PDF Library -->
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 
+  <!-- Styles -->
   <style>
-    /* Main container styling */
-    .tool-wrapper {
-      background: white;
-      border-radius: 12px;
-      padding: 2.5rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      margin-bottom: 2rem;
-      border: 1px solid #e5e7eb;
+    /* Import base styles from main site */
+    :root {
+      /* Modern Color Palette */
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #7209b7;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-600: #6c757d;
+      --gray-800: #343a40;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+      --shadow-hover: 0 15px 35px rgba(67, 97, 238, 0.15);
+      
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
     }
     
-    /* Upload area styling */
-    #drop-zone {
-      border: 3px dashed #d1d5db;
-      border-radius: 12px;
-      padding: 4rem 2rem;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    
+    /* Navigation */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 1rem 0;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .nav-logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 8px;
+    }
+    
+    .nav-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: var(--gray-800);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .support-btn {
+      background: linear-gradient(135deg, var(--accent) 0%, #ff6b9d 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .support-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md) var(--space-xl);
+    }
+    
+    /* Tool Header */
+    .tool-header {
       text-align: center;
-      transition: all 0.3s ease;
+      margin: var(--space-xl) 0 var(--space-lg);
+      padding: 0 var(--space-md);
+    }
+    
+    .tool-header h1 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      margin-bottom: var(--space-sm);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .tool-header p {
+      color: var(--gray-600);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+    
+    .tool-breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--gray-600);
+      margin-bottom: var(--space-sm);
+      font-size: 0.9rem;
+    }
+    
+    .tool-breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .tool-breadcrumb a:hover {
+      color: var(--secondary);
+    }
+    
+    /* Tool Wrapper */
+    .tool-wrapper {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: var(--space-lg);
+      border: 1px solid var(--gray-200);
+      animation: fadeIn 0.6s ease-out;
+    }
+    
+    /* Upload Area */
+    #drop-zone {
+      border: 3px dashed var(--gray-300);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
-      background: #f9fafb;
-      margin-bottom: 1.5rem;
+      background: var(--gray-100);
+      margin-bottom: var(--space-lg);
+      position: relative;
+      overflow: hidden;
     }
     
     #drop-zone:hover {
       border-color: var(--primary);
-      background: #f0f9ff;
-      transform: translateY(-2px);
+      background: rgba(67, 97, 238, 0.05);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
     }
     
     #drop-zone.dragover {
       border-color: var(--primary);
-      background: #e0f2fe;
+      background: rgba(67, 97, 238, 0.1);
+      border-style: solid;
+    }
+    
+    #drop-zone::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.7s;
+    }
+    
+    #drop-zone:hover::before {
+      left: 100%;
     }
     
     .drop-zone-content .icon {
       font-size: 3.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: var(--space-sm);
       display: block;
-      color: #6b7280;
+      color: var(--gray-600);
     }
     
     .drop-zone-content p {
       font-size: 1.125rem;
-      margin-bottom: 0.5rem;
-      color: #374151;
+      margin-bottom: var(--space-xs);
+      color: var(--gray-800);
     }
     
     .drop-zone-content p strong {
-      color: #111827;
+      color: var(--dark);
     }
     
     .file-limit {
-      color: #6b7280;
+      color: var(--gray-600);
       font-size: 0.875rem;
+      display: block;
+      margin-top: var(--space-xs);
     }
     
-    /* Status area styling */
+    /* Status Area */
     .status-area {
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 2rem;
+      background: var(--gray-100);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
       text-align: center;
-      border: 1px solid #e2e8f0;
-      animation: fadeIn 0.5s ease-in;
+      border: 1px solid var(--gray-200);
+      animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      display: none;
     }
     
     #status-text {
       font-size: 1.125rem;
-      margin-bottom: 1rem;
-      color: #374151;
+      margin-bottom: var(--space-sm);
+      color: var(--gray-800);
     }
     
-    #stats {
-      font-size: 1.25rem;
-      color: var(--primary);
-      margin: 1.5rem 0;
-      font-weight: 600;
-    }
-    
-    /* Download button */
-    #download-btn {
-      background: #10b981;
-      color: white;
-      border: none;
-      padding: 0.875rem 2.5rem;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-      margin: 1rem 0;
-    }
-    
-    #download-btn:hover {
-      background: #0da271;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-    }
-    
-    /* Reset button */
-    .btn-reset {
-      background: #6b7280;
-      color: white;
-      border: none;
-      padding: 0.875rem 2rem;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-left: 1rem;
-    }
-    
-    .btn-reset:hover {
-      background: #4b5563;
-      transform: translateY(-2px);
-    }
-    
-    /* Donate reminder */
-    .donate-reminder {
-      background: #fffbeb;
-      border: 2px dashed #f59e0b;
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-top: 2rem;
-      text-align: center;
-      animation: fadeIn 0.5s ease-in;
-    }
-    
-    .donate-reminder p {
-      color: #92400e;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
-    
-    .donate-link {
-      color: #b45309;
-      font-weight: 600;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      background: white;
-      border: 1px solid #f59e0b;
-      transition: all 0.3s ease;
-      display: inline-block;
-    }
-    
-    .donate-link:hover {
-      background: #fef3c7;
-      transform: translateY(-2px);
-    }
-    
-    /* Progress bar */
+    /* Progress Bar */
     .progress-container {
       width: 100%;
-      background: #e5e7eb;
+      background: var(--gray-200);
       border-radius: 10px;
       overflow: hidden;
-      height: 8px;
-      margin: 1.5rem 0;
+      height: 10px;
+      margin: var(--space-lg) 0;
       display: none;
+      position: relative;
     }
     
     .progress-bar {
       height: 100%;
-      background: linear-gradient(90deg, var(--primary), #8b5cf6);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
       width: 0%;
-      transition: width 0.3s ease;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       border-radius: 10px;
+      position: relative;
+      overflow: hidden;
     }
     
-    /* Results display */
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    /* Results Display */
     .results-display {
       background: white;
       border: 2px solid #10b981;
-      border-radius: 12px;
-      padding: 2rem;
-      margin-top: 1.5rem;
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-top: var(--space-md);
       display: none;
-      animation: slideIn 0.5s ease-out;
+      animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .results-header {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
     }
     
     .success-icon {
-      width: 50px;
-      height: 50px;
-      background: #d1fae5;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #10b981, #059669);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      color: #10b981;
+      font-size: 1.8rem;
+      color: white;
+      flex-shrink: 0;
     }
     
     .results-stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
     }
     
     .stat-item {
-      background: #f8fafc;
-      padding: 1.25rem;
-      border-radius: 8px;
+      background: var(--gray-100);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
       text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .stat-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-sm);
     }
     
     .stat-label {
       display: block;
-      color: #6b7280;
+      color: var(--gray-600);
       font-size: 0.875rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: var(--space-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
     }
     
     .stat-value {
       display: block;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      color: #111827;
+      color: var(--dark);
     }
     
     .stat-saved {
       display: inline-block;
-      background: #d1fae5;
-      color: #065f46;
-      padding: 0.25rem 0.75rem;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 0.25rem 1rem;
       border-radius: 20px;
       font-size: 0.875rem;
       font-weight: 600;
-      margin-top: 0.5rem;
+      margin-top: var(--space-xs);
     }
     
-    /* Feature grid */
+    /* Buttons */
+    .action-buttons {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: var(--space-md);
+    }
+    
+    .btn {
+      padding: 0.875rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+      background: linear-gradient(135deg, #059669, #047857);
+    }
+    
+    /* Donate Reminder */
+    .donate-reminder {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border: 2px dashed #f59e0b;
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-top: var(--space-lg);
+      text-align: center;
+      animation: fadeIn 0.5s ease-in;
+      display: none;
+    }
+    
+    .donate-reminder p {
+      color: #92400e;
+      margin-bottom: var(--space-sm);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    
+    .donate-link {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .donate-link:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      background: linear-gradient(135deg, #d97706, #b45309);
+    }
+    
+    /* Feature Grid */
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
+      gap: var(--space-md);
+      margin: var(--space-lg) 0;
     }
     
     .feature-item {
       background: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      border: 1px solid #e5e7eb;
-      transition: transform 0.3s ease;
+      padding: var(--space-lg);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
     }
     
     .feature-item:hover {
       transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
     }
     
     .feature-item strong {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      color: #111827;
-      margin-bottom: 0.75rem;
+      gap: var(--space-xs);
+      color: var(--dark);
+      margin-bottom: var(--space-xs);
       font-size: 1.1rem;
     }
     
     .feature-item p {
-      color: #6b7280;
+      color: var(--gray-600);
       line-height: 1.5;
+      font-size: 0.95rem;
+    }
+    
+    /* More Tools Section */
+    .more-tools {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      margin-top: var(--space-xl);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .more-tools h3 {
+      font-size: 1.8rem;
+      margin-bottom: var(--space-lg);
+      color: var(--dark);
+      text-align: center;
+    }
+    
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-sm);
+    }
+    
+    .tool-card {
+      background: var(--gray-100);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--gray-800);
+      text-align: center;
+      transition: all 0.3s;
+      border: 1px solid var(--gray-200);
+    }
+    
+    .tool-card:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .tool-card .card-icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-xs);
+    }
+    
+    /* Footer */
+    .main-footer {
+      background: var(--dark);
+      color: white;
+      padding: var(--space-xl) 0;
+      margin-top: var(--space-xl);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      text-align: center;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-logo-img {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .footer-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .footer-logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      margin: var(--space-lg) 0;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--gray-300);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .copyright {
+      text-align: center;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      margin-top: var(--space-lg);
+    }
+    
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
     }
     
     /* Animations */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes slideIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
     
-    /* Responsive */
-    @media (max-width: 768px) {
-      .tool-wrapper {
-        padding: 1.5rem;
-      }
-      
-      #drop-zone {
-        padding: 3rem 1rem;
-      }
-      
-      .results-stats {
-        grid-template-columns: 1fr;
-      }
-      
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .btn-reset {
-        margin-left: 0;
-        margin-top: 1rem;
-      }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
-    /* Loading animation */
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    /* Loading Animation */
     .loading-dots {
       display: inline-flex;
       gap: 4px;
+      margin-left: 4px;
     }
     
     .loading-dots span {
@@ -366,269 +781,521 @@
       0%, 80%, 100% { transform: scale(0); }
       40% { transform: scale(1); }
     }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .tool-header h1 {
+        font-size: 2rem;
+      }
+      
+      .tool-wrapper {
+        padding: var(--space-lg);
+      }
+      
+      #drop-zone {
+        padding: var(--space-lg);
+      }
+      
+      .results-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    /* Dark Mode */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --light: #1a1a1a;
+        --dark: #ffffff;
+        --gray-100: #2d2d2d;
+        --gray-200: #404040;
+        --gray-600: #a0a0a0;
+        --gray-800: #e0e0e0;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        color: var(--gray-800);
+      }
+      
+      .tool-wrapper,
+      .feature-item,
+      .stat-item,
+      .more-tools {
+        background: var(--gray-100);
+        border-color: var(--gray-200);
+      }
+      
+      #drop-zone {
+        background: var(--gray-200);
+      }
+      
+      .donate-reminder {
+        background: linear-gradient(135deg, #2d2819, #3a321c);
+        border-color: #d97706;
+      }
+      
+      .sticky-nav {
+        background: rgba(26, 26, 26, 0.95);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      
+      .nav-links a {
+        color: var(--gray-300);
+      }
+      
+      .nav-logo-img {
+        background: var(--primary);
+      }
+      
+      .footer-logo-img {
+        background: var(--gray-200);
+      }
+      
+      .tool-card {
+        background: var(--gray-200);
+        border-color: var(--gray-300);
+      }
+      
+      .progress-container {
+        background: var(--gray-300);
+      }
+    }
   </style>
 </head>
 <body>
-
-<header class="header">
-  <div class="header-content">
-    <nav class="breadcrumb"><a href="../index.html">🏠 Home</a> / <span>Compress PDF</span></nav>
-    <h1>Compress PDF</h1>
-    <p>Shrink your PDF files while maintaining high quality.</p>
-  </div>
-</header>
-
-<main class="container">
-  <section class="tool-wrapper">
-    <div id="drop-zone" class="drop-zone" onclick="document.getElementById('file-input').click()">
-      <div class="drop-zone-content">
-        <span class="icon">📄</span>
-        <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
-        <span id="file-name-label" class="file-limit">Maximum size: 50MB</span>
+  <!-- Navigation -->
+  <nav class="sticky-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="nav-logo-img">
+          <img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40">
+        </div>
+        <span>Kimosabe Tools</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#tools">All Tools</a>
+        <a href="../index.html#features">Features</a>
+        <a href="../about.html">About</a>
+        <a href="../donate.html" class="support-btn">☕ Support</a>
       </div>
-      <input type="file" id="file-input" accept=".pdf" hidden />
     </div>
-    
-    <div class="progress-container" id="progress-container">
-      <div class="progress-bar" id="progress-bar"></div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Tool Header -->
+    <div class="tool-header">
+      <div class="tool-breadcrumb">
+        <a href="../index.html">Home</a> / 
+        <a href="../index.html#tools">Tools</a> / 
+        <span>Compress PDF</span>
+      </div>
+      <h1>Compress PDF</h1>
+      <p>Shrink your PDF files while maintaining high quality. 100% private — files never leave your browser.</p>
+      <div style="margin-top: var(--space-sm); display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+        <span style="background: rgba(67, 97, 238, 0.1); color: var(--primary); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
+          🔒 No Uploads
+        </span>
+        <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
+          ⚡ Instant Processing
+        </span>
+        <span style="background: rgba(247, 37, 133, 0.1); color: var(--accent); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
+          🆓 Completely Free
+        </span>
+      </div>
     </div>
-    
-    <div id="status-area" class="status-area" style="display:none;">
-      <p id="status-text">Processing your PDF<span class="loading-dots"><span></span><span></span><span></span></span></p>
-      <div id="stats"></div>
-      <div id="results-display" class="results-display">
-        <div class="results-header">
-          <div class="success-icon">✓</div>
-          <div>
-            <h3 style="margin: 0; color: #10b981;">Compression Complete!</h3>
-            <p style="margin: 0.25rem 0 0 0; color: #6b7280; font-size: 0.9rem;" id="result-filename"></p>
+
+    <!-- Tool Wrapper -->
+    <section class="tool-wrapper">
+      <!-- File Upload Area -->
+      <div id="drop-zone" class="drop-zone" onclick="document.getElementById('file-input').click()">
+        <div class="drop-zone-content">
+          <span class="icon">📄</span>
+          <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
+          <span id="file-name-label" class="file-limit">Maximum size: 50MB • Supported: PDF files</span>
+        </div>
+        <input type="file" id="file-input" accept=".pdf" hidden />
+      </div>
+      
+      <!-- Progress Bar -->
+      <div class="progress-container" id="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      
+      <!-- Status Area -->
+      <div id="status-area" class="status-area">
+        <p id="status-text">Processing your PDF<span class="loading-dots"><span></span><span></span><span></span></span></p>
+        <div id="stats"></div>
+        
+        <!-- Results Display -->
+        <div id="results-display" class="results-display">
+          <div class="results-header">
+            <div class="success-icon">✓</div>
+            <div>
+              <h3 style="margin: 0; color: #10b981; font-size: 1.5rem;">Compression Complete!</h3>
+              <p style="margin: 0.25rem 0 0 0; color: var(--gray-600); font-size: 0.95rem;" id="result-filename"></p>
+            </div>
+          </div>
+          
+          <div class="results-stats" id="results-stats">
+            <!-- Stats will be populated here -->
+          </div>
+          
+          <div class="action-buttons">
+            <a href="#" id="download-btn" class="btn btn-success">
+              ⬇️ Download Compressed PDF
+            </a>
+            <button class="btn btn-secondary" onclick="resetTool()">
+              🔄 Compress Another
+            </button>
           </div>
         </div>
+      </div>
+      
+      <!-- Donate Reminder -->
+      <div id="donate-reminder" class="donate-reminder">
+        <p>💖 Saved you some time? Consider buying me a coffee to keep this tool free!</p>
+        <a href="../donate.html" class="donate-link">
+          ☕ Support Kimosabe Tools
+        </a>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="tool-description">
+      <h2 style="text-align: center; margin-bottom: var(--space-lg); color: var(--dark); font-size: 2rem;">
+        Secure Online PDF Compression
+      </h2>
+      <p style="text-align: center; max-width: 700px; margin: 0 auto var(--space-xl); color: var(--gray-600); font-size: 1.1rem;">
+        This tool helps you reduce the file size of your PDF documents without noticeable loss of quality. 
+        Perfect for making files small enough for email attachments or faster website loading.
+      </p>
+      
+      <div class="feature-grid">
+        <div class="feature-item">
+          <strong><span style="font-size: 1.3rem;">🔒</span> 100% Private</strong>
+          <p>Files are processed in your browser and never touch our servers. Your documents stay completely confidential.</p>
+        </div>
+        <div class="feature-item">
+          <strong><span style="font-size: 1.3rem;">⚡</span> Instant Results</strong>
+          <p>Optimized algorithms compress your files in seconds, regardless of file size or complexity.</p>
+        </div>
+        <div class="feature-item">
+          <strong><span style="font-size: 1.3rem;">📊</span> Smart Optimization</strong>
+          <p>Intelligently removes unnecessary metadata and optimizes images while preserving document quality.</p>
+        </div>
+        <div class="feature-item">
+          <strong><span style="font-size: 1.3rem;">🆓</span> Free Forever</strong>
+          <p>No watermarks, no file limits, no registration needed. All tools are completely free to use.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- More Tools Section -->
+    <nav class="more-tools">
+      <h3>Other Handy Tools</h3>
+      <div class="tools-grid">
+        <a href="image-compressor.html" class="tool-card">
+          <div class="card-icon">📁</div>
+          <span>Image Compressor</span>
+        </a>
+        <a href="image-resize.html" class="tool-card">
+          <div class="card-icon">📐</div>
+          <span>Resize Image</span>
+        </a>
+        <a href="image-to-pdf.html" class="tool-card">
+          <div class="card-icon">📄</div>
+          <span>Image to PDF</span>
+        </a>
+        <a href="merge-pdf.html" class="tool-card">
+          <div class="card-icon">🔗</div>
+          <span>Merge PDF</span>
+        </a>
+        <a href="edit-pdf.html" class="tool-card">
+          <div class="card-icon">✏️</div>
+          <span>Edit PDF</span>
+        </a>
+        <a href="sign-pdf.html" class="tool-card">
+          <div class="card-icon">✍️</div>
+          <span>Sign PDF</span>
+        </a>
+      </div>
+    </nav>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-img">
+          <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60">
+        </div>
+        <div class="footer-logo-text">Kimosabe Tools</div>
+      </div>
+      
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <p style="color: var(--gray-300); max-width: 500px; margin: 0 auto 1.5rem;">
+          Join thousands of users who trust their privacy to Kimosabe Tools
+        </p>
+        <a href="../index.html#tools" class="support-btn" style="display: inline-block;">
+          🚀 Explore All Tools
+        </a>
+      </div>
+
+      <nav class="footer-links">
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../donate.html" style="color: #ffd166;">Support Us</a>
+      </nav>
+
+      <p class="copyright">
+        © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
+        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to top">
+    ↑
+  </button>
+
+  <script>
+    // DOM Elements
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const statusArea = document.getElementById('status-area');
+    const statusText = document.getElementById('status-text');
+    const downloadBtn = document.getElementById('download-btn');
+    const statsDiv = document.getElementById('stats');
+    const donateReminder = document.getElementById('donate-reminder');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar = document.getElementById('progress-bar');
+    const resultsDisplay = document.getElementById('results-display');
+    const resultsStats = document.getElementById('results-stats');
+    const resultFilename = document.getElementById('result-filename');
+    const fileNameLabel = document.getElementById('file-name-label');
+
+    let currentDownloadUrl = null;
+
+    // Event Listeners
+    fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+
+    // Utility Functions
+    function updateProgress(percentage) {
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function formatBytes(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    function resetTool() {
+      if (currentDownloadUrl) {
+        URL.revokeObjectURL(currentDownloadUrl);
+        currentDownloadUrl = null;
+      }
+      
+      statusArea.style.display = 'none';
+      donateReminder.style.display = 'none';
+      resultsDisplay.style.display = 'none';
+      progressContainer.style.display = 'none';
+      updateProgress(0);
+      fileInput.value = '';
+      fileNameLabel.textContent = 'Maximum size: 50MB • Supported: PDF files';
+    }
+
+    // File Processing Function
+    async function handleFiles(files) {
+      const file = files[0];
+      if (!file || file.type !== "application/pdf") {
+        alert("Please upload a valid PDF file.");
+        return;
+      }
+
+      if (currentDownloadUrl) {
+        URL.revokeObjectURL(currentDownloadUrl);
+      }
+
+      // Update UI for processing
+      const displayName = file.name.length > 30 ? file.name.substring(0, 27) + '...' : file.name;
+      fileNameLabel.textContent = `Processing: ${displayName}`;
+      statusArea.style.display = "block";
+      downloadBtn.style.display = "none";
+      donateReminder.style.display = "none";
+      resultsDisplay.style.display = "none";
+      statsDiv.innerHTML = "";
+      
+      statusText.innerHTML = `Compressing ${displayName} <span class="loading-dots"><span></span><span></span><span></span></span>`;
+      progressContainer.style.display = "block";
+
+      try {
+        // Simulate progress
+        updateProgress(20);
         
-        <div class="results-stats" id="results-stats">
-          <!-- Stats will be populated here -->
-        </div>
+        // Load PDF
+        const arrayBuffer = await file.arrayBuffer();
+        updateProgress(50);
         
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="#" id="download-btn">Download Compressed PDF</a>
-          <button class="btn-reset" onclick="resetTool()">Compress Another</button>
-        </div>
-      </div>
-    </div>
-    
-    <div id="donate-reminder" class="donate-reminder" style="display: none;">
-      <p>💖 Saved you some time? Consider buying me a coffee to keep this tool free!</p>
-      <a href="../donate.html" class="donate-link">
-        ☕ Support Kimosabe Tools
-      </a>
-    </div>
-  </section>
+        // Process PDF
+        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+        updateProgress(70);
+        
+        // Optimization: Stripping metadata helps reduce size
+        pdfDoc.setTitle("");
+        pdfDoc.setAuthor("");
+        pdfDoc.setCreator("");
+        pdfDoc.setSubject("");
+        pdfDoc.setKeywords([]);
+        pdfDoc.setProducer("");
+        
+        // Save with optimization
+        const pdfBytes = await pdfDoc.save({ 
+          useObjectStreams: true,
+          updateFieldAppearances: false 
+        });
+        
+        updateProgress(100);
 
-  <section class="tool-description">
-    <h2>Secure Online PDF Compression</h2>
-    <p>
-      This tool helps you reduce the file size of your PDF documents without noticeable loss of quality. 
-      It is perfect for making files small enough for email attachments or faster website loading.
-    </p>
-    
-    <div class="feature-grid">
-      <div class="feature-item">
-        <strong><span style="font-size: 1.2rem;">🔒</span> 100% Private</strong>
-        <p>Files are processed in your browser and never touch our servers.</p>
-      </div>
-      <div class="feature-item">
-        <strong><span style="font-size: 1.2rem;">⚡</span> Instant Results</strong>
-        <p>Optimized algorithms compress your files in seconds.</p>
-      </div>
-      <div class="feature-item">
-        <strong><span style="font-size: 1.2rem;">📊</span> Smart Optimization</strong>
-        <p>Removes unnecessary metadata while preserving quality.</p>
-      </div>
-      <div class="feature-item">
-        <strong><span style="font-size: 1.2rem;">🆓</span> Free Forever</strong>
-        <p>No watermarks, no file limits, no registration needed.</p>
-      </div>
-    </div>
-  </section>
+        // Calculate results
+        const oldSize = file.size;
+        const newSize = pdfBytes.length;
+        const savedPercent = Math.max(0, (((oldSize - newSize) / oldSize) * 100)).toFixed(1);
+        const savedBytes = oldSize - newSize;
 
-  <nav class="more-tools" style="margin-top: 40px;">
-    <h3>Other Handy Tools</h3>
-    <div class="tools-grid">
-      <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Image Compressor</span></a>
-      <a href="image-resize.html" class="tool-card"><div class="card-icon">📐</div><span>Resize Image</span></a>
-      <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
-      <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
-      <a href="jpg-png.html" class="tool-card"><div class="card-icon">🔄</div><span>JPG ↔ PNG</span></a>
-    </div>
-  </nav>
-</main>
+        // Create download link
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+        currentDownloadUrl = URL.createObjectURL(blob);
+        
+        // Update results display
+        resultFilename.textContent = file.name;
+        
+        // Populate stats
+        resultsStats.innerHTML = `
+          <div class="stat-item">
+            <span class="stat-label">Original Size</span>
+            <span class="stat-value">${formatBytes(oldSize)}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Compressed Size</span>
+            <span class="stat-value">${formatBytes(newSize)}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Space Saved</span>
+            <span class="stat-value">${formatBytes(savedBytes)}</span>
+            <span class="stat-saved">${savedPercent}% saved</span>
+          </div>
+        `;
+        
+        // Update stats display
+        statsDiv.innerHTML = `Size reduced by <strong>${savedPercent}%</strong> (${formatBytes(savedBytes)})`;
+        
+        // Setup download button
+        downloadBtn.href = currentDownloadUrl;
+        downloadBtn.download = `compressed_${file.name.replace('.pdf', '')}_kimosabe.pdf`;
+        downloadBtn.style.display = "inline-flex";
+        
+        // Show results after a short delay
+        setTimeout(() => {
+          statusText.innerHTML = "Compression Complete!";
+          resultsDisplay.style.display = "block";
+          donateReminder.style.display = 'block';
+          
+          // Track successful compression
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'pdf_compressed', {
+              'event_category': 'tool_usage',
+              'event_label': 'compress_pdf',
+              'value': savedPercent,
+              'transport_type': 'beacon'
+            });
+          }
+        }, 500);
 
-<footer class="footer">
-  <nav class="footer-links">
-    <a href="../about.html">About</a>
-    <a href="../contact.html">Contact</a> 
-    <a href="../privacy.html">Privacy</a>
-    <a href="../terms.html">Terms</a>
-  </nav>
-  <p>© 2026 Kimosabe Tools</p>
-</footer>
-
-<script>
-  const dropZone = document.getElementById('drop-zone');
-  const fileInput = document.getElementById('file-input');
-  const statusArea = document.getElementById('status-area');
-  const statusText = document.getElementById('status-text');
-  const downloadBtn = document.getElementById('download-btn');
-  const statsDiv = document.getElementById('stats');
-  const donateReminder = document.getElementById('donate-reminder');
-  const progressContainer = document.getElementById('progress-container');
-  const progressBar = document.getElementById('progress-bar');
-  const resultsDisplay = document.getElementById('results-display');
-  const resultsStats = document.getElementById('results-stats');
-  const resultFilename = document.getElementById('result-filename');
-  const fileNameLabel = document.getElementById('file-name-label');
-
-  let currentDownloadUrl = null;
-
-  fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
-
-  dropZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropZone.classList.add('dragover');
-    dropZone.style.borderColor = "var(--primary)";
-  });
-
-  dropZone.addEventListener('dragleave', () => {
-    dropZone.classList.remove('dragover');
-    dropZone.style.borderColor = "#d1d5db";
-  });
-
-  dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
-    dropZone.style.borderColor = "#d1d5db";
-    handleFiles(e.dataTransfer.files);
-  });
-
-  function updateProgress(percentage) {
-    progressBar.style.width = `${percentage}%`;
-  }
-
-  function formatBytes(bytes) {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-  }
-
-  function resetTool() {
-    if (currentDownloadUrl) {
-      URL.revokeObjectURL(currentDownloadUrl);
-      currentDownloadUrl = null;
-    }
-    
-    statusArea.style.display = 'none';
-    donateReminder.style.display = 'none';
-    resultsDisplay.style.display = 'none';
-    progressContainer.style.display = 'none';
-    updateProgress(0);
-    fileInput.value = '';
-    fileNameLabel.textContent = 'Maximum size: 50MB';
-  }
-
-  async function handleFiles(files) {
-    const file = files[0];
-    if (!file || file.type !== "application/pdf") {
-      alert("Please upload a valid PDF file.");
-      return;
+      } catch (err) {
+        console.error('PDF Compression Error:', err);
+        statusText.innerHTML = `<span style="color: #ef4444;">⚠️ Error: ${err.message || 'This PDF might be encrypted or corrupted'}</span>`;
+        statsDiv.innerHTML = "Please try another file";
+        progressContainer.style.display = "none";
+        
+        // Track error
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'pdf_compress_error', {
+            'event_category': 'errors',
+            'event_label': err.message || 'unknown_error',
+            'transport_type': 'beacon'
+          });
+        }
+      }
     }
 
-    if (currentDownloadUrl) URL.revokeObjectURL(currentDownloadUrl);
+    // Back to Top Button
+    const backToTop = document.querySelector('.back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTop.style.display = 'flex';
+      } else {
+        backToTop.style.display = 'none';
+      }
+    });
+    
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-    // Update UI for processing
-    fileNameLabel.textContent = `Processing: ${file.name.substring(0, 30)}${file.name.length > 30 ? '...' : ''}`;
-    statusArea.style.display = "block";
-    downloadBtn.style.display = "none";
-    donateReminder.style.display = "none";
-    resultsDisplay.style.display = "none";
-    statsDiv.innerHTML = "";
-    statusText.innerHTML = `Compressing ${file.name.substring(0, 25)}${file.name.length > 25 ? '...' : ''} <span class="loading-dots"><span></span><span></span><span></span></span>`;
-    progressContainer.style.display = "block";
-
-    try {
-      // Simulate progress
-      updateProgress(20);
-      
-      const arrayBuffer = await file.arrayBuffer();
-      updateProgress(50);
-      
-      const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-      updateProgress(70);
-      
-      // Optimization: Stripping metadata helps reduce size
-      pdfDoc.setTitle("");
-      pdfDoc.setAuthor("");
-      pdfDoc.setCreator("");
-      pdfDoc.setSubject("");
-      pdfDoc.setKeywords([]);
-      pdfDoc.setProducer("");
-      
-      const pdfBytes = await pdfDoc.save({ 
-        useObjectStreams: true,
-        updateFieldAppearances: false 
-      });
-      
-      updateProgress(100);
-
-      const oldSize = file.size;
-      const newSize = pdfBytes.length;
-      const savedPercent = Math.max(0, (((oldSize - newSize) / oldSize) * 100)).toFixed(1);
-
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
-      currentDownloadUrl = URL.createObjectURL(blob);
-      
-      // Update results display
-      resultFilename.textContent = file.name;
-      
-      resultsStats.innerHTML = `
-        <div class="stat-item">
-          <span class="stat-label">Original Size</span>
-          <span class="stat-value">${formatBytes(oldSize)}</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Compressed Size</span>
-          <span class="stat-value">${formatBytes(newSize)}</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Space Saved</span>
-          <span class="stat-value">${formatBytes(oldSize - newSize)}</span>
-          <span class="stat-saved">${savedPercent}% saved</span>
-        </div>
-      `;
-      
-      // Update stats display
-      statsDiv.innerHTML = `Size reduced by <strong>${savedPercent}%</strong>`;
-      
-      downloadBtn.href = currentDownloadUrl;
-      downloadBtn.download = `compressed_${file.name.replace('.pdf', '')}_kimosabe.pdf`;
-      downloadBtn.style.display = "inline-block";
-      
-      // Show results after a short delay
-      setTimeout(() => {
-        statusText.innerHTML = "Compression Complete!";
-        resultsDisplay.style.display = "block";
-        donateReminder.style.display = 'block';
-      }, 500);
-
-    } catch (err) {
-      console.error(err);
-      statusText.innerHTML = `<span style="color: #dc2626;">Error: This PDF might be encrypted or corrupted.</span>`;
-      statsDiv.innerHTML = "Please try another file";
-      progressContainer.style.display = "none";
-    }
-  }
-</script>
-
+    // Initialize tool
+    document.addEventListener('DOMContentLoaded', () => {
+      // Track page view
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', {
+          'page_title': 'Compress PDF',
+          'page_location': window.location.href
+        });
+      }
+    });
+  </script>
 </body>
 </html>
