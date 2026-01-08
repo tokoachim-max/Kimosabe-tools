@@ -1,199 +1,143 @@
 /* Modern Reset & Variables */
 :root {
-  --primary: #2563eb;       /* Modern Blue */
-  --primary-hover: #1d4ed8;
-  --bg: #f8fafc;
-  --text-main: #1e293b;
+  --primary: #4361ee;
+  --primary-dark: #3a56d4;
+  --secondary: #7209b7;
+  --accent: #f72585;
+  --success: #4cc9f0;
+  --bg: #f5f7fa;
+  --text-main: #212529;
   --text-muted: #64748b;
-  --border: #e2e8f0;
+  --border: #dee2e6;
   --card-bg: #ffffff;
+  
+  /* Shared Spacing & Radius */
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+}
+
+/* Dark Mode Variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a1a;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: #404040;
+    --card-bg: #2d2d2d;
+  }
 }
 
 body {
   margin: 0;
-  /* System font stack looks more modern than just Arial */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--text-main);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-/* Header Refinement */
-.header {
-  background: #ffffff;
-  padding: 60px 20px;
-  text-align: center;
+/* Header & Navigation Refinement */
+.sticky-nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
 }
 
-.header h1 {
-  margin: 0;
+.tool-header {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.tool-header h1 {
   font-size: 2.5rem;
-  color: var(--primary);
-  letter-spacing: -0.025em;
-}
-
-.header p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  margin-top: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Layout */
 .container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 0 20px 40px;
 }
 
-/* Grid Improvements */
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-bottom: 60px; /* Space before the description */
-}
-
-/* Card Styling */
-.tool-card {
+/* Tool Wrapper & Cards */
+.tool-wrapper {
   background: var(--card-bg);
-  border-radius: 12px;
-  padding: 24px;
-  text-decoration: none;
-  color: inherit;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--border);
-  transition: all 0.2s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.tool-card h3 {
-  margin: 0 0 10px 0;
-  color: var(--primary);
-  font-size: 1.25rem;
-}
-
-.tool-card p {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 0.95rem;
-}
-
-.tool-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
-}
-
-/* Description Section */
-.tool-description {
-  background: #f1f5f9;
-  padding: 30px;
-  border-radius: 12px;
-  margin-top: 40px;
-}
-
-.tool-description h2 {
-  margin-top: 0;
-  font-size: 1.5rem;
-}
-
-/* Footer & Links */
-.footer {
-  text-align: center;
-  padding: 60px 20px;
-  background: #ffffff;
-  border-top: 1px solid var(--border);
-  margin-top: 60px;
-}
-
-.footer p {
-  margin: 10px 0;
-  color: var(--text-muted);
-}
-
-.footer a {
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-}
-
-/* Donation Button (Buy Me a Coffee Style) */
-.donate-btn {
-  display: inline-block;
-  background: #ffdd00; /* Classic BMC Yellow */
-  color: #000000;
-  padding: 10px 24px;
-  border-radius: 8px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: transform 0.2s;
-}
-
-.donate-btn:hover {
-  transform: scale(1.05);
-}
-
-.card-icon {
-  font-size: 2rem;
-  margin-bottom: 15px;
-  background: #f1f5f9;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
 }
 
 .drop-zone {
-  border: 2px dashed var(--border);
-  border-radius: 12px;
+  border: 3px dashed var(--border);
+  border-radius: var(--radius-md);
   padding: 60px 20px;
   text-align: center;
-  background: white;
+  background: rgba(0,0,0,0.02);
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: all 0.3s ease;
 }
 
 .drop-zone:hover {
   border-color: var(--primary);
+  background: rgba(67, 97, 238, 0.05);
 }
 
-.drop-zone .icon {
-  font-size: 3rem;
-  display: block;
-  margin-bottom: 10px;
+/* Signature Specific UI */
+.signature-app { display: none; margin-top: 2rem; }
+.canvas-container {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  margin: 1rem 0;
+  touch-action: none;
+}
+canvas { width: 100%; height: 250px; cursor: crosshair; }
+
+.btn {
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s;
 }
 
-.file-limit {
-  font-size: 0.8rem;
-  color: var(--text-muted);
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+}
+
+.btn-clear {
+  background: #ef4444;
+  color: white;
   margin-top: 10px;
-  display: block;
 }
 
+/* File Info Stats */
+.file-info {
+  background: rgba(0,0,0,0.03);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  margin: 1.5rem 0;
+  display: none;
+}
+.file-stats { display: flex; gap: 20px; justify-content: center; }
+
+/* Donation Styling */
 .donate-reminder {
   background: #fffbeb;
   border: 1px dashed #f59e0b;
   border-radius: 8px;
-  padding: 15px;
+  padding: 20px;
   margin-top: 20px;
   text-align: center;
-  animation: fadeIn 0.5s ease-in;
-}
-
-.donate-reminder p {
-  margin-bottom: 10px;
-  font-size: 0.95rem;
-  color: #92400e;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  display: none;
 }
