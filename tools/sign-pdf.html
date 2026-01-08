@@ -1507,19 +1507,19 @@
     signBtn.addEventListener('click', signPDF);
 
     // Functions
-    function initSignaturePad() {
-      const ratio = Math.max(window.devicePixelRatio || 1, 1);
-      canvas.width = canvas.offsetWidth * ratio;
-      canvas.height = canvas.offsetHeight * ratio;
-      canvas.getContext('2d').scale(ratio, ratio);
-      
-      signaturePad = new signaturePad(canvas, {
-        backgroundColor: 'rgba(255, 255, 255, 0)',
-        penColor: selectedColor,
-        velocityFilterWeight: 0.7,
-        minWidth: 0.5,
-        maxWidth: 2.5,
-        throttle: 16,
+function initSignaturePad() {
+  const ratio = Math.max(window.devicePixelRatio || 1, 1);
+  canvas.width = canvas.offsetWidth * ratio;
+  canvas.height = canvas.offsetHeight * ratio;
+  canvas.getContext('2d').scale(ratio, ratio);
+  
+  signaturePad = new SignaturePad(canvas, {  // ← Changed here: capital S and P
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    penColor: selectedColor,
+    velocityFilterWeight: 0.7,
+    minWidth: 0.5,
+    maxWidth: 2.5,
+    throttle: 16,
       });
     }
 
