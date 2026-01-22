@@ -1,4 +1,4 @@
-/* style.css */
+/* style.css - Updated to include about.html styles */
 :root {
   /* Modern Color Palette */
   --primary: #4361ee;
@@ -77,6 +77,11 @@ h1, h2, h3, h4 {
   background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
 }
 
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
 .header-logo {
   display: flex;
   align-items: center;
@@ -97,6 +102,7 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: float 6s ease-in-out infinite;
 }
 
 .logo-image img {
@@ -122,6 +128,21 @@ h1, h2, h3, h4 {
   max-width: 600px;
   margin: 0 auto;
   position: relative;
+}
+
+/* Breadcrumb Navigation (for about.html) */
+.breadcrumb {
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+}
+
+.breadcrumb span {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Navigation */
@@ -387,7 +408,76 @@ h1, h2, h3, h4 {
   justify-content: center;
 }
 
-/* About Section */
+/* About Page Content Styles (NEW) */
+.about-content {
+  line-height: 1.8;
+  color: var(--gray-800);
+}
+
+.about-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark);
+}
+
+.about-content h3 {
+  font-size: 1.8rem;
+  margin: 2.5rem 0 1rem;
+  color: var(--primary);
+}
+
+.about-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.about-content code {
+  background: var(--gray-200);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Courier New', monospace;
+  color: var(--primary-dark);
+}
+
+.about-content ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-content ul li {
+  margin-bottom: 0.5rem;
+}
+
+.about-content ul li strong {
+  color: var(--primary);
+}
+
+/* Mission Box (for about.html) */
+.mission-box {
+  background: var(--gray-100);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  margin: 2.5rem 0;
+  border-left: 5px solid var(--primary);
+  font-size: 1.2rem;
+}
+
+.mission-box strong {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  font-size: 1.3rem;
+}
+
+/* Privacy Graphic (for about.html) */
+.privacy-graphic {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 3rem 0;
+}
+
+/* About Section (on index.html) */
 .about-section {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: var(--radius-xl);
@@ -419,6 +509,9 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .btn-primary {
@@ -436,6 +529,12 @@ h1, h2, h3, h4 {
 .btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
+}
+
+/* Accent button variant (for about.html) */
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent), #ff6b9d);
+  color: white;
 }
 
 /* Footer */
@@ -584,6 +683,23 @@ h1, h2, h3, h4 {
     width: 50px;
     height: 50px;
   }
+  
+  /* About page responsive */
+  .about-content h2 {
+    font-size: 2rem;
+  }
+  
+  .about-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .mission-box {
+    padding: 1.5rem;
+  }
+  
+  .privacy-graphic {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Animations */
@@ -599,10 +715,6 @@ h1, h2, h3, h4 {
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
-}
-
-.logo-image {
-  animation: float 6s ease-in-out infinite;
 }
 
 /* Dark mode support */
@@ -647,6 +759,16 @@ h1, h2, h3, h4 {
   
   .footer-logo-img {
     background: var(--gray-200);
+  }
+  
+  /* Dark mode for about page elements */
+  .mission-box {
+    background: var(--gray-100);
+  }
+  
+  .about-content code {
+    background: var(--gray-200);
+    color: var(--primary);
   }
 }
 
