@@ -1,4 +1,4 @@
-/* style.css - Updated to include about.html, contact.html, and donate.html styles */
+/* style.css - Updated to include about.html, contact.html, donate.html, and privacy.html styles */
 :root {
   /* Modern Color Palette */
   --primary: #4361ee;
@@ -13,6 +13,7 @@
   --gray-300: #dee2e6;
   --gray-600: #6c757d;
   --gray-800: #343a40;
+  --border: #e2e8f0;
   
   /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
@@ -54,99 +55,21 @@ h1, h2, h3, h4 {
   line-height: 1.2;
 }
 
-/* Header */
-.main-header {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: white;
-  padding: var(--space-xl) var(--space-md);
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-  text-align: center;
-  margin-bottom: var(--space-xl);
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  overflow: hidden;
-}
-
-.main-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
-}
-
-.header-content {
-  position: relative;
-  z-index: 1;
-}
-
-.header-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.logo-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: float 6s ease-in-out infinite;
-}
-
-.logo-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-}
-
-.main-header h1 {
-  font-size: 3rem;
-  margin-bottom: var(--space-xs);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.main-header p {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  max-width: 600px;
-  margin: 0 auto;
-  position: relative;
-}
-
-/* Breadcrumb Navigation (for about.html and contact.html) */
-.breadcrumb {
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
-}
-
-.breadcrumb a {
-  color: rgba(255, 255, 255, 0.9);
-  text-decoration: none;
-}
-
-.breadcrumb span {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* Navigation */
+/* ============================================
+   Navigation Styles
+   ============================================ */
 .sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding: 1rem 0;
+}
+
+/* Privacy page uses .main-nav for navigation */
+.main-nav {
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -244,7 +167,240 @@ h1, h2, h3, h4 {
   box-shadow: var(--shadow-hover);
 }
 
-/* Main Content */
+/* ============================================
+   Header Styles (for index, about, contact, privacy)
+   ============================================ */
+.main-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.logo-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: float 6s ease-in-out infinite;
+}
+
+.logo-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.main-header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.main-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+}
+
+.breadcrumb span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ============================================
+   Privacy Page Specific Styles
+   ============================================ */
+.privacy-container {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.privacy-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+}
+
+/* Privacy Promise Highlight */
+.privacy-promise {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-left: 5px solid #22c55e;
+  padding: 2rem;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  margin: 2rem 0 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.privacy-promise::before {
+  content: '🔒';
+  position: absolute;
+  top: -20px;
+  right: 20px;
+  font-size: 4rem;
+  opacity: 0.1;
+}
+
+.privacy-promise strong {
+  display: block;
+  font-size: 1.3rem;
+  color: #166534;
+  margin-bottom: 0.75rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.privacy-promise p {
+  color: #166534;
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Privacy Content */
+.privacy-content h2 {
+  margin: 2.5rem 0 1rem;
+  color: var(--primary);
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.privacy-content p {
+  line-height: 1.7;
+  color: var(--gray-600);
+  margin-bottom: 1.25rem;
+  font-size: 1.05rem;
+}
+
+.privacy-content ul {
+  padding-left: 1.5rem;
+  margin: 1rem 0 1.5rem;
+  color: var(--gray-600);
+}
+
+.privacy-content li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+.privacy-content li::before {
+  content: '•';
+  color: var(--primary);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.privacy-content .section-number {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2rem;
+  margin-right: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Key Points */
+.key-points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+}
+
+.key-point {
+  background: var(--gray-100);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  transition: transform 0.3s;
+}
+
+.key-point:hover {
+  transform: translateY(-3px);
+}
+
+.key-point-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.key-point h4 {
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.key-point p {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ============================================
+   Main Content & Container
+   ============================================ */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -408,7 +564,9 @@ h1, h2, h3, h4 {
   justify-content: center;
 }
 
-/* About Page Content Styles */
+/* ============================================
+   About Page Content Styles
+   ============================================ */
 .about-content {
   line-height: 1.8;
   color: var(--gray-800);
@@ -537,12 +695,55 @@ h1, h2, h3, h4 {
   color: white;
 }
 
-/* Footer */
+/* ============================================
+   Back Link (for privacy page and others)
+   ============================================ */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  background: white;
+  border: 1px solid var(--border);
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+
+.back-link:hover {
+  gap: 0.75rem;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Contact page back link variant */
+.contact-container .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: gap 0.2s;
+  margin-top: 2rem;
+}
+
+.contact-container .back-link:hover {
+  gap: 0.75rem;
+}
+
+/* ============================================
+   Footer Styles
+   ============================================ */
 .main-footer {
   background: var(--dark);
   color: white;
-  padding: var(--space-xl) 0;
-  margin-top: var(--space-xl);
+  padding: 3rem 0;
+  margin-top: 4rem;
 }
 
 .footer-content {
@@ -556,7 +757,7 @@ h1, h2, h3, h4 {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .footer-logo-img {
@@ -604,36 +805,12 @@ h1, h2, h3, h4 {
   text-align: center;
   color: var(--gray-600);
   font-size: 0.9rem;
-  margin-top: var(--space-lg);
+  margin-top: 2rem;
 }
 
-/* Back to Top */
-.back-to-top {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: var(--shadow-lg);
-  transition: all 0.3s;
-  z-index: 1000;
-}
-
-.back-to-top:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-hover);
-}
-
-/* Contact Page Styles */
+/* ============================================
+   Contact Page Styles
+   ============================================ */
 .contact-container {
   max-width: 600px;
   margin: 3rem auto;
@@ -742,26 +919,9 @@ textarea.form-control {
   margin-bottom: 1rem;
 }
 
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 600;
-  transition: gap 0.2s;
-}
-
-.back-link:hover {
-  gap: 0.75rem;
-}
-
-/* Form Spam Protection */
-input[name="_gotcha"] {
-  display: none !important;
-}
-
-/* Donate Page Styles */
+/* ============================================
+   Donate Page Styles
+   ============================================ */
 .donate-container {
   max-width: 700px;
   margin: 3rem auto;
@@ -999,103 +1159,40 @@ input[name="_gotcha"] {
   box-shadow: var(--shadow-md);
 }
 
-/* Tool-specific styles for other pages - keep these for compatibility */
-.tool-wrapper {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border);
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.drop-zone {
-  border: 3px dashed var(--border);
-  border-radius: var(--radius-md);
-  padding: 60px 20px;
-  text-align: center;
-  background: rgba(0,0,0,0.02);
-  cursor: pointer;
-  transition: all 0.3s ease;
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
 }
 
-.drop-zone:hover {
-  border-color: var(--primary);
-  background: rgba(67, 97, 238, 0.05);
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
-/* Signature Specific UI */
-.signature-app { 
-  display: none; 
-  margin-top: 2rem; 
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
-.canvas-container {
-  background: white;
-  border: 2px solid var(--border);
-  border-radius: var(--radius-md);
-  margin: 1rem 0;
-  touch-action: none;
-}
-
-canvas { 
-  width: 100%; 
-  height: 250px; 
-  cursor: crosshair; 
-}
-
-.btn-clear {
-  background: #ef4444;
-  color: white;
-  margin-top: 10px;
-}
-
-/* File Info Stats */
-.file-info {
-  background: rgba(0,0,0,0.03);
-  padding: 1rem;
-  border-radius: var(--radius-md);
-  margin: 1.5rem 0;
-  display: none;
-}
-
-.file-stats { 
-  display: flex; 
-  gap: 20px; 
-  justify-content: center; 
-}
-
-/* Donation Styling */
-.donate-reminder {
-  background: #fffbeb;
-  border: 1px dashed #f59e0b;
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 20px;
-  text-align: center;
-  display: none;
-}
-
-/* Responsive */
+/* ============================================
+   Responsive Design
+   ============================================ */
 @media (max-width: 768px) {
   .main-header h1 {
     font-size: 2.2rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .header-logo {
-    flex-direction: column;
-    text-align: center;
   }
   
   .logo-image {
     width: 100px;
     height: 100px;
-    padding: 15px;
-  }
-  
-  .tools-grid {
-    grid-template-columns: 1fr;
+    padding: 20px;
   }
   
   .nav-links {
@@ -1164,37 +1261,39 @@ canvas {
   .momo-grid {
     grid-template-columns: 1fr;
   }
+  
+  /* Privacy page responsive */
+  .privacy-container {
+    margin: 2rem auto;
+  }
+  
+  .privacy-card {
+    padding: 1.5rem;
+  }
+  
+  .privacy-promise {
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+  }
+  
+  .key-points {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-/* Dark mode support */
+/* ============================================
+   Dark Mode Support
+   ============================================ */
 @media (prefers-color-scheme: dark) {
   :root {
     --light: #1a1a1a;
     --dark: #ffffff;
     --gray-100: #2d2d2d;
     --gray-200: #404040;
+    --gray-300: #4a4a4a;
     --gray-600: #a0a0a0;
     --gray-800: #e0e0e0;
+    --border: #404040;
   }
   
   body {
@@ -1204,16 +1303,39 @@ canvas {
   
   .tool-card,
   .feature-card,
-  .stat-card {
+  .stat-card,
+  .privacy-card {
     background: var(--gray-100);
-    border-color: var(--gray-200);
+    border-color: var(--border);
   }
   
-  .about-section {
-    background: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);
+  .privacy-promise {
+    background: linear-gradient(135deg, #1a3a2a 0%, #2d5a3a 100%);
+    border-left-color: #22c55e;
   }
   
-  .sticky-nav {
+  .privacy-promise strong,
+  .privacy-promise p {
+    color: #bbf7d0;
+  }
+  
+  .privacy-content h2 {
+    border-bottom-color: var(--gray-300);
+  }
+  
+  .key-point {
+    background: var(--gray-200);
+    border-color: var(--gray-300);
+  }
+  
+  .back-link {
+    background: var(--gray-200);
+    border-color: var(--gray-300);
+    color: var(--primary);
+  }
+  
+  .sticky-nav,
+  .main-nav {
     background: rgba(26, 26, 26, 0.95);
     border-bottom: 1px solid rgba(255,255,255,0.05);
   }
@@ -1228,6 +1350,10 @@ canvas {
   
   .footer-logo-img {
     background: var(--gray-200);
+  }
+  
+  .about-section {
+    background: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);
   }
   
   /* Dark mode for about page elements */
@@ -1300,6 +1426,32 @@ canvas {
   }
 }
 
+/* ============================================
+   Additional Styles (for tool pages if needed)
+   ============================================ */
+.tool-wrapper {
+  background: var(--gray-100);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+
+.drop-zone {
+  border: 3px dashed var(--border);
+  border-radius: var(--radius-md);
+  padding: 60px 20px;
+  text-align: center;
+  background: rgba(0,0,0,0.02);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.drop-zone:hover {
+  border-color: var(--primary);
+  background: rgba(67, 97, 238, 0.05);
+}
+
 /* Dark mode adjustments for tool-specific styles */
 @media (prefers-color-scheme: dark) {
   .tool-wrapper {
@@ -1315,15 +1467,5 @@ canvas {
   .drop-zone:hover {
     border-color: var(--primary);
     background: rgba(67, 97, 238, 0.1);
-  }
-  
-  .canvas-container {
-    background: var(--gray-100);
-    border-color: var(--gray-200);
-  }
-  
-  .donate-reminder {
-    background: #2d2000;
-    border-color: #d97706;
   }
 }
