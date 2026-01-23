@@ -1,4 +1,4 @@
-/* style.css - Updated to include about.html and contact.html styles */
+/* style.css - Updated to include about.html, contact.html, and donate.html styles */
 :root {
   /* Modern Color Palette */
   --primary: #4361ee;
@@ -761,168 +761,242 @@ input[name="_gotcha"] {
   display: none !important;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .main-header h1 {
-    font-size: 2.2rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .header-logo {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .logo-image {
-    width: 100px;
-    height: 100px;
-    padding: 15px;
-  }
-  
-  .tools-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .nav-links {
-    display: none;
-  }
-  
-  .mobile-menu-btn {
-    display: block;
-  }
-  
-  .cta-buttons {
-    flex-direction: column;
-  }
-  
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .footer-logo {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-  }
-  
-  .footer-logo-img {
-    width: 50px;
-    height: 50px;
-  }
-  
-  /* About page responsive */
-  .about-content h2 {
-    font-size: 2rem;
-  }
-  
-  .about-content h3 {
-    font-size: 1.5rem;
-  }
-  
-  .mission-box {
-    padding: 1.5rem;
-  }
-  
-  .privacy-graphic {
-    grid-template-columns: 1fr;
-  }
-  
-  /* Contact page responsive */
-  .contact-container {
-    margin: 2rem auto;
-  }
-  
-  .contact-card {
-    padding: 1.5rem;
-  }
+/* Donate Page Styles */
+.donate-container {
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 0 var(--space-md);
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.donate-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gray-200);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+.donate-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+.donate-intro {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --light: #1a1a1a;
-    --dark: #ffffff;
-    --gray-100: #2d2d2d;
-    --gray-200: #404040;
-    --gray-600: #a0a0a0;
-    --gray-800: #e0e0e0;
-  }
-  
-  body {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    color: var(--gray-800);
-  }
-  
-  .tool-card,
-  .feature-card,
-  .stat-card {
-    background: var(--gray-100);
-    border-color: var(--gray-200);
-  }
-  
-  .about-section {
-    background: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);
-  }
-  
-  .sticky-nav {
-    background: rgba(26, 26, 26, 0.95);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-  
-  .nav-links a {
-    color: var(--gray-300);
-  }
-  
-  .nav-logo-img {
-    background: var(--primary);
-  }
-  
-  .footer-logo-img {
-    background: var(--gray-200);
-  }
-  
-  /* Dark mode for about page elements */
-  .mission-box {
-    background: var(--gray-100);
-  }
-  
-  .about-content code {
-    background: var(--gray-200);
-    color: var(--primary);
-  }
-  
-  /* Dark mode for contact page elements */
-  .contact-card {
-    background: var(--gray-100);
-    border-color: var(--gray-200);
-  }
-  
-  .form-control {
-    background: var(--gray-200);
-    border-color: var(--gray-300);
-    color: var(--gray-800);
-  }
-  
-  .contact-info {
-    background: var(--gray-200);
-  }
+.donate-intro h2 {
+  font-size: 1.8rem;
+  color: var(--dark);
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.donate-intro p {
+  color: var(--gray-600);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.donate-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* Ko-fi Button */
+.kofi-btn {
+  background: linear-gradient(135deg, #29abe0, #1e8cb8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.kofi-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.kofi-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.kofi-btn:hover::before {
+  left: 100%;
+}
+
+.kofi-btn img {
+  height: 28px;
+  filter: brightness(0) invert(1);
+}
+
+/* Mobile Money Section */
+.momo-section {
+  margin-top: 2.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--gray-300);
+  text-align: left;
+}
+
+.momo-section h3 {
+  font-size: 1.2rem;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+}
+
+.momo-section p {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.momo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.momo-card {
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  color: #1e293b;
+  font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+
+.momo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.mtn-bg {
+  background: linear-gradient(135deg, #ffcc00, #ffaa00);
+  border: 1px solid #eab308;
+}
+
+.airtel-bg {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border: 1px solid #e11d48;
+}
+
+.momo-card strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.momo-number {
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0.75rem 0;
+  letter-spacing: 1px;
+  color: #1e293b;
+}
+
+.airtel-bg .momo-number {
+  color: #e11d48;
+}
+
+.momo-instruction {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+  color: #475569;
+}
+
+.momo-card small {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.airtel-bg small {
+  color: #64748b;
+}
+
+/* Why Support Section */
+.why-support {
+  margin-top: 2.5rem;
+  text-align: left;
+  padding-top: 2rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.why-support h3 {
+  font-size: 1.3rem;
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+
+.why-support ul {
+  padding-left: 1.25rem;
+  color: var(--gray-600);
+}
+
+.why-support li {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.why-support strong {
+  color: var(--primary);
+}
+
+/* Back Link Button (for donate page) */
+.back-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  background: white;
+  border: 1px solid var(--gray-200);
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+
+.back-link-btn:hover {
+  gap: 0.75rem;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 /* Tool-specific styles for other pages - keep these for compatibility */
@@ -999,6 +1073,231 @@ canvas {
   margin-top: 20px;
   text-align: center;
   display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-header h1 {
+    font-size: 2.2rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .header-logo {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .logo-image {
+    width: 100px;
+    height: 100px;
+    padding: 15px;
+  }
+  
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .footer-logo {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .footer-logo-img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  /* About page responsive */
+  .about-content h2 {
+    font-size: 2rem;
+  }
+  
+  .about-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .mission-box {
+    padding: 1.5rem;
+  }
+  
+  .privacy-graphic {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Contact page responsive */
+  .contact-container {
+    margin: 2rem auto;
+  }
+  
+  .contact-card {
+    padding: 1.5rem;
+  }
+  
+  /* Donate page responsive */
+  .donate-container {
+    margin: 2rem auto;
+  }
+  
+  .donate-card {
+    padding: 1.5rem;
+  }
+  
+  .momo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --light: #1a1a1a;
+    --dark: #ffffff;
+    --gray-100: #2d2d2d;
+    --gray-200: #404040;
+    --gray-600: #a0a0a0;
+    --gray-800: #e0e0e0;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: var(--gray-800);
+  }
+  
+  .tool-card,
+  .feature-card,
+  .stat-card {
+    background: var(--gray-100);
+    border-color: var(--gray-200);
+  }
+  
+  .about-section {
+    background: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);
+  }
+  
+  .sticky-nav {
+    background: rgba(26, 26, 26, 0.95);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .nav-links a {
+    color: var(--gray-300);
+  }
+  
+  .nav-logo-img {
+    background: var(--primary);
+  }
+  
+  .footer-logo-img {
+    background: var(--gray-200);
+  }
+  
+  /* Dark mode for about page elements */
+  .mission-box {
+    background: var(--gray-100);
+  }
+  
+  .about-content code {
+    background: var(--gray-200);
+    color: var(--primary);
+  }
+  
+  /* Dark mode for contact page elements */
+  .contact-card {
+    background: var(--gray-100);
+    border-color: var(--gray-200);
+  }
+  
+  .form-control {
+    background: var(--gray-200);
+    border-color: var(--gray-300);
+    color: var(--gray-800);
+  }
+  
+  .contact-info {
+    background: var(--gray-200);
+  }
+  
+  /* Dark mode for donate page elements */
+  .donate-card {
+    background: var(--gray-100);
+    border-color: var(--gray-200);
+  }
+  
+  .donate-intro h2 {
+    background: linear-gradient(135deg, var(--primary), var(--success));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .momo-section {
+    background: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);
+    border-color: var(--gray-300);
+  }
+  
+  .airtel-bg {
+    background: linear-gradient(135deg, #2d2d2d, #404040);
+  }
+  
+  .momo-card {
+    color: var(--gray-800);
+  }
+  
+  .momo-number {
+    color: var(--gray-800);
+  }
+  
+  .momo-instruction {
+    color: var(--gray-600);
+  }
+  
+  .why-support {
+    border-top-color: var(--gray-300);
+  }
+  
+  .back-link-btn {
+    background: var(--gray-200);
+    border-color: var(--gray-300);
+    color: var(--primary);
+  }
 }
 
 /* Dark mode adjustments for tool-specific styles */
