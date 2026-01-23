@@ -1,4 +1,4 @@
-/* style.css - Updated to include about.html styles */
+/* style.css - Updated to include about.html and contact.html styles */
 :root {
   /* Modern Color Palette */
   --primary: #4361ee;
@@ -130,7 +130,7 @@ h1, h2, h3, h4 {
   position: relative;
 }
 
-/* Breadcrumb Navigation (for about.html) */
+/* Breadcrumb Navigation (for about.html and contact.html) */
 .breadcrumb {
   margin-bottom: 2rem;
   font-size: 0.9rem;
@@ -408,7 +408,7 @@ h1, h2, h3, h4 {
   justify-content: center;
 }
 
-/* About Page Content Styles (NEW) */
+/* About Page Content Styles */
 .about-content {
   line-height: 1.8;
   color: var(--gray-800);
@@ -633,6 +633,134 @@ h1, h2, h3, h4 {
   box-shadow: var(--shadow-hover);
 }
 
+/* Contact Page Styles */
+.contact-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 0 var(--space-md);
+}
+
+.contact-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  font-size: 1rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background: white;
+  color: var(--gray-800);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+.form-control::placeholder {
+  color: var(--gray-600);
+  opacity: 0.7;
+}
+
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234361ee' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 16px;
+  padding-right: 2.5rem;
+}
+
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-md);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.contact-info {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--gray-600);
+  padding: 1.5rem;
+  background: var(--gray-100);
+  border-radius: var(--radius-lg);
+}
+
+.contact-info p {
+  margin-bottom: 1rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: gap 0.2s;
+}
+
+.back-link:hover {
+  gap: 0.75rem;
+}
+
+/* Form Spam Protection */
+input[name="_gotcha"] {
+  display: none !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .main-header h1 {
@@ -699,6 +827,15 @@ h1, h2, h3, h4 {
   
   .privacy-graphic {
     grid-template-columns: 1fr;
+  }
+  
+  /* Contact page responsive */
+  .contact-container {
+    margin: 2rem auto;
+  }
+  
+  .contact-card {
+    padding: 1.5rem;
   }
 }
 
@@ -769,6 +906,22 @@ h1, h2, h3, h4 {
   .about-content code {
     background: var(--gray-200);
     color: var(--primary);
+  }
+  
+  /* Dark mode for contact page elements */
+  .contact-card {
+    background: var(--gray-100);
+    border-color: var(--gray-200);
+  }
+  
+  .form-control {
+    background: var(--gray-200);
+    border-color: var(--gray-300);
+    color: var(--gray-800);
+  }
+  
+  .contact-info {
+    background: var(--gray-200);
   }
 }
 
