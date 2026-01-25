@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "title": "Kimosabe Tools - Datenschutzorientierte Online-Tools",
+    "description": "Kostenlose, private Online-Tools, die vollständig in Ihrem Browser funktionieren. Keine Uploads, kein Tracking.",
+    "keywords": "Datenschutztools, PDF-Editor, Bildkompressor, Online-Tools, Browser-Tools"
+  },
+  "nav": {
+    "home": "Startseite",
+    "tools": "Tools",
+    "features": "Funktionen",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "donate": "☕ Unterstützen",
+    "language": "🌐",
+    "explore_tools": "🚀 Alle Tools erkunden"
+  },
+  "footer": {
+    "tagline": "Schließen Sie sich Tausenden von Nutzern an, die Kimosabe Tools vertrauen",
+    "built_with": "Mit ❤️ für Datenschutz gebaut",
+    "processing": "Alle Verarbeitung erfolgt lokal in Ihrem Browser. Keine Cookies. Kein Tracking."
+  },
+  "home": {
+    "title": "Kimosabe Tools",
+    "subtitle": "Datenschutzorientierte Online-Tools",
+    "description": "Kostenlose Tools, die zu 100% in Ihrem Browser funktionieren. Keine Uploads, kein Tracking, keine Registrierung.",
+    "stats": {
+      "users": "Nutzer",
+      "tools": "Tools",
+      "privacy": "Datenschutz",
+      "free": "Kostenlos"
+    },
+    "features_title": "Warum Kimosabe Tools wählen?",
+    "features": {
+      "privacy": {
+        "title": "100% Privat",
+        "desc": "Ihre Dateien verlassen nie Ihr Gerät. Keine Server-Uploads."
+      },
+      "free": {
+        "title": "Völlig kostenlos",
+        "desc": "Keine Wasserzeichen, keine Limits, keine Registrierung erforderlich."
+      },
+      "fast": {
+        "title": "Blitzschnell",
+        "desc": "Funktioniert mit Gerätegeschwindigkeit. Kein Warten auf Server."
+      },
+      "secure": {
+        "title": "Bank-Level Sicherheit",
+        "desc": "Alle Verarbeitung erfolgt in Ihrem Browser mit JavaScript."
+      }
+    },
+    "tools_title": "Unsere Datenschutz-Tools",
+    "about_title": "Über Kimosabe Tools",
+    "about_desc": "Kimosabe Tools wurde von einem Einzelentwickler erstellt, der Datenschutz über alles stellt. In einer Welt, in der Daten ständig gesammelt und verkauft werden, glauben wir an Tools, die Ihre digitalen Rechte respektieren.",
+    "cta": "Erfahren Sie mehr über unsere Mission"
+  },
+  "tool_common": {
+    "upload": "Datei hochladen",
+    "drag_drop": "Ziehen & Ablegen oder klicken zum Hochladen",
+    "max_size": "Maximale Größe: 50MB",
+    "browser_only": "Dateien werden in Ihrem Browser verarbeitet",
+    "apply": "Änderungen anwenden",
+    "download": "Herunterladen",
+    "reset": "Zurücksetzen",
+    "processing": "Wird verarbeitet...",
+    "success": "Erfolg!",
+    "error": "Fehler",
+    "support": "Kimosabe Tools unterstützen",
+    "coffee": "☕ Kaffee spendieren",
+    "more_tools": "Mehr Tools",
+    "features": "Funktionen",
+    "privacy_focus": "Datenschutzorientiert"
+  },
+  "edit_pdf": {
+    "add_text": "Text zur ersten Seite hinzufügen",
+    "text_placeholder": "Text eingeben (z.B., 'Entwurf', 'Vertraulich')",
+    "text_tip": "Text erscheint oben links auf der ersten Seite",
+    "whiteout": "Tipp-Ex auf Kopfzeile anwenden",
+    "whiteout_tip": "Deckt die oberen 60px der ersten Seite mit weißem Rechteck ab",
+    "advanced": "Erweiterte Optionen",
+    "font_size": "Schriftgröße",
+    "page_numbers": "Seitennummern zu allen Seiten hinzufügen",
+    "page_numbers_tip": "Fügt Seitenzahlen unten mittig hinzu",
+    "features_title": "Sichere und geschützte PDF-Bearbeitung",
+    "features": {
+      "annotations": {
+        "title": "Anmerkungen hinzufügen",
+        "desc": "Notizen, Etiketten oder Daten ohne teure Software hinzufügen"
+      },
+      "private": {
+        "title": "100% Privat",
+        "desc": "Wir speichern Ihre Dokumente nicht. Alle Bearbeitung erfolgt lokal."
+      },
+      "instant": {
+        "title": "Sofortige Verarbeitung",
+        "desc": "Bearbeiten und in Sekunden herunterladen. Kein Warten auf Uploads."
+      },
+      "free": {
+        "title": "Für immer kostenlos",
+        "desc": "Keine Wasserzeichen, keine Limits, keine Registrierung nötig."
+      }
+    }
+  }
+}

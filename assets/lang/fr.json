@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "title": "Kimosabe Tools - Outils en ligne axés sur la confidentialité",
+    "description": "Outils en ligne gratuits et privés qui fonctionnent entièrement dans votre navigateur. Pas de téléchargement, pas de suivi.",
+    "keywords": "outils de confidentialité, éditeur pdf, compresseur d'images, outils en ligne, outils de navigateur"
+  },
+  "nav": {
+    "home": "Accueil",
+    "tools": "Outils",
+    "features": "Fonctionnalités",
+    "about": "À propos",
+    "contact": "Contact",
+    "privacy": "Confidentialité",
+    "terms": "Conditions",
+    "donate": "☕ Soutenir",
+    "language": "🌐",
+    "explore_tools": "🚀 Explorer tous les outils"
+  },
+  "footer": {
+    "tagline": "Rejoignez des milliers d'utilisateurs qui font confiance à Kimosabe Tools",
+    "built_with": "Construit avec ❤️ pour la confidentialité",
+    "processing": "Tous les traitements se font localement dans votre navigateur. Pas de cookies. Pas de suivi."
+  },
+  "home": {
+    "title": "Kimosabe Tools",
+    "subtitle": "Outils en ligne axés sur la confidentialité",
+    "description": "Outils gratuits qui fonctionnent à 100% dans votre navigateur. Pas de téléchargement, pas de suivi, pas d'inscription.",
+    "stats": {
+      "users": "Utilisateurs",
+      "tools": "Outils",
+      "privacy": "Confidentialité",
+      "free": "Gratuit"
+    },
+    "features_title": "Pourquoi choisir Kimosabe Tools?",
+    "features": {
+      "privacy": {
+        "title": "100% Privé",
+        "desc": "Vos fichiers ne quittent jamais votre appareil. Pas de téléchargement sur les serveurs."
+      },
+      "free": {
+        "title": "Complètement gratuit",
+        "desc": "Pas de filigrane, pas de limites, pas d'inscription requise."
+      },
+      "fast": {
+        "title": "Ultra rapide",
+        "desc": "Fonctionne à la vitesse de votre appareil. Pas d'attente des serveurs."
+      },
+      "secure": {
+        "title": "Sécurité bancaire",
+        "desc": "Tout le traitement se fait dans votre navigateur en utilisant JavaScript."
+      }
+    },
+    "tools_title": "Nos outils de confidentialité",
+    "about_title": "À propos de Kimosabe Tools",
+    "about_desc": "Kimosabe Tools a été créé par un développeur indépendant qui valorise la confidentialité avant tout. Dans un monde où les données sont constamment collectées et vendues, nous croyons en fournissant des outils qui respectent vos droits numériques.",
+    "cta": "Découvrez notre mission"
+  },
+  "tool_common": {
+    "upload": "Télécharger le fichier",
+    "drag_drop": "Glisser-déposer ou cliquer pour télécharger",
+    "max_size": "Taille maximale: 50MB",
+    "browser_only": "Les fichiers sont traités dans votre navigateur",
+    "apply": "Appliquer les modifications",
+    "download": "Tichapwsa",
+    "reset": "Rédémarrer",
+    "processing": "Traitement...",
+    "success": "Succès!",
+    "error": "Erreur",
+    "support": "Soutenir Kimosabe Tools",
+    "coffee": "☕ Offrir un café",
+    "more_tools": "Plus d'outils",
+    "features": "Fonctionnalités",
+    "privacy_focus": "Axé sur la confidentialité"
+  },
+  "edit_pdf": {
+    "add_text": "Ajouter du texte à la première page",
+    "text_placeholder": "Tapez le texte à ajouter (ex., 'Brouillon', 'Confidentiel')",
+    "text_tip": "Le texte apparaîtra en haut à gauche de la première page",
+    "whiteout": "Appliquer du blanc correcteur à l'en-tête",
+    "whiteout_tip": "Couvre les 60px supérieurs de la première page avec un rectangle blanc",
+    "advanced": "Options avancées",
+    "font_size": "Taille de police",
+    "page_numbers": "Ajouter des numéros de page à toutes les pages",
+    "page_numbers_tip": "Ajoute des numéros de page en bas au centre",
+    "features_title": "Édition de PDF sûre et sécurisée",
+    "features": {
+      "annotations": {
+        "title": "Ajouter des annotations",
+        "desc": "Ajoutez des notes, étiquettes ou dates sans logiciel coûteux"
+      },
+      "private": {
+        "title": "100% Privé",
+        "desc": "Nous ne stockons pas vos documents. Toute l'édition se fait localement."
+      },
+      "instant": {
+        "title": "Traitement instantané",
+        "desc": "Modifiez et téléchargez en quelques secondes. Pas d'attente des téléchargements."
+      },
+      "free": {
+        "title": "Gratuit pour toujours",
+        "desc": "Pas de filigrane, pas de limites, pas d'inscription nécessaire."
+      }
+    }
+  }
+}

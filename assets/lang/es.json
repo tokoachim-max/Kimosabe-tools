@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "title": "Kimosabe Tools - Herramientas en línea enfocadas en privacidad",
+    "description": "Herramientas en línea gratuitas y privadas que funcionan completamente en su navegador. Sin subidas, sin seguimiento.",
+    "keywords": "herramientas de privacidad, editor pdf, compresor de imágenes, herramientas en línea, herramientas del navegador"
+  },
+  "nav": {
+    "home": "Inicio",
+    "tools": "Herramientas",
+    "features": "Características",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "donate": "☕ Apoyar",
+    "language": "🌐",
+    "explore_tools": "🚀 Explorar todas las herramientas"
+  },
+  "footer": {
+    "tagline": "Únete a miles de usuarios que confían su privacidad a Kimosabe Tools",
+    "built_with": "Construido con ❤️ para la privacidad",
+    "processing": "Todo el procesamiento ocurre localmente en su navegador. Sin cookies. Sin seguimiento."
+  },
+  "home": {
+    "title": "Kimosabe Tools",
+    "subtitle": "Herramientas en línea enfocadas en privacidad",
+    "description": "Herramientas gratuitas que funcionan 100% en su navegador. Sin subidas, sin seguimiento, sin registro.",
+    "stats": {
+      "users": "Usuarios",
+      "tools": "Herramientas",
+      "privacy": "Privacidad",
+      "free": "Gratis"
+    },
+    "features_title": "¿Por qué elegir Kimosabe Tools?",
+    "features": {
+      "privacy": {
+        "title": "100% Privado",
+        "desc": "Sus archivos nunca salen de su dispositivo. Sin subidas a servidores."
+      },
+      "free": {
+        "title": "Completamente Gratis",
+        "desc": "Sin marcas de agua, sin límites, sin registro requerido."
+      },
+      "fast": {
+        "title": "Ultra Rápido",
+        "desc": "Funciona a la velocidad de su dispositivo. Sin esperar servidores."
+      },
+      "secure": {
+        "title": "Seguridad de Banco",
+        "desc": "Todo el procesamiento ocurre en su navegador usando JavaScript."
+      }
+    },
+    "tools_title": "Nuestras herramientas de privacidad",
+    "about_title": "Acerca de Kimosabe Tools",
+    "about_desc": "Kimosabe Tools fue creado por un desarrollador independiente que valora la privacidad por encima de todo. En un mundo donde los datos se recopilan y venden constantemente, creemos en proporcionar herramientas que respeten sus derechos digitales.",
+    "cta": "Conoce nuestra misión"
+  },
+  "tool_common": {
+    "upload": "Subir archivo",
+    "drag_drop": "Arrastrar y soltar o hacer clic para subir",
+    "max_size": "Tamaño máximo: 50MB",
+    "browser_only": "Los archivos se procesan en su navegador",
+    "apply": "Aplicar cambios",
+    "download": "Descargar",
+    "reset": "Reiniciar",
+    "processing": "Procesando...",
+    "success": "¡Éxito!",
+    "error": "Error",
+    "support": "Apoyar Kimosabe Tools",
+    "coffee": "☕ Comprar un café",
+    "more_tools": "Más herramientas",
+    "features": "Características",
+    "privacy_focus": "Enfocado en privacidad"
+  },
+  "edit_pdf": {
+    "add_text": "Agregar texto a la primera página",
+    "text_placeholder": "Escriba texto para agregar (ej., 'Borrador', 'Confidencial')",
+    "text_tip": "El texto aparecerá en la esquina superior izquierda de la primera página",
+    "whiteout": "Aplicar corrector al encabezado",
+    "whiteout_tip": "Cubre los 60px superiores de la primera página con rectángulo blanco",
+    "advanced": "Opciones avanzadas",
+    "font_size": "Tamaño de fuente",
+    "page_numbers": "Agregar números de página a todas las páginas",
+    "page_numbers_tip": "Agrega números de página en el centro inferior",
+    "features_title": "Edición de PDF segura y privada",
+    "features": {
+      "annotations": {
+        "title": "Agregar anotaciones",
+        "desc": "Agrega notas, etiquetas o fechas sin software costoso"
+      },
+      "private": {
+        "title": "100% Privado",
+        "desc": "No almacenamos sus documentos. Toda la edición ocurre localmente."
+      },
+      "instant": {
+        "title": "Procesamiento instantáneo",
+        "desc": "Edita y descarga en segundos. Sin esperar subidas."
+      },
+      "free": {
+        "title": "Gratis para siempre",
+        "desc": "Sin marcas de agua, sin límites, sin registro necesario."
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "title": "Kimosabe Tools - 注重隐私的在线工具",
+    "description": "免费、私密的在线工具，完全在您的浏览器中运行。无需上传，无需追踪。",
+    "keywords": "隐私工具，PDF编辑器，图片压缩器，在线工具，浏览器工具"
+  },
+  "nav": {
+    "home": "首页",
+    "tools": "工具",
+    "features": "功能",
+    "about": "关于",
+    "contact": "联系",
+    "privacy": "隐私",
+    "terms": "条款",
+    "donate": "☕ 支持",
+    "language": "🌐",
+    "explore_tools": "🚀 探索所有工具"
+  },
+  "footer": {
+    "tagline": "加入成千上万信任 Kimosabe Tools 隐私保护的用户",
+    "built_with": "为隐私而建 ❤️",
+    "processing": "所有处理都在您本地浏览器中进行。无Cookie，无追踪。"
+  },
+  "home": {
+    "title": "Kimosabe Tools",
+    "subtitle": "注重隐私的在线工具",
+    "description": "100% 在浏览器中运行的免费工具。无需上传，无需追踪，无需注册。",
+    "stats": {
+      "users": "用户",
+      "tools": "工具",
+      "privacy": "隐私",
+      "free": "免费"
+    },
+    "features_title": "为什么选择 Kimosabe Tools？",
+    "features": {
+      "privacy": {
+        "title": "100% 隐私",
+        "desc": "您的文件永远不会离开设备。无需服务器上传。"
+      },
+      "free": {
+        "title": "完全免费",
+        "desc": "无水印，无限制，无需注册。"
+      },
+      "fast": {
+        "title": "闪电速度",
+        "desc": "以设备速度运行。无需等待服务器。"
+      },
+      "secure": {
+        "title": "银行级安全",
+        "desc": "所有处理都在您浏览器中使用JavaScript进行。"
+      }
+    },
+    "tools_title": "我们的隐私工具",
+    "about_title": "关于 Kimosabe Tools",
+    "about_desc": "Kimosabe Tools 由一位重视隐私的独立开发者创建。在这个数据不断被收集和销售的世界中，我们致力于提供尊重您数字权利的工具。",
+    "cta": "了解我们的使命"
+  },
+  "tool_common": {
+    "upload": "上传文件",
+    "drag_drop": "拖放或点击上传",
+    "max_size": "最大大小：50MB",
+    "browser_only": "文件在浏览器中处理",
+    "apply": "应用更改",
+    "download": "下载",
+    "reset": "重置",
+    "processing": "处理中...",
+    "success": "成功！",
+    "error": "错误",
+    "support": "支持 Kimosabe Tools",
+    "coffee": "☕ 请我喝咖啡",
+    "more_tools": "更多工具",
+    "features": "功能",
+    "privacy_focus": "注重隐私"
+  },
+  "edit_pdf": {
+    "add_text": "在第一页添加文字",
+    "text_placeholder": "输入要添加的文字（例如，'草稿'、'机密'）",
+    "text_tip": "文字将出现在第一页左上角",
+    "whiteout": "对页眉应用涂白",
+    "whiteout_tip": "用白色矩形覆盖第一页顶部60像素",
+    "advanced": "高级选项",
+    "font_size": "字体大小",
+    "page_numbers": "为所有页面添加页码",
+    "page_numbers_tip": "在底部中央添加页码",
+    "features_title": "安全可靠的PDF编辑",
+    "features": {
+      "annotations": {
+        "title": "添加注释",
+        "desc": "无需昂贵软件即可添加笔记、标签或日期"
+      },
+      "private": {
+        "title": "100% 隐私",
+        "desc": "我们不存储您的文档。所有编辑均在本地进行。"
+      },
+      "instant": {
+        "title": "即时处理",
+        "desc": "几秒内编辑下载。无需等待上传。"
+      },
+      "free": {
+        "title": "永久免费",
+        "desc": "无水印，无限制，无需注册。"
+      }
+    }
+  }
+}
