@@ -16,54 +16,82 @@
     "language": "🌐",
     "explore_tools": "🚀 探索所有工具"
   },
-  "footer": {
-    "tagline": "加入成千上万信任 Kimosabe Tools 隐私保护的用户",
-    "built_with": "为隐私而建 ❤️",
-    "processing": "所有处理都在您本地浏览器中进行。无Cookie，无追踪。"
-  },
-  "home": {
+  "hero": {
     "title": "Kimosabe Tools",
-    "subtitle": "注重隐私的在线工具",
-    "description": "100% 在浏览器中运行的免费工具。无需上传，无需追踪，无需注册。",
-    "stats": {
-      "users": "用户",
-      "tools": "工具",
-      "privacy": "隐私",
-      "free": "免费"
+    "subtitle": "100% 私密的 PDF 和图片工具，仅在您的浏览器中运行",
+    "tagline": "🔒 无需上传 ⚡ 即时处理 💸 完全免费"
+  },
+  "stats": {
+    "monthly_users": "月度用户",
+    "files_processed": "已处理文件",
+    "privacy_guarantee": "隐私保障",
+    "users": "用户",
+    "tools": "工具",
+    "privacy": "隐私",
+    "free": "免费"
+  },
+  "features": {
+    "title": "强大的隐私优先工具",
+    "description": "所有处理都在您本地浏览器中进行 — 您的文件永远不会离开您的设备",
+    "privacy": {
+      "title": "完全隐私",
+      "desc": "您的文件永远不会离开您的设备。不上传到我们的服务器，为敏感文件提供最大的安全性。"
     },
-    "features_title": "为什么选择 Kimosabe Tools？",
-    "features": {
-      "privacy": {
-        "title": "100% 隐私",
-        "desc": "您的文件永远不会离开设备。无需服务器上传。"
-      },
-      "free": {
-        "title": "完全免费",
-        "desc": "无水印，无限制，无需注册。"
-      },
-      "fast": {
-        "title": "闪电速度",
-        "desc": "以设备速度运行。无需等待服务器。"
-      },
-      "secure": {
-        "title": "银行级安全",
-        "desc": "所有处理都在您浏览器中使用JavaScript进行。"
-      }
+    "speed": {
+      "title": "闪电速度",
+      "desc": "以本地设备速度处理文件。无需等待上传或从远程服务器下载。"
     },
-    "tools_title": "我们的隐私工具",
+    "limits": {
+      "title": "无限制",
+      "desc": "无文件大小限制，无水印，无需注册。所有工具完全免费。"
+    },
+    "accessibility": {
+      "title": "随处可用",
+      "desc": "在任何具有现代浏览器的设备上使用。无需安装 — 只需打开即可开始使用。"
+    }
+  },
+  "about": {
+    "title": "为隐私而建，以使命驱动",
+    "description": "在目睹大多数'免费'在线工具如何悄悄将您的文件上传到他们的服务器后，我创建了 Kimosabe Tools，并许下一个简单的承诺：您的文件将留在您的设备上。",
+    "closing": "这是一个由独立开发者维护的激情项目。如果这些工具为您节省了时间并保护了您的隐私，请考虑支持该项目，以保持其无广告运行。",
+    "signature": "— Kimosabe 开发者",
     "about_title": "关于 Kimosabe Tools",
     "about_desc": "Kimosabe Tools 由一位重视隐私的独立开发者创建。在这个数据不断被收集和销售的世界中，我们致力于提供尊重您数字权利的工具。",
     "cta": "了解我们的使命"
   },
-  "tool_common": {
-    "upload": "上传文件",
-    "drag_drop": "拖放或点击上传",
-    "max_size": "最大大小：50MB",
-    "browser_only": "文件在浏览器中处理",
-    "apply": "应用更改",
+  "tool_categories": {
+    "pdf_tools": "PDF 工具",
+    "image_tools": "图片工具"
+  },
+  "footer": {
+    "tagline": "加入成千上万信任 Kimosabe Tools 隐私保护的用户",
+    "built_with": "为隐私而建 ❤️",
+    "processing": "所有处理都在您本地浏览器中进行。无Cookie，无追踪。",
+    "open_source": "开源",
+    "report_issue": "报告问题",
+    "contact_dev": "联系开发者",
+    "share": "分享这些工具"
+  },
+  "ui_common": {
+    "upload_file": "上传文件",
+    "drag_drop": "拖放文件到此，或点击浏览",
+    "choose_file": "选择文件",
+    "processing": "处理中...",
     "download": "下载",
     "reset": "重置",
-    "processing": "处理中...",
+    "apply": "应用",
+    "close": "关闭",
+    "learn_more": "了解更多",
+    "try_tool": "试用工具",
+    "browser_required": "需要现代浏览器。",
+    "privacy_note": "🔒 此工具 100% 在您的浏览器中运行。您的文件永远不会被上传。",
+    "supported_formats": "支持格式",
+    "max_file_size": "最大文件大小",
+    "select_option": "选择选项...",
+    "loading": "加载中...",
+    "upload": "上传文件",
+    "max_size": "最大大小：50MB",
+    "browser_only": "文件在浏览器中处理",
     "success": "成功！",
     "error": "错误",
     "support": "支持 Kimosabe Tools",
@@ -71,6 +99,12 @@
     "more_tools": "更多工具",
     "features": "功能",
     "privacy_focus": "注重隐私"
+  },
+  "tools": {
+    "home": {
+      "features_title": "为什么选择 Kimosabe Tools？",
+      "tools_title": "我们的隐私工具"
+    }
   },
   "edit_pdf": {
     "add_text": "在第一页添加文字",
@@ -101,5 +135,19 @@
         "desc": "无水印，无限制，无需注册。"
       }
     }
+  },
+  "not_found": {
+    "title": "页面未找到",
+    "message": "请求的页面不存在。",
+    "go_home": "返回首页"
+  },
+  "error": {
+    "generic": "出了点问题",
+    "try_again": "请重试",
+    "refresh": "刷新页面",
+    "file_too_large": "文件太大",
+    "unsupported_format": "不支持的文件格式",
+    "browser_not_supported": "浏览器不支持",
+    "update_browser": "请更新您的浏览器"
   }
 }
