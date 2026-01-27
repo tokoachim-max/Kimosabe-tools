@@ -16,54 +16,82 @@
     "language": "🌐",
     "explore_tools": "🚀 Explorer tous les outils"
   },
-  "footer": {
-    "tagline": "Rejoignez des milliers d'utilisateurs qui font confiance à Kimosabe Tools",
-    "built_with": "Construit avec ❤️ pour la confidentialité",
-    "processing": "Tous les traitements se font localement dans votre navigateur. Pas de cookies. Pas de suivi."
-  },
-  "home": {
+  "hero": {
     "title": "Kimosabe Tools",
-    "subtitle": "Outils en ligne axés sur la confidentialité",
-    "description": "Outils gratuits qui fonctionnent à 100% dans votre navigateur. Pas de téléchargement, pas de suivi, pas d'inscription.",
-    "stats": {
-      "users": "Utilisateurs",
-      "tools": "Outils",
-      "privacy": "Confidentialité",
-      "free": "Gratuit"
+    "subtitle": "Outils 100% privés pour PDF et images qui restent dans votre navigateur",
+    "tagline": "🔒 Aucun téléchargement ⚡ Traitement instantané 💸 Complètement gratuit"
+  },
+  "stats": {
+    "monthly_users": "Utilisateurs mensuels",
+    "files_processed": "Fichiers traités",
+    "privacy_guarantee": "Garantie de confidentialité",
+    "users": "Utilisateurs",
+    "tools": "Outils",
+    "privacy": "Confidentialité",
+    "free": "Gratuit"
+  },
+  "features": {
+    "title": "Des outils performants axés sur la confidentialité",
+    "description": "Tous les traitements se font localement dans votre navigateur - vos fichiers ne quittent jamais votre appareil.",
+    "privacy": {
+      "title": "Confidentialité totale",
+      "desc": "Vos fichiers ne quittent jamais votre appareil. Aucun téléchargement sur nos serveurs, ce qui garantit une sécurité maximale pour les documents sensibles."
     },
-    "features_title": "Pourquoi choisir Kimosabe Tools?",
-    "features": {
-      "privacy": {
-        "title": "100% Privé",
-        "desc": "Vos fichiers ne quittent jamais votre appareil. Pas de téléchargement sur les serveurs."
-      },
-      "free": {
-        "title": "Complètement gratuit",
-        "desc": "Pas de filigrane, pas de limites, pas d'inscription requise."
-      },
-      "fast": {
-        "title": "Ultra rapide",
-        "desc": "Fonctionne à la vitesse de votre appareil. Pas d'attente des serveurs."
-      },
-      "secure": {
-        "title": "Sécurité bancaire",
-        "desc": "Tout le traitement se fait dans votre navigateur en utilisant JavaScript."
-      }
+    "speed": {
+      "title": "Ultra rapide",
+      "desc": "Traitez les fichiers à la vitesse de votre appareil local. Pas d'attente pour les téléchargements vers ou depuis des serveurs distants."
     },
-    "tools_title": "Nos outils de confidentialité",
+    "limits": {
+      "title": "Aucune limite",
+      "desc": "Pas de limite de taille de fichier, pas de filigrane, pas d'inscription requise. Tous les outils sont complètement gratuits."
+    },
+    "accessibility": {
+      "title": "Fonctionne partout",
+      "desc": "Utilisez sur n'importe quel appareil avec un navigateur moderne. Aucune installation requise - ouvrez et commencez à utiliser."
+    }
+  },
+  "about": {
+    "title": "Construit pour la confidentialité, conduit par un but",
+    "description": "Après avoir vu comment la plupart des outils en ligne 'gratuits' téléchargent secrètement vos fichiers sur leurs serveurs, j'ai créé Kimosabe Tools avec une simple promesse : vos fichiers restent sur votre appareil.",
+    "closing": "Ceci est un projet passionnel entretenu par un développeur solo. Si ces outils vous font gagner du temps et protègent votre vie privée, envisagez de soutenir le projet pour le garder sans publicité et en marche.",
+    "signature": "— Le développeur de Kimosabe",
     "about_title": "À propos de Kimosabe Tools",
     "about_desc": "Kimosabe Tools a été créé par un développeur indépendant qui valorise la confidentialité avant tout. Dans un monde où les données sont constamment collectées et vendues, nous croyons en fournissant des outils qui respectent vos droits numériques.",
     "cta": "Découvrez notre mission"
   },
-  "tool_common": {
+  "tool_categories": {
+    "pdf_tools": "Outils PDF",
+    "image_tools": "Outils d'image"
+  },
+  "footer": {
+    "tagline": "Rejoignez des milliers d'utilisateurs qui font confiance à Kimosabe Tools",
+    "built_with": "Construit avec ❤️ pour la confidentialité",
+    "processing": "Tous les traitements se font localement dans votre navigateur. Pas de cookies. Pas de suivi.",
+    "open_source": "Open Source",
+    "report_issue": "Signaler un problème",
+    "contact_dev": "Contacter le développeur",
+    "share": "Partager ces outils"
+  },
+  "ui_common": {
+    "upload_file": "Télécharger le fichier",
+    "drag_drop": "Glisser-déposer un fichier ici, ou cliquer pour parcourir",
+    "choose_file": "Choisir un fichier",
+    "processing": "Traitement...",
+    "download": "Télécharger",
+    "reset": "Réinitialiser",
+    "apply": "Appliquer",
+    "close": "Fermer",
+    "learn_more": "En savoir plus",
+    "try_tool": "Essayer l'outil",
+    "browser_required": "Un navigateur moderne est requis.",
+    "privacy_note": "🔒 Cet outil fonctionne à 100% dans votre navigateur. Votre fichier n'est jamais téléchargé.",
+    "supported_formats": "Formats supportés",
+    "max_file_size": "Taille maximale de fichier",
+    "select_option": "Sélectionner une option...",
+    "loading": "Chargement...",
     "upload": "Télécharger le fichier",
-    "drag_drop": "Glisser-déposer ou cliquer pour télécharger",
     "max_size": "Taille maximale: 50MB",
     "browser_only": "Les fichiers sont traités dans votre navigateur",
-    "apply": "Appliquer les modifications",
-    "download": "Tichapwsa",
-    "reset": "Rédémarrer",
-    "processing": "Traitement...",
     "success": "Succès!",
     "error": "Erreur",
     "support": "Soutenir Kimosabe Tools",
@@ -71,6 +99,12 @@
     "more_tools": "Plus d'outils",
     "features": "Fonctionnalités",
     "privacy_focus": "Axé sur la confidentialité"
+  },
+  "tools": {
+    "home": {
+      "features_title": "Pourquoi choisir Kimosabe Tools?",
+      "tools_title": "Nos outils de confidentialité"
+    }
   },
   "edit_pdf": {
     "add_text": "Ajouter du texte à la première page",
@@ -101,5 +135,19 @@
         "desc": "Pas de filigrane, pas de limites, pas d'inscription nécessaire."
       }
     }
+  },
+  "not_found": {
+    "title": "Page non trouvée",
+    "message": "La page demandée n'existe pas.",
+    "go_home": "Retour à l'accueil"
+  },
+  "error": {
+    "generic": "Quelque chose s'est mal passé",
+    "try_again": "Veuillez réessayer",
+    "refresh": "Rafraîchir la page",
+    "file_too_large": "Le fichier est trop volumineux",
+    "unsupported_format": "Format non supporté",
+    "browser_not_supported": "Navigateur non supporté",
+    "update_browser": "Veuillez mettre à jour votre navigateur"
   }
 }
