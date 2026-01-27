@@ -16,54 +16,82 @@
     "language": "🌐",
     "explore_tools": "🚀 Alle Tools erkunden"
   },
-  "footer": {
-    "tagline": "Schließen Sie sich Tausenden von Nutzern an, die Kimosabe Tools vertrauen",
-    "built_with": "Mit ❤️ für Datenschutz gebaut",
-    "processing": "Alle Verarbeitung erfolgt lokal in Ihrem Browser. Keine Cookies. Kein Tracking."
-  },
-  "home": {
+  "hero": {
     "title": "Kimosabe Tools",
-    "subtitle": "Datenschutzorientierte Online-Tools",
-    "description": "Kostenlose Tools, die zu 100% in Ihrem Browser funktionieren. Keine Uploads, kein Tracking, keine Registrierung.",
-    "stats": {
-      "users": "Nutzer",
-      "tools": "Tools",
-      "privacy": "Datenschutz",
-      "free": "Kostenlos"
+    "subtitle": "100% private PDF- & Bild-Tools, die in Ihrem Browser bleiben",
+    "tagline": "🔒 Keine Uploads ⚡ Sofortige Verarbeitung 💸 Komplett kostenlos"
+  },
+  "stats": {
+    "monthly_users": "Monatliche Nutzer",
+    "files_processed": "Verarbeitete Dateien",
+    "privacy_guarantee": "Datenschutz-Garantie",
+    "users": "Nutzer",
+    "tools": "Tools",
+    "privacy": "Datenschutz",
+    "free": "Kostenlos"
+  },
+  "features": {
+    "title": "Leistungsstarke, datenschutzorientierte Tools",
+    "description": "Die gesamte Verarbeitung findet lokal in Ihrem Browser statt – Ihre Dateien verlassen nie Ihr Gerät.",
+    "privacy": {
+      "title": "Vollständige Privatsphäre",
+      "desc": "Ihre Dateien verlassen nie Ihr Gerät. Keine Uploads auf unsere Server bedeutet maximale Sicherheit für sensible Dokumente."
     },
-    "features_title": "Warum Kimosabe Tools wählen?",
-    "features": {
-      "privacy": {
-        "title": "100% Privat",
-        "desc": "Ihre Dateien verlassen nie Ihr Gerät. Keine Server-Uploads."
-      },
-      "free": {
-        "title": "Völlig kostenlos",
-        "desc": "Keine Wasserzeichen, keine Limits, keine Registrierung erforderlich."
-      },
-      "fast": {
-        "title": "Blitzschnell",
-        "desc": "Funktioniert mit Gerätegeschwindigkeit. Kein Warten auf Server."
-      },
-      "secure": {
-        "title": "Bank-Level Sicherheit",
-        "desc": "Alle Verarbeitung erfolgt in Ihrem Browser mit JavaScript."
-      }
+    "speed": {
+      "title": "Blitzschnell",
+      "desc": "Verarbeiten Sie Dateien mit der Geschwindigkeit Ihres lokalen Geräts. Kein Warten auf Uploads oder Downloads von entfernten Servern."
     },
-    "tools_title": "Unsere Datenschutz-Tools",
+    "limits": {
+      "title": "Keine Limits",
+      "desc": "Keine Dateigrößenbeschränkungen, keine Wasserzeichen, keine Registrierung erforderlich. Alle Tools sind komplett kostenlos."
+    },
+    "accessibility": {
+      "title": "Funktioniert überall",
+      "desc": "Einsatz auf jedem Gerät mit einem modernen Browser. Keine Installation erforderlich – einfach öffnen und loslegen."
+    }
+  },
+  "about": {
+    "title": "Für Privatsphäre gebaut, mit Leidenschaft betrieben",
+    "description": "Nachdem ich gesehen habe, wie die meisten 'kostenlosen' Online-Tools heimlich Ihre Dateien auf ihre Server hochladen, habe ich Kimosabe Tools mit einem einfachen Versprechen erstellt: Ihre Dateien bleiben auf Ihrem Gerät.",
+    "closing": "Dies ist ein Leidenschaftsprojekt, das von einem Einzelentwickler betreut wird. Wenn Ihnen diese Tools Zeit sparen und Ihre Privatsphäre schützen, erwägen Sie bitte, das Projekt zu unterstützen, um es werbefrei und am Laufen zu halten.",
+    "signature": "— Der Kimosabe-Entwickler",
     "about_title": "Über Kimosabe Tools",
     "about_desc": "Kimosabe Tools wurde von einem Einzelentwickler erstellt, der Datenschutz über alles stellt. In einer Welt, in der Daten ständig gesammelt und verkauft werden, glauben wir an Tools, die Ihre digitalen Rechte respektieren.",
     "cta": "Erfahren Sie mehr über unsere Mission"
   },
-  "tool_common": {
-    "upload": "Datei hochladen",
-    "drag_drop": "Ziehen & Ablegen oder klicken zum Hochladen",
-    "max_size": "Maximale Größe: 50MB",
-    "browser_only": "Dateien werden in Ihrem Browser verarbeitet",
-    "apply": "Änderungen anwenden",
+  "tool_categories": {
+    "pdf_tools": "PDF-Tools",
+    "image_tools": "Bild-Tools"
+  },
+  "footer": {
+    "tagline": "Schließen Sie sich Tausenden von Nutzern an, die Kimosabe Tools vertrauen",
+    "built_with": "Mit ❤️ für Datenschutz gebaut",
+    "processing": "Alle Verarbeitung erfolgt lokal in Ihrem Browser. Keine Cookies. Kein Tracking.",
+    "open_source": "Open Source",
+    "report_issue": "Problem melden",
+    "contact_dev": "Entwickler kontaktieren",
+    "share": "Diese Tools teilen"
+  },
+  "ui_common": {
+    "upload_file": "Datei hochladen",
+    "drag_drop": "Datei hierher ziehen & ablegen oder klicken zum Durchsuchen",
+    "choose_file": "Datei auswählen",
+    "processing": "Wird verarbeitet...",
     "download": "Herunterladen",
     "reset": "Zurücksetzen",
-    "processing": "Wird verarbeitet...",
+    "apply": "Anwenden",
+    "close": "Schließen",
+    "learn_more": "Mehr erfahren",
+    "try_tool": "Tool ausprobieren",
+    "browser_required": "Ein moderner Browser wird benötigt.",
+    "privacy_note": "🔒 Dieses Tool läuft zu 100% in Ihrem Browser. Ihre Datei wird niemals hochgeladen.",
+    "supported_formats": "Unterstützte Formate",
+    "max_file_size": "Maximale Dateigröße",
+    "select_option": "Option auswählen...",
+    "loading": "Lädt...",
+    "upload": "Datei hochladen",
+    "max_size": "Maximale Größe: 50MB",
+    "browser_only": "Dateien werden in Ihrem Browser verarbeitet",
     "success": "Erfolg!",
     "error": "Fehler",
     "support": "Kimosabe Tools unterstützen",
@@ -71,6 +99,12 @@
     "more_tools": "Mehr Tools",
     "features": "Funktionen",
     "privacy_focus": "Datenschutzorientiert"
+  },
+  "tools": {
+    "home": {
+      "features_title": "Warum Kimosabe Tools wählen?",
+      "tools_title": "Unsere Datenschutz-Tools"
+    }
   },
   "edit_pdf": {
     "add_text": "Text zur ersten Seite hinzufügen",
@@ -101,5 +135,19 @@
         "desc": "Keine Wasserzeichen, keine Limits, keine Registrierung nötig."
       }
     }
+  },
+  "not_found": {
+    "title": "Seite nicht gefunden",
+    "message": "Die angeforderte Seite existiert nicht.",
+    "go_home": "Zur Startseite"
+  },
+  "error": {
+    "generic": "Etwas ist schiefgelaufen",
+    "try_again": "Bitte versuchen Sie es erneut",
+    "refresh": "Seite aktualisieren",
+    "file_too_large": "Datei ist zu groß",
+    "unsupported_format": "Nicht unterstütztes Format",
+    "browser_not_supported": "Browser nicht unterstützt",
+    "update_browser": "Bitte aktualisieren Sie Ihren Browser"
   }
 }
