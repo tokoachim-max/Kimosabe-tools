@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Kimosabe Tools – 100% Private PDF & Image Tools Online</title>
-  <meta name="description" content="Fast, free, and secure online tools to compress images, resize, merge, rotate, split, edit, and sign PDFs. No uploads required—everything stays in your browser.">
-  <meta name="keywords" content="PDF tools, image compressor, privacy tools, online utilities, PDF editor, image converter">
+  <title data-i18n="meta.title">Kimosabe Tools – 100% Private PDF & Image Tools Online</title>
+  <meta name="description" data-i18n="meta.description" content="Fast, free, and secure online tools to compress images, resize, merge, rotate, split, edit, and sign PDFs. No uploads required—everything stays in your browser.">
+  <meta name="keywords" data-i18n="meta.keywords" content="PDF tools, image compressor, privacy tools, online utilities, PDF editor, image converter">
   <meta name="author" content="Kimosabe Tools">
   
   <!-- Favicon & Logo -->
@@ -17,6 +17,105 @@
   
   <!-- External CSS - Updated path -->
   <link rel="stylesheet" href="assets/css/style.css">
+  
+  <!-- Language Switcher CSS -->
+  <style>
+    .language-switcher {
+      position: relative;
+      display: inline-block;
+    }
+
+    #language-button {
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    #language-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .language-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      min-width: 140px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+
+    .language-dropdown.show {
+      display: block;
+    }
+
+    .language-dropdown a {
+      display: block;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background 0.2s ease;
+    }
+
+    .language-dropdown a:hover {
+      background: #f5f5f5;
+    }
+
+    .language-dropdown a:last-child {
+      border-bottom: none;
+    }
+
+    /* RTL support */
+    [dir="rtl"] {
+      text-align: right;
+    }
+
+    [dir="rtl"] .language-dropdown {
+      right: auto;
+      left: 0;
+    }
+
+    [dir="rtl"] .nav-links {
+      flex-direction: row-reverse;
+    }
+
+    [dir="rtl"] .tools-grid,
+    [dir="rtl"] .features-grid {
+      direction: ltr; /* Keep grid layout LTR even in RTL */
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      .language-dropdown {
+        background: #2d2d2d;
+        border-color: #444;
+      }
+
+      .language-dropdown a {
+        color: #eee;
+        border-bottom-color: #444;
+      }
+
+      .language-dropdown a:hover {
+        background: #3a3a3a;
+      }
+    }
+  </style>
   
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
@@ -42,16 +141,29 @@
     <div class="nav-container">
       <a href="/" class="nav-logo">
         <div class="nav-logo-img">
-          <!-- Using favicon-16x16.png for navigation (small) -->
           <img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40">
         </div>
-        <span>Kimosabe Tools</span>
+        <span data-i18n="nav.home">Kimosabe Tools</span>
       </a>
       <div class="nav-links">
-        <a href="#tools">Tools</a>
-        <a href="#features">Features</a>
-        <a href="about.html">About</a>
-        <a href="donate.html" class="support-btn">☕ Support</a>
+        <a href="#tools" data-i18n="nav.tools">Tools</a>
+        <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+          <button id="language-button">🌐</button>
+          <div class="language-dropdown" id="language-dropdown">
+            <a href="#" data-lang="en">🇺🇸 English</a>
+            <a href="#" data-lang="de">🇩🇪 Deutsch</a>
+            <a href="#" data-lang="es">🇪🇸 Español</a>
+            <a href="#" data-lang="fr">🇫🇷 Français</a>
+            <a href="#" data-lang="zh">🇨🇳 中文</a>
+            <a href="#" data-lang="ar">🇸🇦 العربية</a>
+          </div>
+        </div>
+        
+        <a href="donate.html" class="support-btn" data-i18n="nav.donate">☕ Support</a>
       </div>
     </div>
   </nav>
@@ -60,22 +172,19 @@
   <header class="main-header">
     <div class="header-logo">
       <div class="logo-image">
-        <!-- Using favicon-32x32.png for header (large display) -->
         <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="120" height="120">
       </div>
     </div>
-    <h1>
-      <span>Kimosabe Tools</span>
-    </h1>
-    <p>100% Private PDF & Image Tools That Stay in Your Browser</p>
+    <h1 data-i18n="hero.title">Kimosabe Tools</h1>
+    <p data-i18n="hero.subtitle">100% Private PDF & Image Tools That Stay in Your Browser</p>
     <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-      <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem;">
+      <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem;" data-i18n="hero.tagline_1">
         🔒 No Uploads
       </span>
-      <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem;">
+      <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem;" data-i18n="hero.tagline_2">
         ⚡ Instant Processing
       </span>
-      <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem;">
+      <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem;" data-i18n="hero.tagline_3">
         💸 Completely Free
       </span>
     </div>
@@ -86,89 +195,89 @@
     <div class="stats-grid">
       <div class="stat-card fade-in">
         <div class="stat-number">10K+</div>
-        <div>Monthly Users</div>
+        <div data-i18n="stats.monthly_users">Monthly Users</div>
       </div>
       <div class="stat-card fade-in" style="animation-delay: 0.1s">
         <div class="stat-number">50K+</div>
-        <div>Files Processed</div>
+        <div data-i18n="stats.files_processed">Files Processed</div>
       </div>
       <div class="stat-card fade-in" style="animation-delay: 0.2s">
         <div class="stat-number">100%</div>
-        <div>Privacy Guarantee</div>
+        <div data-i18n="stats.privacy_guarantee">Privacy Guarantee</div>
       </div>
     </div>
 
     <!-- Tools Section -->
     <section id="tools">
       <div class="section-header">
-        <h2>Powerful Privacy-First Tools</h2>
-        <p>All processing happens locally in your browser—your files never leave your device</p>
+        <h2 data-i18n="features.title">Powerful Privacy-First Tools</h2>
+        <p data-i18n="features.description">All processing happens locally in your browser—your files never leave your device</p>
       </div>
 
       <div class="tools-grid">
         <!-- Image Tools -->
         <a href="tools/image-compressor.html" class="tool-card fade-in" aria-label="Image Compressor">
           <div class="card-icon">📁</div>
-          <h3>Image Compressor</h3>
-          <p>Reduce image size without quality loss</p>
-          <span class="tool-tag">Image Tool</span>
+          <h3 data-i18n="tools.image_compressor.title">Image Compressor</h3>
+          <p data-i18n="tools.image_compressor.desc">Reduce image size without quality loss</p>
+          <span class="tool-tag" data-i18n="tool_categories.image_tools">Image Tool</span>
         </a>
 
         <a href="tools/image-resize.html" class="tool-card fade-in" style="animation-delay: 0.1s" aria-label="Image Resizer">
           <div class="card-icon">📐</div>
-          <h3>Resize Image</h3>
-          <p>Adjust dimensions for any platform</p>
-          <span class="tool-tag">Image Tool</span>
+          <h3 data-i18n="tools.image_resize.title">Resize Image</h3>
+          <p data-i18n="tools.image_resize.desc">Adjust dimensions for any platform</p>
+          <span class="tool-tag" data-i18n="tool_categories.image_tools">Image Tool</span>
         </a>
 
         <a href="tools/image-converter.html" class="tool-card fade-in" style="animation-delay: 0.2s" aria-label="Image Converter">
           <div class="card-icon">🔄</div>
-          <h3>Image Converter</h3>
-          <p>Convert between formats instantly</p>
-          <span class="tool-tag">Image Tool</span>
+          <h3 data-i18n="tools.image_converter.title">Image Converter</h3>
+          <p data-i18n="tools.image_converter.desc">Convert between formats instantly</p>
+          <span class="tool-tag" data-i18n="tool_categories.image_tools">Image Tool</span>
         </a>
 
         <!-- PDF Tools -->
         <a href="tools/edit-pdf.html" class="tool-card fade-in" style="animation-delay: 0.3s" aria-label="PDF Editor">
           <div class="card-icon">📝</div>
-          <h3>Edit PDF</h3>
-          <p>Add text, annotations, and whiteout</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3 data-i18n="tools.edit_pdf.title">Edit PDF</h3>
+          <p data-i18n="tools.edit_pdf.desc">Add text, annotations, and whiteout</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/merge-pdf.html" class="tool-card fade-in" style="animation-delay: 0.4s" aria-label="PDF Merger">
           <div class="card-icon">🔗</div>
-          <h3>Merge PDF</h3>
-          <p>Combine multiple documents</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3 data-i18n="tools.merge_pdf.title">Merge PDF</h3>
+          <p data-i18n="tools.merge_pdf.desc">Combine multiple documents</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/rotate-split-pdf.html" class="tool-card fade-in" style="animation-delay: 0.5s" aria-label="PDF Rotate & Split">
           <div class="card-icon">✂️</div>
-          <h3>Rotate & Split PDF</h3>
-          <p>Fix orientation or extract pages</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3 data-i18n="tools.rotate_split_pdf.title">Rotate & Split PDF</h3>
+          <p data-i18n="tools.rotate_split_pdf.desc">Fix orientation or extract pages</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/image-to-pdf.html" class="tool-card fade-in" style="animation-delay: 0.6s" aria-label="Image to PDF Converter">
           <div class="card-icon">📄</div>
-          <h3>Image to PDF</h3>
-          <p>Convert photos to documents</p>
-          <span class="tool-tag">Converter</span>
+          <h3 data-i18n="tools.image_to_pdf.title">Image to PDF</h3>
+          <p data-i18n="tools.image_to_pdf.desc">Convert photos to documents</p>
+          <span class="tool-tag" data-i18n="tools.image_to_pdf.category">Converter</span>
         </a>
 
         <a href="tools/compress-pdf.html" class="tool-card fade-in" style="animation-delay: 0.7s" aria-label="PDF Compressor">
           <div class="card-icon">📉</div>
-          <h3>Compress PDF</h3>
-          <p>Reduce document size</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3 data-i18n="tools.compress_pdf.title">Compress PDF</h3>
+          <p data-i18n="tools.compress_pdf.desc">Reduce document size</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/sign-pdf.html" class="tool-card fade-in" style="animation-delay: 0.8s" aria-label="PDF Signer">
           <div class="card-icon">✍️</div>
-          <h3>Sign PDF</h3>
-          <p>Add digital signatures securely</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3 data-i18n="tools.sign_pdf.title">Sign PDF</h3>
+          <p data-i18n="tools.sign_pdf.desc">Add digital signatures securely</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
       </div>
     </section>
@@ -176,59 +285,59 @@
     <!-- Features -->
     <section id="features">
       <div class="section-header">
-        <h2>Why Choose Kimosabe Tools?</h2>
-        <p>We're different from traditional online tools</p>
+        <h2 data-i18n="tools.home.features_title">Why Choose Kimosabe Tools?</h2>
+        <p data-i18n="features.subtitle">We're different from traditional online tools</p>
       </div>
 
       <div class="features-grid">
         <div class="feature-card fade-in">
           <div class="feature-icon">🔒</div>
-          <h3>Complete Privacy</h3>
-          <p>Your files never leave your device. No uploads to our servers means maximum security for sensitive documents.</p>
+          <h3 data-i18n="features.privacy.title">Complete Privacy</h3>
+          <p data-i18n="features.privacy.desc">Your files never leave your device. No uploads to our servers means maximum security for sensitive documents.</p>
         </div>
 
         <div class="feature-card fade-in" style="animation-delay: 0.1s">
           <div class="feature-icon">⚡</div>
-          <h3>Blazing Fast</h3>
-          <p>Process files at local device speed. No waiting for uploads or downloads to remote servers.</p>
+          <h3 data-i18n="features.speed.title">Blazing Fast</h3>
+          <p data-i18n="features.speed.desc">Process files at local device speed. No waiting for uploads or downloads to remote servers.</p>
         </div>
 
         <div class="feature-card fade-in" style="animation-delay: 0.2s">
           <div class="feature-icon">🎯</div>
-          <h3>No Limits</h3>
-          <p>No file size limits, no watermarks, no registration required. All tools are completely free to use.</p>
+          <h3 data-i18n="features.limits.title">No Limits</h3>
+          <p data-i18n="features.limits.desc">No file size limits, no watermarks, no registration required. All tools are completely free to use.</p>
         </div>
 
         <div class="feature-card fade-in" style="animation-delay: 0.3s">
           <div class="feature-icon">🌐</div>
-          <h3>Works Everywhere</h3>
-          <p>Use on any device with a modern browser. No installation required—just open and start using.</p>
+          <h3 data-i18n="features.accessibility.title">Works Everywhere</h3>
+          <p data-i18n="features.accessibility.desc">Use on any device with a modern browser. No installation required—just open and start using.</p>
         </div>
       </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about-section fade-in">
-      <h2>Built for Privacy, Driven by Purpose</h2>
-      <p style="max-width: 700px; margin: 0 auto 1.5rem; color: var(--gray-600);">
+      <h2 data-i18n="about.title">Built for Privacy, Driven by Purpose</h2>
+      <p style="max-width: 700px; margin: 0 auto 1.5rem; color: var(--gray-600);" data-i18n="about.description">
         After seeing how most "free" online tools secretly upload your files to their servers, 
         I created Kimosabe Tools with one simple promise: your files stay on your device.
       </p>
-      <p style="max-width: 700px; margin: 0 auto; color: var(--gray-600);">
+      <p style="max-width: 700px; margin: 0 auto; color: var(--gray-600);" data-i18n="about.closing">
         This is a passion project maintained by a solo developer. If these tools save you time 
         and protect your privacy, consider supporting the project to keep it ad-free and running.
       </p>
       
       <div class="cta-buttons">
-        <a href="privacy.html" class="btn btn-primary">
+        <a href="privacy.html" class="btn btn-primary" data-i18n="nav.privacy">
           📖 Read Our Privacy Promise
         </a>
-        <a href="donate.html" class="btn btn-secondary">
+        <a href="donate.html" class="btn btn-secondary" data-i18n="nav.donate">
           ☕ Support the Project
         </a>
       </div>
       
-      <p style="margin-top: 2rem; font-weight: 600; color: var(--primary);">
+      <p style="margin-top: 2rem; font-weight: 600; color: var(--primary);" data-i18n="about.signature">
         — The Kimosabe Developer
       </p>
     </section>
@@ -239,40 +348,247 @@
     <div class="footer-content">
       <div class="footer-logo">
         <div class="footer-logo-img">
-          <!-- Using favicon-32x32.png for footer (medium display) -->
           <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60">
         </div>
-        <div class="footer-logo-text">Kimosabe Tools</div>
+        <div class="footer-logo-text" data-i18n="nav.home">Kimosabe Tools</div>
       </div>
       
       <div style="text-align: center; margin-bottom: 2rem;">
-        <p style="color: var(--gray-300); max-width: 500px; margin: 0 auto 1.5rem;">
+        <p style="color: var(--gray-300); max-width: 500px; margin: 0 auto 1.5rem;" data-i18n="footer.tagline">
           Join thousands of users who trust their privacy to Kimosabe Tools
         </p>
-        <a href="#tools" class="support-btn" style="display: inline-block;">
+        <a href="#tools" class="support-btn" style="display: inline-block;" data-i18n="nav.explore_tools">
           🚀 Start Using Tools
         </a>
       </div>
 
       <nav class="footer-links">
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="donate.html" style="color: #ffd166;">Support Us</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="privacy.html" data-i18n="nav.privacy">Privacy</a>
+        <a href="terms.html" data-i18n="nav.terms">Terms</a>
+        <a href="donate.html" style="color: #ffd166;" data-i18n="nav.donate">Support Us</a>
       </nav>
 
       <p class="copyright">
-        © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
-        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+        <span data-i18n="footer.copyright">© 2026 Kimosabe Tools. Built with ❤️ for privacy.</span><br>
+        <small style="opacity: 0.7;" data-i18n="footer.processing">
+          All processing happens locally in your browser. No cookies. No tracking.
+        </small>
       </p>
     </div>
   </footer>
 
   <!-- Back to Top Button -->
-  <button class="back-to-top" aria-label="Back to top">
+  <button class="back-to-top" aria-label="Back to top" data-i18n="ui_common.back_to_top">
     ↑
   </button>
+
+  <!-- Language Manager -->
+  <script>
+    // Language Manager
+    class LanguageManager {
+      constructor() {
+        this.currentLanguage = localStorage.getItem('preferredLanguage') || 'en';
+        this.translations = {};
+        this.init();
+      }
+
+      async init() {
+        // Auto-detect browser language on first visit
+        if (!localStorage.getItem('preferredLanguage')) {
+          const browserLang = navigator.language.split('-')[0];
+          const supportedLangs = ['en', 'de', 'es', 'fr', 'zh', 'ar'];
+          if (supportedLangs.includes(browserLang)) {
+            this.currentLanguage = browserLang;
+          }
+        }
+        
+        // Load the current language
+        await this.loadLanguage(this.currentLanguage);
+        
+        // Apply translations
+        this.applyTranslations();
+        
+        // Set up language switcher
+        this.setupLanguageSwitcher();
+        
+        // Set HTML direction for RTL languages
+        this.setPageDirection();
+      }
+
+      async loadLanguage(lang) {
+        try {
+          // Show loading state
+          this.showLoading();
+          
+          const response = await fetch(`./assets/lang/${lang}.json`);
+          if (!response.ok) throw new Error('Language file not found');
+          
+          this.translations = await response.json();
+          this.currentLanguage = lang;
+          localStorage.setItem('preferredLanguage', lang);
+          
+          // Update language button text
+          this.updateLanguageButton();
+          
+          // Track language change in Google Analytics
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'language_change', {
+              'event_category': 'engagement',
+              'event_label': lang,
+              'transport_type': 'beacon'
+            });
+          }
+          
+          this.hideLoading();
+          
+        } catch (error) {
+          console.error('Failed to load language file:', error);
+          // Fallback to English
+          if (lang !== 'en') {
+            await this.loadLanguage('en');
+          }
+          this.hideLoading();
+        }
+      }
+
+      applyTranslations() {
+        // Update all elements with data-i18n attribute
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+          const key = element.getAttribute('data-i18n');
+          const translation = this.getNestedTranslation(key);
+          
+          if (translation) {
+            // Handle special cases
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+              element.placeholder = translation;
+            } else if (element.tagName === 'META') {
+              // Update meta tags
+              const name = element.getAttribute('name');
+              if (name === 'description' || name === 'keywords') {
+                element.setAttribute('content', translation);
+              }
+            } else if (element.tagName === 'TITLE') {
+              document.title = translation;
+            } else {
+              // Preserve emojis and icons
+              const originalHTML = element.innerHTML;
+              const emojiMatch = originalHTML.match(/^[^\w]*/);
+              const emoji = emojiMatch ? emojiMatch[0] : '';
+              element.textContent = emoji + translation;
+            }
+          }
+        });
+        
+        // Update page title separately
+        if (this.translations.meta?.title) {
+          document.title = this.translations.meta.title;
+        }
+      }
+
+      getNestedTranslation(key) {
+        // Handle nested keys like "nav.home" or "features.privacy.title"
+        return key.split('.').reduce((obj, keyPart) => 
+          obj && obj[keyPart], this.translations
+        ) || '';
+      }
+
+      setupLanguageSwitcher() {
+        const languageButton = document.getElementById('language-button');
+        const languageDropdown = document.getElementById('language-dropdown');
+        
+        if (!languageButton || !languageDropdown) return;
+        
+        // Toggle dropdown
+        languageButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          languageDropdown.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!languageButton.contains(e.target) && !languageDropdown.contains(e.target)) {
+            languageDropdown.classList.remove('show');
+          }
+        });
+        
+        // Handle language selection
+        languageDropdown.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const lang = link.getAttribute('data-lang');
+            languageDropdown.classList.remove('show');
+            await this.loadLanguage(lang);
+            this.applyTranslations();
+            this.setPageDirection();
+            
+            // Reinitialize animations for new content
+            this.reinitializeAnimations();
+          });
+        });
+      }
+
+      updateLanguageButton() {
+        const button = document.getElementById('language-button');
+        if (button) {
+          const languageFlags = {
+            'en': '🇺🇸',
+            'de': '🇩🇪', 
+            'es': '🇪🇸',
+            'fr': '🇫🇷',
+            'zh': '🇨🇳',
+            'ar': '🇸🇦'
+          };
+          button.innerHTML = `${languageFlags[this.currentLanguage] || '🌐'} ${this.currentLanguage.toUpperCase()}`;
+        }
+      }
+
+      setPageDirection() {
+        // Set RTL for Arabic
+        if (this.currentLanguage === 'ar') {
+          document.documentElement.dir = 'rtl';
+          document.documentElement.lang = 'ar';
+          document.body.classList.add('rtl');
+        } else {
+          document.documentElement.dir = 'ltr';
+          document.documentElement.lang = this.currentLanguage;
+          document.body.classList.remove('rtl');
+        }
+      }
+
+      showLoading() {
+        // Add loading indicator if needed
+        const button = document.getElementById('language-button');
+        if (button) {
+          button.disabled = true;
+          button.innerHTML = '⏳';
+        }
+      }
+
+      hideLoading() {
+        const button = document.getElementById('language-button');
+        if (button) {
+          button.disabled = false;
+          this.updateLanguageButton();
+        }
+      }
+
+      reinitializeAnimations() {
+        // Reinitialize any animations that might need it
+        if (typeof observer !== 'undefined') {
+          document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+          });
+        }
+      }
+    }
+
+    // Initialize language manager when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      window.languageManager = new LanguageManager();
+    });
+  </script>
 
   <script>
     // Back to Top Button
