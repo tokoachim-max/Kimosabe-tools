@@ -48,7 +48,7 @@
       "secure": {
         "title": "Bank-Level Secure",
         "desc": "All processing happens in your browser using JavaScript."
-      }
+      },
     },
     "tools_title": "Our Privacy Tools",
     "about_title": "About Kimosabe Tools",
@@ -340,3 +340,4 @@
 }
 
 }
+
