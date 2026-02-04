@@ -19,15 +19,25 @@
   "hero": {
     "title": "Kimosabe Tools",
     "subtitle": "100% private PDF- & Bild-Tools, die in Ihrem Browser bleiben",
-    "tagline": "🔒 Keine Uploads ⚡ Sofortige Verarbeitung 💸 Komplett kostenlos"
-  },
-  {
-  "hero": {
+    "tagline": "🔒 Keine Uploads ⚡ Sofortige Verarbeitung 💸 Komplett kostenlos",
     "tagline_1": "🔒 Keine Uploads",
-    "tagline_2": "⚡ Sofortige Verarbeitung", 
+    "tagline_2": "⚡ Sofortige Verarbeitung",
     "tagline_3": "💸 Komplett kostenlos"
   },
+  "stats": {
+    "monthly_users": "Monatliche Nutzer",
+    "files_processed": "Verarbeitete Dateien",
+    "privacy_guarantee": "Datenschutz-Garantie",
+    "users": "Nutzer",
+    "tools": "Tools",
+    "privacy": "Datenschutz",
+    "free": "Kostenlos"
+  },
   "tools": {
+    "home": {
+      "features_title": "Warum Kimosabe Tools wählen?",
+      "tools_title": "Unsere Datenschutz-Tools"
+    },
     "image_compressor": {
       "title": "Bildkompressor",
       "desc": "Bildgröße ohne Qualitätsverlust reduzieren"
@@ -64,28 +74,11 @@
     "sign_pdf": {
       "title": "PDF signieren",
       "desc": "Digitale Signaturen sicher hinzufügen"
-    },
-  },
-  "ui_common": {
-    "back_to_top": "↑"
-  },
-  "footer": {
-    "copyright": "© 2026 Kimosabe Tools. Mit ❤️ für Datenschutz gebaut."
-  },
-  "features": {
-    "subtitle": "Wir sind anders als traditionelle Online-Tools"
-  },
-  "stats": {
-    "monthly_users": "Monatliche Nutzer",
-    "files_processed": "Verarbeitete Dateien",
-    "privacy_guarantee": "Datenschutz-Garantie",
-    "users": "Nutzer",
-    "tools": "Tools",
-    "privacy": "Datenschutz",
-    "free": "Kostenlos"
+    }
   },
   "features": {
     "title": "Leistungsstarke, datenschutzorientierte Tools",
+    "subtitle": "Wir sind anders als traditionelle Online-Tools",
     "description": "Die gesamte Verarbeitung findet lokal in Ihrem Browser statt – Ihre Dateien verlassen nie Ihr Gerät.",
     "privacy": {
       "title": "Vollständige Privatsphäre",
@@ -93,7 +86,7 @@
     },
     "speed": {
       "title": "Blitzschnell",
-      "desc": "Verarbeiten Sie Dateien mit der Geschwindigkeit Ihres lokalen Geräts. Kein Warten auf Uploads oder Downloads von entfernten Servern."
+      "desc": "Verarbeiten Sie Dateien mit der Geschwindigkeit Ihres lokalen Geräts. Kein Warten auf Uploads oder Downloads."
     },
     "limits": {
       "title": "Keine Limits",
@@ -106,11 +99,11 @@
   },
   "about": {
     "title": "Für Privatsphäre gebaut, mit Leidenschaft betrieben",
-    "description": "Nachdem ich gesehen habe, wie die meisten 'kostenlosen' Online-Tools heimlich Ihre Dateien auf ihre Server hochladen, habe ich Kimosabe Tools mit einem einfachen Versprechen erstellt: Ihre Dateien bleiben auf Ihrem Gerät.",
-    "closing": "Dies ist ein Leidenschaftsprojekt, das von einem Einzelentwickler betreut wird. Wenn Ihnen diese Tools Zeit sparen und Ihre Privatsphäre schützen, erwägen Sie bitte, das Projekt zu unterstützen, um es werbefrei und am Laufen zu halten.",
+    "description": "Nachdem ich gesehen habe, wie die meisten 'kostenlosen' Online-Tools heimlich Ihre Dateien hochladen, habe ich Kimosabe Tools mit einem Versprechen erstellt: Ihre Dateien bleiben bei Ihnen.",
+    "closing": "Dies ist ein Leidenschaftsprojekt eines Einzelentwicklers. Wenn diese Tools Ihnen helfen, erwägen Sie bitte eine Unterstützung, um das Projekt werbefrei zu halten.",
     "signature": "— Der Kimosabe-Entwickler",
     "about_title": "Über Kimosabe Tools",
-    "about_desc": "Kimosabe Tools wurde von einem Einzelentwickler erstellt, der Datenschutz über alles stellt. In einer Welt, in der Daten ständig gesammelt und verkauft werden, glauben wir an Tools, die Ihre digitalen Rechte respektieren.",
+    "about_desc": "Kimosabe Tools wurde von einem Einzelentwickler erstellt, der Datenschutz über alles stellt. Wir glauben an Tools, die Ihre digitalen Rechte respektieren.",
     "cta": "Erfahren Sie mehr über unsere Mission"
   },
   "tool_categories": {
@@ -124,11 +117,12 @@
     "open_source": "Open Source",
     "report_issue": "Problem melden",
     "contact_dev": "Entwickler kontaktieren",
-    "share": "Diese Tools teilen"
+    "share": "Diese Tools teilen",
+    "copyright": "© 2026 Kimosabe Tools. Mit ❤️ für Datenschutz gebaut."
   },
   "ui_common": {
     "upload_file": "Datei hochladen",
-    "drag_drop": "Datei hierher ziehen & ablegen oder klicken zum Durchsuchen",
+    "drag_drop": "Datei hierher ziehen oder klicken zum Durchsuchen",
     "choose_file": "Datei auswählen",
     "processing": "Wird verarbeitet...",
     "download": "Herunterladen",
@@ -143,50 +137,43 @@
     "max_file_size": "Maximale Dateigröße",
     "select_option": "Option auswählen...",
     "loading": "Lädt...",
-    "upload": "Datei hochladen",
     "max_size": "Maximale Größe: 50MB",
-    "browser_only": "Dateien werden in Ihrem Browser verarbeitet",
+    "browser_only": "Dateien werden lokal im Browser verarbeitet",
     "success": "Erfolg!",
     "error": "Fehler",
     "support": "Kimosabe Tools unterstützen",
     "coffee": "☕ Kaffee spendieren",
     "more_tools": "Mehr Tools",
-    "features": "Funktionen",
-    "privacy_focus": "Datenschutzorientiert"
-  },
-  "tools": {
-    "home": {
-      "features_title": "Warum Kimosabe Tools wählen?",
-      "tools_title": "Unsere Datenschutz-Tools"
-    }
+    "privacy_focus": "Datenschutzorientiert",
+    "back_to_top": "↑"
   },
   "edit_pdf": {
     "add_text": "Text zur ersten Seite hinzufügen",
-    "text_placeholder": "Text eingeben (z.B., 'Entwurf', 'Vertraulich')",
+    "text_placeholder": "Text eingeben (z.B., 'Entwurf')",
     "text_tip": "Text erscheint oben links auf der ersten Seite",
-    "whiteout": "Tipp-Ex auf Kopfzeile anwenden",
-    "whiteout_tip": "Deckt die oberen 60px der ersten Seite mit weißem Rechteck ab",
+    "whiteout": "Tipp-Ex anwenden",
+    "whiteout_tip": "Deckt die oberen 60px der ersten Seite weiß ab",
     "advanced": "Erweiterte Optionen",
     "font_size": "Schriftgröße",
-    "page_numbers": "Seitennummern zu allen Seiten hinzufügen",
+    "page_numbers": "Seitennummern hinzufügen",
     "page_numbers_tip": "Fügt Seitenzahlen unten mittig hinzu",
-    "features_title": "Sichere und geschützte PDF-Bearbeitung",
+    "features_title": "Sichere PDF-Bearbeitung",
     "features": {
       "annotations": {
-        "title": "Anmerkungen hinzufügen",
-        "desc": "Notizen, Etiketten oder Daten ohne teure Software hinzufügen"
+        "title": "Anmerkungen",
+        "desc": "Notizen oder Daten ohne teure Software hinzufügen"
       },
       "private": {
         "title": "100% Privat",
-        "desc": "Wir speichern Ihre Dokumente nicht. Alle Bearbeitung erfolgt lokal."
+        "desc": "Keine Speicherung. Alle Bearbeitung erfolgt lokal."
       },
       "instant": {
-        "title": "Sofortige Verarbeitung",
-        "desc": "Bearbeiten und in Sekunden herunterladen. Kein Warten auf Uploads."
+        "title": "Sofort-Verarbeitung",
+        "desc": "Bearbeiten und sofort herunterladen."
       },
       "free": {
-        "title": "Für immer kostenlos",
-        "desc": "Keine Wasserzeichen, keine Limits, keine Registrierung nötig."
+        "title": "Kostenlos",
+        "desc": "Keine Wasserzeichen, keine Limits."
       }
     }
   },
@@ -205,4 +192,3 @@
     "update_browser": "Bitte aktualisieren Sie Ihren Browser"
   }
 }
-
