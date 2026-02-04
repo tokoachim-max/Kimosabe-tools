@@ -16,49 +16,46 @@
     "language": "🌐",
     "explore_tools": "🚀 Explore All Tools"
   },
-  "footer": {
-    "tagline": "Join thousands of users who trust their privacy to Kimosabe Tools",
-    "built_with": "Built with ❤️ for privacy",
-    "processing": "All processing happens locally in your browser. No cookies. No tracking."
-  },
-  "home": {
+  "hero": {
     "title": "Kimosabe Tools",
     "subtitle": "Privacy-Focused Online Tools",
     "description": "Free tools that work 100% in your browser. No uploads, no tracking, no registration.",
-    "stats": {
-      "users": "Users",
-      "tools": "Tools",
-      "privacy": "Privacy",
-      "free": "Free"
+    "tagline": "🔒 No Uploads ⚡ Instant Processing 💸 Completely Free",
+    "tagline_1": "🔒 No Uploads",
+    "tagline_2": "⚡ Instant Processing",
+    "tagline_3": "💸 Completely Free"
+  },
+  "stats": {
+    "users": "Users",
+    "tools": "Tools",
+    "privacy": "Privacy",
+    "free": "Free"
+  },
+  "features": {
+    "title": "Why Choose Kimosabe Tools?",
+    "subtitle": "We're different from traditional online tools",
+    "privacy": {
+      "title": "100% Private",
+      "desc": "Your files never leave your device. No server uploads, ever."
     },
-    "features_title": "Why Choose Kimosabe Tools?",
-    "features": {
-      "privacy": {
-        "title": "100% Private",
-        "desc": "Your files never leave your device. No server uploads, ever."
-      },
-      "free": {
-        "title": "Completely Free",
-        "desc": "No watermarks, no limits, no registration required."
-      },
-      "fast": {
-        "title": "Lightning Fast",
-        "desc": "Works at local device speed. No waiting for servers."
-      },
-      "secure": {
-        "title": "Bank-Level Secure",
-        "desc": "All processing happens in your browser using JavaScript."
-      },
+    "free": {
+      "title": "Completely Free",
+      "desc": "No watermarks, no limits, no registration required."
     },
-    "tools_title": "Our Privacy Tools",
-    "about_title": "About Kimosabe Tools",
-    "about_desc": "Kimosabe Tools was created by a solo developer who values privacy above all else. In a world where data is constantly collected and sold, we believe in providing tools that respect your digital rights.",
-    "cta": "Learn More About Our Mission"
+    "fast": {
+      "title": "Lightning Fast",
+      "desc": "Works at local device speed. No waiting for servers."
+    },
+    "secure": {
+      "title": "Bank-Level Secure",
+      "desc": "All processing happens in your browser using JavaScript."
+    }
   },
   "tools": {
+    "title": "Our Privacy Tools",
     "edit_pdf": {
       "title": "Edit PDF",
-      "desc": "Annotate your documents privately. Add text or whiteout sensitive information.",
+      "desc": "Add text, annotations, and whiteout",
       "features": [
         "Add text annotations to existing documents",
         "White out sensitive information",
@@ -68,7 +65,7 @@
     },
     "compress_pdf": {
       "title": "Compress PDF",
-      "desc": "Reduce PDF file size without losing quality. Perfect for sharing and storage.",
+      "desc": "Reduce document size",
       "features": [
         "Reduce PDF size up to 90%",
         "Maintain text and image quality",
@@ -78,7 +75,7 @@
     },
     "merge_pdf": {
       "title": "Merge PDF",
-      "desc": "Combine multiple PDF files into one. Arrange pages in any order.",
+      "desc": "Combine multiple documents",
       "features": [
         "Combine unlimited PDFs",
         "Drag and drop reordering",
@@ -88,7 +85,7 @@
     },
     "sign_pdf": {
       "title": "Sign PDF",
-      "desc": "Add your signature to PDF documents. No printing or scanning required.",
+      "desc": "Add digital signatures securely",
       "features": [
         "Draw or upload signature",
         "Position anywhere on document",
@@ -98,7 +95,7 @@
     },
     "image_compressor": {
       "title": "Image Compressor",
-      "desc": "Reduce image file size without losing quality. Supports JPG, PNG, WebP.",
+      "desc": "Reduce image size without quality loss",
       "features": [
         "Compress JPG, PNG, WebP, GIF",
         "Adjustable quality slider",
@@ -106,9 +103,22 @@
         "Preserve metadata"
       ]
     },
+    "image_resize": {
+      "title": "Resize Image",
+      "desc": "Adjust dimensions for any platform"
+    },
+    "image_converter": {
+      "title": "Image Converter",
+      "desc": "Convert between formats instantly"
+    },
+    "rotate_split_pdf": {
+      "title": "Rotate & Split PDF",
+      "desc": "Fix orientation or extract pages"
+    },
     "image_to_pdf": {
       "title": "Image to PDF",
-      "desc": "Convert images to PDF files. Merge multiple images into one PDF.",
+      "desc": "Convert photos to documents",
+      "category": "Converter",
       "features": [
         "Convert JPG, PNG to PDF",
         "Multiple images in one PDF",
@@ -117,8 +127,8 @@
       ]
     }
   },
-  "tool_common": {
-    "upload": "Upload File",
+  "ui_common": {
+    "upload_file": "Upload File",
     "drag_drop": "Drag & drop or click to upload",
     "max_size": "Maximum size: 50MB",
     "browser_only": "Files are processed in your browser",
@@ -131,10 +141,10 @@
     "support": "Support Kimosabe Tools",
     "coffee": "☕ Buy Me a Coffee",
     "more_tools": "More Tools",
-    "features": "Features",
-    "privacy_focus": "Privacy Focused"
+    "privacy_focus": "Privacy Focused",
+    "back_to_top": "↑"
   },
-  "edit_pdf": {
+  "edit_pdf_ui": {
     "add_text": "Add text to first page",
     "text_placeholder": "Type text to add (e.g., 'Draft', 'Confidential')",
     "text_tip": "Text will appear at top-left of first page",
@@ -145,51 +155,21 @@
     "page_numbers": "Add page numbers to all pages",
     "page_numbers_tip": "Adds page numbers at bottom center",
     "features_title": "Safe & Secure PDF Editing",
-    "features": {
-      "annotations": {
-        "title": "Add Annotations",
-        "desc": "Add notes, labels, or dates without expensive software"
-      },
-      "private": {
-        "title": "100% Private",
-        "desc": "We don't store your documents. All editing happens locally."
-      },
-      "instant": {
-        "title": "Instant Processing",
-        "desc": "Edit and download in seconds. No waiting for uploads."
-      },
-      "free": {
-        "title": "Free Forever",
-        "desc": "No watermarks, no limits, no registration needed."
-      }
-    }
-  },
-  "image_compressor": {
-    "quality": "Compression Quality",
-    "smaller_file": "Smaller file",
-    "balanced": "Balanced",
-    "better_quality": "Better quality",
-    "original": "Original Image",
-    "compressed": "Compressed Image",
-    "features_title": "Privacy-Focused Image Compression",
-    "description": "Kimosabe Tools handles all compression directly in your browser. We never see your images, and they are never uploaded to a server. This makes the process instant and 100% private.",
-    "features": {
-      "private": {
-        "title": "100% Private",
-        "desc": "Your photos stay on your device. No uploads to our servers."
-      },
-      "instant": {
-        "title": "Instant Results",
-        "desc": "No waiting for server uploads or downloads."
-      },
-      "smart": {
-        "title": "Smart Compression",
-        "desc": "Intelligently reduces file size while maintaining visual quality."
-      },
-      "free": {
-        "title": "Free Forever",
-        "desc": "No watermarks, no file limits, no registration needed."
-      }
+    "annotations": {
+      "title": "Add Annotations",
+      "desc": "Add notes, labels, or dates without expensive software"
+    },
+    "private": {
+      "title": "100% Private",
+      "desc": "We don't store your documents. All editing happens locally."
+    },
+    "instant": {
+      "title": "Instant Processing",
+      "desc": "Edit and download in seconds. No waiting for uploads."
+    },
+    "free": {
+      "title": "Free Forever",
+      "desc": "No watermarks, no limits, no registration needed."
     }
   },
   "about": {
@@ -201,7 +181,9 @@
     "open_source_desc": "Our code is available for inspection. Transparency builds trust.",
     "community": "Community Driven",
     "community_desc": "Tools are built based on user feedback and needs.",
-    "support": "Support Independent Development"
+    "support": "Support Independent Development",
+    "signature": "— Kimosabe Developer",
+    "cta": "Learn More About Our Mission"
   },
   "contact": {
     "title": "Contact Us",
@@ -236,7 +218,7 @@
     "thank_you": "Thank you for supporting privacy-first tools!",
     "independent": "Independent & Privacy-Focused"
   },
-  "privacy": {
+  "privacy_page": {
     "title": "Privacy Policy",
     "promise": "Our Privacy Promise",
     "promise_text": "We don't collect, store, or share your personal data. Your files never leave your device.",
@@ -250,7 +232,7 @@
     "data_collection": "Data We Don't Collect",
     "no_collection": "We don't collect personal information, usage data, or file contents."
   },
-  "terms": {
+  "terms_page": {
     "title": "Terms of Service",
     "notice": "Important Notice",
     "notice_text": "All tools work 100% in your browser. We are not responsible for any data loss or damage.",
@@ -263,6 +245,12 @@
     ],
     "liability": "No Liability",
     "liability_text": "We provide tools 'as is' without warranties. Users assume all risks."
+  },
+  "footer": {
+    "tagline": "Join thousands of users who trust their privacy to Kimosabe Tools",
+    "built_with": "Built with ❤️ for privacy",
+    "processing": "All processing happens locally in your browser. No cookies. No tracking.",
+    "copyright": "© 2026 Kimosabe Tools. Built with ❤️ for privacy."
   },
   "languages": {
     "en": "English",
@@ -283,61 +271,4 @@
     "tr": "Türkçe",
     "vi": "Tiếng Việt"
   }
-  {
-  "hero": {
-    "tagline_1": "🔒 No Uploads",
-    "tagline_2": "⚡ Instant Processing", 
-    "tagline_3": "💸 Completely Free"
-  },
-  "tools": {
-    "image_compressor": {
-      "title": "Image Compressor",
-      "desc": "Reduce image size without quality loss"
-    },
-    "image_resize": {
-      "title": "Resize Image",
-      "desc": "Adjust dimensions for any platform"
-    },
-    "image_converter": {
-      "title": "Image Converter",
-      "desc": "Convert between formats instantly"
-    },
-    "edit_pdf": {
-      "title": "Edit PDF",
-      "desc": "Add text, annotations, and whiteout"
-    },
-    "merge_pdf": {
-      "title": "Merge PDF",
-      "desc": "Combine multiple documents"
-    },
-    "rotate_split_pdf": {
-      "title": "Rotate & Split PDF",
-      "desc": "Fix orientation or extract pages"
-    },
-    "image_to_pdf": {
-      "title": "Image to PDF",
-      "desc": "Convert photos to documents",
-      "category": "Converter"
-    },
-    "compress_pdf": {
-      "title": "Compress PDF",
-      "desc": "Reduce document size"
-    },
-    "sign_pdf": {
-      "title": "Sign PDF",
-      "desc": "Add digital signatures securely"
-    }
-  },
-  "ui_common": {
-    "back_to_top": "↑"
-  },
-  "footer": {
-    "copyright": "© 2026 Kimosabe Tools. Built with ❤️ for privacy."
-  },
-  "features": {
-    "subtitle": "We're different from traditional online tools"
-  }
 }
-
-}
-
