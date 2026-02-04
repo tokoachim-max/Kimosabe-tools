@@ -16,6 +16,61 @@
     "language": "🌐",
     "explore_tools": "🚀 Explorar todas las herramientas"
   },
+  {
+  "hero": {
+    "tagline_1": "🔒 Sin subidas",
+    "tagline_2": "⚡ Procesamiento instantáneo", 
+    "tagline_3": "💸 Completamente gratis"
+  },
+  "tools": {
+    "image_compressor": {
+      "title": "Compresor de imágenes",
+      "desc": "Reducir el tamaño de la imagen sin pérdida de calidad"
+    },
+    "image_resize": {
+      "title": "Redimensionar imagen",
+      "desc": "Ajustar dimensiones para cualquier plataforma"
+    },
+    "image_converter": {
+      "title": "Conversor de imágenes",
+      "desc": "Convertir entre formatos instantáneamente"
+    },
+    "edit_pdf": {
+      "title": "Editar PDF",
+      "desc": "Agregar texto, anotaciones y corrector"
+    },
+    "merge_pdf": {
+      "title": "Combinar PDF",
+      "desc": "Combinar múltiples documentos"
+    },
+    "rotate_split_pdf": {
+      "title": "Rotar y dividir PDF",
+      "desc": "Corregir orientación o extraer páginas"
+    },
+    "image_to_pdf": {
+      "title": "Imagen a PDF",
+      "desc": "Convertir fotos a documentos",
+      "category": "Conversor"
+    },
+    "compress_pdf": {
+      "title": "Comprimir PDF",
+      "desc": "Reducir tamaño del documento"
+    },
+    "sign_pdf": {
+      "title": "Firmar PDF",
+      "desc": "Agregar firmas digitales de forma segura"
+    }
+  },
+  "ui_common": {
+    "back_to_top": "↑"
+  },
+  "footer": {
+    "copyright": "© 2026 Kimosabe Tools. Construido con ❤️ para la privacidad."
+  },
+  "features": {
+    "subtitle": "Somos diferentes a las herramientas en línea tradicionales"
+  },
+}
   "hero": {
     "title": "Kimosabe Tools",
     "subtitle": "Herramientas 100% privadas para PDF e imágenes que se quedan en su navegador",
@@ -151,3 +206,4 @@
     "update_browser": "Por favor, actualice su navegador"
   }
 }
+
