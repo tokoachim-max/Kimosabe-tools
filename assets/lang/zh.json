@@ -30,6 +30,61 @@
     "privacy": "隐私",
     "free": "免费"
   },
+  {
+  "hero": {
+    "tagline_1": "🔒 无需上传",
+    "tagline_2": "⚡ 即时处理", 
+    "tagline_3": "💸 完全免费"
+  },
+  "tools": {
+    "image_compressor": {
+      "title": "图片压缩器",
+      "desc": "减小图片大小而不损失质量"
+    },
+    "image_resize": {
+      "title": "调整图片大小",
+      "desc": "为任何平台调整尺寸"
+    },
+    "image_converter": {
+      "title": "图片转换器",
+      "desc": "即时在不同格式之间转换"
+    },
+    "edit_pdf": {
+      "title": "编辑PDF",
+      "desc": "添加文字、注释和涂白"
+    },
+    "merge_pdf": {
+      "title": "合并PDF",
+      "desc": "合并多个文档"
+    },
+    "rotate_split_pdf": {
+      "title": "旋转和拆分PDF",
+      "desc": "修正方向或提取页面"
+    },
+    "image_to_pdf": {
+      "title": "图片转PDF",
+      "desc": "将照片转换为文档",
+      "category": "转换器"
+    },
+    "compress_pdf": {
+      "title": "压缩PDF",
+      "desc": "减小文档大小"
+    },
+    "sign_pdf": {
+      "title": "签署PDF",
+      "desc": "安全添加数字签名"
+    }
+  },
+  "ui_common": {
+    "back_to_top": "↑"
+  },
+  "footer": {
+    "copyright": "© 2026 Kimosabe Tools。为隐私而建 ❤️"
+  },
+  "features": {
+    "subtitle": "我们与传统的在线工具不同"
+  },
+}
   "features": {
     "title": "强大的隐私优先工具",
     "description": "所有处理都在您本地浏览器中进行 — 您的文件永远不会离开您的设备",
@@ -151,3 +206,4 @@
     "update_browser": "请更新您的浏览器"
   }
 }
+
