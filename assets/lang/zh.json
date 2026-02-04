@@ -19,7 +19,10 @@
   "hero": {
     "title": "Kimosabe Tools",
     "subtitle": "100% 私密的 PDF 和图片工具，仅在您的浏览器中运行",
-    "tagline": "🔒 无需上传 ⚡ 即时处理 💸 完全免费"
+    "tagline": "🔒 无需上传 ⚡ 即时处理 💸 完全免费",
+    "tagline_1": "🔒 无需上传",
+    "tagline_2": "⚡ 即时处理",
+    "tagline_3": "💸 完全免费"
   },
   "stats": {
     "monthly_users": "月度用户",
@@ -30,13 +33,11 @@
     "privacy": "隐私",
     "free": "免费"
   },
-  {
-  "hero": {
-    "tagline_1": "🔒 无需上传",
-    "tagline_2": "⚡ 即时处理", 
-    "tagline_3": "💸 完全免费"
-  },
   "tools": {
+    "home": {
+      "features_title": "为什么选择 Kimosabe Tools？",
+      "tools_title": "我们的隐私工具"
+    },
     "image_compressor": {
       "title": "图片压缩器",
       "desc": "减小图片大小而不损失质量"
@@ -75,18 +76,9 @@
       "desc": "安全添加数字签名"
     }
   },
-  "ui_common": {
-    "back_to_top": "↑"
-  },
-  "footer": {
-    "copyright": "© 2026 Kimosabe Tools。为隐私而建 ❤️"
-  },
-  "features": {
-    "subtitle": "我们与传统的在线工具不同"
-  },
-}
   "features": {
     "title": "强大的隐私优先工具",
+    "subtitle": "我们与传统的在线工具不同",
     "description": "所有处理都在您本地浏览器中进行 — 您的文件永远不会离开您的设备",
     "privacy": {
       "title": "完全隐私",
@@ -125,7 +117,8 @@
     "open_source": "开源",
     "report_issue": "报告问题",
     "contact_dev": "联系开发者",
-    "share": "分享这些工具"
+    "share": "分享这些工具",
+    "copyright": "© 2026 Kimosabe Tools。为隐私而建 ❤️"
   },
   "ui_common": {
     "upload_file": "上传文件",
@@ -153,13 +146,8 @@
     "coffee": "☕ 请我喝咖啡",
     "more_tools": "更多工具",
     "features": "功能",
-    "privacy_focus": "注重隐私"
-  },
-  "tools": {
-    "home": {
-      "features_title": "为什么选择 Kimosabe Tools？",
-      "tools_title": "我们的隐私工具"
-    }
+    "privacy_focus": "注重隐私",
+    "back_to_top": "↑"
   },
   "edit_pdf": {
     "add_text": "在第一页添加文字",
@@ -206,4 +194,3 @@
     "update_browser": "请更新您的浏览器"
   }
 }
-
