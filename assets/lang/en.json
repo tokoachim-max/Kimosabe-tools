@@ -283,4 +283,60 @@
     "tr": "Türkçe",
     "vi": "Tiếng Việt"
   }
+  {
+  "hero": {
+    "tagline_1": "🔒 No Uploads",
+    "tagline_2": "⚡ Instant Processing", 
+    "tagline_3": "💸 Completely Free"
+  },
+  "tools": {
+    "image_compressor": {
+      "title": "Image Compressor",
+      "desc": "Reduce image size without quality loss"
+    },
+    "image_resize": {
+      "title": "Resize Image",
+      "desc": "Adjust dimensions for any platform"
+    },
+    "image_converter": {
+      "title": "Image Converter",
+      "desc": "Convert between formats instantly"
+    },
+    "edit_pdf": {
+      "title": "Edit PDF",
+      "desc": "Add text, annotations, and whiteout"
+    },
+    "merge_pdf": {
+      "title": "Merge PDF",
+      "desc": "Combine multiple documents"
+    },
+    "rotate_split_pdf": {
+      "title": "Rotate & Split PDF",
+      "desc": "Fix orientation or extract pages"
+    },
+    "image_to_pdf": {
+      "title": "Image to PDF",
+      "desc": "Convert photos to documents",
+      "category": "Converter"
+    },
+    "compress_pdf": {
+      "title": "Compress PDF",
+      "desc": "Reduce document size"
+    },
+    "sign_pdf": {
+      "title": "Sign PDF",
+      "desc": "Add digital signatures securely"
+    }
+  },
+  "ui_common": {
+    "back_to_top": "↑"
+  },
+  "footer": {
+    "copyright": "© 2026 Kimosabe Tools. Built with ❤️ for privacy."
+  },
+  "features": {
+    "subtitle": "We're different from traditional online tools"
+  }
+}
+
 }
