@@ -21,6 +21,60 @@
     "subtitle": "100% private PDF- & Bild-Tools, die in Ihrem Browser bleiben",
     "tagline": "🔒 Keine Uploads ⚡ Sofortige Verarbeitung 💸 Komplett kostenlos"
   },
+  {
+  "hero": {
+    "tagline_1": "🔒 Keine Uploads",
+    "tagline_2": "⚡ Sofortige Verarbeitung", 
+    "tagline_3": "💸 Komplett kostenlos"
+  },
+  "tools": {
+    "image_compressor": {
+      "title": "Bildkompressor",
+      "desc": "Bildgröße ohne Qualitätsverlust reduzieren"
+    },
+    "image_resize": {
+      "title": "Bildgröße ändern",
+      "desc": "Abmessungen für jede Plattform anpassen"
+    },
+    "image_converter": {
+      "title": "Bildkonverter",
+      "desc": "Zwischen Formaten sofort konvertieren"
+    },
+    "edit_pdf": {
+      "title": "PDF bearbeiten",
+      "desc": "Text, Anmerkungen und Tipp-Ex hinzufügen"
+    },
+    "merge_pdf": {
+      "title": "PDFs zusammenführen",
+      "desc": "Mehrere Dokumente kombinieren"
+    },
+    "rotate_split_pdf": {
+      "title": "PDF drehen & teilen",
+      "desc": "Ausrichtung korrigieren oder Seiten extrahieren"
+    },
+    "image_to_pdf": {
+      "title": "Bild zu PDF",
+      "desc": "Fotos in Dokumente konvertieren",
+      "category": "Konverter"
+    },
+    "compress_pdf": {
+      "title": "PDF komprimieren",
+      "desc": "Dokumentgröße reduzieren"
+    },
+    "sign_pdf": {
+      "title": "PDF signieren",
+      "desc": "Digitale Signaturen sicher hinzufügen"
+    },
+  },
+  "ui_common": {
+    "back_to_top": "↑"
+  },
+  "footer": {
+    "copyright": "© 2026 Kimosabe Tools. Mit ❤️ für Datenschutz gebaut."
+  },
+  "features": {
+    "subtitle": "Wir sind anders als traditionelle Online-Tools"
+  },
   "stats": {
     "monthly_users": "Monatliche Nutzer",
     "files_processed": "Verarbeitete Dateien",
@@ -151,3 +205,4 @@
     "update_browser": "Bitte aktualisieren Sie Ihren Browser"
   }
 }
+
