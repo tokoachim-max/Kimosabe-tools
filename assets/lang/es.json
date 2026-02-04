@@ -16,13 +16,28 @@
     "language": "🌐",
     "explore_tools": "🚀 Explorar todas las herramientas"
   },
-  {
   "hero": {
+    "title": "Kimosabe Tools",
+    "subtitle": "Herramientas 100% privadas para PDF e imágenes que se quedan en su navegador",
+    "tagline": "🔒 Sin subidas ⚡ Procesamiento instantáneo 💸 Completamente gratis",
     "tagline_1": "🔒 Sin subidas",
-    "tagline_2": "⚡ Procesamiento instantáneo", 
+    "tagline_2": "⚡ Procesamiento instantáneo",
     "tagline_3": "💸 Completamente gratis"
   },
+  "stats": {
+    "monthly_users": "Usuarios mensuales",
+    "files_processed": "Archivos procesados",
+    "privacy_guarantee": "Garantía de privacidad",
+    "users": "Usuarios",
+    "tools": "Herramientas",
+    "privacy": "Privacidad",
+    "free": "Gratis"
+  },
   "tools": {
+    "home": {
+      "features_title": "¿Por qué elegir Kimosabe Tools?",
+      "tools_title": "Nuestras herramientas de privacidad"
+    },
     "image_compressor": {
       "title": "Compresor de imágenes",
       "desc": "Reducir el tamaño de la imagen sin pérdida de calidad"
@@ -61,32 +76,9 @@
       "desc": "Agregar firmas digitales de forma segura"
     }
   },
-  "ui_common": {
-    "back_to_top": "↑"
-  },
-  "footer": {
-    "copyright": "© 2026 Kimosabe Tools. Construido con ❤️ para la privacidad."
-  },
-  "features": {
-    "subtitle": "Somos diferentes a las herramientas en línea tradicionales"
-  },
-}
-  "hero": {
-    "title": "Kimosabe Tools",
-    "subtitle": "Herramientas 100% privadas para PDF e imágenes que se quedan en su navegador",
-    "tagline": "🔒 Sin subidas ⚡ Procesamiento instantáneo 💸 Completamente gratis"
-  },
-  "stats": {
-    "monthly_users": "Usuarios mensuales",
-    "files_processed": "Archivos procesados",
-    "privacy_guarantee": "Garantía de privacidad",
-    "users": "Usuarios",
-    "tools": "Herramientas",
-    "privacy": "Privacidad",
-    "free": "Gratis"
-  },
   "features": {
     "title": "Herramientas potentes con privacidad primero",
+    "subtitle": "Somos diferentes a las herramientas en línea tradicionales",
     "description": "Todo el procesamiento ocurre localmente en su navegador: sus archivos nunca abandonan su dispositivo.",
     "privacy": {
       "title": "Privacidad completa",
@@ -125,7 +117,8 @@
     "open_source": "Código abierto",
     "report_issue": "Reportar un problema",
     "contact_dev": "Contactar al desarrollador",
-    "share": "Compartir estas herramientas"
+    "share": "Compartir estas herramientas",
+    "copyright": "© 2026 Kimosabe Tools. Construido con ❤️ para la privacidad."
   },
   "ui_common": {
     "upload_file": "Subir archivo",
@@ -153,13 +146,8 @@
     "coffee": "☕ Comprar un café",
     "more_tools": "Más herramientas",
     "features": "Características",
-    "privacy_focus": "Enfocado en privacidad"
-  },
-  "tools": {
-    "home": {
-      "features_title": "¿Por qué elegir Kimosabe Tools?",
-      "tools_title": "Nuestras herramientas de privacidad"
-    }
+    "privacy_focus": "Enfocado en privacidad",
+    "back_to_top": "↑"
   },
   "edit_pdf": {
     "add_text": "Agregar texto a la primera página",
@@ -206,4 +194,3 @@
     "update_browser": "Por favor, actualice su navegador"
   }
 }
-
