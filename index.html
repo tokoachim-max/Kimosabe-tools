@@ -15,7 +15,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
   <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
   
-  <!-- External CSS - Updated path -->
+  <!-- External CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
   
   <!-- Language Switcher CSS -->
@@ -37,11 +37,17 @@
       align-items: center;
       gap: 0.5rem;
       transition: all 0.3s ease;
+      white-space: nowrap;
     }
 
     #language-button:hover {
       background: rgba(255, 255, 255, 0.1);
       border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    #language-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .language-dropdown {
@@ -52,7 +58,7 @@
       background: white;
       border: 1px solid #ddd;
       border-radius: 8px;
-      min-width: 140px;
+      min-width: 160px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
       z-index: 1000;
       margin-top: 0.5rem;
@@ -64,12 +70,15 @@
     }
 
     .language-dropdown a {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       padding: 0.75rem 1rem;
       text-decoration: none;
       color: #333;
       border-bottom: 1px solid #f0f0f0;
       transition: background 0.2s ease;
+      font-size: 0.95rem;
     }
 
     .language-dropdown a:hover {
@@ -81,7 +90,7 @@
     }
 
     .language-dropdown a.active {
-      background: #f0f0f0;
+      background: #e8f4f8;
       font-weight: 600;
     }
 
@@ -101,7 +110,7 @@
 
     [dir="rtl"] .tools-grid,
     [dir="rtl"] .features-grid {
-      direction: ltr; /* Keep grid layout LTR even in RTL */
+      direction: ltr;
     }
 
     /* Dark mode support */
@@ -163,12 +172,12 @@
         <div class="language-switcher">
           <button id="language-button">🌐 EN</button>
           <div class="language-dropdown" id="language-dropdown">
-            <a href="#" data-lang="en">🇺🇸 English</a>
-            <a href="#" data-lang="de">🇩🇪 Deutsch</a>
-            <a href="#" data-lang="es">🇪🇸 Español</a>
-            <a href="#" data-lang="fr">🇫🇷 Français</a>
-            <a href="#" data-lang="zh">🇨🇳 中文</a>
-            <a href="#" data-lang="ar">🇸🇦 العربية</a>
+            <a href="#" data-lang="en"><span>🇺🇸</span> English</a>
+            <a href="#" data-lang="de"><span>🇩🇪</span> Deutsch</a>
+            <a href="#" data-lang="es"><span>🇪🇸</span> Español</a>
+            <a href="#" data-lang="fr"><span>🇫🇷</span> Français</a>
+            <a href="#" data-lang="zh"><span>🇨🇳</span> 中文</a>
+            <a href="#" data-lang="ar"><span>🇸🇦</span> العربية</a>
           </div>
         </div>
         
@@ -384,7 +393,7 @@
 
       detectLanguage() {
         // Check localStorage first
-        const saved = localStorage.getItem('kimosabe-language');
+        const saved = localStorage.getItem('preferredLanguage');
         if (saved) return saved;
         
         // Detect browser language
@@ -394,73 +403,103 @@
       }
 
       async init() {
+        console.log('LanguageManager: Initializing...');
         await this.loadLanguage(this.currentLanguage);
         this.applyTranslations();
         this.setupLanguageSwitcher();
         this.setPageDirection();
         this.updateLanguageButton();
         this.updateActiveLanguage();
+        console.log('LanguageManager: Initialization complete');
       }
 
       async loadLanguage(lang) {
         try {
           this.showLoading();
-          const response = await fetch(`assets/i18n/${lang}.json`);
-          if (!response.ok) throw new Error(`Failed to load ${lang}`);
+          console.log(`LanguageManager: Loading language ${lang}...`);
+          
+          // Corrected path: assets/js/ not assets/lang/
+          const response = await fetch(`./assets/js/${lang}.json`);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
           
           this.translations = await response.json();
           this.currentLanguage = lang;
-          localStorage.setItem('kimosabe-language', lang);
+          localStorage.setItem('preferredLanguage', lang);
+          
+          console.log(`LanguageManager: Successfully loaded ${lang}`, this.translations);
+          
+          // Track language change in Google Analytics
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'language_change', {
+              'event_category': 'engagement',
+              'event_label': lang,
+              'transport_type': 'beacon'
+            });
+          }
           
           this.hideLoading();
           return true;
-        } catch (error) {
-          console.error('Language load error:', error);
           
-          // Fallback to English
+        } catch (error) {
+          console.error(`LanguageManager: Failed to load language ${lang}:`, error);
+          this.hideLoading();
+          
+          // Fallback to English if not already trying English
           if (lang !== 'en') {
+            console.log('LanguageManager: Falling back to English...');
             return this.loadLanguage('en');
           }
-          this.hideLoading();
           return false;
         }
       }
 
       applyTranslations() {
-        // Find all elements with data-i18n attribute
+        console.log('LanguageManager: Applying translations...');
+        let count = 0;
+        
         document.querySelectorAll('[data-i18n]').forEach(element => {
           const key = element.getAttribute('data-i18n');
           const translation = this.getNestedTranslation(key);
           
           if (translation) {
-            // Check if element or its parent has text that shouldn't be replaced
+            // Handle meta tags differently
             if (element.tagName === 'META') {
               element.setAttribute('content', translation);
             } else {
-              // Simply replace the text content
+              // Simply replace text content
               element.textContent = translation;
             }
+            count++;
           }
         });
         
-        // Update page title separately
+        // Update page title
         if (this.translations.meta?.title) {
           document.title = this.translations.meta.title;
         }
+        
+        console.log(`LanguageManager: Applied ${count} translations`);
       }
 
       getNestedTranslation(key) {
-        // Handle nested keys like "nav.home" or "features.privacy.title"
+        // Handle nested keys like "nav.home" or "home.features.privacy.title"
         return key.split('.').reduce((obj, keyPart) => 
           obj && obj[keyPart], this.translations
         ) || '';
       }
 
       setupLanguageSwitcher() {
+        console.log('LanguageManager: Setting up language switcher...');
         const languageButton = document.getElementById('language-button');
         const languageDropdown = document.getElementById('language-dropdown');
         
-        if (!languageButton || !languageDropdown) return;
+        if (!languageButton || !languageDropdown) {
+          console.error('LanguageManager: Button or dropdown not found!');
+          return;
+        }
         
         // Toggle dropdown
         languageButton.addEventListener('click', (e) => {
@@ -480,6 +519,8 @@
           link.addEventListener('click', async (e) => {
             e.preventDefault();
             const lang = link.getAttribute('data-lang');
+            console.log(`LanguageManager: Language selected: ${lang}`);
+            
             languageDropdown.classList.remove('show');
             await this.loadLanguage(lang);
             this.applyTranslations();
@@ -487,10 +528,12 @@
             this.updateLanguageButton();
             this.updateActiveLanguage();
             
-            // Reinitialize animations for new content
+            // Reinitialize animations
             this.reinitializeAnimations();
           });
         });
+        
+        console.log('LanguageManager: Language switcher setup complete');
       }
 
       updateLanguageButton() {
@@ -504,16 +547,19 @@
             'zh': '🇨🇳',
             'ar': '🇸🇦'
           };
-          button.textContent = `${languageFlags[this.currentLanguage] || '🌐'} ${this.currentLanguage.toUpperCase()}`;
+          const flag = languageFlags[this.currentLanguage] || '🌐';
+          const code = this.currentLanguage.toUpperCase();
+          button.textContent = `${flag} ${code}`;
+          console.log(`LanguageManager: Button updated to ${flag} ${code}`);
         }
       }
 
       updateActiveLanguage() {
-        // Highlight the current language in dropdown
         const dropdown = document.getElementById('language-dropdown');
         if (dropdown) {
           dropdown.querySelectorAll('a').forEach(link => {
-            if (link.getAttribute('data-lang') === this.currentLanguage) {
+            const lang = link.getAttribute('data-lang');
+            if (lang === this.currentLanguage) {
               link.classList.add('active');
             } else {
               link.classList.remove('active');
@@ -536,7 +582,6 @@
       }
 
       showLoading() {
-        // Add loading indicator if needed
         const button = document.getElementById('language-button');
         if (button) {
           button.disabled = true;
