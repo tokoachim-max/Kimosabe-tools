@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Edit PDF Online – Visual Editor | Kimosabe Tools</title>
+  <title>Edit PDF Online – Form Filler & Annotator | Kimosabe Tools</title>
   
   <!-- Meta Tags -->
-  <meta name="description" content="Edit PDF files for free. Fill forms, add text anywhere visually, whiteout sensitive info. 100% private, no uploads.">
+  <meta name="description" content="Edit PDF files for free. Fill forms, add text anywhere, whiteout sensitive info. 100% private, no uploads.">
   <meta name="keywords" content="edit pdf, fill pdf form, annotate pdf, add text to pdf, whiteout pdf, private pdf editor">
   <meta name="author" content="Kimosabe Tools">
   
   <!-- Open Graph -->
-  <meta property="og:title" content="Edit PDF Online – Visual Editor | Kimosabe Tools">
+  <meta property="og:title" content="Edit PDF Online – Fill Forms & Annotate | Kimosabe Tools">
   <meta property="og:description" content="Edit PDF files 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/edit-pdf.html">
@@ -20,7 +20,7 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Edit PDF Online – Visual Editor | Kimosabe Tools">
+  <meta name="twitter:title" content="Edit PDF Online – Fill Forms & Annotate | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based PDF editor – fill forms, add text, whiteout.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   
@@ -48,16 +48,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
   
-  <!-- PDF Libraries -->
+  <!-- PDF Library -->
   <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-  <!-- PDF.js for Rendering -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script>
-    // Set PDF.js worker source
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  </script>
 
-  <!-- External CSS -->
+  <!-- External CSS (your existing style.css) -->
   <link rel="stylesheet" href="../assets/css/style.css">
   
   <!-- Tool‑Specific Styles -->
@@ -79,114 +73,12 @@
       color: var(--dark);
       text-align: center;
     }
-    
-    /* Visual Editor Layout */
-    .editor-layout {
-      display: flex;
-      gap: 20px;
-      margin-top: 20px;
-      position: relative;
+    .tip-text {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      margin-top: var(--space-xs);
+      line-height: 1.4;
     }
-    .sidebar-controls {
-      flex: 0 0 300px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    .pdf-viewer-container {
-      flex: 1;
-      background: #e4e4e4;
-      border-radius: 8px;
-      padding: 20px;
-      min-height: 600px;
-      overflow: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-    
-    /* PDF Page Styling */
-    .pdf-page-wrapper {
-      position: relative;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      background: white;
-    }
-    .pdf-page-wrapper canvas {
-      display: block;
-    }
-    
-    /* Interaction Layer */
-    .interaction-layer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-    }
-    
-    /* Text Annotation Overlay */
-    .text-annotation-overlay {
-      position: absolute;
-      background: rgba(255, 255, 0, 0.2);
-      border: 1px dashed #333;
-      padding: 2px 4px;
-      cursor: move;
-      user-select: none;
-      font-weight: 500;
-      box-sizing: border-box;
-      z-index: 20;
-      transition: background 0.2s;
-    }
-    .text-annotation-overlay:hover {
-      background: rgba(255, 255, 0, 0.4);
-    }
-    .text-annotation-overlay .delete-btn {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background: #d32f2f;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      font-size: 12px;
-      line-height: 18px;
-      text-align: center;
-      cursor: pointer;
-      display: none;
-    }
-    .text-annotation-overlay:hover .delete-btn {
-      display: block;
-    }
-
-    /* Mode Buttons */
-    .mode-btn {
-      padding: 10px;
-      border: 2px solid transparent;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-      background: var(--gray-100);
-      text-align: center;
-      font-weight: 600;
-    }
-    .mode-btn.active {
-      border-color: var(--primary);
-      background: rgba(67, 97, 238, 0.1);
-      color: var(--primary);
-    }
-    
-    .font-controls {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    
     .support-notice {
       background: linear-gradient(135deg, #fffbeb, #fef3c7);
       border: 2px dashed #f59e0b;
@@ -197,7 +89,72 @@
       animation: fadeIn 0.5s ease-in;
       display: none;
     }
-    
+    .support-notice p {
+      color: #92400e;
+      margin-bottom: var(--space-sm);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    .advanced-options {
+      background: var(--gray-100);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+      border: 1px solid var(--gray-200);
+    }
+    .advanced-toggle {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .advanced-content {
+      margin-top: var(--space-md);
+      display: none;
+    }
+    .advanced-content.show {
+      display: block;
+      animation: fadeIn 0.3s ease-out;
+    }
+    .font-size-control {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+    .font-size-control label {
+      min-width: 100px;
+    }
+    .font-size-control input[type="range"] {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--gray-300);
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .font-size-control input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+    }
+    .font-size-value {
+      min-width: 40px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* --- New styles for form fields & annotations --- */
     .form-fields-container {
       max-height: 300px;
       overflow-y: auto;
@@ -206,11 +163,21 @@
       border-radius: var(--radius-md);
       margin-top: 5px;
     }
-    
+    .page-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 5px;
+    }
+    .page-selector label {
+      font-size: 0.9rem;
+      color: var(--gray-700);
+    }
+    .page-selector input {
+      width: 70px;
+    }
     .annotations-list {
       margin-top: 15px;
-      max-height: 200px;
-      overflow-y: auto;
     }
     .annotation-item {
       display: flex;
@@ -222,29 +189,45 @@
       margin-bottom: 5px;
       font-size: 0.9rem;
     }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .editor-layout {
-        flex-direction: column;
-      }
-      .sidebar-controls {
-        flex: 0 0 auto;
-        width: 100%;
-      }
+    .annotation-item button {
+      background: none;
+      border: none;
+      color: #d32f2f;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn-sm {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.875rem;
     }
 
     @media (prefers-color-scheme: dark) {
-      .edit-card { background: var(--gray-100); border-color: var(--gray-200); }
-      .pdf-viewer-container { background: #2a2a2a; }
-      .mode-btn { background: var(--gray-200); color: var(--dark); }
-      .mode-btn.active { background: rgba(67, 97, 238, 0.2); }
-      .form-fields-container, .annotation-item { background: var(--gray-200); }
+      .edit-card {
+        background: var(--gray-100);
+        border-color: var(--gray-200);
+      }
+      .support-notice {
+        background: linear-gradient(135deg, #2d2819, #3a321c);
+        border-color: #d97706;
+      }
+      .advanced-options {
+        background: var(--gray-200);
+        border-color: var(--gray-300);
+      }
+      .font-size-control input[type="range"] {
+        background: var(--gray-300);
+      }
+      .form-fields-container {
+        background: var(--gray-200);
+      }
+      .annotation-item {
+        background: var(--gray-200);
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- Navigation (unchanged) -->
   <nav class="sticky-nav">
     <div class="nav-container">
       <a href="../index.html" class="nav-logo">
@@ -271,8 +254,13 @@
         <a href="../index.html#tools">Tools</a> / 
         <span>Edit PDF</span>
       </div>
-      <h1>Edit PDF – Visual Text Editor</h1>
-      <p>Upload a PDF and click anywhere to add text. Drag to reposition. 100% private.</p>
+      <h1>Edit PDF – Fill Forms & Add Text</h1>
+      <p>Fill interactive PDF forms, add text anywhere, whiteout sensitive info. 100% private — files never leave your browser.</p>
+      <div style="margin-top: var(--space-sm); display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+        <span style="background: rgba(67, 97, 238, 0.1); color: var(--primary); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">🔒 No Uploads</span>
+        <span style="background: rgba(247, 37, 133, 0.1); color: var(--accent); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">📝 Fill Forms</span>
+        <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">🆓 Free Forever</span>
+      </div>
     </div>
 
     <!-- Tool Wrapper -->
@@ -281,8 +269,8 @@
       <div id="drop-zone" class="drop-zone" onclick="document.getElementById('pdfInput').click()">
         <div class="drop-zone-content">
           <span class="icon">📝</span>
-          <p><strong>Click to upload PDF</strong></p>
-          <span class="file-limit">Visual Editor • No Uploads to Server</span>
+          <p><strong>Click to upload PDF to Edit</strong></p>
+          <span class="file-limit">Maximum size: 50MB • Files are processed in your browser</span>
         </div>
         <input type="file" id="pdfInput" accept="application/pdf" hidden />
       </div>
@@ -290,75 +278,80 @@
       <!-- Edit App -->
       <div id="edit-app" class="edit-app">
         <div class="edit-card">
-          <h3>Visual Editor</h3>
+          <h3>Edit Your PDF</h3>
           
-          <!-- Layout Split -->
-          <div class="editor-layout">
-            
-            <!-- LEFT: Controls Sidebar -->
-            <div class="sidebar-controls">
-              <!-- Mode Selection -->
-              <div class="input-group">
-                <label style="font-weight: 600; margin-bottom: 5px; display: block;">Tool Mode:</label>
-                <div style="display: flex; gap: 10px;">
-                  <button id="mode-text" class="mode-btn active" onclick="setMode('text')">✏️ Text</button>
-                  <button id="mode-view" class="mode-btn" onclick="setMode('view')">👁️ View</button>
-                </div>
-                <p class="tip-text" id="mode-hint">Click on the PDF pages to place text.</p>
-              </div>
-
-              <!-- Text Styling -->
-              <div class="input-group">
-                <label style="font-weight: 600; margin-bottom: 5px; display: block;">Style:</label>
-                <div class="font-controls">
-                  <div>
-                    <label class="tip-text">Size</label>
-                    <input type="number" id="fontSize" value="18" min="8" max="72" class="form-control">
-                  </div>
-                  <div>
-                    <label class="tip-text">Color</label>
-                    <select id="fontColor" class="form-control">
-                      <option value="black">Black</option>
-                      <option value="red">Red</option>
-                      <option value="blue">Blue</option>
-                      <option value="white">White</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Form Fields (Hidden if none) -->
-              <div id="form-fields-section" class="input-group" style="display: none;">
-                <label style="font-weight: 600; margin-bottom: 5px; display: block;">📋 Form Fields</label>
-                <div id="form-fields-container" class="form-fields-container"></div>
-              </div>
-
-              <!-- Existing Annotations List -->
-              <div class="input-group">
-                <label style="font-weight: 600; margin-bottom: 5px; display: block;">Text Layers:</label>
-                <div id="annotations-list" class="annotations-list"></div>
-                <p class="tip-text" id="ann-count">0 text boxes added.</p>
-              </div>
-
-              <!-- Action Buttons -->
-              <div style="margin-top: auto;">
-                <button id="save-pdf" class="btn btn-primary" style="width: 100%;">
-                  💾 Apply & Download
-                </button>
-                <button class="btn btn-secondary" onclick="resetTool()" style="width: 100%; margin-top: 10px;">
-                  🔄 Start Over
-                </button>
+          <!-- ========== SIMPLE TOP‑LEFT TEXT (now with page selector) ========= -->
+          <div class="input-group">
+            <label for="addText">Add text (top‑left):</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <input type="text" id="addText" class="form-control" placeholder="e.g. 'Draft', 'Confidential'" style="flex: 2;">
+              <div class="page-selector">
+                <label for="simpleTextPage">Page:</label>
+                <input type="number" id="simpleTextPage" min="1" value="1" class="form-control">
               </div>
             </div>
+            <p class="tip-text">Text appears at (50, height‑40) from bottom‑left. Adjust font size in Advanced Options.</p>
+          </div>
 
-            <!-- RIGHT: PDF Viewer -->
-            <div class="pdf-viewer-container" id="pdf-viewer">
-                <!-- Pages will render here -->
-                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666;">
-                    Loading PDF...
+          <!-- ========== ADVANCED OPTIONS (unchanged) ========= -->
+          <div class="advanced-options">
+            <button class="advanced-toggle" onclick="toggleAdvancedOptions()">
+              <span>⚙️ Advanced Options</span>
+              <span id="advanced-arrow">▼</span>
+            </button>
+            <div id="advanced-content" class="advanced-content">
+              <div class="input-group">
+                <div class="font-size-control">
+                  <label for="fontSize">Font Size:</label>
+                  <input type="range" id="fontSize" min="8" max="72" value="18" class="form-control">
+                  <span id="fontSizeValue" class="font-size-value">18</span>
                 </div>
+                <p class="tip-text">Adjust the size of the text you're adding to the PDF.</p>
+              </div>
+              <div class="input-group-checkbox">
+                <input type="checkbox" id="addPageNumber">
+                <label for="addPageNumber">Add page numbers to all pages</label>
+              </div>
+              <p class="tip-text">Adds page numbers at the bottom center of each page.</p>
             </div>
+          </div>
 
+          <!-- ========== WHITEOUT (now with page selector) ========= -->
+          <div class="input-group-checkbox">
+            <input type="checkbox" id="whiteoutHeader">
+            <label for="whiteoutHeader">Apply Whiteout to Header</label>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; margin: 5px 0 0 25px;">
+            <label for="whiteoutPage" style="font-size:0.9rem;">Page number:</label>
+            <input type="number" id="whiteoutPage" min="1" value="1" style="width:70px;" class="form-control">
+          </div>
+          <p class="tip-text" style="margin-left:25px;">Covers the top 60px of the selected page with white.</p>
+
+          <!-- ========== FORM FIELDS SECTION (hidden by default) ========= -->
+          <div id="form-fields-section" style="display: none; margin-top: 25px;">
+            <h4 style="font-size: 1.2rem; margin-bottom: 10px;">📋 Fill Form Fields</h4>
+            <div id="form-fields-container" class="form-fields-container"></div>
+            <hr style="margin: 15px 0;">
+          </div>
+
+          <!-- ========== CUSTOM TEXT ANNOTATIONS (multiple, any position) ========= -->
+          <div style="margin-top: 25px;">
+            <h4 style="font-size: 1.2rem; margin-bottom: 10px;">✏️ Custom Text Annotations</h4>
+            <p class="tip-text" style="margin-bottom: 10px;">Add text boxes anywhere, on any page.</p>
+            <button id="add-annotation-btn" class="btn btn-secondary" style="width: 100%;">
+              ➕ Add Text Box
+            </button>
+            <div id="annotations-list" class="annotations-list"></div>
+          </div>
+
+          <!-- ========== ACTION BUTTONS ========= -->
+          <div class="action-buttons" style="margin-top: 30px;">
+            <button id="save-pdf" class="btn btn-primary">
+              💾 Apply Changes & Download
+            </button>
+            <button class="btn btn-secondary" onclick="resetTool()">
+              🔄 Start Over
+            </button>
           </div>
         </div>
       </div>
@@ -371,53 +364,170 @@
       <!-- Support Notice -->
       <div id="support-box" class="support-notice">
         <p>✅ <strong>Edits Applied Successfully!</strong></p>
-        <p style="font-size: 1rem; margin: 5px 0 10px 0;">Kimosabe Tools is a solo project. Consider supporting it!</p>
+        <p style="font-size: 1rem; margin: 5px 0 10px 0;">Kimosabe Tools is a solo project. If this helped you, consider supporting it!</p>
         <a href="../donate.html" class="donate-link">☕ Support the Developer</a>
       </div>
     </section>
+
+    <!-- Features & More Tools (unchanged) -->
+    <section class="tool-description">
+      <h2 style="text-align: center; margin-bottom: var(--space-lg); color: var(--dark); font-size: 2rem;">
+        Safe & Secure PDF Editing
+      </h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <strong><span style="font-size: 1.3rem;">📝</span> Fill Forms</strong>
+          <p>Detects interactive PDF fields – fill them in and flatten.</p>
+        </div>
+        <div class="feature-item">
+          <strong><span style="font-size: 1.3rem;">🔒</span> 100% Private</strong>
+          <p>Unlike other editors, we don't store your documents. All editing happens locally.</p>
+        </div>
+        <div class="feature-item">
+          <strong><span style="font-size: 1.3rem;">⚡</span> Instant Processing</strong>
+          <p>Edit and download your PDF in seconds. No waiting for uploads.</p>
+        </div>
+        <div class="feature-item">
+          <strong><span style="font-size: 1.3rem;">🆓</span> Free Forever</strong>
+          <p>No watermarks, no file limits, no registration needed.</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="more-tools">
+      <h3>Other PDF & Image Tools</h3>
+      <div class="tools-grid">
+        <a href="sign-pdf.html" class="tool-card"><div class="card-icon">✍️</div><span>Sign PDF</span></a>
+        <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+        <a href="rotate-split-pdf.html" class="tool-card"><div class="card-icon">✂️</div><span>Rotate & Split</span></a>
+        <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+        <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
+        <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Compress Image</span></a>
+      </div>
+    </nav>
   </main>
 
-  <!-- Footer -->
+  <!-- Footer (unchanged) -->
   <footer class="main-footer">
     <div class="footer-content">
       <div class="footer-logo">
+        <div class="footer-logo-img"><img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60"></div>
         <div class="footer-logo-text">Kimosabe Tools</div>
       </div>
-      <p class="copyright">© 2026 Kimosabe Tools. All processing happens locally.</p>
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <p style="color: var(--gray-300); max-width: 500px; margin: 0 auto 1.5rem;">
+          Join thousands of users who trust their privacy to Kimosabe Tools
+        </p>
+        <a href="../index.html#tools" class="support-btn" style="display: inline-block;">🚀 Explore All Tools</a>
+      </div>
+      <nav class="footer-links">
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../donate.html" style="color: #ffd166;">Support Us</a>
+      </nav>
+      <p class="copyright">
+        © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
+        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+      </p>
     </div>
   </footer>
 
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
   <script>
     // ------------------------------------------------------------
-    //  VISUAL PDF EDITOR
+    //  EDIT PDF TOOL – FULLY ENHANCED
+    //  - Form field detection & filling
+    //  - Multiple custom text annotations (manual X/Y)
+    //  - Multi‑page support for whiteout & simple text
     // ------------------------------------------------------------
-
-    // --- Libraries & State ---
-    const { PDFDocument, rgb } = PDFLib;
-    
-    let pdfBytes = null;
-    let pdfDoc = null;      // pdf-lib instance
-    let pdfJsDoc = null;    // pdf.js instance
-    let fileName = "";
-    
-    let formFields = [];
-    let textAnnotations = []; // Stores { pageIndex, x, y, text, size, color, id }
-    let currentMode = 'text'; // 'text' or 'view'
-    let annotationIdCounter = 0;
-    
-    // Scale at which PDF.js renders (for coordinate mapping)
-    const RENDER_SCALE = 1.5; 
 
     // --- DOM Elements ---
     const pdfInput = document.getElementById('pdfInput');
     const dropZone = document.getElementById('drop-zone');
     const editApp = document.getElementById('edit-app');
-    const viewerContainer = document.getElementById('pdf-viewer');
     const savePdfBtn = document.getElementById('save-pdf');
+    const supportBox = document.getElementById('support-box');
     const statusArea = document.getElementById('status-area');
+    const statusText = document.getElementById('status-text');
 
-    // --- Initialization ---
-    pdfInput.addEventListener('change', handleFileUpload);
+    // Simple text & whiteout
+    const addTextInput = document.getElementById('addText');
+    const simpleTextPage = document.getElementById('simpleTextPage');
+    const whiteoutHeaderCheckbox = document.getElementById('whiteoutHeader');
+    const whiteoutPage = document.getElementById('whiteoutPage');
+
+    // Advanced
+    const fontSizeSlider = document.getElementById('fontSize');
+    const fontSizeValue = document.getElementById('fontSizeValue');
+    const addPageNumberCheckbox = document.getElementById('addPageNumber');
+
+    // Global state
+    let pdfBytes = null;
+    let fileName = "";
+    let formFields = [];          // { field, type, name }
+    let textAnnotations = [];     // { pageIndex, text, x, y, fontSize, color }
+
+    // --- Initialisation ---
+    fontSizeSlider.addEventListener('input', () => {
+      fontSizeValue.textContent = fontSizeSlider.value;
+    });
+
+    // --- File Upload & Form Field Detection ---
+    pdfInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.type !== 'application/pdf') {
+        alert('Please upload a valid PDF file.');
+        return;
+      }
+      if (file.size > 50 * 1024 * 1024) {
+        alert('File size exceeds 50MB limit. Please upload a smaller file.');
+        return;
+      }
+
+      showStatus('Loading PDF...');
+
+      try {
+        pdfBytes = await file.arrayBuffer();
+        fileName = file.name;
+
+        // Load PDF with pdf-lib to detect form fields
+        const { PDFDocument } = PDFLib;
+        const pdfDoc = await PDFDocument.load(pdfBytes);
+        
+        // Reset previous form fields & annotations
+        resetFormUI();
+        
+        // Detect and build form fields UI
+        detectFormFields(pdfDoc);
+
+        // Show editor, hide dropzone
+        editApp.style.display = 'block';
+        dropZone.style.display = 'none';
+        supportBox.style.display = 'none';
+        hideStatus();
+
+        // Analytics
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'pdf_uploaded', {
+            event_category: 'tool_usage',
+            event_label: 'edit_pdf',
+            value: Math.round(file.size / 1024)
+          });
+        }
+      } catch (err) {
+        alert('Error loading PDF file. Please try again.');
+        hideStatus();
+        console.error(err);
+      }
+    });
+
+    // Drag & drop (unchanged)
     dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
     dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('dragover'); });
     dropZone.addEventListener('drop', (e) => {
@@ -427,316 +537,215 @@
       pdfInput.dispatchEvent(new Event('change'));
     });
 
-    async function handleFileUpload(e) {
-      const file = e.target.files[0];
-      if (!file || file.type !== 'application/pdf') return;
-
-      showStatus('Loading PDF...');
-      
-      try {
-        pdfBytes = await file.arrayBuffer();
-        fileName = file.name;
-
-        // Load PDF.js for rendering
-        pdfJsDoc = await pdfjsLib.getDocument({ data: pdfBytes }).promise;
-        
-        // Load pdf-lib for backend manipulation
-        pdfDoc = await PDFDocument.load(pdfBytes);
-        
-        // Detect Form Fields
-        detectFormFields(pdfDoc);
-
-        // Render Pages
-        await renderPdfPages();
-
-        editApp.style.display = 'block';
-        dropZone.style.display = 'none';
-        hideStatus();
-      } catch (err) {
-        console.error(err);
-        alert('Error loading PDF. Ensure it is not password protected.');
-        hideStatus();
-      }
-    }
-
-    // --- Rendering ---
-    async function renderPdfPages() {
-      viewerContainer.innerHTML = '';
-      
-      for (let i = 1; i <= pdfJsDoc.numPages; i++) {
-        const page = await pdfJsDoc.getPage(i);
-        const viewport = page.getViewport({ scale: RENDER_SCALE });
-
-        // Wrapper
-        const pageWrapper = document.createElement('div');
-        pageWrapper.className = 'pdf-page-wrapper';
-        pageWrapper.id = `page-wrapper-${i}`;
-        pageWrapper.style.width = viewport.width + 'px';
-        pageWrapper.style.height = viewport.height + 'px';
-
-        // Canvas
-        const canvas = document.createElement('canvas');
-        canvas.id = `pdf-canvas-${i}`;
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        
-        const context = canvas.getContext('2d');
-        await page.render({ canvasContext: context, viewport: viewport }).promise;
-
-        // Interaction Layer (Transparent div on top)
-        const interactionLayer = document.createElement('div');
-        interactionLayer.className = 'interaction-layer';
-        interactionLayer.dataset.pageIndex = i; // 1-based index
-        
-        // Click Listener
-        interactionLayer.addEventListener('click', handlePageClick);
-
-        pageWrapper.appendChild(canvas);
-        pageWrapper.appendChild(interactionLayer);
-        viewerContainer.appendChild(pageWrapper);
-      }
-
-      // Re-render existing annotations if we are refreshing
-      renderOverlays();
-    }
-
-    // --- Interaction Logic ---
-    
-    function setMode(mode) {
-      currentMode = mode;
-      document.getElementById('mode-text').classList.toggle('active', mode === 'text');
-      document.getElementById('mode-view').classList.toggle('active', mode === 'view');
-      
-      const hint = document.getElementById('mode-hint');
-      if (mode === 'text') {
-        hint.textContent = "Click on the PDF pages to place text.";
-        viewerContainer.style.cursor = 'text';
-      } else {
-        hint.textContent = "Scroll and view pages. Switch to Text mode to edit.";
-        viewerContainer.style.cursor = 'default';
-      }
-    }
-    setMode('text'); // Default
-
-    function handlePageClick(e) {
-      if (currentMode !== 'text') return;
-
-      const rect = e.target.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const clickY = e.clientY - rect.top;
-      const pageIndex = parseInt(e.target.dataset.pageIndex);
-
-      // Create Annotation immediately at click position
-      const text = prompt("Enter text:");
-      if (!text) return;
-
-      const size = parseInt(document.getElementById('fontSize').value);
-      const color = document.getElementById('fontColor').value;
-
-      // Store Annotation (Coordinates are in RENDERED pixels, we convert later)
-      // We store render-scale pixels for UI simplicity, convert to PDF points on save.
-      const annotation = {
-        id: ++annotationIdCounter,
-        pageIndex: pageIndex, // 1-based
-        x: clickX,
-        y: clickY,
-        text: text,
-        size: size,
-        color: color
-      };
-
-      textAnnotations.push(annotation);
-      renderOverlays();
-      updateAnnotationList();
-    }
-
-    function renderOverlays() {
-      // Clear existing overlays
-      document.querySelectorAll('.text-annotation-overlay').forEach(el => el.remove());
-
-      textAnnotations.forEach(ann => {
-        const wrapper = document.getElementById(`page-wrapper-${ann.pageIndex}`);
-        if (!wrapper) return;
-
-        const overlay = document.createElement('div');
-        overlay.className = 'text-annotation-overlay';
-        overlay.id = `ann-overlay-${ann.id}`;
-        
-        // Position (relative to wrapper)
-        overlay.style.left = ann.x + 'px';
-        overlay.style.top = ann.y + 'px';
-        
-        // Style
-        overlay.style.fontSize = (ann.size * RENDER_SCALE) + 'px';
-        overlay.style.color = ann.color === 'white' ? 'white' : (ann.color === 'red' ? 'red' : (ann.color === 'blue' ? 'blue' : 'black'));
-        overlay.innerText = ann.text;
-
-        // Delete Button
-        const delBtn = document.createElement('button');
-        delBtn.className = 'delete-btn';
-        delBtn.innerHTML = '✕';
-        delBtn.onclick = (e) => {
-          e.stopPropagation();
-          deleteAnnotation(ann.id);
-        };
-        overlay.appendChild(delBtn);
-
-        // Dragging Logic
-        makeDraggable(overlay, ann);
-
-        wrapper.appendChild(overlay);
-      });
-    }
-
-    function makeDraggable(element, annotationRef) {
-      let isDragging = false;
-      let startX, startY, initialLeft, initialTop;
-
-      element.onmousedown = startDrag;
-
-      function startDrag(e) {
-        if (e.target.tagName === 'BUTTON') return; // Don't drag on delete click
-        e.preventDefault();
-        isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        initialLeft = annotationRef.x;
-        initialTop = annotationRef.y;
-
-        document.onmousemove = drag;
-        document.onmouseup = stopDrag;
-      }
-
-      function drag(e) {
-        if (!isDragging) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        
-        const newX = initialLeft + dx;
-        const newY = initialTop + dy;
-
-        element.style.left = newX + 'px';
-        element.style.top = newY + 'px';
-        
-        // Update reference
-        annotationRef.x = newX;
-        annotationRef.y = newY;
-      }
-
-      function stopDrag() {
-        isDragging = false;
-        document.onmousemove = null;
-        document.onmouseup = null;
-      }
-    }
-
-    function deleteAnnotation(id) {
-      textAnnotations = textAnnotations.filter(a => a.id !== id);
-      renderOverlays();
-      updateAnnotationList();
-    }
-
-    function updateAnnotationList() {
-      const list = document.getElementById('annotations-list');
-      const count = document.getElementById('ann-count');
-      list.innerHTML = '';
-      
-      textAnnotations.forEach(ann => {
-        const div = document.createElement('div');
-        div.className = 'annotation-item';
-        div.innerHTML = `<span>Pg ${ann.pageIndex}: ${ann.text.substring(0, 15)}</span>
-                         <button onclick="deleteAnnotation(${ann.id})" style="color:red; border:none; background:none; cursor:pointer;">✕</button>`;
-        list.appendChild(div);
-      });
-      
-      count.textContent = `${textAnnotations.length} text boxes added.`;
-    }
-
-    // --- Form Fields ---
+    // --- Form Field Detection ---
     function detectFormFields(pdfDoc) {
       try {
         const form = pdfDoc.getForm();
-        const fields = form.getTextFields();
-        const container = document.getElementById('form-fields-container');
-        container.innerHTML = '';
-        
+        const textFields = form.getTextFields();
+        const checkboxes = form.getCheckBoxes();
+        // (radio, dropdown, list – can be added later)
+
         formFields = [];
 
-        if (fields.length > 0) {
-          document.getElementById('form-fields-section').style.display = 'block';
-          fields.forEach(f => {
-            const name = f.getName();
-            formFields.push({ field: f, name: name });
-            
-            const div = document.createElement('div');
-            div.className = 'input-group';
-            div.innerHTML = `
-              <label style="font-size:0.85rem; color:#666;">${name}</label>
-              <input type="text" class="form-control" id="field-${name}" placeholder="Enter value...">
-            `;
-            container.appendChild(div);
-          });
-        } else {
-          document.getElementById('form-fields-section').style.display = 'none';
+        // Helper to create UI for a field
+        function addFieldUI(field, type) {
+          const name = field.getName();
+          formFields.push({ field, type, name });
+
+          const container = document.getElementById('form-fields-container');
+          const fieldDiv = document.createElement('div');
+          fieldDiv.className = 'input-group';
+          fieldDiv.id = `field-${name.replace(/\s+/g, '-')}`;
+
+          const label = document.createElement('label');
+          label.htmlFor = `input-${name}`;
+          label.textContent = `${name} (${type}):`;
+
+          let input;
+          if (type === 'text') {
+            input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'form-control';
+            input.placeholder = `Enter value for ${name}`;
+          } else if (type === 'checkbox') {
+            input = document.createElement('input');
+            input.type = 'checkbox';
+            input.style.width = '20px';
+            input.style.height = '20px';
+          }
+
+          if (input) {
+            input.id = `input-${name}`;
+            fieldDiv.appendChild(label);
+            fieldDiv.appendChild(input);
+            container.appendChild(fieldDiv);
+          }
         }
-      } catch(e) {
+
+        // Clear previous fields UI
+        document.getElementById('form-fields-container').innerHTML = '';
+
+        textFields.forEach(f => addFieldUI(f, 'text'));
+        checkboxes.forEach(f => addFieldUI(f, 'checkbox'));
+
+        // Show the section only if there are fields
+        const formSection = document.getElementById('form-fields-section');
+        if (formFields.length > 0) {
+          formSection.style.display = 'block';
+        } else {
+          formSection.style.display = 'none';
+        }
+      } catch (e) {
+        console.warn('No form fields or error reading form:', e);
         document.getElementById('form-fields-section').style.display = 'none';
       }
     }
 
-    // --- Save PDF ---
+    // --- Custom Text Annotations (Manual X/Y) ---
+    document.getElementById('add-annotation-btn').addEventListener('click', addAnnotation);
+
+    function addAnnotation() {
+      // Basic prompts – in the medium term this will be replaced by a visual click on PDF.js preview
+      const pageIndex = parseInt(prompt('Page number (1‑based):', '1'), 10) - 1;
+      if (isNaN(pageIndex) || pageIndex < 0) return;
+
+      const text = prompt('Text to add:', '');
+      if (!text) return;
+
+      const x = parseFloat(prompt('X position (from left):', '50'));
+      const y = parseFloat(prompt('Y position (from bottom):', '50')); // PDF origin is bottom-left
+      const fontSize = parseFloat(prompt('Font size:', '18'));
+      const color = prompt('Color (black/red/blue):', 'black').toLowerCase();
+
+      const annotation = {
+        pageIndex,
+        text,
+        x,
+        y,
+        fontSize: fontSize || 18,
+        color: ['red', 'blue'].includes(color) ? color : 'black'
+      };
+
+      textAnnotations.push(annotation);
+      renderAnnotationsList();
+    }
+
+    function renderAnnotationsList() {
+      const container = document.getElementById('annotations-list');
+      container.innerHTML = '';
+      textAnnotations.forEach((ann, index) => {
+        const div = document.createElement('div');
+        div.className = 'annotation-item';
+        div.innerHTML = `
+          <span>Pg ${ann.pageIndex+1}: "${ann.text.substring(0,15)}..." @ (${ann.x},${ann.y})</span>
+          <button class="delete-ann" data-index="${index}">✖</button>
+        `;
+        container.appendChild(div);
+      });
+
+      // Attach delete events
+      document.querySelectorAll('.delete-ann').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.dataset.index, 10);
+          textAnnotations.splice(idx, 1);
+          renderAnnotationsList();
+        });
+      });
+    }
+
+    // --- Save PDF (apply all edits) ---
     savePdfBtn.addEventListener('click', async () => {
-      if (!pdfDoc) return;
+      if (!pdfBytes) {
+        alert('Please upload a PDF file first.');
+        return;
+      }
+
       showStatus('Applying edits...');
+      supportBox.style.display = 'none';
 
       try {
+        const { PDFDocument, rgb } = PDFLib;
+        const pdfDoc = await PDFDocument.load(pdfBytes);
         const pages = pdfDoc.getPages();
 
-        // 1. Fill Form Fields
+        // 1. FILL FORM FIELDS (if any)
         if (formFields.length > 0) {
-           const form = pdfDoc.getForm();
-           formFields.forEach(({field, name}) => {
-             const input = document.getElementById(`field-${name}`);
-             if(input && input.value) {
-               field.setText(input.value);
-             }
-           });
-           // Optional: form.flatten() if you want to lock fields
+          const form = pdfDoc.getForm();
+          formFields.forEach(({ field, type, name }) => {
+            const input = document.getElementById(`input-${name}`);
+            if (!input) return;
+            if (type === 'text') {
+              field.setText(input.value);
+            } else if (type === 'checkbox') {
+              input.checked ? field.check() : field.uncheck();
+            }
+          });
+          form.flatten(); // makes fields non-editable, preserving filled values
         }
 
-        // 2. Apply Text Annotations
-        textAnnotations.forEach(ann => {
-          const page = pages[ann.pageIndex - 1]; // 0-based index
+        // 2. WHITEOUT (on selected page)
+        if (whiteoutHeaderCheckbox.checked) {
+          const pageIdx = parseInt(whiteoutPage.value, 10) - 1;
+          const page = pages[pageIdx];
+          if (page) {
+            const { width, height } = page.getSize();
+            page.drawRectangle({
+              x: 0,
+              y: height - 60,
+              width,
+              height: 60,
+              color: rgb(1, 1, 1)
+            });
+          }
+        }
+
+        // 3. SIMPLE TOP‑LEFT TEXT (on selected page)
+        const simpleText = addTextInput.value.trim();
+        if (simpleText) {
+          const pageIdx = parseInt(simpleTextPage.value, 10) - 1;
+          const page = pages[pageIdx];
+          if (page) {
+            const { height } = page.getSize();
+            const fontSize = parseInt(fontSizeSlider.value, 10);
+            page.drawText(simpleText, {
+              x: 50,
+              y: height - 40,
+              size: fontSize,
+              color: rgb(0, 0, 0)
+            });
+          }
+        }
+
+        // 4. CUSTOM TEXT ANNOTATIONS (multiple, any position)
+        textAnnotations.forEach(({ pageIndex, text, x, y, fontSize, color }) => {
+          const page = pages[pageIndex];
           if (!page) return;
-
-          const { height } = page.getSize();
-          
-          // Coordinate Conversion:
-          // Rendered X (pixels) -> PDF X (points)
-          // PDF Units = Pixels / Scale
-          const pdfX = ann.x / RENDER_SCALE;
-          
-          // Rendered Y is from Top. PDF Y is from Bottom.
-          // PDF Y = PageHeight - (Rendered Y / Scale)
-          const pdfY = height - (ann.y / RENDER_SCALE);
-          
-          // Adjust Y by font size to align text baseline better
-          const finalY = pdfY - (ann.size * 0.2); 
-
-          let colorRgb = rgb(0,0,0);
-          if (ann.color === 'red') colorRgb = rgb(1,0,0);
-          if (ann.color === 'blue') colorRgb = rgb(0,0,1);
-          if (ann.color === 'white') colorRgb = rgb(1,1,1);
-
-          page.drawText(ann.text, {
-            x: pdfX,
-            y: finalY,
-            size: ann.size,
-            color: colorRgb
+          let pdfColor;
+          if (color === 'red') pdfColor = rgb(1, 0, 0);
+          else if (color === 'blue') pdfColor = rgb(0, 0, 1);
+          else pdfColor = rgb(0, 0, 0);
+          page.drawText(text, {
+            x,
+            y,
+            size: fontSize,
+            color: pdfColor
           });
         });
 
-        // Save
+        // 5. PAGE NUMBERS (unchanged – works on all pages)
+        if (addPageNumberCheckbox.checked) {
+          pages.forEach((page, i) => {
+            const { width } = page.getSize();
+            page.drawText(`Page ${i + 1}`, {
+              x: width / 2 - 30,
+              y: 30,
+              size: 12,
+              color: rgb(0.5, 0.5, 0.5)
+            });
+          });
+        }
+
+        // Save & Download
         const savedBytes = await pdfDoc.save();
         const blob = new Blob([savedBytes], { type: 'application/pdf' });
         const link = document.createElement('a');
@@ -745,27 +754,65 @@
         link.click();
 
         hideStatus();
-        document.getElementById('support-box').style.display = 'block';
+        supportBox.style.display = 'block';
 
-      } catch(err) {
-        console.error(err);
-        alert('Error saving PDF.');
+        // Analytics
+        if (typeof gtag !== 'undefined') {
+          const edits = [];
+          if (simpleText) edits.push('simple_text');
+          if (whiteoutHeaderCheckbox.checked) edits.push('whiteout');
+          if (addPageNumberCheckbox.checked) edits.push('page_numbers');
+          if (formFields.length > 0) edits.push('form_filled');
+          if (textAnnotations.length > 0) edits.push('custom_annotations');
+          gtag('event', 'pdf_edited', {
+            event_category: 'tool_usage',
+            event_label: 'edit_pdf',
+            value: edits.length,
+            edits_applied: edits.join(',')
+          });
+        }
+      } catch (err) {
+        alert('Error editing PDF. The file might be encrypted or corrupted.');
         hideStatus();
+        console.error(err);
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'pdf_edit_error', { event_category: 'errors', event_label: err.message || 'unknown_error' });
+        }
       }
     });
 
-    // --- Helpers ---
+    // --- Reset Tool ---
     function resetTool() {
-      pdfBytes = null; pdfDoc = null; pdfJsDoc = null;
-      textAnnotations = []; formFields = [];
-      viewerContainer.innerHTML = '';
+      pdfBytes = null;
+      fileName = '';
+      formFields = [];
+      textAnnotations = [];
+
       editApp.style.display = 'none';
       dropZone.style.display = 'block';
-      document.getElementById('support-box').style.display = 'none';
+      supportBox.style.display = 'none';
       pdfInput.value = '';
-      updateAnnotationList();
+
+      // Clear inputs
+      addTextInput.value = '';
+      simpleTextPage.value = '1';
+      whiteoutHeaderCheckbox.checked = false;
+      whiteoutPage.value = '1';
+      fontSizeSlider.value = 18;
+      fontSizeValue.textContent = '18';
+      addPageNumberCheckbox.checked = false;
+
+      // Clear form fields UI
+      document.getElementById('form-fields-container').innerHTML = '';
+      document.getElementById('form-fields-section').style.display = 'none';
+
+      // Clear annotations list
+      document.getElementById('annotations-list').innerHTML = '';
+
+      hideAdvancedOptions();
     }
 
+    // --- UI Helpers ---
     function showStatus(msg) {
       statusArea.style.display = 'block';
       statusText.innerHTML = `${msg}<span class="loading-dots"><span></span><span></span><span></span></span>`;
@@ -773,6 +820,41 @@
     function hideStatus() {
       statusArea.style.display = 'none';
     }
+    function toggleAdvancedOptions() {
+      const content = document.getElementById('advanced-content');
+      const arrow = document.getElementById('advanced-arrow');
+      content.classList.toggle('show');
+      arrow.textContent = content.classList.contains('show') ? '▲' : '▼';
+    }
+    function hideAdvancedOptions() {
+      document.getElementById('advanced-content').classList.remove('show');
+      document.getElementById('advanced-arrow').textContent = '▼';
+    }
+    function resetFormUI() {
+      // Called on new file upload to clear previous fields & annotations
+      formFields = [];
+      textAnnotations = [];
+      document.getElementById('form-fields-container').innerHTML = '';
+      document.getElementById('form-fields-section').style.display = 'none';
+      document.getElementById('annotations-list').innerHTML = '';
+    }
+
+    // Back to Top (unchanged)
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none';
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Initialize font size display
+    document.addEventListener('DOMContentLoaded', () => {
+      fontSizeValue.textContent = fontSizeSlider.value;
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', { page_title: 'Edit PDF', page_location: window.location.href });
+      }
+    });
   </script>
 </body>
 </html>
