@@ -2388,13 +2388,20 @@
                       font = await this.pdfLibDoc.embedFont(StandardFonts.Helvetica);
                   }
 
-                  // Convert screen coordinates to PDF coordinates
+                // Convert screen coordinates to PDF coordinates
                   const canvas = document.getElementById('pdf-canvas');
                   const scaleX = width / canvas.width;
                   const scaleY = height / canvas.height;
                   
-                  const pdfX = annotation.x * scaleX;
-                  const pdfY = height - (annotation.y * scaleY); // PDF Y is bottom-up
+                  // Get CURRENT position from element (in case it was moved)
+                  const currentX = parseFloat(annotation.element.style.left) || annotation.x;
+                  const currentY = parseFloat(annotation.element.style.top) || annotation.y;
+                  
+                  const pdfX = currentX * scaleX;
+                  
+                  // PDF Y coordinate is for text BASELINE (not top-left corner)
+                  // We need to subtract Y from height and add font size for baseline
+                  const pdfY = height - (currentY * scaleY) - (fontSize * scaleY);
 
                   page.drawText(text, {
                     x: pdfX,
