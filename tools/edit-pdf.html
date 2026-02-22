@@ -376,6 +376,8 @@
       font-family: inherit;
       line-height: 1.4;
       border-radius: 2px;
+      transition: all 0.2s;
+      z-index: 100;
     }
 
     .text-annotation:hover {
@@ -391,6 +393,12 @@
       border-width: 2px;
       cursor: text;
       box-shadow: 0 0 0 3px rgba(46, 117, 182, 0.1);
+    }
+
+    .text-annotation.selected {
+      border-color: var(--success);
+      border-width: 3px;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
     }
 
     /* External Delete Button */
@@ -410,7 +418,7 @@
       align-items: center;
       justify-content: center;
       pointer-events: auto;
-      z-index: 1000;
+      z-index: 1001;
       box-shadow: 0 2px 6px rgba(0,0,0,0.3);
       transition: all 0.2s;
       padding: 0;
@@ -424,6 +432,69 @@
 
     .annotation-delete-btn:active {
       transform: scale(0.95);
+    }
+
+    /* Floating Toolbar */
+    .floating-toolbar {
+      position: fixed;
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      padding: 10px 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      z-index: 10000;
+      animation: fadeIn 0.2s;
+    }
+
+    .floating-toolbar-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .floating-toolbar label {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+
+    .floating-toolbar input[type="number"],
+    .floating-toolbar input[type="color"] {
+      border: 2px solid var(--gray-300);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 0.9rem;
+    }
+
+    .toolbar-btn {
+      padding: 6px 12px;
+      border: 2px solid var(--gray-300);
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .toolbar-btn:hover {
+      border-color: var(--primary);
+      background: var(--gray-50);
+    }
+
+    .toolbar-btn-danger {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .toolbar-btn-danger:hover {
+      background: var(--danger);
+      color: white;
     }
 
     /* Drawing Canvas */
@@ -446,6 +517,7 @@
       cursor: move;
       pointer-events: auto;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      z-index: 100;
     }
 
     .whiteout-rect:hover {
@@ -1123,19 +1195,263 @@
         this.currentPage = 1;
         this.totalPages = 0;
         this.scale = 1.5;
-        this.annotations = new Map(); // page -> annotations array
+        this.annotations = new Map();
         this.currentTool = null;
         this.originalFileName = 'edited.pdf';
+        this.selectedAnnotation = null;
         
         // Drawing state
         this.isDrawing = false;
-        this.drawingPaths = new Map(); // page -> paths array
+        this.drawingPaths = new Map();
+        
+        // Undo/Redo stacks
+        this.undoStack = [];
+        this.redoStack = [];
+        this.maxUndoSteps = 50;
         
         this.init();
       }
 
       init() {
         this.setupEventListeners();
+        this.createFloatingToolbar();
+        this.setupKeyboardShortcuts();
+      }
+
+      createFloatingToolbar() {
+        const toolbar = document.createElement('div');
+        toolbar.id = 'floating-toolbar';
+        toolbar.className = 'floating-toolbar';
+        toolbar.style.display = 'none';
+        toolbar.innerHTML = `
+          <div class="floating-toolbar-content">
+            <label>
+              <span style="font-size: 0.85rem; margin-right: 5px;">Size:</span>
+              <input type="number" id="selected-font-size" min="8" max="72" value="16" style="width: 60px;">
+            </label>
+            <label style="margin-left: 10px;">
+              <span style="font-size: 0.85rem; margin-right: 5px;">Color:</span>
+              <input type="color" id="selected-text-color" value="#000000" style="width: 40px; height: 30px;">
+            </label>
+            <button id="toolbar-bold" class="toolbar-btn" title="Bold">
+              <strong>B</strong>
+            </button>
+            <button id="toolbar-delete" class="toolbar-btn toolbar-btn-danger" title="Delete (Del)">
+              🗑️
+            </button>
+            <button id="toolbar-duplicate" class="toolbar-btn" title="Duplicate">
+              📋
+            </button>
+          </div>
+        `;
+        document.body.appendChild(toolbar);
+      }
+
+      setupKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+          // Ctrl/Cmd + Z = Undo
+          if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
+            e.preventDefault();
+            this.undo();
+          }
+          
+          // Ctrl/Cmd + Shift + Z or Ctrl/Cmd + Y = Redo
+          if (((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'z') || 
+              ((e.ctrlKey || e.metaKey) && e.key === 'y')) {
+            e.preventDefault();
+            this.redo();
+          }
+          
+          // Delete or Backspace = Delete selected annotation
+          if ((e.key === 'Delete' || e.key === 'Backspace') && this.selectedAnnotation) {
+            // Only if not actively editing text
+            const activeElement = document.activeElement;
+            if (!activeElement || !activeElement.classList.contains('text-annotation')) {
+              e.preventDefault();
+              this.deleteSelectedAnnotation();
+            }
+          }
+          
+          // Escape = Deselect
+          if (e.key === 'Escape') {
+            this.deselectAnnotation();
+            this.setTool(null);
+          }
+        });
+      }
+
+      saveState() {
+        // Save current state for undo
+        const state = {
+          page: this.currentPage,
+          annotations: new Map(),
+          drawings: new Map()
+        };
+        
+        // Deep copy annotations
+        this.annotations.forEach((annots, page) => {
+          state.annotations.set(page, annots.map(a => ({
+            type: a.type,
+            x: parseFloat(a.element.style.left),
+            y: parseFloat(a.element.style.top),
+            fontSize: a.fontSize,
+            fontFamily: a.fontFamily,
+            color: a.color,
+            text: a.getText ? a.getText() : '',
+            width: a.width,
+            height: a.height
+          })));
+        });
+        
+        // Deep copy drawings
+        this.drawingPaths.forEach((paths, page) => {
+          state.drawings.set(page, JSON.parse(JSON.stringify(paths)));
+        });
+        
+        this.undoStack.push(state);
+        if (this.undoStack.length > this.maxUndoSteps) {
+          this.undoStack.shift();
+        }
+        this.redoStack = []; // Clear redo on new action
+      }
+
+      undo() {
+        if (this.undoStack.length === 0) return;
+        
+        // Save current state to redo
+        const currentState = {
+          page: this.currentPage,
+          annotations: new Map(this.annotations),
+          drawings: new Map(this.drawingPaths)
+        };
+        this.redoStack.push(currentState);
+        
+        // Restore previous state
+        const prevState = this.undoStack.pop();
+        this.annotations = prevState.annotations;
+        this.drawingPaths = prevState.drawings;
+        this.currentPage = prevState.page;
+        
+        this.renderPage();
+        this.showTemporaryHint('↶ Undo');
+      }
+
+      redo() {
+        if (this.redoStack.length === 0) return;
+        
+        // Save current state to undo
+        this.saveState();
+        
+        // Restore redo state
+        const nextState = this.redoStack.pop();
+        this.annotations = nextState.annotations;
+        this.drawingPaths = nextState.drawings;
+        this.currentPage = nextState.page;
+        
+        this.renderPage();
+        this.showTemporaryHint('↷ Redo');
+      }
+
+      selectAnnotation(annotation) {
+        // Deselect previous
+        if (this.selectedAnnotation && this.selectedAnnotation.element) {
+          this.selectedAnnotation.element.classList.remove('selected');
+        }
+        
+        this.selectedAnnotation = annotation;
+        annotation.element.classList.add('selected');
+        
+        // Show floating toolbar
+        if (annotation.type === 'text') {
+          this.showFloatingToolbar(annotation);
+        }
+      }
+
+      deselectAnnotation() {
+        if (this.selectedAnnotation && this.selectedAnnotation.element) {
+          this.selectedAnnotation.element.classList.remove('selected');
+        }
+        this.selectedAnnotation = null;
+        this.hideFloatingToolbar();
+      }
+
+      showFloatingToolbar(annotation) {
+        const toolbar = document.getElementById('floating-toolbar');
+        const rect = annotation.element.getBoundingClientRect();
+        
+        toolbar.style.display = 'block';
+        toolbar.style.left = rect.left + 'px';
+        toolbar.style.top = (rect.top - 50) + 'px';
+        
+        // Update toolbar values
+        document.getElementById('selected-font-size').value = parseInt(annotation.fontSize);
+        document.getElementById('selected-text-color').value = annotation.color;
+        
+        // Setup toolbar event listeners
+        const fontSizeInput = document.getElementById('selected-font-size');
+        const colorInput = document.getElementById('selected-text-color');
+        
+        fontSizeInput.oninput = () => {
+          if (this.selectedAnnotation) {
+            this.selectedAnnotation.fontSize = fontSizeInput.value;
+            this.selectedAnnotation.element.style.fontSize = fontSizeInput.value + 'px';
+          }
+        };
+        
+        colorInput.oninput = () => {
+          if (this.selectedAnnotation) {
+            this.selectedAnnotation.color = colorInput.value;
+            this.selectedAnnotation.element.style.color = colorInput.value;
+          }
+        };
+        
+        document.getElementById('toolbar-delete').onclick = () => {
+          this.deleteSelectedAnnotation();
+        };
+        
+        document.getElementById('toolbar-duplicate').onclick = () => {
+          this.duplicateSelectedAnnotation();
+        };
+      }
+
+      hideFloatingToolbar() {
+        const toolbar = document.getElementById('floating-toolbar');
+        toolbar.style.display = 'none';
+      }
+
+      deleteSelectedAnnotation() {
+        if (!this.selectedAnnotation) return;
+        
+        this.saveState();
+        
+        this.selectedAnnotation.element.remove();
+        if (this.selectedAnnotation.element._deleteBtn) {
+          this.selectedAnnotation.element._deleteBtn.remove();
+        }
+        
+        this.removeAnnotation(this.selectedAnnotation);
+        this.deselectAnnotation();
+        
+        this.showTemporaryHint('🗑️ Annotation deleted');
+      }
+
+      duplicateSelectedAnnotation() {
+        if (!this.selectedAnnotation || this.selectedAnnotation.type !== 'text') return;
+        
+        this.saveState();
+        
+        const orig = this.selectedAnnotation;
+        const offsetX = parseFloat(orig.element.style.left) + 20;
+        const offsetY = parseFloat(orig.element.style.top) + 20;
+        
+        this.addTextAnnotation(offsetX, offsetY, {
+          text: orig.getText(),
+          fontSize: orig.fontSize,
+          fontFamily: orig.fontFamily,
+          color: orig.color
+        });
+        
+        this.showTemporaryHint('📋 Annotation duplicated');
       }
 
       setupEventListeners() {
@@ -1355,7 +1671,6 @@
       }
 
       setTool(tool) {
-        // Deactivate all tools
         document.querySelectorAll('.tool-btn').forEach(btn => {
           if (!btn.id.includes('clear') && !btn.id.includes('save')) {
             btn.classList.remove('active');
@@ -1366,14 +1681,12 @@
         const drawingCanvas = document.getElementById('drawing-canvas');
         const canvas = document.getElementById('pdf-canvas');
 
-        if (this.currentTool === tool) {
-          // Toggle off
+        if (this.currentTool === tool || tool === null) {
           this.currentTool = null;
           annotationLayer.classList.remove('active');
           drawingCanvas.classList.remove('active');
           canvas.style.cursor = 'default';
         } else {
-          // Set new tool
           this.currentTool = tool;
           
           if (tool === 'text' || tool === 'whiteout') {
@@ -1381,10 +1694,9 @@
             drawingCanvas.classList.remove('active');
             canvas.style.cursor = 'crosshair';
             
-            // Show helpful hint
             const hint = tool === 'text' 
-              ? '📝 Click anywhere on the PDF to add text. Double-click text to edit it.'
-              : '⬜ Click anywhere on the PDF to add a whiteout box. Drag corners to resize.';
+              ? '📝 Click anywhere to add text. Click text to select. Use toolbar to change size/color. Ctrl+Z to undo.'
+              : '⬜ Click to add whiteout box. Drag corners to resize. Drag to move.';
             
             this.showTemporaryHint(hint);
           } else if (tool === 'draw') {
@@ -1392,16 +1704,17 @@
             annotationLayer.classList.remove('active');
             canvas.style.cursor = 'crosshair';
             
-            this.showTemporaryHint('✏️ Click and drag to draw on the PDF.');
+            this.showTemporaryHint('✏️ Click and drag to draw. Change color in toolbar. Ctrl+Z to undo.');
           }
 
-          // Activate button
           const btnMap = {
             'text': 'text-tool',
             'whiteout': 'whiteout-tool',
             'draw': 'draw-tool'
           };
-          document.getElementById(btnMap[tool]).classList.add('active');
+          if (btnMap[tool]) {
+            document.getElementById(btnMap[tool]).classList.add('active');
+          }
         }
       }
 
@@ -1476,11 +1789,14 @@
         }
       }
 
-      addTextAnnotation(x, y) {
+      addTextAnnotation(x, y, options = {}) {
+        this.saveState(); // Save for undo
+        
         const annotationLayer = document.getElementById('annotation-layer');
-        const fontSize = document.getElementById('font-size').value;
-        const fontFamily = document.getElementById('font-family').value;
-        const color = document.getElementById('text-color').value;
+        const fontSize = options.fontSize || document.getElementById('font-size').value;
+        const fontFamily = options.fontFamily || document.getElementById('font-family').value;
+        const color = options.color || document.getElementById('text-color').value;
+        const initialText = options.text || 'Type here';
 
         const textBox = document.createElement('div');
         textBox.className = 'text-annotation';
@@ -1492,7 +1808,8 @@
         textBox.style.color = color;
         textBox.style.width = 'auto';
         textBox.style.height = 'auto';
-        textBox.textContent = 'Type here';
+        textBox.style.zIndex = '100';
+        textBox.textContent = initialText;
         
         // Mark as currently editing
         textBox.dataset.editing = 'true';
@@ -1510,18 +1827,13 @@
 
         // Auto-resize as user types
         const autoResize = () => {
-          // Reset to auto to recalculate
           textBox.style.width = 'auto';
           textBox.style.height = 'auto';
-          
-          // Force reflow
           void textBox.offsetWidth;
           
-          // Get computed size
           const computedWidth = textBox.offsetWidth;
           const computedHeight = textBox.offsetHeight;
           
-          // Set minimum and maximum widths
           const minWidth = 80;
           const maxWidth = 500;
           const newWidth = Math.max(minWidth, Math.min(maxWidth, computedWidth + 10));
@@ -1529,13 +1841,11 @@
           textBox.style.width = newWidth + 'px';
           textBox.style.height = Math.max(30, computedHeight) + 'px';
           
-          // Update delete button position
           if (textBox._deleteBtn) {
             updateDeleteBtnPosition();
           }
         };
 
-        // Resize on input
         textBox.addEventListener('input', autoResize);
         
         textBox.addEventListener('blur', () => {
@@ -1545,16 +1855,20 @@
         
         textBox.addEventListener('focus', () => {
           textBox.dataset.editing = 'true';
+          this.selectAnnotation(annotationData);
         });
 
-        // Make text editable on double-click
+        textBox.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.selectAnnotation(annotationData);
+        });
+
         textBox.addEventListener('dblclick', (e) => {
           e.stopPropagation();
           textBox.contentEditable = true;
           textBox.dataset.editing = 'true';
           textBox.focus();
           
-          // Select all text
           const selection = window.getSelection();
           const range = document.createRange();
           range.selectNodeContents(textBox);
@@ -1562,38 +1876,31 @@
           selection.addRange(range);
         });
 
-        // Prevent single click from creating new annotation
-        textBox.addEventListener('click', (e) => {
-          e.stopPropagation();
-        });
+        this.makeDraggable(textBox, annotationData);
 
-        // Make draggable (but only when not editing)
-        this.makeDraggable(textBox);
-
-        // Create separate delete button
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'annotation-delete-btn';
         deleteBtn.innerHTML = '×';
-        deleteBtn.title = 'Delete annotation';
+        deleteBtn.title = 'Delete annotation (Del)';
         
         deleteBtn.addEventListener('click', (e) => {
           e.stopPropagation();
+          this.saveState();
           textBox.remove();
           deleteBtn.remove();
           this.removeAnnotation(annotationData);
+          this.deselectAnnotation();
         });
 
         deleteBtn.addEventListener('mousedown', (e) => {
-          e.stopPropagation(); // Prevent drag from starting
+          e.stopPropagation();
         });
 
         annotationLayer.appendChild(textBox);
         annotationLayer.appendChild(deleteBtn);
 
-        // Store reference to delete button
         textBox._deleteBtn = deleteBtn;
         
-        // Position delete button relative to text box
         const updateDeleteBtnPosition = () => {
           const rect = textBox.getBoundingClientRect();
           const layerRect = annotationLayer.getBoundingClientRect();
@@ -1601,29 +1908,27 @@
           deleteBtn.style.top = (rect.top - layerRect.top - 15) + 'px';
         };
 
-        // Update position initially
         setTimeout(() => {
           autoResize();
           updateDeleteBtnPosition();
         }, 10);
         
-        // Update delete button position when text box moves or resizes
         const observer = new MutationObserver(() => {
           updateDeleteBtnPosition();
         });
         observer.observe(textBox, { attributes: true, attributeFilter: ['style'] });
         
-        // Auto-focus for immediate editing
-        setTimeout(() => {
-          textBox.focus();
-          const selection = window.getSelection();
-          const range = document.createRange();
-          range.selectNodeContents(textBox);
-          selection.removeAllRanges();
-          selection.addRange(range);
-        }, 50);
+        if (!options.text) {
+          setTimeout(() => {
+            textBox.focus();
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(textBox);
+            selection.removeAllRanges();
+            selection.addRange(range);
+          }, 50);
+        }
 
-        // Save annotation
         if (!this.annotations.has(this.currentPage)) {
           this.annotations.set(this.currentPage, []);
         }
@@ -1631,6 +1936,8 @@
       }
 
       addWhiteout(x, y) {
+        this.saveState();
+        
         const annotationLayer = document.getElementById('annotation-layer');
 
         const whiteout = document.createElement('div');
@@ -1639,6 +1946,7 @@
         whiteout.style.top = y + 'px';
         whiteout.style.width = '150px';
         whiteout.style.height = '50px';
+        whiteout.style.zIndex = '100';
 
         const annotationData = {
           type: 'whiteout',
@@ -1648,39 +1956,35 @@
           element: whiteout
         };
 
-        // Prevent click from creating new annotation
         whiteout.addEventListener('click', (e) => {
           e.stopPropagation();
         });
 
-        // Make draggable and resizable
-        this.makeDraggable(whiteout);
+        this.makeDraggable(whiteout, annotationData);
         this.makeResizable(whiteout, annotationData);
 
-        // Create separate delete button
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'annotation-delete-btn';
         deleteBtn.innerHTML = '×';
-        deleteBtn.title = 'Delete annotation';
+        deleteBtn.title = 'Delete annotation (Del)';
         
         deleteBtn.addEventListener('click', (e) => {
           e.stopPropagation();
+          this.saveState();
           whiteout.remove();
           deleteBtn.remove();
           this.removeAnnotation(annotationData);
         });
 
         deleteBtn.addEventListener('mousedown', (e) => {
-          e.stopPropagation(); // Prevent drag from starting
+          e.stopPropagation();
         });
 
         annotationLayer.appendChild(whiteout);
         annotationLayer.appendChild(deleteBtn);
 
-        // Store reference to delete button
         whiteout._deleteBtn = deleteBtn;
         
-        // Position delete button relative to whiteout box
         const updateDeleteBtnPosition = () => {
           const rect = whiteout.getBoundingClientRect();
           const layerRect = annotationLayer.getBoundingClientRect();
@@ -1688,16 +1992,13 @@
           deleteBtn.style.top = (rect.top - layerRect.top - 15) + 'px';
         };
 
-        // Update position initially
         updateDeleteBtnPosition();
         
-        // Update delete button position when whiteout moves or resizes
         const observer = new MutationObserver(() => {
           updateDeleteBtnPosition();
         });
         observer.observe(whiteout, { attributes: true, attributeFilter: ['style'] });
 
-        // Save annotation
         if (!this.annotations.has(this.currentPage)) {
           this.annotations.set(this.currentPage, []);
         }
@@ -1784,7 +2085,7 @@
         });
       }
 
-      makeDraggable(element) {
+      makeDraggable(element, annotationData) {
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         let isDragging = false;
         let hasMoved = false;
@@ -1792,30 +2093,26 @@
         element.onmousedown = dragMouseDown;
 
         function dragMouseDown(e) {
-          // Don't start drag if clicking inside a contentEditable element that's being edited
           if (element.contentEditable === 'true' && !e.ctrlKey && !e.metaKey) {
-            // Allow text editing - only drag if clicking on the border area or with Ctrl/Cmd
             const rect = element.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const clickY = e.clientY - rect.top;
             
-            // Check if clicking near edges (border area for dragging)
             const borderSize = 10;
             const isNearEdge = clickX < borderSize || clickX > rect.width - borderSize ||
                               clickY < borderSize || clickY > rect.height - borderSize;
             
             if (!isNearEdge) {
-              return; // Let the text be edited
+              return;
             }
           }
 
-          // Check if clicking on delete button area
           const rect = element.getBoundingClientRect();
           const clickX = e.clientX - rect.left;
           const clickY = e.clientY - rect.top;
           
           if (clickX > rect.width - 20 && clickY < 20) {
-            return; // Let delete handler work
+            return;
           }
 
           e.preventDefault();
@@ -1830,24 +2127,30 @@
         function elementDrag(e) {
           e.preventDefault();
           
-          // Calculate movement
           pos1 = pos3 - e.clientX;
           pos2 = pos4 - e.clientY;
           
-          // Only start dragging if moved more than 3 pixels (prevents accidental drags)
           if (!isDragging && (Math.abs(pos1) > 3 || Math.abs(pos2) > 3)) {
             isDragging = true;
             hasMoved = true;
             if (element.contentEditable === 'true') {
-              element.contentEditable = false; // Disable editing while dragging
+              element.contentEditable = false;
             }
           }
           
           if (isDragging) {
             pos3 = e.clientX;
             pos4 = e.clientY;
-            element.style.top = (element.offsetTop - pos2) + "px";
-            element.style.left = (element.offsetLeft - pos1) + "px";
+            const newTop = element.offsetTop - pos2;
+            const newLeft = element.offsetLeft - pos1;
+            element.style.top = newTop + "px";
+            element.style.left = newLeft + "px";
+            
+            // Update annotation data
+            if (annotationData) {
+              annotationData.x = newLeft;
+              annotationData.y = newTop;
+            }
           }
         }
 
@@ -1856,9 +2159,7 @@
           document.onmouseup = null;
           document.onmousemove = null;
           
-          // Re-enable editing after drag
           if (hasMoved && element.classList.contains('text-annotation')) {
-            // Keep it non-editable until double-clicked
             element.contentEditable = false;
           }
         }
