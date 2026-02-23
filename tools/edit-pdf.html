@@ -2341,6 +2341,21 @@
             throw new Error('PDF document not loaded properly. Please reload the file.');
           }
 
+          // Debug: Check annotations
+          console.log('=== SAVE PDF DEBUG ===');
+          console.log('Total pages:', this.totalPages);
+          console.log('Annotations map:', this.annotations);
+          let totalAnnotations = 0;
+          this.annotations.forEach((annots, page) => {
+            totalAnnotations += annots.length;
+            console.log(`Page ${page}: ${annots.length} annotations`);
+          });
+          console.log('Total annotations to save:', totalAnnotations);
+          
+          if (totalAnnotations === 0) {
+            console.warn('⚠️ NO ANNOTATIONS FOUND TO SAVE!');
+          }
+
           const { StandardFonts, rgb } = PDFLib;
           const pages = this.pdfLibDoc.getPages();
 
@@ -2363,6 +2378,16 @@
             // Get annotations for this page
             const annotations = this.annotations.get(pageNum) || [];
             
+            console.log(`Page ${pageNum}: Found ${annotations.length} annotations`);
+            
+            if (annotations.length > 0) {
+              console.log('Annotations:', annotations.map(a => ({
+                type: a.type,
+                text: a.getText ? a.getText() : 'N/A',
+                fontSize: a.fontSize
+              })));
+            }
+            
             // Add text annotations
             for (const annotation of annotations) {
               try {
@@ -2370,7 +2395,7 @@
                   const text = annotation.getText();
                   if (!text || text.trim() === '') continue;
                   
-                  const fontSize = parseInt(annotation.fontSize);
+                  const fontSize = parseInt(annotation.fontSize) || 16;
                   
                   // Convert color hex to RGB
                   const color = this.hexToRgb(annotation.color);
@@ -2388,7 +2413,7 @@
                       font = await this.pdfLibDoc.embedFont(StandardFonts.Helvetica);
                   }
 
-                // Convert screen coordinates to PDF coordinates
+                  // Convert screen coordinates to PDF coordinates
                   const canvas = document.getElementById('pdf-canvas');
                   const scaleX = width / canvas.width;
                   const scaleY = height / canvas.height;
@@ -2400,12 +2425,18 @@
                   const pdfX = currentX * scaleX;
                   
                   // PDF Y coordinate is for text BASELINE (not top-left corner)
-                  // We need to subtract Y from height and add font size for baseline
-                  const pdfY = height - (currentY * scaleY) - (fontSize * scaleY);
+                  // Add padding to ensure text is visible
+                  const pdfY = height - (currentY * scaleY) - (fontSize);
+                  
+                  // Bounds checking to ensure text is on page
+                  const safeX = Math.max(0, Math.min(pdfX, width - 10));
+                  const safeY = Math.max(fontSize, Math.min(pdfY, height - fontSize));
+                  
+                  console.log(`Saving text "${text}" at (${safeX.toFixed(2)}, ${safeY.toFixed(2)}) with size ${fontSize}`);
 
                   page.drawText(text, {
-                    x: pdfX,
-                    y: pdfY,
+                    x: safeX,
+                    y: safeY,
                     size: fontSize,
                     font: font,
                     color: rgb(color.r / 255, color.g / 255, color.b / 255)
