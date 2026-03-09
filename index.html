@@ -319,6 +319,20 @@
       margin-bottom: 0.3rem;
     }
 
+    /* ── Smooth scroll: CSS-native, most reliable cross-browser ── */
+    html {
+      scroll-behavior: smooth;
+    }
+    /* scroll-margin-top pushes the scroll target DOWN by the height of
+       the sticky nav (≈80px) + a little breathing room, so section
+       headings are never hidden behind the nav bar when an anchor fires */
+    #tools,
+    #features,
+    #faq,
+    #about {
+      scroll-margin-top: 90px;
+    }
+
     /* ── PWA install banner (shown when installable) ── */
     #pwa-install-bar {
       display: none;
@@ -773,21 +787,14 @@
       observer.observe(el);
     });
 
-    // ── Smooth scrolling (fixed: use getBoundingClientRect + scrollY
-    //    instead of offsetTop, which is relative to offsetParent
-    //    and gives wrong results inside nested/positioned containers) ──
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          const top = targetElement.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({ top, behavior: 'smooth' });
-        }
-      });
-    });
+    // ── Smooth scrolling: CSS-native (most reliable approach) ────
+    // 'scroll-behavior: smooth' is set on html in the <style> block,
+    // and 'scroll-margin-top: 90px' is set on all anchor targets so
+    // the sticky nav never overlaps the section heading.
+    // We let the browser handle anchor clicks natively — NO
+    // e.preventDefault() — which was the root bug: it was blocking
+    // the browser's own anchor scroll, and the manual window.scrollTo
+    // fallback was unreliable. Pure CSS scroll needs zero JS.
 
     // ── Dark mode detection (original — unchanged) ──────────────
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
