@@ -773,7 +773,9 @@
       observer.observe(el);
     });
 
-    // ── Smooth scrolling (original — unchanged) ─────────────────
+    // ── Smooth scrolling (fixed: use getBoundingClientRect + scrollY
+    //    instead of offsetTop, which is relative to offsetParent
+    //    and gives wrong results inside nested/positioned containers) ──
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -781,10 +783,8 @@
         if (targetId === '#') return;
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
-          });
+          const top = targetElement.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top, behavior: 'smooth' });
         }
       });
     });
