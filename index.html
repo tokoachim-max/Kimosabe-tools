@@ -319,20 +319,6 @@
       margin-bottom: 0.3rem;
     }
 
-    /* ── Smooth scroll: CSS-native, most reliable cross-browser ── */
-    html {
-      scroll-behavior: smooth;
-    }
-    /* scroll-margin-top pushes the scroll target DOWN by the height of
-       the sticky nav (≈80px) + a little breathing room, so section
-       headings are never hidden behind the nav bar when an anchor fires */
-    #tools,
-    #features,
-    #faq,
-    #about {
-      scroll-margin-top: 90px;
-    }
-
     /* ── PWA install banner (shown when installable) ── */
     #pwa-install-bar {
       display: none;
@@ -786,15 +772,6 @@
     document.querySelectorAll('.fade-in').forEach(el => {
       observer.observe(el);
     });
-
-    // ── Smooth scrolling: CSS-native (most reliable approach) ────
-    // 'scroll-behavior: smooth' is set on html in the <style> block,
-    // and 'scroll-margin-top: 90px' is set on all anchor targets so
-    // the sticky nav never overlaps the section heading.
-    // We let the browser handle anchor clicks natively — NO
-    // e.preventDefault() — which was the root bug: it was blocking
-    // the browser's own anchor scroll, and the manual window.scrollTo
-    // fallback was unreliable. Pure CSS scroll needs zero JS.
 
     // ── Dark mode detection (original — unchanged) ──────────────
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
