@@ -6,25 +6,21 @@
   
   <title>Compress Images Online – Fast & Private | Kimosabe Tools</title>
   
-  <!-- Meta Tags -->
   <meta name="description" content="Reduce image file size without losing quality. JPG and PNG compression happens 100% in your browser. No uploads required.">
   <meta name="keywords" content="compress image, reduce image size, image optimizer, jpg compressor, png compressor, privacy tools">
   <meta name="author" content="Kimosabe Tools">
   
-  <!-- Open Graph -->
   <meta property="og:title" content="Compress Images Online – Fast & Private | Kimosabe Tools">
   <meta property="og:description" content="Reduce image size 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/image-compressor.html">
   <meta property="og:type" content="website">
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Compress Images Online – Fast & Private | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based image compression that keeps your photos private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   
-  <!-- Favicon & Logo -->
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
@@ -43,17 +39,14 @@
     });
   </script>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- External CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   
-  <!-- Image Compressor Tool Specific CSS -->
   <style>
-    /* Image Compressor Tool Specific Styles */
+    /* ── Controls Panel ── */
     .controls-panel {
       background: white;
       border-radius: var(--radius-lg);
@@ -64,12 +57,12 @@
       display: none;
       animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     .quality-control {
       text-align: center;
       margin-bottom: var(--space-md);
     }
-    
+
     .quality-control label {
       display: block;
       margin-bottom: var(--space-sm);
@@ -77,7 +70,7 @@
       color: var(--gray-800);
       font-size: 1.1rem;
     }
-    
+
     .quality-value {
       display: inline-block;
       background: var(--primary);
@@ -88,19 +81,19 @@
       min-width: 60px;
       margin-left: var(--space-sm);
     }
-    
-    /* Custom Range Slider */
+
     .quality-slider {
       width: 100%;
       max-width: 400px;
       margin: 0 auto;
+      display: block;
       -webkit-appearance: none;
       height: 8px;
       background: linear-gradient(to right, #ef4444, #f59e0b, #22c55e);
       border-radius: 4px;
       outline: none;
     }
-    
+
     .quality-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       width: 24px;
@@ -112,12 +105,12 @@
       box-shadow: var(--shadow-md);
       transition: all 0.2s;
     }
-    
+
     .quality-slider::-webkit-slider-thumb:hover {
       transform: scale(1.1);
       box-shadow: var(--shadow-hover);
     }
-    
+
     .quality-labels {
       display: flex;
       justify-content: space-between;
@@ -126,8 +119,89 @@
       color: var(--gray-600);
       font-size: 0.85rem;
     }
-    
-    /* Preview Area */
+
+    /* ── Output format selector ── */
+    .format-selector {
+      margin-top: 1.25rem;
+      text-align: center;
+    }
+
+    .format-selector p {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .format-options {
+      display: inline-flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .format-options label {
+      cursor: pointer;
+    }
+
+    .format-options input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .format-options .fmt-btn {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      border: 2px solid rgba(67, 97, 238, 0.25);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-600);
+      background: white;
+      transition: all 0.2s;
+    }
+
+    .format-options input[type="radio"]:checked + .fmt-btn {
+      border-color: var(--primary);
+      background: rgba(67, 97, 238, 0.08);
+      color: var(--primary);
+    }
+
+    .format-options label:hover .fmt-btn {
+      border-color: var(--primary);
+    }
+
+    /* ── Info / warning notes ── */
+    .info-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-top: 1rem;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .info-note.warn {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: #92400e;
+    }
+
+    .info-note.info {
+      background: rgba(67, 97, 238, 0.06);
+      border: 1px solid rgba(67, 97, 238, 0.18);
+      color: #1e3a8a;
+    }
+
+    .info-note .note-icon { flex-shrink: 0; font-size: 1rem; margin-top: 0.05rem; }
+
+    /* ── Preview Area ── */
     .preview-area {
       display: flex;
       gap: var(--space-lg);
@@ -135,7 +209,7 @@
       justify-content: center;
       flex-wrap: wrap;
     }
-    
+
     .preview-box {
       background: white;
       border-radius: var(--radius-md);
@@ -144,13 +218,13 @@
       text-align: center;
       min-width: 200px;
     }
-    
+
     .preview-box h4 {
       margin-bottom: var(--space-sm);
       color: var(--gray-800);
       font-size: 1rem;
     }
-    
+
     .preview-image {
       width: 150px;
       height: 150px;
@@ -160,47 +234,67 @@
       background: var(--gray-100);
       margin-bottom: var(--space-sm);
     }
-    
+
     .preview-size {
       color: var(--gray-600);
       font-size: 0.9rem;
       font-weight: 500;
     }
-    
-    /* Dark Mode Support for Image Compressor */
-    @media (prefers-color-scheme: dark) {
-      .controls-panel,
-      .preview-box {
-        background: var(--gray-100);
-        border-color: var(--gray-200);
-      }
-      
-      .quality-slider {
-        background: linear-gradient(to right, #dc2626, #d97706, #16a34a);
-      }
-      
-      .quality-slider::-webkit-slider-thumb {
-        background: var(--gray-800);
-        border-color: var(--primary);
-      }
-      
-      .preview-image {
-        background: var(--gray-200);
-        border-color: var(--gray-300);
-      }
+
+    /* ── Results stats ── */
+    .results-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
     }
-    
-    /* Responsive Styles for Image Compressor */
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 1rem;
+      background: rgba(67, 97, 238, 0.04);
+      border-radius: 12px;
+      border: 1px solid rgba(67, 97, 238, 0.1);
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--gray-600);
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .stat-saved {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #10b981;
+    }
+
+    /* ── Dark mode ── */
+    @media (prefers-color-scheme: dark) {
+      .controls-panel, .preview-box { background: var(--gray-100); border-color: var(--gray-200); }
+      .quality-slider { background: linear-gradient(to right, #dc2626, #d97706, #16a34a); }
+      .quality-slider::-webkit-slider-thumb { background: var(--gray-800); border-color: var(--primary); }
+      .preview-image { background: var(--gray-200); border-color: var(--gray-300); }
+      .format-options .fmt-btn { background: var(--gray-800); color: var(--gray-300); }
+    }
+
+    /* ── Responsive ── */
     @media (max-width: 768px) {
-      .preview-area {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .preview-box {
-        width: 100%;
-        max-width: 300px;
-      }
+      .preview-area { flex-direction: column; align-items: center; }
+      .preview-box { width: 100%; max-width: 300px; }
+      .results-stats { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -235,13 +329,13 @@
       <h1>Image Compressor</h1>
       <p>Reduce image size instantly while keeping great quality. 100% private — images never leave your browser.</p>
       <div style="margin-top: var(--space-sm); display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-        <span style="background: rgba(67, 97, 238, 0.1); color: var(--primary); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
+        <span style="background: rgba(67,97,238,0.1); color: var(--primary); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
           🔒 No Uploads
         </span>
-        <span style="background: rgba(247, 37, 133, 0.1); color: var(--accent); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
-          🖼️ All Formats
+        <span style="background: rgba(247,37,133,0.1); color: var(--accent); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
+          🖼️ JPG, PNG, WebP
         </span>
-        <span style="background: rgba(34, 197, 94, 0.1); color: #22c55e; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
+        <span style="background: rgba(34,197,94,0.1); color: #22c55e; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
           🆓 Completely Free
         </span>
       </div>
@@ -249,21 +343,24 @@
 
     <!-- Tool Wrapper -->
     <section class="tool-wrapper">
+
       <!-- File Upload Area -->
-      <div id="drop-zone" class="drop-zone" onclick="document.getElementById('imageInput').click()">
+      <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Upload image file">
         <div class="drop-zone-content">
           <span class="icon">🖼️</span>
           <p><strong>Click to upload</strong> or drag and drop images</p>
-          <span class="file-limit">Supports JPG, PNG, WebP, GIF • Maximum size: 50MB</span>
+          <span class="file-limit">Supports JPG, PNG, WebP • Maximum size: 50 MB</span>
         </div>
-        <input type="file" id="imageInput" accept="image/*" hidden />
+        <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp" hidden />
       </div>
 
-      <!-- Controls Panel -->
+      <!-- Controls Panel (shown after file selected) -->
       <div id="controls" class="controls-panel">
+
+        <!-- Quality Slider -->
         <div class="quality-control">
           <label for="qualityRange">
-            Compression Quality: 
+            Compression Quality:
             <span id="qualityVal" class="quality-value">80%</span>
           </label>
           <input type="range" id="qualityRange" class="quality-slider" min="10" max="100" value="80">
@@ -273,40 +370,56 @@
             <span>Better quality</span>
           </div>
         </div>
+
+        <!-- Output Format Selector -->
+        <div class="format-selector">
+          <p>Output Format</p>
+          <div class="format-options" id="format-options">
+            <!-- Populated dynamically based on input file type -->
+          </div>
+        </div>
+
+        <!-- Contextual notes shown/hidden by JS -->
+        <div id="gif-note" class="info-note warn" style="display:none;">
+          <span class="note-icon">⚠️</span>
+          <span><strong>Animated GIF detected:</strong> Only the first frame will be compressed. Animation will be lost. Consider keeping the original if animation matters.</span>
+        </div>
+        <div id="png-note" class="info-note info" style="display:none;">
+          <span class="note-icon">ℹ️</span>
+          <span><strong>PNG selected as output:</strong> PNG uses lossless compression — the quality slider has no effect. For significant size reduction, switch the output format to JPEG or WebP.</span>
+        </div>
       </div>
 
       <!-- Preview Area -->
-      <div id="preview-area" class="preview-area" style="display: none;">
+      <div id="preview-area" class="preview-area" style="display:none;">
         <div class="preview-box">
-          <h4>Original Image</h4>
+          <h4>Original</h4>
           <img id="original-preview" class="preview-image" alt="Original preview">
-          <div id="original-size" class="preview-size">0 KB</div>
+          <div id="original-size" class="preview-size">—</div>
         </div>
         <div class="preview-box">
-          <h4>Compressed Image</h4>
+          <h4>Compressed</h4>
           <img id="compressed-preview" class="preview-image" alt="Compressed preview">
-          <div id="compressed-size" class="preview-size">0 KB</div>
+          <div id="compressed-size" class="preview-size">—</div>
         </div>
       </div>
 
       <!-- Status Area -->
-      <div id="status-area" class="status-area">
+      <div id="status-area" class="status-area" style="display:none;">
         <p id="status-text">Processing image<span class="loading-dots"><span></span><span></span><span></span></span></p>
       </div>
 
       <!-- Results Display -->
-      <div id="results-display" class="results-display">
+      <div id="results-display" class="results-display" style="display:none;">
         <div class="results-header">
           <div class="success-icon">✓</div>
           <div>
-            <h3 style="margin: 0; color: #22c55e; font-size: 1.5rem;">Compression Complete!</h3>
-            <p style="margin: 0.25rem 0 0 0; color: var(--gray-600); font-size: 0.95rem;" id="result-filename"></p>
+            <h3 style="margin:0; color:#22c55e; font-size:1.5rem;">Compression Complete!</h3>
+            <p style="margin:0.25rem 0 0 0; color:var(--gray-600); font-size:0.95rem;" id="result-filename"></p>
           </div>
         </div>
         
-        <div class="results-stats" id="results-stats">
-          <!-- Stats will be populated here -->
-        </div>
+        <div class="results-stats" id="results-stats"></div>
         
         <div class="action-buttons">
           <a href="#" id="downloadBtn" class="btn btn-success">
@@ -319,38 +432,36 @@
       </div>
 
       <!-- Donate Reminder -->
-      <div id="donate-reminder" class="donate-reminder">
+      <div id="donate-reminder" class="donate-reminder" style="display:none;">
         <p>💖 Saved you some time? Consider buying me a coffee to keep this tool free!</p>
-        <a href="../donate.html" class="donate-link">
-          ☕ Support Kimosabe Tools
-        </a>
+        <a href="../donate.html" class="donate-link">☕ Support Kimosabe Tools</a>
       </div>
     </section>
 
     <!-- Features Section -->
     <section class="tool-description">
-      <h2 style="text-align: center; margin-bottom: var(--space-lg); color: var(--dark); font-size: 2rem;">
+      <h2 style="text-align:center; margin-bottom:var(--space-lg); color:var(--dark); font-size:2rem;">
         Privacy-Focused Image Compression
       </h2>
-      <p style="text-align: center; max-width: 700px; margin: 0 auto var(--space-xl); color: var(--gray-600); font-size: 1.1rem;">
-        Kimosabe Tools handles all compression directly in your browser. We never see your images, and they are never uploaded to a server. This makes the process instant and 100% private.
+      <p style="text-align:center; max-width:700px; margin:0 auto var(--space-xl); color:var(--gray-600); font-size:1.1rem;">
+        Kimosabe Tools handles all compression directly in your browser using the Canvas API. We never see your images, and they are never uploaded to a server. Instant and 100% private.
       </p>
       
       <div class="feature-grid">
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">🔒</span> 100% Private</strong>
+          <strong><span style="font-size:1.3rem;">🔒</span> 100% Private</strong>
           <p>Your photos stay on your device. No uploads to our servers means maximum privacy for your images.</p>
         </div>
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">⚡</span> Instant Results</strong>
+          <strong><span style="font-size:1.3rem;">⚡</span> Instant Results</strong>
           <p>No waiting for server uploads or downloads. Compression happens at local device speed.</p>
         </div>
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">🎯</span> Smart Compression</strong>
-          <p>Intelligently reduces file size while maintaining visual quality for web and mobile use.</p>
+          <strong><span style="font-size:1.3rem;">🎚️</span> Live Preview</strong>
+          <p>Drag the quality slider and see the compressed result update in real time before you download.</p>
         </div>
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">🆓</span> Free Forever</strong>
+          <strong><span style="font-size:1.3rem;">🆓</span> Free Forever</strong>
           <p>No watermarks, no file limits, no registration needed. All tools are completely free to use.</p>
         </div>
       </div>
@@ -398,11 +509,11 @@
         <div class="footer-logo-text">Kimosabe Tools</div>
       </div>
       
-      <div style="text-align: center; margin-bottom: 2rem;">
-        <p style="color: var(--gray-300); max-width: 500px; margin: 0 auto 1.5rem;">
+      <div style="text-align:center; margin-bottom:2rem;">
+        <p style="color:var(--gray-300); max-width:500px; margin:0 auto 1.5rem;">
           Join thousands of users who trust their privacy to Kimosabe Tools
         </p>
-        <a href="../index.html#tools" class="support-btn" style="display: inline-block;">
+        <a href="../index.html#tools" class="support-btn" style="display:inline-block;">
           🚀 Explore All Tools
         </a>
       </div>
@@ -412,185 +523,283 @@
         <a href="../contact.html">Contact</a>
         <a href="../privacy.html">Privacy</a>
         <a href="../terms.html">Terms</a>
-        <a href="../donate.html" style="color: #ffd166;">Support Us</a>
+        <a href="../donate.html" style="color:#ffd166;">Support Us</a>
       </nav>
 
       <p class="copyright">
         © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
-        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+        <small style="opacity:0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
       </p>
     </div>
   </footer>
 
-  <!-- Back to Top Button -->
-  <button class="back-to-top" aria-label="Back to top">
-    ↑
-  </button>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
 
   <script>
-    // DOM Elements
-    const imageInput = document.getElementById('imageInput');
-    const dropZone = document.getElementById('drop-zone');
-    const qualityRange = document.getElementById('qualityRange');
-    const qualityVal = document.getElementById('qualityVal');
-    const controls = document.getElementById('controls');
-    const statusArea = document.getElementById('status-area');
-    const statusText = document.getElementById('status-text');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const donateReminder = document.getElementById('donate-reminder');
-    const resultsDisplay = document.getElementById('results-display');
-    const resultsStats = document.getElementById('results-stats');
-    const resultFilename = document.getElementById('result-filename');
-    const previewArea = document.getElementById('preview-area');
-    const originalPreview = document.getElementById('original-preview');
+    // ─── DOM refs ──────────────────────────────────────────────────────────
+    const imageInput        = document.getElementById('imageInput');
+    const dropZone          = document.getElementById('drop-zone');
+    const qualityRange      = document.getElementById('qualityRange');
+    const qualityVal        = document.getElementById('qualityVal');
+    const controls          = document.getElementById('controls');
+    const statusArea        = document.getElementById('status-area');
+    const statusText        = document.getElementById('status-text');
+    const downloadBtn       = document.getElementById('downloadBtn');
+    const donateReminder    = document.getElementById('donate-reminder');
+    const resultsDisplay    = document.getElementById('results-display');
+    const resultsStats      = document.getElementById('results-stats');
+    const resultFilename    = document.getElementById('result-filename');
+    const previewArea       = document.getElementById('preview-area');
+    const originalPreview   = document.getElementById('original-preview');
     const compressedPreview = document.getElementById('compressed-preview');
-    const originalSize = document.getElementById('original-size');
-    const compressedSize = document.getElementById('compressed-size');
+    const originalSize      = document.getElementById('original-size');
+    const compressedSize    = document.getElementById('compressed-size');
+    const formatOptions     = document.getElementById('format-options');
+    const gifNote           = document.getElementById('gif-note');
+    const pngNote           = document.getElementById('png-note');
 
-    let currentDownloadUrl = null;
-    let activeFile = null;
-    let originalImageData = null;
+    // ─── State ────────────────────────────────────────────────────────────
+    let currentDownloadUrl    = null;  // current download blob URL
+    let currentPreviewUrl     = null;  // compressed preview blob URL (tracked separately)
+    let activeFile            = null;
+    let originalImageData     = null;  // base64 data URL of original
+    let debounceTimer         = null;
 
-    // Event Listeners
-    qualityRange.addEventListener('input', (e) => {
-      qualityVal.textContent = `${e.target.value}%`;
-      if (activeFile && originalImageData) {
-        compressImage(originalImageData);
-      }
+    // ─── Drop zone – keyboard + click (no onclick attribute on div) ───────
+    dropZone.addEventListener('click', () => imageInput.click());
+    dropZone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); imageInput.click(); }
     });
-
-    imageInput.addEventListener('change', (e) => {
-      if (e.target.files[0]) {
-        handleImageFile(e.target.files[0]);
-      }
-    });
-
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.classList.add('dragover');
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-      dropZone.classList.remove('dragover');
-    });
-
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
     dropZone.addEventListener('drop', (e) => {
       e.preventDefault();
       dropZone.classList.remove('dragover');
-      if (e.dataTransfer.files[0]) {
-        handleImageFile(e.dataTransfer.files[0]);
+      if (e.dataTransfer.files[0]) handleImageFile(e.dataTransfer.files[0]);
+    });
+    imageInput.addEventListener('change', (e) => { if (e.target.files[0]) handleImageFile(e.target.files[0]); });
+
+    // ─── Quality slider – debounced to avoid excessive blob creation ──────
+    qualityRange.addEventListener('input', (e) => {
+      qualityVal.textContent = `${e.target.value}%`;
+      if (activeFile && originalImageData) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => compressImage(originalImageData), 120);
       }
     });
 
-    // Functions
+    // ─── Format selector change – update notes + re-compress ──────────────
+    formatOptions.addEventListener('change', () => {
+      updateFormatNotes();
+      if (activeFile && originalImageData) compressImage(originalImageData);
+    });
+
+    // ─── Helpers ──────────────────────────────────────────────────────────
+    function formatBytes(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    function getSelectedFormat() {
+      const checked = formatOptions.querySelector('input[type="radio"]:checked');
+      return checked ? checked.value : 'image/jpeg';
+    }
+
+    function getFileExtension(mimeType) {
+      return { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mimeType] || 'jpg';
+    }
+
+    // ─── Build format options based on input type ─────────────────────────
+    // Rules:
+    //   JPEG input  → JPEG (default) | WebP
+    //   PNG input   → PNG (default)  | JPEG | WebP  (PNG→JPEG/WebP = real compression)
+    //   WebP input  → WebP (default) | JPEG
+    //   GIF input   → JPEG (default) | WebP  (GIF not re-encodable as animated via canvas)
+    function buildFormatOptions(inputMime) {
+      let options = [];
+
+      if (inputMime === 'image/png') {
+        options = [
+          { mime: 'image/png',  label: 'PNG (lossless)', checked: true  },
+          { mime: 'image/jpeg', label: 'JPEG',           checked: false },
+          { mime: 'image/webp', label: 'WebP',           checked: false },
+        ];
+      } else if (inputMime === 'image/webp') {
+        options = [
+          { mime: 'image/webp', label: 'WebP',  checked: true  },
+          { mime: 'image/jpeg', label: 'JPEG',  checked: false },
+        ];
+      } else {
+        // JPEG, GIF, or anything else → default to JPEG
+        options = [
+          { mime: 'image/jpeg', label: 'JPEG',  checked: true  },
+          { mime: 'image/webp', label: 'WebP',  checked: false },
+        ];
+      }
+
+      formatOptions.innerHTML = options.map(o => `
+        <label>
+          <input type="radio" name="outputFormat" value="${o.mime}" ${o.checked ? 'checked' : ''}>
+          <span class="fmt-btn">${o.label}</span>
+        </label>
+      `).join('');
+    }
+
+    // ─── Show/hide contextual notes ───────────────────────────────────────
+    function updateFormatNotes() {
+      const fmt = getSelectedFormat();
+      pngNote.style.display = (fmt === 'image/png') ? 'flex' : 'none';
+      // GIF note is set once on file load and never hidden until reset
+    }
+
+    // ─── Revoke a blob URL safely ─────────────────────────────────────────
+    function safeRevoke(url) {
+      if (url) { try { URL.revokeObjectURL(url); } catch (_) {} }
+    }
+
+    // ─── Main file handler ────────────────────────────────────────────────
     function handleImageFile(file) {
-      // Validate file
-      if (!file.type.startsWith('image/')) {
-        alert('Please upload an image file (JPG, PNG, GIF, WebP)');
+      const ALLOWED = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+      if (!ALLOWED.includes(file.type)) {
+        alert('Please upload a JPG, PNG, WebP, or GIF image.');
         return;
       }
 
       if (file.size > 50 * 1024 * 1024) {
-        alert('File size exceeds 50MB limit. Please upload a smaller image.');
+        alert(`File is ${formatBytes(file.size)}. Maximum allowed size is 50 MB.`);
         return;
       }
 
-      // Memory cleanup
-      if (currentDownloadUrl) {
-        URL.revokeObjectURL(currentDownloadUrl);
-        currentDownloadUrl = null;
-      }
+      // Cleanup previous state
+      safeRevoke(currentDownloadUrl);
+      safeRevoke(currentPreviewUrl);
+      currentDownloadUrl = null;
+      currentPreviewUrl  = null;
 
       activeFile = file;
-      
-      // Update UI
-      controls.style.display = 'block';
+
+      // Build format buttons for this input type
+      buildFormatOptions(file.type);
+
+      // Show/hide GIF warning once
+      gifNote.style.display = (file.type === 'image/gif') ? 'flex' : 'none';
+      updateFormatNotes();
+
+      // Reset UI
+      controls.style.display    = 'block';
       resultsDisplay.style.display = 'none';
       donateReminder.style.display = 'none';
-      statusArea.style.display = 'block';
-      statusText.innerHTML = `Loading image<span class="loading-dots"><span></span><span></span><span></span></span>`;
+      statusArea.style.display  = 'block';
+      statusText.innerHTML      = `Loading image<span class="loading-dots"><span></span><span></span><span></span></span>`;
       downloadBtn.style.display = 'none';
       previewArea.style.display = 'none';
+      compressedPreview.src     = '';
+      compressedSize.textContent = '—';
 
-      // Read and process image
+      // Read file
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (event) => {
         originalImageData = event.target.result;
-        
+
         // Show original preview
-        originalPreview.src = originalImageData;
-        originalSize.textContent = formatBytes(file.size);
-        previewArea.style.display = 'flex';
-        
-        // Compress image
+        originalPreview.src         = originalImageData;
+        originalSize.textContent    = formatBytes(file.size);
+        previewArea.style.display   = 'flex';
+
         compressImage(originalImageData);
-        
-        // Track file upload
+
         if (typeof gtag !== 'undefined') {
           gtag('event', 'image_uploaded', {
-            'event_category': 'tool_usage',
-            'event_label': 'compress_image',
-            'value': Math.round(file.size / 1024),
-            'file_type': file.type,
-            'transport_type': 'beacon'
+            event_category: 'tool_usage',
+            event_label:    'compress_image',
+            value:          Math.round(file.size / 1024),
+            file_type:      file.type,
+            transport_type: 'beacon'
           });
         }
       };
     }
 
+    // ─── Core compression ─────────────────────────────────────────────────
     function compressImage(imageData) {
-      statusText.innerHTML = `Compressing image<span class="loading-dots"><span></span><span></span><span></span></span>`;
-      compressedPreview.src = '';
-      compressedSize.textContent = 'Compressing...';
+      statusText.innerHTML    = `Compressing<span class="loading-dots"><span></span><span></span><span></span></span>`;
+      compressedSize.textContent = 'Working…';
+
+      const outputMime = getSelectedFormat();
+      const quality    = qualityRange.value / 100;
 
       const img = new Image();
       img.src = imageData;
+
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx    = canvas.getContext('2d');
 
-        // Maintain aspect ratio but limit size for performance
-        const maxDimension = 2000;
-        let width = img.width;
-        let height = img.height;
+        // Dimension cap – protects against very large images crashing the tab
+        const MAX_DIM = 4096;
+        let { width, height } = img;
 
-        if (width > maxDimension || height > maxDimension) {
-          if (width > height) {
-            height = (height * maxDimension) / width;
-            width = maxDimension;
+        if (width > MAX_DIM || height > MAX_DIM) {
+          if (width >= height) {
+            height = Math.round((height * MAX_DIM) / width);
+            width  = MAX_DIM;
           } else {
-            width = (width * maxDimension) / height;
-            height = maxDimension;
+            width  = Math.round((width * MAX_DIM) / height);
+            height = MAX_DIM;
           }
         }
 
-        canvas.width = width;
+        canvas.width  = width;
         canvas.height = height;
+
+        // Fill white background for JPEG (transparent areas would be black otherwise)
+        if (outputMime === 'image/jpeg') {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, width, height);
+        }
+
         ctx.drawImage(img, 0, 0, width, height);
 
-        const quality = qualityRange.value / 100;
-        const mimeType = activeFile.type === 'image/png' ? 'image/png' : 'image/jpeg';
-        const qualitySetting = mimeType === 'image/png' ? 1 - quality : quality;
+        // PNG ignores the quality param — pass it anyway (harmless), but the
+        // format note already informs the user that PNG is lossless.
+        const qualityParam = (outputMime === 'image/png') ? undefined : quality;
 
         canvas.toBlob((blob) => {
-          const oldSize = activeFile.size;
-          const newSize = blob.size;
-          const savedPercent = Math.max(0, (((oldSize - newSize) / oldSize) * 100)).toFixed(1);
+          if (!blob) {
+            statusText.innerHTML = '<span style="color:#ef4444;">⚠️ Compression failed. Please try another image.</span>';
+            return;
+          }
 
-          // Update preview
-          compressedPreview.src = URL.createObjectURL(blob);
-          compressedSize.textContent = formatBytes(newSize);
+          const oldSize  = activeFile.size;
+          const newSize  = blob.size;
+          const rawSaved = oldSize - newSize;
 
-          // Create download link
+          // ── Revoke PREVIOUS preview URL before creating a new one ──
+          safeRevoke(currentPreviewUrl);
+          currentPreviewUrl = URL.createObjectURL(blob);
+          compressedPreview.src        = currentPreviewUrl;
+          compressedSize.textContent   = formatBytes(newSize);
+
+          // ── Revoke previous download URL ──
+          safeRevoke(currentDownloadUrl);
           currentDownloadUrl = URL.createObjectURL(blob);
-          downloadBtn.href = currentDownloadUrl;
-          downloadBtn.download = `compressed_kimosabe_${activeFile.name.replace(/\.[^/.]+$/, "")}.${mimeType.split('/')[1]}`;
-          
-          // Update results
+
+          const ext          = getFileExtension(outputMime);
+          const baseName     = activeFile.name.replace(/\.[^/.]+$/, '');
+          downloadBtn.href     = currentDownloadUrl;
+          downloadBtn.download = `compressed_${baseName}_kimosabe.${ext}`;
+          downloadBtn.style.display = 'inline-flex';
+
+          // ── Results ──
+          const savedBytes = Math.max(0, rawSaved);  // clamp — never show negative
+          const savedPct   = Math.max(0, ((rawSaved / oldSize) * 100)).toFixed(1);
+
           resultFilename.textContent = activeFile.name;
-          
-          // Populate stats
           resultsStats.innerHTML = `
             <div class="stat-item">
               <span class="stat-label">Original Size</span>
@@ -602,91 +811,73 @@
             </div>
             <div class="stat-item">
               <span class="stat-label">Space Saved</span>
-              <span class="stat-value">${formatBytes(oldSize - newSize)}</span>
-              <span class="stat-saved">${savedPercent}% saved</span>
+              <span class="stat-value">${formatBytes(savedBytes)}</span>
+              <span class="stat-saved">${savedPct}% saved</span>
             </div>
           `;
 
-          // Show results
-          statusArea.style.display = 'none';
+          statusArea.style.display     = 'none';
           resultsDisplay.style.display = 'block';
-          downloadBtn.style.display = 'inline-flex';
           donateReminder.style.display = 'block';
 
-          // Track successful compression
           if (typeof gtag !== 'undefined') {
             gtag('event', 'image_compressed', {
-              'event_category': 'tool_usage',
-              'event_label': 'compress_image',
-              'value': Math.round(savedPercent),
-              'quality': qualityRange.value,
-              'saved_percent': savedPercent,
-              'transport_type': 'beacon'
+              event_category: 'tool_usage',
+              event_label:    'compress_image',
+              value:          Math.round(savedPct),
+              quality:        qualityRange.value,
+              output_format:  outputMime,
+              transport_type: 'beacon'
             });
           }
-        }, mimeType, qualitySetting);
+        }, outputMime, qualityParam);
+      };
+
+      img.onerror = () => {
+        statusText.innerHTML = '<span style="color:#ef4444;">⚠️ Could not load this image. Please try another file.</span>';
+        statusArea.style.display = 'block';
       };
     }
 
-    function formatBytes(bytes) {
-      if (bytes === 0) return '0 Bytes';
-      const k = 1024;
-      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    }
-
+    // ─── Reset ────────────────────────────────────────────────────────────
     function resetTool() {
-      // Memory cleanup
-      if (currentDownloadUrl) {
-        URL.revokeObjectURL(currentDownloadUrl);
-        currentDownloadUrl = null;
-      }
+      safeRevoke(currentDownloadUrl);
+      safeRevoke(currentPreviewUrl);
+      currentDownloadUrl = null;
+      currentPreviewUrl  = null;
+      activeFile         = null;
+      originalImageData  = null;
 
-      // Reset UI
-      controls.style.display = 'none';
-      statusArea.style.display = 'none';
+      controls.style.display       = 'none';
+      statusArea.style.display     = 'none';
       resultsDisplay.style.display = 'none';
       donateReminder.style.display = 'none';
-      previewArea.style.display = 'none';
-      downloadBtn.style.display = 'none';
-      imageInput.value = '';
-      
-      // Reset variables
-      activeFile = null;
-      originalImageData = null;
-      qualityRange.value = 80;
-      qualityVal.textContent = '80%';
-      
-      // Clear previews
-      originalPreview.src = '';
-      compressedPreview.src = '';
-      originalSize.textContent = '0 KB';
-      compressedSize.textContent = '0 KB';
+      previewArea.style.display    = 'none';
+      downloadBtn.style.display    = 'none';
+      gifNote.style.display        = 'none';
+      pngNote.style.display        = 'none';
+      imageInput.value             = '';
+      qualityRange.value           = 80;
+      qualityVal.textContent       = '80%';
+      originalPreview.src          = '';
+      compressedPreview.src        = '';
+      originalSize.textContent     = '—';
+      compressedSize.textContent   = '—';
     }
 
-    // Back to Top Button
+    // ─── Back to top ──────────────────────────────────────────────────────
     const backToTop = document.querySelector('.back-to-top');
-    
     window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        backToTop.style.display = 'flex';
-      } else {
-        backToTop.style.display = 'none';
-      }
+      backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none';
     });
-    
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // Initialize tool
+    // ─── Page view ────────────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', () => {
-      // Track page view
       if (typeof gtag !== 'undefined') {
         gtag('event', 'page_view', {
-          'page_title': 'Image Compressor',
-          'page_location': window.location.href
+          page_title:    'Image Compressor',
+          page_location: window.location.href
         });
       }
     });
