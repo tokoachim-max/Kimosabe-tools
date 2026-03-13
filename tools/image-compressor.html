@@ -44,6 +44,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Smarter image compression — handles quality iteration & never returns a bigger file -->
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
   
   <style>
     /* ── Controls Panel ── */
@@ -584,14 +587,14 @@
       qualityVal.textContent = `${e.target.value}%`;
       if (activeFile && originalImageData) {
         clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => compressImage(originalImageData), 120);
+        debounceTimer = setTimeout(() => compressImage(), 120);
       }
     });
 
     // ─── Format selector change – update notes + re-compress ──────────────
     formatOptions.addEventListener('change', () => {
       updateFormatNotes();
-      if (activeFile && originalImageData) compressImage(originalImageData);
+      if (activeFile && originalImageData) compressImage();
     });
 
     // ─── Helpers ──────────────────────────────────────────────────────────
@@ -711,7 +714,7 @@
         originalSize.textContent    = formatBytes(file.size);
         previewArea.style.display   = 'flex';
 
-        compressImage(originalImageData);
+        compressImage();
 
         if (typeof gtag !== 'undefined') {
           gtag('event', 'image_uploaded', {
@@ -725,118 +728,122 @@
       };
     }
 
-    // ─── Core compression ─────────────────────────────────────────────────
-    function compressImage(imageData) {
-      statusText.innerHTML    = `Compressing<span class="loading-dots"><span></span><span></span><span></span></span>`;
+    // ─── Core compression (browser-image-compression library) ────────────
+    //
+    // Why we switched from raw canvas.toBlob():
+    //   The browser's built-in JPEG encoder is less efficient than the encoder
+    //   that created your original photo (smartphone hardware, MozJPEG, etc.).
+    //   At quality 0.8, canvas.toBlob() can produce a FILE LARGER than the
+    //   original. browser-image-compression fixes this in two ways:
+    //     1. It iterates the quality value to hit a target size range.
+    //     2. We always compare and keep whichever file is smaller.
+    //
+    async function compressImage(imageData) {
+      statusText.innerHTML       = `Compressing<span class="loading-dots"><span></span><span></span><span></span></span>`;
       compressedSize.textContent = 'Working…';
+      statusArea.style.display   = 'block';
+      resultsDisplay.style.display = 'none';
 
-      const outputMime = getSelectedFormat();
-      const quality    = qualityRange.value / 100;
+      const outputMime   = getSelectedFormat();
+      const qualityRaw   = qualityRange.value / 100;   // 0.1 – 1.0
 
-      const img = new Image();
-      img.src = imageData;
+      // Map the slider (10–100%) to a target max size.
+      // At quality 1.0 → target = 95% of original (minimal reduction).
+      // At quality 0.1 → target = 5% of original (aggressive reduction).
+      // Linear interpolation between these two anchors:
+      const targetRatio  = 0.05 + qualityRaw * 0.90;   // 0.05 – 0.95
+      const originalMB   = activeFile.size / 1024 / 1024;
+      const targetMB     = Math.max(0.01, originalMB * targetRatio);
 
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const ctx    = canvas.getContext('2d');
-
-        // Dimension cap – protects against very large images crashing the tab
-        const MAX_DIM = 4096;
-        let { width, height } = img;
-
-        if (width > MAX_DIM || height > MAX_DIM) {
-          if (width >= height) {
-            height = Math.round((height * MAX_DIM) / width);
-            width  = MAX_DIM;
-          } else {
-            width  = Math.round((width * MAX_DIM) / height);
-            height = MAX_DIM;
-          }
-        }
-
-        canvas.width  = width;
-        canvas.height = height;
-
-        // Fill white background for JPEG (transparent areas would be black otherwise)
-        if (outputMime === 'image/jpeg') {
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, width, height);
-        }
-
-        ctx.drawImage(img, 0, 0, width, height);
-
-        // PNG ignores the quality param — pass it anyway (harmless), but the
-        // format note already informs the user that PNG is lossless.
-        const qualityParam = (outputMime === 'image/png') ? undefined : quality;
-
-        canvas.toBlob((blob) => {
-          if (!blob) {
-            statusText.innerHTML = '<span style="color:#ef4444;">⚠️ Compression failed. Please try another image.</span>';
-            return;
-          }
-
-          const oldSize  = activeFile.size;
-          const newSize  = blob.size;
-          const rawSaved = oldSize - newSize;
-
-          // ── Revoke PREVIOUS preview URL before creating a new one ──
-          safeRevoke(currentPreviewUrl);
-          currentPreviewUrl = URL.createObjectURL(blob);
-          compressedPreview.src        = currentPreviewUrl;
-          compressedSize.textContent   = formatBytes(newSize);
-
-          // ── Revoke previous download URL ──
-          safeRevoke(currentDownloadUrl);
-          currentDownloadUrl = URL.createObjectURL(blob);
-
-          const ext          = getFileExtension(outputMime);
-          const baseName     = activeFile.name.replace(/\.[^/.]+$/, '');
-          downloadBtn.href     = currentDownloadUrl;
-          downloadBtn.download = `compressed_${baseName}_kimosabe.${ext}`;
-          downloadBtn.style.display = 'inline-flex';
-
-          // ── Results ──
-          const savedBytes = Math.max(0, rawSaved);  // clamp — never show negative
-          const savedPct   = Math.max(0, ((rawSaved / oldSize) * 100)).toFixed(1);
-
-          resultFilename.textContent = activeFile.name;
-          resultsStats.innerHTML = `
-            <div class="stat-item">
-              <span class="stat-label">Original Size</span>
-              <span class="stat-value">${formatBytes(oldSize)}</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Compressed Size</span>
-              <span class="stat-value">${formatBytes(newSize)}</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Space Saved</span>
-              <span class="stat-value">${formatBytes(savedBytes)}</span>
-              <span class="stat-saved">${savedPct}% saved</span>
-            </div>
-          `;
-
-          statusArea.style.display     = 'none';
-          resultsDisplay.style.display = 'block';
-          donateReminder.style.display = 'block';
-
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'image_compressed', {
-              event_category: 'tool_usage',
-              event_label:    'compress_image',
-              value:          Math.round(savedPct),
-              quality:        qualityRange.value,
-              output_format:  outputMime,
-              transport_type: 'beacon'
-            });
-          }
-        }, outputMime, qualityParam);
+      const options = {
+        maxSizeMB:           targetMB,
+        maxWidthOrHeight:    4096,           // dimension cap
+        useWebWorker:        true,           // keeps UI non-blocking
+        fileType:            outputMime,
+        initialQuality:      qualityRaw,
+        alwaysKeepResolution: true,          // never downscale to hit target
+        // For PNG → JPEG/WebP conversions the library handles the re-encode
+        // For PNG → PNG it uses lossless optim (pngquant-style via canvas)
       };
 
-      img.onerror = () => {
-        statusText.innerHTML = '<span style="color:#ef4444;">⚠️ Could not load this image. Please try another file.</span>';
+      try {
+        const compressed = await imageCompression(activeFile, options);
+
+        // ── KEY GUARD: never give the user a bigger file than they uploaded ──
+        const finalBlob = compressed.size < activeFile.size ? compressed : activeFile;
+        const wasKept   = finalBlob === activeFile;  // true = original was returned
+
+        const oldSize  = activeFile.size;
+        const newSize  = finalBlob.size;
+        const rawSaved = oldSize - newSize;
+        const savedBytes = Math.max(0, rawSaved);
+        const savedPct   = Math.max(0, ((rawSaved / oldSize) * 100)).toFixed(1);
+
+        // ── Update preview ──
+        safeRevoke(currentPreviewUrl);
+        currentPreviewUrl              = URL.createObjectURL(finalBlob);
+        compressedPreview.src          = currentPreviewUrl;
+        compressedSize.textContent     = formatBytes(newSize);
+
+        // ── Update download ──
+        safeRevoke(currentDownloadUrl);
+        currentDownloadUrl = URL.createObjectURL(finalBlob);
+
+        const ext      = getFileExtension(outputMime);
+        const baseName = activeFile.name.replace(/\.[^/.]+$/, '');
+        downloadBtn.href     = currentDownloadUrl;
+        downloadBtn.download = `compressed_${baseName}_kimosabe.${ext}`;
+        downloadBtn.style.display = 'inline-flex';
+
+        // ── Results ──
+        resultFilename.textContent = activeFile.name;
+        resultsStats.innerHTML = `
+          <div class="stat-item">
+            <span class="stat-label">Original Size</span>
+            <span class="stat-value">${formatBytes(oldSize)}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Compressed Size</span>
+            <span class="stat-value">${formatBytes(newSize)}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Space Saved</span>
+            <span class="stat-value">${formatBytes(savedBytes)}</span>
+            <span class="stat-saved">${wasKept ? 'Already optimal' : savedPct + '% saved'}</span>
+          </div>
+        `;
+
+        // If original was returned, show a helpful note instead of "0% saved"
+        if (wasKept) {
+          resultsStats.insertAdjacentHTML('afterend', `
+            <div class="info-note info" style="margin-top:0.75rem;">
+              <span class="note-icon">ℹ️</span>
+              <span>This image is already well-optimised. The original file was kept because re-encoding would have made it larger. Try the High compression setting or a different output format.</span>
+            </div>
+          `);
+        }
+
+        statusArea.style.display     = 'none';
+        resultsDisplay.style.display = 'block';
+        donateReminder.style.display = 'block';
+
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'image_compressed', {
+            event_category:  'tool_usage',
+            event_label:     'compress_image',
+            value:           Math.round(savedPct),
+            quality:         qualityRange.value,
+            output_format:   outputMime,
+            original_kept:   wasKept,
+            transport_type:  'beacon'
+          });
+        }
+
+      } catch (err) {
+        console.error('Compression error:', err);
+        statusText.innerHTML = `<span style="color:#ef4444;">⚠️ ${err.message || 'Compression failed. Please try another image.'}</span>`;
         statusArea.style.display = 'block';
-      };
+      }
     }
 
     // ─── Reset ────────────────────────────────────────────────────────────
@@ -856,6 +863,10 @@
       downloadBtn.style.display    = 'none';
       gifNote.style.display        = 'none';
       pngNote.style.display        = 'none';
+
+      // Remove any dynamically injected "already optimal" note
+      const existingNote = resultsDisplay.querySelector('.info-note');
+      if (existingNote) existingNote.remove();
       imageInput.value             = '';
       qualityRange.value           = 80;
       qualityVal.textContent       = '80%';
