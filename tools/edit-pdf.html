@@ -6,54 +6,40 @@
   
   <title>Edit PDF Online – Form Filler & Annotator | Kimosabe Tools</title>
   
-  <!-- Meta Tags -->
   <meta name="description" content="Edit PDF files for free. Fill forms, add text anywhere, whiteout sensitive info. 100% private, no uploads.">
   <meta name="keywords" content="edit pdf, fill pdf form, annotate pdf, add text to pdf, whiteout pdf, private pdf editor">
   <meta name="author" content="Kimosabe Tools">
   
-  <!-- Open Graph -->
   <meta property="og:title" content="Edit PDF Online – Fill Forms & Annotate | Kimosabe Tools">
   <meta property="og:description" content="Edit PDF files 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/edit-pdf.html">
   <meta property="og:type" content="website">
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Edit PDF Online – Fill Forms & Annotate | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based PDF editor – fill forms, add text, whiteout.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   
-  <!-- Favicon & Logo -->
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
   <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
   
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-H50NB3F51Q', {
-      'anonymize_ip': true,
-      'allow_google_signals': false,
-      'allow_ad_personalization_signals': false
-    });
+    gtag('config', 'G-H50NB3F51Q', { 'anonymize_ip': true, 'allow_google_signals': false, 'allow_ad_personalization_signals': false });
   </script>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --primary: #2E75B6;
@@ -89,7 +75,8 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--gray-50);
+      /* FIX: matches the gradient background used across all other Kimosabe tools */
+      background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
       color: var(--gray-800);
       line-height: 1.6;
     }
@@ -120,57 +107,21 @@
       text-decoration: none;
     }
     .nav-logo-img img { display: block; }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-    .nav-links a {
-      color: var(--gray-600);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: var(--gray-600); text-decoration: none; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--primary); }
-    .support-btn {
-      background: var(--warning);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      font-weight: 600;
-      transition: transform 0.2s;
-    }
+    .support-btn { background: var(--warning); color: white; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; transition: transform 0.2s; }
     .support-btn:hover { transform: translateY(-2px); }
 
     /* ── Container ── */
-    .container {
-      max-width: 1400px;
-      margin: 2rem auto;
-      padding: 0 2rem;
-    }
+    .container { max-width: 1400px; margin: 2rem auto; padding: 0 2rem; }
 
     /* ── Tool Header ── */
-    .tool-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .tool-breadcrumb {
-      color: var(--gray-500);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
+    .tool-header { text-align: center; margin-bottom: 2rem; }
+    .tool-breadcrumb { color: var(--gray-500); font-size: 0.9rem; margin-bottom: 1rem; }
     .tool-breadcrumb a { color: var(--primary); text-decoration: none; }
-    .tool-header h1 {
-      font-size: 2.5rem;
-      color: var(--dark);
-      margin-bottom: 0.5rem;
-    }
-    .tool-header p {
-      color: var(--gray-600);
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto;
-    }
+    .tool-header h1 { font-size: 2.5rem; color: var(--dark); margin-bottom: 0.5rem; }
+    .tool-header p { color: var(--gray-600); font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
 
     /* ── Upload Zone ── */
     .drop-zone {
@@ -183,33 +134,15 @@
       transition: all 0.3s;
       margin-bottom: 2rem;
     }
-    .drop-zone:hover, .drop-zone.dragover {
-      border-color: var(--primary);
-      background: rgba(46, 117, 182, 0.05);
-    }
-    .drop-zone-content .icon {
-      font-size: 4rem;
-      display: block;
-      margin-bottom: 1rem;
-    }
+    .drop-zone:hover, .drop-zone.dragover { border-color: var(--primary); background: rgba(46, 117, 182, 0.05); }
+    .drop-zone-content .icon { font-size: 4rem; display: block; margin-bottom: 1rem; }
     .drop-zone-content strong { font-size: 1.2rem; color: var(--dark); }
-    .file-limit {
-      display: block;
-      margin-top: 0.5rem;
-      color: var(--gray-500);
-      font-size: 0.9rem;
-    }
+    .file-limit { display: block; margin-top: 0.5rem; color: var(--gray-500); font-size: 0.9rem; }
 
     /* ── Editor Section ── */
     .editor-section { display: none; }
-    .editor-section.active {
-      display: block;
-      animation: fadeIn 0.5s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .editor-section.active { display: block; animation: fadeIn 0.5s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     /* ── Primary Toolbar ── */
     .toolbar {
@@ -255,7 +188,6 @@
     .tool-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
     .tool-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-    /* Tooltip on hover */
     .tool-btn[data-tip]:hover::after {
       content: attr(data-tip);
       position: absolute;
@@ -273,40 +205,13 @@
       font-weight: 400;
     }
 
-    .color-picker {
-      width: 36px;
-      height: 36px;
-      border: 2px solid var(--gray-300);
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      padding: 2px;
-    }
-    .font-size-input {
-      width: 60px;
-      padding: 0.4rem;
-      border: 2px solid var(--gray-300);
-      border-radius: var(--radius-md);
-      font-size: 0.85rem;
-    }
-    select, input[type="number"], input[type="text"] {
-      padding: 0.4rem 0.5rem;
-      border: 2px solid var(--gray-300);
-      border-radius: var(--radius-md);
-      font-size: 0.85rem;
-      background: white;
-      font-family: inherit;
-    }
-    .zoom-display {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--gray-600);
-      min-width: 42px;
-      text-align: center;
-      cursor: pointer;
-    }
+    .color-picker { width: 36px; height: 36px; border: 2px solid var(--gray-300); border-radius: var(--radius-md); cursor: pointer; padding: 2px; }
+    .font-size-input { width: 60px; padding: 0.4rem; border: 2px solid var(--gray-300); border-radius: var(--radius-md); font-size: 0.85rem; }
+    select, input[type="number"], input[type="text"] { padding: 0.4rem 0.5rem; border: 2px solid var(--gray-300); border-radius: var(--radius-md); font-size: 0.85rem; background: white; font-family: inherit; }
+    .zoom-display { font-size: 0.8rem; font-weight: 600; color: var(--gray-600); min-width: 42px; text-align: center; cursor: pointer; }
     .zoom-display:hover { color: var(--primary); }
 
-    /* ── Context Toolbar (secondary) ── */
+    /* ── Context Toolbar ── */
     .context-toolbar {
       background: var(--gray-100);
       border: none;
@@ -319,78 +224,21 @@
       box-shadow: var(--shadow-md);
     }
     .context-toolbar.visible { display: flex; }
-    .ctx-group {
-      display: flex;
-      gap: 0.3rem;
-      align-items: center;
-      padding-right: 0.75rem;
-      border-right: 1px solid var(--gray-300);
-    }
+    .ctx-group { display: flex; gap: 0.3rem; align-items: center; padding-right: 0.75rem; border-right: 1px solid var(--gray-300); }
     .ctx-group:last-child { border-right: none; }
     .ctx-label { font-size: 0.75rem; font-weight: 600; color: var(--gray-500); white-space: nowrap; }
-    .range-input {
-      -webkit-appearance: none;
-      width: 80px;
-      height: 4px;
-      background: var(--gray-300);
-      border-radius: 2px;
-      outline: none;
-      cursor: pointer;
-      border: none;
-      padding: 0;
-    }
-    .range-input::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--primary);
-      cursor: pointer;
-    }
-    .range-val {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--gray-600);
-      min-width: 28px;
-      font-family: monospace;
-    }
+    .range-input { -webkit-appearance: none; width: 80px; height: 4px; background: var(--gray-300); border-radius: 2px; outline: none; cursor: pointer; border: none; padding: 0; }
+    .range-input::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--primary); cursor: pointer; }
+    .range-val { font-size: 0.75rem; font-weight: 600; color: var(--gray-600); min-width: 28px; font-family: monospace; }
 
     /* ── PDF Viewer ── */
-    .pdf-viewer-container {
-      background: white;
-      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-      padding: 2rem;
-      box-shadow: var(--shadow-md);
-      min-height: 600px;
-    }
-    .canvas-scroll-area {
-      overflow: auto;
-      display: flex;
-      justify-content: center;
-      padding: 1rem 0;
-    }
-    .canvas-wrapper {
-      position: relative;
-      display: inline-block;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      background: white;
-      transform-origin: top center;
-      flex-shrink: 0;
-    }
+    .pdf-viewer-container { background: white; border-radius: 0 0 var(--radius-lg) var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-md); min-height: 600px; }
+    .canvas-scroll-area { overflow: auto; display: flex; justify-content: center; padding: 1rem 0; }
+    .canvas-wrapper { position: relative; display: inline-block; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: white; transform-origin: top center; flex-shrink: 0; }
     #pdf-canvas { display: block; cursor: crosshair; }
-    .annotation-layer {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      overflow: visible;
-    }
+    .annotation-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
     .annotation-layer.active { pointer-events: auto; }
-    .drawing-canvas {
-      position: absolute;
-      top: 0; left: 0;
-      pointer-events: none;
-    }
+    .drawing-canvas { position: absolute; top: 0; left: 0; pointer-events: none; }
     .drawing-canvas.active { pointer-events: auto; cursor: crosshair; }
 
     /* ── Text Annotations ── */
@@ -414,42 +262,15 @@
       user-select: none;
     }
     .text-annotation:hover { border-color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .text-annotation[data-editing="true"] {
-      background: rgba(255,255,255,0.95);
-      border-style: solid;
-      border-color: var(--primary);
-      cursor: text;
-      user-select: text;
-      box-shadow: 0 0 0 3px rgba(46,117,182,0.1);
-    }
-    .text-annotation.selected {
-      border-color: var(--success);
-      border-style: solid;
-      box-shadow: 0 0 0 3px rgba(16,185,129,0.15);
-    }
+    .text-annotation[data-editing="true"] { background: rgba(255,255,255,0.95); border-style: solid; border-color: var(--primary); cursor: text; user-select: text; box-shadow: 0 0 0 3px rgba(46,117,182,0.1); }
+    .text-annotation.selected { border-color: var(--success); border-style: solid; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); }
 
     /* ── Whiteout ── */
-    .whiteout-rect {
-      position: absolute;
-      cursor: move;
-      pointer-events: auto;
-      z-index: 100;
-      border: 2px dashed var(--gray-400);
-    }
+    .whiteout-rect { position: absolute; cursor: move; pointer-events: auto; z-index: 100; border: 2px dashed var(--gray-400); }
     .whiteout-rect:hover { border-color: var(--gray-600); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
     .whiteout-rect.selected { border-color: var(--success); border-style: solid; }
-    .resize-handle {
-      position: absolute;
-      bottom: 0; right: 0;
-      width: 14px; height: 14px;
-      background: var(--primary);
-      border-radius: 2px 0 0 0;
-      cursor: se-resize;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .whiteout-rect:hover .resize-handle,
-    .whiteout-rect.selected .resize-handle { opacity: 1; }
+    .resize-handle { position: absolute; bottom: 0; right: 0; width: 14px; height: 14px; background: var(--primary); border-radius: 2px 0 0 0; cursor: se-resize; opacity: 0; transition: opacity 0.2s; }
+    .whiteout-rect:hover .resize-handle, .whiteout-rect.selected .resize-handle { opacity: 1; }
 
     /* ── Delete Button ── */
     .annotation-delete-btn {
@@ -489,205 +310,68 @@
       flex-wrap: wrap;
     }
     .status-bar span { display: flex; align-items: center; gap: 4px; }
-    .status-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--success);
-    }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
     .status-dot.unsaved { background: var(--warning); animation: blink 1.5s infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
     /* ── Page Controls ── */
-    .page-controls {
-      margin-top: 1.5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-    }
-    .page-controls button {
-      padding: 0.75rem 1.5rem;
-      border: none;
-      background: var(--primary);
-      color: white;
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s;
-      font-family: inherit;
-    }
+    .page-controls { margin-top: 1.5rem; display: flex; justify-content: center; align-items: center; gap: 1rem; }
+    .page-controls button { padding: 0.75rem 1.5rem; border: none; background: var(--primary); color: white; border-radius: var(--radius-md); cursor: pointer; font-weight: 600; transition: background 0.2s; font-family: inherit; }
     .page-controls button:hover:not(:disabled) { background: var(--primary-dark); }
     .page-controls button:disabled { background: var(--gray-300); cursor: not-allowed; }
-    .page-info {
-      font-weight: 600;
-      color: var(--gray-700);
-      min-width: 120px;
-      text-align: center;
-    }
-    .page-jump {
-      width: 50px;
-      padding: 0.4rem;
-      border: 2px solid var(--gray-300);
-      border-radius: var(--radius-md);
-      font-size: 0.85rem;
-      text-align: center;
-      font-family: inherit;
-    }
+    .page-info { font-weight: 600; color: var(--gray-700); min-width: 120px; text-align: center; }
+    .page-jump { width: 50px; padding: 0.4rem; border: 2px solid var(--gray-300); border-radius: var(--radius-md); font-size: 0.85rem; text-align: center; font-family: inherit; }
 
     /* ── Thumbnail Sidebar ── */
-    .editor-layout {
-      display: flex;
-      gap: 0;
-    }
-    .thumbnail-sidebar {
-      width: 0;
-      overflow: hidden;
-      transition: width 0.3s;
-      background: white;
-      border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-      box-shadow: var(--shadow-md);
-      flex-shrink: 0;
-    }
-    .thumbnail-sidebar.open {
-      width: 150px;
-      border-right: 1px solid var(--gray-200);
-    }
-    .thumb-inner {
-      width: 150px;
-      overflow-y: auto;
-      max-height: 80vh;
-      padding: 0.5rem;
-    }
+    .editor-layout { display: flex; gap: 0; }
+    .thumbnail-sidebar { width: 0; overflow: hidden; transition: width 0.3s; background: white; border-radius: var(--radius-lg) 0 0 var(--radius-lg); box-shadow: var(--shadow-md); flex-shrink: 0; }
+    .thumbnail-sidebar.open { width: 150px; border-right: 1px solid var(--gray-200); }
+    .thumb-inner { width: 150px; overflow-y: auto; max-height: 80vh; padding: 0.5rem; }
     .thumb-inner::-webkit-scrollbar { width: 3px; }
     .thumb-inner::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
-    .thumb-item {
-      border-radius: 4px;
-      overflow: hidden;
-      cursor: pointer;
-      border: 2px solid transparent;
-      margin-bottom: 0.4rem;
-      transition: border-color 0.2s;
-      background: var(--gray-100);
-    }
+    .thumb-item { border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid transparent; margin-bottom: 0.4rem; transition: border-color 0.2s; background: var(--gray-100); }
     .thumb-item:hover { border-color: var(--gray-400); }
     .thumb-item.active { border-color: var(--primary); }
     .thumb-item canvas { display: block; width: 100%; }
     .thumb-lbl { text-align: center; font-size: 0.68rem; color: var(--gray-500); padding: 2px 0 3px; }
-
     .editor-main { flex: 1; min-width: 0; }
 
     /* ── Loader ── */
     .loader { display: none; text-align: center; padding: 3rem; }
     .loader.active { display: block; }
-    .spinner {
-      border: 4px solid var(--gray-200);
-      border-top: 4px solid var(--primary);
-      border-radius: 50%;
-      width: 50px; height: 50px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 1rem;
-      display: inline-block;
-    }
+    .spinner { border: 4px solid var(--gray-200); border-top: 4px solid var(--primary); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 1rem; display: inline-block; }
     @keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
 
     /* ── Export Modal ── */
-    .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 6000;
-    }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 6000; }
     .modal-overlay.active { display: flex; }
-    .modal-box {
-      background: white;
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      width: 100%;
-      max-width: 460px;
-      box-shadow: var(--shadow-lg);
-      animation: fadeIn 0.25s;
-    }
+    .modal-box { background: white; border-radius: var(--radius-lg); padding: 2rem; width: 100%; max-width: 460px; box-shadow: var(--shadow-lg); animation: fadeIn 0.25s; }
     .modal-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--dark); }
     .modal-box > p { color: var(--gray-500); font-size: 0.88rem; margin-bottom: 1.25rem; }
-    .export-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-bottom: 1.1rem;
-    }
-    .export-card {
-      background: var(--gray-50);
-      border: 2px solid var(--gray-200);
-      border-radius: var(--radius-lg);
-      padding: 1.25rem;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
-    }
+    .export-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.1rem; }
+    .export-card { background: var(--gray-50); border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.25rem; cursor: pointer; text-align: center; transition: all 0.2s; }
     .export-card:hover { border-color: var(--primary); background: rgba(46,117,182,0.04); }
     .export-card.selected { border-color: var(--primary); background: rgba(46,117,182,0.07); }
     .export-card .ec-icon { font-size: 2rem; margin-bottom: 0.4rem; }
     .export-card .ec-title { font-weight: 700; font-size: 0.92rem; margin-bottom: 0.2rem; }
     .export-card .ec-desc { font-size: 0.73rem; color: var(--gray-500); }
-    .export-opts {
-      background: var(--gray-50);
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius-md);
-      padding: 0.85rem;
-      margin-bottom: 1rem;
-      display: none;
-    }
+    .export-opts { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 0.85rem; margin-bottom: 1rem; display: none; }
     .export-opts.visible { display: block; }
     .export-opts label { font-size: 0.8rem; color: var(--gray-600); display: block; margin-bottom: 0.35rem; font-weight: 500; }
     .export-opts select { width: 100%; margin-bottom: 0.5rem; }
     .export-opts select:last-child { margin-bottom: 0; }
     .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.25rem; }
-    .btn-modal-cancel {
-      padding: 0.6rem 1.2rem;
-      background: white; border: 2px solid var(--gray-300);
-      color: var(--gray-600); border-radius: var(--radius-md);
-      cursor: pointer; font-family: inherit; font-size: 0.88rem;
-      font-weight: 600; transition: all 0.15s;
-    }
+    .btn-modal-cancel { padding: 0.6rem 1.2rem; background: white; border: 2px solid var(--gray-300); color: var(--gray-600); border-radius: var(--radius-md); cursor: pointer; font-family: inherit; font-size: 0.88rem; font-weight: 600; transition: all 0.15s; }
     .btn-modal-cancel:hover { border-color: var(--gray-500); color: var(--dark); }
-    .btn-modal-export {
-      padding: 0.6rem 1.5rem;
-      background: var(--primary); border: none;
-      color: white; border-radius: var(--radius-md);
-      cursor: pointer; font-family: inherit; font-size: 0.88rem;
-      font-weight: 700; transition: background 0.15s;
-    }
+    .btn-modal-export { padding: 0.6rem 1.5rem; background: var(--primary); border: none; color: white; border-radius: var(--radius-md); cursor: pointer; font-family: inherit; font-size: 0.88rem; font-weight: 700; transition: background 0.15s; }
     .btn-modal-export:hover { background: var(--primary-dark); }
 
     /* ── Hint Toast ── */
-    .hint-toast {
-      position: fixed;
-      top: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--primary);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.88rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      z-index: 10000;
-      animation: slideDown 0.3s ease-out;
-      pointer-events: none;
-    }
+    .hint-toast { position: fixed; top: 90px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; font-size: 0.88rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 10000; animation: slideDown 0.3s ease-out; pointer-events: none; }
     @keyframes slideDown { from{opacity:0;transform:translateX(-50%) translateY(-12px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
 
-    /* ── Footer ── */
-    .main-footer {
-      background: var(--gray-900);
-      color: var(--gray-300);
-      padding: 3rem 2rem 2rem;
-      margin-top: 4rem;
-    }
+    /* ── Footer — hardcoded dark so dark-mode var(--dark) override doesn't affect it ── */
+    .main-footer { background: #111827; color: var(--gray-300); padding: 3rem 2rem 2rem; margin-top: 4rem; }
     .footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
     .footer-logo { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
     .footer-logo-text { font-size: 1.5rem; font-weight: 700; color: white; }
@@ -697,57 +381,16 @@
     .copyright { margin-top: 2rem; color: var(--gray-400); font-size: 0.9rem; }
 
     /* ── Back to Top ── */
-    .back-to-top {
-      position: fixed;
-      bottom: 2rem; right: 2rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      width: 50px; height: 50px;
-      border-radius: 50%;
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-lg);
-      transition: transform 0.2s;
-      z-index: 1000;
-    }
+    .back-to-top { position: fixed; bottom: 2rem; right: 2rem; background: var(--primary); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: var(--shadow-lg); transition: transform 0.2s; z-index: 1000; }
     .back-to-top:hover { transform: translateY(-5px); }
 
     /* ── Privacy Badge ── */
-    .privacy-badge {
-      position: fixed;
-      bottom: 20px; left: 20px;
-      background: var(--success);
-      color: white;
-      padding: 0.75rem 1.25rem;
-      border-radius: 50px;
-      font-weight: 600;
-      box-shadow: var(--shadow-lg);
-      z-index: 900;
-      display: none;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-      transition: transform 0.2s;
-    }
+    .privacy-badge { position: fixed; bottom: 20px; left: 20px; background: var(--success); color: white; padding: 0.75rem 1.25rem; border-radius: 50px; font-weight: 600; box-shadow: var(--shadow-lg); z-index: 900; display: none; align-items: center; gap: 0.5rem; font-size: 0.9rem; transition: transform 0.2s; }
     .privacy-badge.show { display: flex; }
     .privacy-badge:hover { transform: translateY(-2px); }
 
     /* ── Support Notice ── */
-    .support-notice {
-      background: linear-gradient(135deg, #fffbeb, #fef3c7);
-      border: 2px dashed #f59e0b;
-      border-radius: var(--radius-lg);
-      padding: var(--space-lg);
-      margin: 2rem auto;
-      max-width: 800px;
-      text-align: center;
-      display: none;
-      animation: slideUp 0.5s ease-out;
-    }
+    .support-notice { background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 2px dashed #f59e0b; border-radius: var(--radius-lg); padding: var(--space-lg); margin: 2rem auto; max-width: 800px; text-align: center; display: none; animation: slideUp 0.5s ease-out; }
     .support-notice.show { display: block; }
     @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
@@ -767,18 +410,6 @@
     .tool-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
     .card-icon { font-size: 2rem; margin-bottom: 0.5rem; }
 
-    /* ── Keyboard Shortcut Badge ── */
-    .kbd {
-      background: var(--gray-200);
-      border: 1px solid var(--gray-400);
-      border-radius: 3px;
-      font-size: 0.65rem;
-      padding: 1px 4px;
-      font-family: monospace;
-      color: var(--gray-600);
-      margin-left: 2px;
-    }
-
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .toolbar { flex-direction: column; align-items: stretch; }
@@ -794,7 +425,6 @@
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="sticky-nav">
     <div class="nav-container">
       <a href="../index.html" class="nav-logo">
@@ -812,10 +442,8 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
   <main class="container">
 
-    <!-- Tool Header -->
     <div class="tool-header">
       <div class="tool-breadcrumb">
         <a href="../index.html">Home</a> /
@@ -831,7 +459,6 @@
       </div>
     </div>
 
-    <!-- Upload Section -->
     <div class="drop-zone" id="drop-zone">
       <div class="drop-zone-content">
         <span class="icon">📄</span>
@@ -841,73 +468,50 @@
       <input type="file" id="pdf-upload" accept=".pdf" hidden>
     </div>
 
-    <!-- Editor Section -->
     <div class="editor-section" id="editor-section">
 
       <!-- Primary Toolbar -->
       <div class="toolbar" id="primary-toolbar">
-
-        <!-- File -->
         <div class="toolbar-group">
-          <button class="tool-btn" data-tip="Open new PDF" onclick="openNewFile()">
-            <span>📂</span> <span style="font-size:0.78rem">Open</span>
-          </button>
+          <button class="tool-btn" data-tip="Open new PDF" onclick="openNewFile()"><span>📂</span> <span style="font-size:0.78rem">Open</span></button>
         </div>
-
-        <!-- Select & Text & Annotation Tools -->
         <div class="toolbar-group">
-          <button class="tool-btn" id="tool-select"   data-tip="Select / Move (V)"       onclick="setTool('select')">🖱 Select</button>
-          <button class="tool-btn" id="tool-text"     data-tip="Add Text (T)"             onclick="setTool('text')">📝 Text</button>
-          <button class="tool-btn" id="tool-whiteout" data-tip="Whiteout / Cover (W)"     onclick="setTool('whiteout')">⬜ Whiteout</button>
-          <button class="tool-btn" id="tool-draw"     data-tip="Freehand Draw (D)"        onclick="setTool('draw')">✏️ Draw</button>
-          <button class="tool-btn" id="tool-eraser"   data-tip="Eraser (E)"               onclick="setTool('eraser')">🧹 Eraser</button>
+          <button class="tool-btn" id="tool-select"   data-tip="Select / Move (V)"   onclick="setTool('select')">🖱 Select</button>
+          <button class="tool-btn" id="tool-text"     data-tip="Add Text (T)"         onclick="setTool('text')">📝 Text</button>
+          <button class="tool-btn" id="tool-whiteout" data-tip="Whiteout / Cover (W)" onclick="setTool('whiteout')">⬜ Whiteout</button>
+          <button class="tool-btn" id="tool-draw"     data-tip="Freehand Draw (D)"    onclick="setTool('draw')">✏️ Draw</button>
+          <button class="tool-btn" id="tool-eraser"   data-tip="Eraser (E)"           onclick="setTool('eraser')">🧹 Eraser</button>
         </div>
-
-        <!-- Shape Tools -->
         <div class="toolbar-group">
-          <button class="tool-btn" id="tool-rect"    data-tip="Rectangle (R)"  onclick="setTool('rect')" style="font-size:1rem;">▭</button>
+          <button class="tool-btn" id="tool-rect"    data-tip="Rectangle (R)"  onclick="setTool('rect')"    style="font-size:1rem;">▭</button>
           <button class="tool-btn" id="tool-ellipse" data-tip="Ellipse"        onclick="setTool('ellipse')" style="font-size:1rem;">⬭</button>
-          <button class="tool-btn" id="tool-line"    data-tip="Line"           onclick="setTool('line')" style="font-size:1rem;">╱</button>
-          <button class="tool-btn" id="tool-arrow"   data-tip="Arrow"          onclick="setTool('arrow')" style="font-size:1rem;">↗</button>
+          <button class="tool-btn" id="tool-line"    data-tip="Line"           onclick="setTool('line')"    style="font-size:1rem;">╱</button>
+          <button class="tool-btn" id="tool-arrow"   data-tip="Arrow"          onclick="setTool('arrow')"   style="font-size:1rem;">↗</button>
         </div>
-
-        <!-- Undo / Redo -->
         <div class="toolbar-group">
           <button class="tool-btn" id="btn-undo" data-tip="Undo (Ctrl+Z)" onclick="pdfEditor&&pdfEditor.undo()">↶ Undo</button>
           <button class="tool-btn" id="btn-redo" data-tip="Redo (Ctrl+Y)" onclick="pdfEditor&&pdfEditor.redo()">↷ Redo</button>
         </div>
-
-        <!-- Zoom -->
         <div class="toolbar-group">
           <button class="tool-btn" data-tip="Zoom Out (−)" onclick="adjustZoom(-0.15)">🔍−</button>
           <span class="zoom-display" id="zoom-display" onclick="resetZoom()" data-tip="Reset to 100%">100%</span>
           <button class="tool-btn" data-tip="Zoom In (+)" onclick="adjustZoom(0.15)">🔍+</button>
           <button class="tool-btn" data-tip="Fit width" onclick="fitWidth()">↔</button>
         </div>
-
-        <!-- Pages -->
         <div class="toolbar-group">
           <button class="tool-btn" data-tip="Toggle page thumbnails" id="btn-thumbs" onclick="toggleThumbs()">⊞ Pages</button>
           <button class="tool-btn" id="btn-prev-tb" data-tip="Previous page" onclick="changePage(-1)">‹</button>
           <span class="page-info" id="page-info-tb" style="font-size:0.82rem;min-width:60px;">1 / 1</span>
           <button class="tool-btn" id="btn-next-tb" data-tip="Next page" onclick="changePage(1)">›</button>
         </div>
-
-        <!-- Actions -->
         <div class="toolbar-group" style="margin-left:auto;">
-          <button class="tool-btn" id="clear-annotations" data-tip="Clear all on this page" style="border-color:var(--warning);color:var(--warning);" onclick="clearCurrentPage()">
-            🗑️ Clear
-          </button>
-          <button class="tool-btn" onclick="openExportModal()" style="background:var(--success);color:white;border-color:var(--success);font-weight:700;">
-            💾 Export
-          </button>
+          <button class="tool-btn" id="clear-annotations" data-tip="Clear all on this page" style="border-color:var(--warning);color:var(--warning);" onclick="clearCurrentPage()">🗑️ Clear</button>
+          <button class="tool-btn" onclick="openExportModal()" style="background:var(--success);color:white;border-color:var(--success);font-weight:700;">💾 Export</button>
         </div>
       </div>
 
       <!-- Context Toolbar -->
       <div class="context-toolbar" id="context-toolbar">
-
-        <!-- Text context -->
         <div id="ctx-text" style="display:none;align-items:center;gap:0.4rem;flex-wrap:wrap;">
           <div class="ctx-group">
             <span class="ctx-label">Font</span>
@@ -941,7 +545,6 @@
           </div>
         </div>
 
-        <!-- Whiteout context -->
         <div id="ctx-whiteout" style="display:none;align-items:center;gap:0.4rem;">
           <div class="ctx-group">
             <span class="ctx-label">Fill Color</span>
@@ -955,7 +558,6 @@
           </div>
         </div>
 
-        <!-- Draw context -->
         <div id="ctx-draw" style="display:none;align-items:center;gap:0.4rem;flex-wrap:wrap;">
           <div class="ctx-group">
             <span class="ctx-label">Color</span>
@@ -974,7 +576,6 @@
           </div>
         </div>
 
-        <!-- Shape context -->
         <div id="ctx-shape" style="display:none;align-items:center;gap:0.4rem;flex-wrap:wrap;">
           <div class="ctx-group">
             <span class="ctx-label">Stroke</span>
@@ -991,7 +592,6 @@
           </div>
         </div>
 
-        <!-- Eraser context -->
         <div id="ctx-eraser" style="display:none;align-items:center;gap:0.4rem;">
           <div class="ctx-group">
             <span class="ctx-label">Size</span>
@@ -1002,24 +602,17 @@
             <button class="tool-btn" style="color:var(--danger);border-color:var(--danger);" onclick="pdfEditor&&pdfEditor.clearDrawings()">Clear drawings</button>
           </div>
         </div>
+      </div>
 
-      </div><!-- end context-toolbar -->
-
-      <!-- Loader -->
       <div class="loader" id="loader">
         <div class="spinner"></div>
         <p>Processing PDF...</p>
       </div>
 
-      <!-- Editor Layout (sidebar + main) -->
       <div class="editor-layout">
-
-        <!-- Thumbnail Sidebar -->
         <div class="thumbnail-sidebar" id="thumb-sidebar">
           <div class="thumb-inner" id="thumb-inner"></div>
         </div>
-
-        <!-- Main Editor Panel -->
         <div class="editor-main">
           <div class="pdf-viewer-container" style="border-top-left-radius:0;border-top-right-radius:0;padding-top:1rem;">
             <div class="canvas-scroll-area" id="canvas-scroll-area">
@@ -1029,8 +622,6 @@
                 <canvas class="drawing-canvas" id="drawing-canvas"></canvas>
               </div>
             </div>
-
-            <!-- Page Controls -->
             <div class="page-controls">
               <button id="prev-page" onclick="changePage(-1)">← Previous</button>
               <input type="number" id="page-jump" class="page-jump" min="1" value="1" title="Jump to page">
@@ -1038,8 +629,6 @@
               <button id="next-page" onclick="changePage(1)">Next →</button>
             </div>
           </div>
-
-          <!-- Status Bar -->
           <div class="status-bar" id="status-bar">
             <span><span class="status-dot" id="status-dot"></span> <span id="status-tool">Ready</span></span>
             <span id="status-coords">x: — &nbsp; y: —</span>
@@ -1048,18 +637,16 @@
             <span id="status-unsaved" style="display:none;color:var(--warning);">● Unsaved changes</span>
           </div>
         </div>
-      </div><!-- end editor-layout -->
+      </div>
 
     </div><!-- end editor-section -->
 
-    <!-- Support Notice -->
     <div id="support-box" class="support-notice">
       <p>✅ <strong>PDF Edited Successfully!</strong></p>
       <p style="font-size:1rem;margin:5px 0 10px;color:#92400e;">Kimosabe Tools is a solo project. If this helped you, consider supporting it!</p>
       <a href="../donate.html" style="display:inline-block;text-decoration:none;margin-top:10px;background:var(--warning);color:white;padding:0.6rem 1.5rem;border-radius:50px;font-weight:700;">☕ Support the Developer</a>
     </div>
 
-    <!-- Features Section -->
     <section class="tool-description">
       <h2>Professional PDF Editing — In Your Browser</h2>
       <div class="feature-grid">
@@ -1090,13 +677,12 @@
       </div>
     </section>
 
-    <!-- More Tools -->
     <nav class="more-tools">
-      <h3>Other PDF & Image Tools</h3>
+      <h3>Other PDF &amp; Image Tools</h3>
       <div class="tools-grid">
         <a href="sign-pdf.html"         class="tool-card"><div class="card-icon">✍️</div><span>Sign PDF</span></a>
         <a href="merge-pdf.html"        class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
-        <a href="rotate-split-pdf.html" class="tool-card"><div class="card-icon">✂️</div><span>Rotate & Split</span></a>
+        <a href="rotate-split-pdf.html" class="tool-card"><div class="card-icon">✂️</div><span>Rotate &amp; Split</span></a>
         <a href="compress-pdf.html"     class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
         <a href="image-to-pdf.html"     class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
         <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Compress Image</span></a>
@@ -1105,13 +691,10 @@
 
   </main>
 
-  <!-- Footer -->
   <footer class="main-footer">
     <div class="footer-content">
       <div class="footer-logo">
-        <div>
-          <img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60">
-        </div>
+        <div><img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60"></div>
         <div class="footer-logo-text">Kimosabe Tools</div>
       </div>
       <div style="text-align:center;margin-bottom:2rem;">
@@ -1132,10 +715,7 @@
     </div>
   </footer>
 
-  <!-- Back to Top -->
   <button class="back-to-top" aria-label="Back to top">↑</button>
-
-  <!-- Privacy Badge -->
   <div class="privacy-badge" id="privacy-badge">🔒 100% Private - No Uploads</div>
 
   <!-- Export Modal -->
@@ -1197,7 +777,7 @@
     return new Promise((res, rej) => {
       const s = document.createElement('script');
       s.src = src;
-      s.onload = () => { console.log('✓ Loaded: ' + src); res(); };
+      s.onload = () => res();
       s.onerror = () => rej(new Error('Failed: ' + src));
       document.head.appendChild(s);
     });
@@ -1216,7 +796,6 @@
       await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
       await waitFor(() => typeof pdfjsLib !== 'undefined');
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
       for (const src of [
         'https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js',
         'https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js'
@@ -1224,7 +803,6 @@
         try { await loadScript(src); await waitFor(() => typeof PDFLib !== 'undefined', 5000); break; }
         catch (e) { console.warn('Trying next CDN...'); }
       }
-
       if (!pdfjsLib || !PDFLib) throw new Error('Required libraries unavailable');
       resetDropZone();
       setupUpload();
@@ -1243,18 +821,18 @@
   }
   function showDropZoneError(msg) {
     const c = document.querySelector('.drop-zone-content');
-    if (c) c.innerHTML = `<span class="icon">⚠️</span><p><strong>Failed to Load PDF Tools</strong></p><span class="file-limit" style="color:var(--danger);">${msg}<br><br>Check your internet connection and refresh. Try disabling ad blockers.</span><button onclick="location.reload()" class="tool-btn" style="margin-top:1rem;">🔄 Refresh</button>`;
+    if (c) c.innerHTML = `<span class="icon">⚠️</span><p><strong>Failed to Load PDF Tools</strong></p><span class="file-limit" style="color:var(--danger);">${msg}<br><br>Check your internet connection and refresh.</span><button onclick="location.reload()" class="tool-btn" style="margin-top:1rem;">🔄 Refresh</button>`;
   }
 
   // ─────────────────────────────────────────────────────────────
   // UPLOAD
   // ─────────────────────────────────────────────────────────────
   function setupUpload() {
-    const dz = document.getElementById('drop-zone');
+    const dz  = document.getElementById('drop-zone');
     const inp = document.getElementById('pdf-upload');
     dz.addEventListener('click', () => inp.click());
     inp.addEventListener('change', e => handleFileUpload(e.target.files[0]));
-    dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+    dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('dragover'); });
     dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
     dz.addEventListener('drop', e => {
       e.preventDefault(); dz.classList.remove('dragover');
@@ -1267,26 +845,21 @@
     if (file.type !== 'application/pdf') return alert('Please select a valid PDF file.');
     if (file.size > 100 * 1024 * 1024) return alert('File size exceeds 100MB limit.');
     document.getElementById('support-box').classList.remove('show');
-
     showLoader(true);
     try {
-      const buf = await file.arrayBuffer();
+      const buf  = await file.arrayBuffer();
       const buf2 = buf.slice(0);
-      const pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
+      const pdfDoc    = await pdfjsLib.getDocument({ data: buf }).promise;
       const pdfLibDoc = await PDFLib.PDFDocument.load(buf2);
-
       document.getElementById('drop-zone').style.display = 'none';
       document.getElementById('editor-section').classList.add('active');
       document.getElementById('privacy-badge').classList.add('show');
-
       pdfEditor = new PDFEditor(pdfDoc, pdfLibDoc, file.name);
       window.pdfEditor = pdfEditor;
       setTool('select');
-
       window.addEventListener('beforeunload', e => {
         if (pdfEditor && pdfEditor.isDirty) { e.preventDefault(); e.returnValue = ''; }
       });
-
       if (typeof gtag !== 'undefined') gtag('event', 'pdf_uploaded', { event_category: 'tool_usage', event_label: 'edit_pdf' });
     } catch (err) {
       let msg = 'Error loading PDF.';
@@ -1309,36 +882,22 @@
   // TOOL MANAGEMENT
   // ─────────────────────────────────────────────────────────────
   const ALL_TOOLS = ['select','text','whiteout','draw','eraser','rect','ellipse','line','arrow'];
-  const CTX_IDS = { text:'ctx-text', whiteout:'ctx-whiteout', draw:'ctx-draw', eraser:'ctx-eraser', rect:'ctx-shape', ellipse:'ctx-shape', line:'ctx-shape', arrow:'ctx-shape' };
+  const CTX_IDS   = { text:'ctx-text', whiteout:'ctx-whiteout', draw:'ctx-draw', eraser:'ctx-eraser', rect:'ctx-shape', ellipse:'ctx-shape', line:'ctx-shape', arrow:'ctx-shape' };
 
   function setTool(tool) {
     currentTool = tool;
-    ALL_TOOLS.forEach(t => {
-      const b = document.getElementById('tool-' + t);
-      if (b) b.classList.toggle('active', t === tool);
-    });
-
-    // Context toolbar
+    ALL_TOOLS.forEach(t => { const b = document.getElementById('tool-' + t); if (b) b.classList.toggle('active', t === tool); });
     const ctx = document.getElementById('context-toolbar');
-    ['ctx-text','ctx-whiteout','ctx-draw','ctx-eraser','ctx-shape'].forEach(id => {
-      document.getElementById(id).style.display = 'none';
-    });
+    ['ctx-text','ctx-whiteout','ctx-draw','ctx-eraser','ctx-shape'].forEach(id => { document.getElementById(id).style.display = 'none'; });
     const ctxId = CTX_IDS[tool];
-    if (ctxId) {
-      document.getElementById(ctxId).style.display = 'flex';
-      ctx.classList.add('visible');
-    } else {
-      ctx.classList.remove('visible');
-    }
-
-    // Canvas pointer events
-    const annLayer = document.getElementById('annotation-layer');
+    if (ctxId) { document.getElementById(ctxId).style.display = 'flex'; ctx.classList.add('visible'); }
+    else ctx.classList.remove('visible');
+    const annLayer   = document.getElementById('annotation-layer');
     const drawCanvas = document.getElementById('drawing-canvas');
     annLayer.classList.remove('active');
     drawCanvas.classList.remove('active');
     if (['text','whiteout','select'].includes(tool)) annLayer.classList.add('active');
     else if (['draw','eraser','rect','ellipse','line','arrow'].includes(tool)) drawCanvas.classList.add('active');
-
     document.getElementById('status-tool').textContent = tool ? (tool.charAt(0).toUpperCase() + tool.slice(1)) : 'Ready';
     if (pdfEditor) pdfEditor.deselect();
   }
@@ -1347,18 +906,18 @@
   // ZOOM
   // ─────────────────────────────────────────────────────────────
   function adjustZoom(delta) { setZoom(Math.max(0.3, Math.min(4, currentScale + delta))); }
-  function resetZoom() { setZoom(1.5); }
+  function resetZoom()       { setZoom(1.5); }
   function setZoom(z) {
     currentScale = z;
     const pct = Math.round((z / 1.5) * 100);
-    document.getElementById('canvas-wrapper').style.transform = `scale(${z / 1.5})`;
+    document.getElementById('canvas-wrapper').style.transform       = `scale(${z / 1.5})`;
     document.getElementById('canvas-wrapper').style.transformOrigin = 'top center';
-    document.getElementById('zoom-display').textContent = pct + '%';
-    document.getElementById('status-zoom').textContent = 'Zoom: ' + pct + '%';
+    document.getElementById('zoom-display').textContent  = pct + '%';
+    document.getElementById('status-zoom').textContent   = 'Zoom: ' + pct + '%';
     if (pdfEditor) pdfEditor.scale = z;
   }
   function fitWidth() {
-    const area = document.getElementById('canvas-scroll-area');
+    const area   = document.getElementById('canvas-scroll-area');
     const canvas = document.getElementById('pdf-canvas');
     if (!canvas.width) return;
     setZoom(((area.clientWidth - 64) / canvas.width) * 1.5);
@@ -1380,10 +939,10 @@
   function applyTextStyle() {
     if (!pdfEditor || !pdfEditor.selectedAnn || pdfEditor.selectedAnn.type !== 'text') return;
     const a = pdfEditor.selectedAnn, el = a.element;
-    a.fontSize    = document.getElementById('font-size').value;
-    a.fontFamily  = document.getElementById('font-family').value;
-    a.color       = document.getElementById('text-color').value;
-    a.opacity     = document.getElementById('text-opacity').value;
+    a.fontSize   = document.getElementById('font-size').value;
+    a.fontFamily = document.getElementById('font-family').value;
+    a.color      = document.getElementById('text-color').value;
+    a.opacity    = document.getElementById('text-opacity').value;
     el.style.fontSize   = a.fontSize + 'px';
     el.style.fontFamily = a.fontFamily;
     el.style.color      = a.color;
@@ -1392,9 +951,9 @@
   function toggleFmt(f) {
     if (!pdfEditor || !pdfEditor.selectedAnn || pdfEditor.selectedAnn.type !== 'text') return;
     const a = pdfEditor.selectedAnn, el = a.element;
-    if (f === 'bold')   { a.bold   = !a.bold;   el.style.fontWeight     = a.bold   ? '700'       : '400';  document.getElementById('btn-bold').classList.toggle('active',   a.bold); }
-    if (f === 'italic') { a.italic = !a.italic; el.style.fontStyle      = a.italic ? 'italic'    : 'normal'; document.getElementById('btn-italic').classList.toggle('active', a.italic); }
-    if (f === 'under')  { a.under  = !a.under;  el.style.textDecoration = a.under  ? 'underline' : 'none';  document.getElementById('btn-under').classList.toggle('active',  a.under); }
+    if (f === 'bold')   { a.bold   = !a.bold;   el.style.fontWeight     = a.bold   ? '700'       : '400';      document.getElementById('btn-bold').classList.toggle('active',   a.bold); }
+    if (f === 'italic') { a.italic = !a.italic; el.style.fontStyle      = a.italic ? 'italic'    : 'normal';   document.getElementById('btn-italic').classList.toggle('active', a.italic); }
+    if (f === 'under')  { a.under  = !a.under;  el.style.textDecoration = a.under  ? 'underline' : 'none';     document.getElementById('btn-under').classList.toggle('active',  a.under); }
   }
   function setAlign(al) {
     if (!pdfEditor || !pdfEditor.selectedAnn || pdfEditor.selectedAnn.type !== 'text') return;
@@ -1417,10 +976,7 @@
   // ─────────────────────────────────────────────────────────────
   // CLEAR / DIRTY / COUNT
   // ─────────────────────────────────────────────────────────────
-  function clearCurrentPage() {
-    if (!pdfEditor || !confirm('Clear all annotations on this page?')) return;
-    pdfEditor.clearPage(); showHint('🗑️ Page cleared');
-  }
+  function clearCurrentPage() { if (!pdfEditor || !confirm('Clear all annotations on this page?')) return; pdfEditor.clearPage(); showHint('🗑️ Page cleared'); }
   function setDirty(v) {
     document.getElementById('status-unsaved').style.display = v ? '' : 'none';
     document.getElementById('status-dot').classList.toggle('unsaved', v);
@@ -1435,7 +991,7 @@
   // ─────────────────────────────────────────────────────────────
   // EXPORT MODAL
   // ─────────────────────────────────────────────────────────────
-  function openExportModal() { document.getElementById('export-modal').classList.add('active'); selectExportType('pdf'); }
+  function openExportModal()  { document.getElementById('export-modal').classList.add('active'); selectExportType('pdf'); }
   function closeExportModal() { document.getElementById('export-modal').classList.remove('active'); }
   function selectExportType(t) {
     exportType = t;
@@ -1455,35 +1011,23 @@
   // HINT TOAST
   // ─────────────────────────────────────────────────────────────
   function showHint(msg) {
-    const ex = document.getElementById('hint-toast');
-    if (ex) ex.remove();
-    const h = document.createElement('div');
-    h.id = 'hint-toast'; h.className = 'hint-toast'; h.textContent = msg;
+    const ex = document.getElementById('hint-toast'); if (ex) ex.remove();
+    const h = document.createElement('div'); h.id = 'hint-toast'; h.className = 'hint-toast'; h.textContent = msg;
     document.body.appendChild(h);
     setTimeout(() => { h.style.opacity = '0'; h.style.transition = 'opacity 0.3s'; setTimeout(() => h.remove(), 300); }, 3500);
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // LOADER
-  // ─────────────────────────────────────────────────────────────
-  function showLoader(show) {
-    document.getElementById('loader').classList.toggle('active', show);
-  }
+  function showLoader(show) { document.getElementById('loader').classList.toggle('active', show); }
 
-  // ─────────────────────────────────────────────────────────────
-  // CURSOR COORDS IN STATUS BAR
-  // ─────────────────────────────────────────────────────────────
   document.addEventListener('mousemove', function(e) {
-    const wrapper = document.getElementById('canvas-wrapper');
-    if (!wrapper) return;
-    const r = wrapper.getBoundingClientRect();
+    const wrapper = document.getElementById('canvas-wrapper'); if (!wrapper) return;
+    const r  = wrapper.getBoundingClientRect();
     const sc = currentScale / 1.5;
-    const x = Math.round((e.clientX - r.left) / sc);
-    const y = Math.round((e.clientY - r.top) / sc);
+    const x  = Math.round((e.clientX - r.left) / sc);
+    const y  = Math.round((e.clientY - r.top)  / sc);
     if (x >= 0 && y >= 0) document.getElementById('status-coords').textContent = 'x: ' + x + '  y: ' + y;
   });
 
-  // PAGE JUMP
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('page-jump').addEventListener('change', function() {
       if (!pdfEditor) return;
@@ -1498,14 +1042,14 @@
   // ─────────────────────────────────────────────────────────────
   class PDFEditor {
     constructor(pdfDoc, pdfLibDoc, fileName) {
-      this.pdfDoc     = pdfDoc;
-      this.pdfLibDoc  = pdfLibDoc;
-      this.fileName   = fileName.replace(/\.pdf$/i, '_edited');
+      this.pdfDoc      = pdfDoc;
+      this.pdfLibDoc   = pdfLibDoc;
+      this.fileName    = fileName.replace(/\.pdf$/i, '_edited');
       this.currentPage = 1;
       this.totalPages  = pdfDoc.numPages;
       this.scale       = currentScale;
-      this.annotations = new Map();   // page -> annotation[]
-      this.drawPaths   = new Map();   // page -> path[]
+      this.annotations = new Map();
+      this.drawPaths   = new Map();
       this.undoStack   = [];
       this.redoStack   = [];
       this.selectedAnn = null;
@@ -1513,7 +1057,6 @@
       this.isDrawing   = false;
       this.curPath     = null;
       this.shapeStart  = null;
-
       this.setupDrawCanvas();
       this.setupKeys();
       this.renderPage();
@@ -1529,37 +1072,28 @@
       const dc = document.getElementById('drawing-canvas');
       dc.width = vp.width; dc.height = vp.height;
       await page.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
-
       const pg = this.currentPage, tp = this.totalPages;
       document.getElementById('page-info').textContent    = 'Page ' + pg + ' of ' + tp;
       document.getElementById('page-info-tb').textContent = pg + ' / ' + tp;
       document.getElementById('page-jump').value = pg;
       document.getElementById('page-jump').max   = tp;
-      document.getElementById('prev-page').disabled    = pg === 1;
-      document.getElementById('next-page').disabled    = pg === tp;
-      document.getElementById('btn-prev-tb').disabled  = pg === 1;
-      document.getElementById('btn-next-tb').disabled  = pg === tp;
-
-      this.restoreAnnotations();
-      this.restoreDrawings();
-      this.highlightThumb();
-      updateAnnCount();
+      document.getElementById('prev-page').disabled   = pg === 1;
+      document.getElementById('next-page').disabled   = pg === tp;
+      document.getElementById('btn-prev-tb').disabled = pg === 1;
+      document.getElementById('btn-next-tb').disabled = pg === tp;
+      this.restoreAnnotations(); this.restoreDrawings(); this.highlightThumb(); updateAnnCount();
     }
 
     // ── THUMBNAILS ───────────────────────────────────────────
     async buildThumbnails() {
-      const inner = document.getElementById('thumb-inner');
-      inner.innerHTML = '';
+      const inner = document.getElementById('thumb-inner'); inner.innerHTML = '';
       for (let i = 1; i <= this.totalPages; i++) {
         const item = document.createElement('div');
         item.className = 'thumb-item' + (i === this.currentPage ? ' active' : '');
         item.dataset.page = i;
         item.onclick = () => { this.currentPage = i; this.renderPage(); };
-        const tc = document.createElement('canvas');
-        item.appendChild(tc);
-        const lbl = document.createElement('div');
-        lbl.className = 'thumb-lbl'; lbl.textContent = 'Page ' + i;
-        item.appendChild(lbl);
+        const tc  = document.createElement('canvas'); item.appendChild(tc);
+        const lbl = document.createElement('div'); lbl.className = 'thumb-lbl'; lbl.textContent = 'Page ' + i; item.appendChild(lbl);
         inner.appendChild(item);
         const pg2 = await this.pdfDoc.getPage(i);
         const v2  = pg2.getViewport({ scale: 0.22 });
@@ -1567,9 +1101,7 @@
         await pg2.render({ canvasContext: tc.getContext('2d'), viewport: v2 }).promise;
       }
     }
-    highlightThumb() {
-      document.querySelectorAll('.thumb-item').forEach(el => el.classList.toggle('active', parseInt(el.dataset.page) === this.currentPage));
-    }
+    highlightThumb() { document.querySelectorAll('.thumb-item').forEach(el => el.classList.toggle('active', parseInt(el.dataset.page) === this.currentPage)); }
 
     // ── DRAWING CANVAS ───────────────────────────────────────
     setupDrawCanvas() {
@@ -1581,7 +1113,7 @@
       ['touchstart','touchmove','touchend'].forEach(ev => {
         dc.addEventListener(ev, e => {
           e.preventDefault();
-          const t = e.touches[0] || (e.changedTouches && e.changedTouches[0]);
+          const t  = e.touches[0] || (e.changedTouches && e.changedTouches[0]);
           const me = t ? { clientX: t.clientX, clientY: t.clientY } : {};
           if (ev === 'touchstart') this.drawStart(me);
           else if (ev === 'touchmove') this.drawMove(me);
@@ -1619,13 +1151,11 @@
       const dc = document.getElementById('drawing-canvas');
       const ctx = dc.getContext('2d');
       if (t === 'draw') {
-        this.curPath.pts.push(p);
-        this.redrawPath(ctx, this.curPath);
+        this.curPath.pts.push(p); this.redrawPath(ctx, this.curPath);
       } else if (t === 'eraser') {
         this.eraseAt(p);
       } else if (this.shapeStart) {
-        this.restoreDrawings();
-        this.renderShape(ctx, this.makeShapePath(t, this.shapeStart, p));
+        this.restoreDrawings(); this.renderShape(ctx, this.makeShapePath(t, this.shapeStart, p));
       }
     }
 
@@ -1634,8 +1164,7 @@
       const t = currentTool;
       if (t === 'draw' && this.curPath) {
         if (!this.drawPaths.has(this.currentPage)) this.drawPaths.set(this.currentPage, []);
-        this.drawPaths.get(this.currentPage).push(this.curPath);
-        this.curPath = null; setDirty(true);
+        this.drawPaths.get(this.currentPage).push(this.curPath); this.curPath = null; setDirty(true);
       } else if (['rect','ellipse','line','arrow'].includes(t) && this.shapeStart) {
         const p = this.canvasPos(e.clientX !== undefined ? e : { clientX: 0, clientY: 0 });
         if (!this.drawPaths.has(this.currentPage)) this.drawPaths.set(this.currentPage, []);
@@ -1656,10 +1185,9 @@
       if (pts.length === 1) { ctx.arc(pts[0].x, pts[0].y, path.width / 2, 0, Math.PI * 2); ctx.fillStyle = path.color; ctx.fill(); return; }
       ctx.moveTo(pts[0].x, pts[0].y);
       for (let i = 1; i < pts.length - 1; i++) {
-        ctx.quadraticCurveTo(pts[i].x, pts[i].y, (pts[i].x + pts[i + 1].x) / 2, (pts[i].y + pts[i + 1].y) / 2);
+        ctx.quadraticCurveTo(pts[i].x, pts[i].y, (pts[i].x + pts[i+1].x) / 2, (pts[i].y + pts[i+1].y) / 2);
       }
-      ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
-      ctx.stroke();
+      ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y); ctx.stroke();
     }
 
     renderShape(ctx, path) {
@@ -1702,12 +1230,11 @@
     clearDrawings() {
       this.drawPaths.delete(this.currentPage);
       const dc = document.getElementById('drawing-canvas');
-      dc.getContext('2d').clearRect(0, 0, dc.width, dc.height);
-      setDirty(true);
+      dc.getContext('2d').clearRect(0, 0, dc.width, dc.height); setDirty(true);
     }
 
     restoreDrawings() {
-      const dc = document.getElementById('drawing-canvas');
+      const dc  = document.getElementById('drawing-canvas');
       const ctx = dc.getContext('2d');
       ctx.clearRect(0, 0, dc.width, dc.height);
       if (!this.drawPaths.has(this.currentPage)) return;
@@ -1730,32 +1257,44 @@
 
     // ── KEYBOARD & CLICK SETUP ───────────────────────────────
     setupKeys() {
-      const layer = document.getElementById('annotation-layer');
+      const layer  = document.getElementById('annotation-layer');
       const canvas = document.getElementById('pdf-canvas');
+
       const handleClick = e => {
         if (!['text','whiteout'].includes(currentTool)) return;
         if (e.target.classList.contains('text-annotation') ||
             e.target.classList.contains('whiteout-rect') ||
             e.target.classList.contains('annotation-delete-btn') ||
             e.target.classList.contains('resize-handle')) return;
+
         const r = layer.getBoundingClientRect();
-        const x = e.clientX - r.left, y = e.clientY - r.top;
+
+        // FIX: canvas-wrapper may have CSS transform:scale() applied for zoom.
+        // getBoundingClientRect() returns post-transform (visual) coordinates,
+        // but style.left/top are in pre-transform layout coords. Divide by
+        // the scale factor so annotations land exactly where the user clicked.
+        const wrapEl = document.getElementById('canvas-wrapper');
+        const tfStr  = wrapEl.style.transform;
+        const sc     = tfStr ? (parseFloat(tfStr.match(/scale\(([^)]+)\)/)?.[1]) || 1) : 1;
+        const x = (e.clientX - r.left) / sc;
+        const y = (e.clientY - r.top)  / sc;
+
         this.saveState();
-        if (currentTool === 'text') this.addText(x, y);
-        else this.addWhiteout(x, y);
+        if (currentTool === 'text')     this.addText(x, y);
+        else                            this.addWhiteout(x, y);
       };
-      layer.addEventListener('click', handleClick);
+
+      layer.addEventListener('click',  handleClick);
       canvas.addEventListener('click', handleClick);
 
       document.addEventListener('keydown', e => {
-        const ae = document.activeElement;
+        const ae      = document.activeElement;
         const editing = ae && ae.classList.contains('text-annotation');
-        if ((e.ctrlKey||e.metaKey) && e.key==='z' && !e.shiftKey) { e.preventDefault(); this.undo(); }
-        if ((e.ctrlKey||e.metaKey) && (e.key==='y' || (e.shiftKey && e.key==='z'))) { e.preventDefault(); this.redo(); }
-        if ((e.ctrlKey||e.metaKey) && e.key==='d' && this.selectedAnn) { e.preventDefault(); this.dupSel(); }
+        if ((e.ctrlKey||e.metaKey) && e.key==='z' && !e.shiftKey)           { e.preventDefault(); this.undo(); }
+        if ((e.ctrlKey||e.metaKey) && (e.key==='y'||(e.shiftKey&&e.key==='z'))) { e.preventDefault(); this.redo(); }
+        if ((e.ctrlKey||e.metaKey) && e.key==='d' && this.selectedAnn)       { e.preventDefault(); this.dupSel(); }
         if (!editing && this.selectedAnn) {
-          const step = e.shiftKey ? 10 : 1, a = this.selectedAnn;
-          let mv = false;
+          const step = e.shiftKey ? 10 : 1, a = this.selectedAnn; let mv = false;
           if (e.key==='ArrowLeft')  { a.element.style.left = (a.x -= step) + 'px'; mv = true; }
           if (e.key==='ArrowRight') { a.element.style.left = (a.x += step) + 'px'; mv = true; }
           if (e.key==='ArrowUp')    { a.element.style.top  = (a.y -= step) + 'px'; mv = true; }
@@ -1779,76 +1318,59 @@
 
     // ── ADD TEXT ─────────────────────────────────────────────
     addText(x, y, opts = {}) {
-      const layer  = document.getElementById('annotation-layer');
-      const fs     = opts.fontSize   || document.getElementById('font-size').value;
-      const ff     = opts.fontFamily || document.getElementById('font-family').value;
-      const fc     = opts.color      || document.getElementById('text-color').value;
-      const el = document.createElement('div');
-      el.className        = 'text-annotation';
-      el.contentEditable  = 'true';
-      el.spellcheck       = false;
-      el.style.left       = x + 'px';  el.style.top        = y + 'px';
-      el.style.fontSize   = fs + 'px'; el.style.fontFamily = ff;
-      el.style.color      = fc;        el.style.opacity    = (opts.opacity || 100) / 100;
-      el.style.fontWeight     = opts.bold   ? '700' : '400';
-      el.style.fontStyle      = opts.italic ? 'italic' : 'normal';
+      const layer = document.getElementById('annotation-layer');
+      const fs    = opts.fontSize   || document.getElementById('font-size').value;
+      const ff    = opts.fontFamily || document.getElementById('font-family').value;
+      const fc    = opts.color      || document.getElementById('text-color').value;
+      const el    = document.createElement('div');
+      el.className       = 'text-annotation';
+      el.contentEditable = 'true';
+      el.spellcheck      = false;
+      el.style.left      = x + 'px'; el.style.top        = y + 'px';
+      el.style.fontSize  = fs + 'px'; el.style.fontFamily = ff;
+      el.style.color     = fc; el.style.opacity = (opts.opacity || 100) / 100;
+      el.style.fontWeight     = opts.bold   ? '700'       : '400';
+      el.style.fontStyle      = opts.italic ? 'italic'    : 'normal';
       el.style.textDecoration = opts.under  ? 'underline' : 'none';
       el.style.textAlign      = opts.align  || 'left';
       el.textContent = opts.text || '';
       el.dataset.editing = 'true';
-
-      const ann = {
-        type: 'text', element: el, x, y,
-        fontSize: fs, fontFamily: ff, color: fc,
-        opacity: opts.opacity || 100, bold: !!opts.bold, italic: !!opts.italic,
-        under: !!opts.under, align: opts.align || 'left',
-        getText: () => el.textContent
-      };
-
+      const ann = { type: 'text', element: el, x, y, fontSize: fs, fontFamily: ff, color: fc, opacity: opts.opacity || 100, bold: !!opts.bold, italic: !!opts.italic, under: !!opts.under, align: opts.align || 'left', getText: () => el.textContent };
       this.makeDraggable(el, ann);
-      el.addEventListener('click',  e => { e.stopPropagation(); this.selectAnn(ann); });
-      el.addEventListener('focus',  () => { el.dataset.editing = 'true'; this.selectAnn(ann); });
-      el.addEventListener('blur',   () => { el.dataset.editing = 'false'; });
-      el.addEventListener('input',  () => setDirty(true));
-
+      el.addEventListener('click', e => { e.stopPropagation(); this.selectAnn(ann); });
+      el.addEventListener('focus', () => { el.dataset.editing = 'true'; this.selectAnn(ann); });
+      el.addEventListener('blur',  () => { el.dataset.editing = 'false'; });
+      el.addEventListener('input', () => setDirty(true));
       const delBtn = this.makeDelBtn(() => this.removeAnn(ann));
       ann._delBtn = delBtn;
       layer.appendChild(el); layer.appendChild(delBtn);
       this.positionDelBtn(el, delBtn);
       new MutationObserver(() => this.positionDelBtn(el, delBtn)).observe(el, { attributes: true, attributeFilter: ['style'] });
-
       if (!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage, []);
       this.annotations.get(this.currentPage).push(ann);
-
-      if (!opts.text) {
-        setTimeout(() => { el.focus(); document.execCommand('selectAll'); }, 30);
-      }
+      if (!opts.text) { setTimeout(() => { el.focus(); document.execCommand('selectAll'); }, 30); }
       setDirty(true); updateAnnCount();
     }
 
     // ── ADD WHITEOUT ─────────────────────────────────────────
     addWhiteout(x, y, opts = {}) {
       const layer = document.getElementById('annotation-layer');
-      const c = opts.color || document.getElementById('whiteout-color').value;
-      const el = document.createElement('div');
-      el.className       = 'whiteout-rect';
-      el.style.left      = x + 'px'; el.style.top    = y + 'px';
-      el.style.width     = (opts.w || 160) + 'px';
-      el.style.height    = (opts.h || 50)  + 'px';
+      const c     = opts.color || document.getElementById('whiteout-color').value;
+      const el    = document.createElement('div');
+      el.className        = 'whiteout-rect';
+      el.style.left       = x + 'px'; el.style.top    = y + 'px';
+      el.style.width      = (opts.w || 160) + 'px';
+      el.style.height     = (opts.h || 50)  + 'px';
       el.style.background = c;
       const rh = document.createElement('div'); rh.className = 'resize-handle'; el.appendChild(rh);
-
       const ann = { type: 'whiteout', element: el, x, y, w: opts.w || 160, h: opts.h || 50, color: c };
-      this.makeDraggable(el, ann);
-      this.makeResizable(el, ann);
+      this.makeDraggable(el, ann); this.makeResizable(el, ann);
       el.addEventListener('click', e => { e.stopPropagation(); this.selectAnn(ann); });
-
       const delBtn = this.makeDelBtn(() => this.removeAnn(ann));
       ann._delBtn = delBtn;
       layer.appendChild(el); layer.appendChild(delBtn);
       this.positionDelBtn(el, delBtn);
       new MutationObserver(() => this.positionDelBtn(el, delBtn)).observe(el, { attributes: true, attributeFilter: ['style'] });
-
       if (!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage, []);
       this.annotations.get(this.currentPage).push(ann);
       setDirty(true); updateAnnCount();
@@ -1879,43 +1401,28 @@
 
     // ── SELECT ───────────────────────────────────────────────
     selectAnn(ann) {
-      this.deselect();
-      this.selectedAnn = ann;
-      ann.element.classList.add('selected');
+      this.deselect(); this.selectedAnn = ann; ann.element.classList.add('selected');
       if (ann.type === 'text') {
         document.getElementById('font-size').value   = parseInt(ann.fontSize);
         document.getElementById('font-family').value = ann.fontFamily;
         document.getElementById('text-color').value  = ann.color;
         document.getElementById('text-opacity').value = ann.opacity || 100;
         document.getElementById('text-opa-val').textContent = (ann.opacity || 100) + '%';
-        document.getElementById('btn-bold').classList.toggle('active', !!ann.bold);
+        document.getElementById('btn-bold').classList.toggle('active',   !!ann.bold);
         document.getElementById('btn-italic').classList.toggle('active', !!ann.italic);
-        document.getElementById('btn-under').classList.toggle('active', !!ann.under);
+        document.getElementById('btn-under').classList.toggle('active',  !!ann.under);
         ['al','ac','ar'].forEach(k => document.getElementById('btn-' + k).classList.toggle('active', { al:'left', ac:'center', ar:'right' }[k] === (ann.align || 'left')));
-        if (currentTool !== 'text') {
-          setTool('text');
-          document.getElementById('ctx-text').style.display = 'flex';
-          document.getElementById('context-toolbar').classList.add('visible');
-        }
+        if (currentTool !== 'text') { setTool('text'); document.getElementById('ctx-text').style.display = 'flex'; document.getElementById('context-toolbar').classList.add('visible'); }
       } else if (ann.type === 'whiteout') {
         document.getElementById('whiteout-color').value = ann.color || '#ffffff';
-        if (currentTool !== 'whiteout') {
-          setTool('whiteout');
-          document.getElementById('ctx-whiteout').style.display = 'flex';
-          document.getElementById('context-toolbar').classList.add('visible');
-        }
+        if (currentTool !== 'whiteout') { setTool('whiteout'); document.getElementById('ctx-whiteout').style.display = 'flex'; document.getElementById('context-toolbar').classList.add('visible'); }
       }
     }
-
-    deselect() {
-      if (this.selectedAnn) { this.selectedAnn.element.classList.remove('selected'); this.selectedAnn = null; }
-    }
-
+    deselect() { if (this.selectedAnn) { this.selectedAnn.element.classList.remove('selected'); this.selectedAnn = null; } }
     dupSel() {
-      if (!this.selectedAnn) return;
-      const a = this.selectedAnn; this.saveState();
-      if (a.type === 'text') this.addText(a.x + 20, a.y + 20, { text: a.getText(), fontSize: a.fontSize, fontFamily: a.fontFamily, color: a.color, opacity: a.opacity, bold: a.bold, italic: a.italic, under: a.under, align: a.align });
-      else if (a.type === 'whiteout') this.addWhiteout(a.x + 20, a.y + 20, { w: a.w, h: a.h, color: a.color });
+      if (!this.selectedAnn) return; const a = this.selectedAnn; this.saveState();
+      if (a.type === 'text')     this.addText(a.x+20, a.y+20, { text: a.getText(), fontSize: a.fontSize, fontFamily: a.fontFamily, color: a.color, opacity: a.opacity, bold: a.bold, italic: a.italic, under: a.under, align: a.align });
+      else if (a.type === 'whiteout') this.addWhiteout(a.x+20, a.y+20, { w: a.w, h: a.h, color: a.color });
       showHint('📋 Annotation duplicated');
     }
 
@@ -1936,12 +1443,10 @@
           if (moved) { el.style.left = (ann.x = ox + dx) + 'px'; el.style.top = (ann.y = oy + dy) + 'px'; setDirty(true); }
         };
         const mu = () => {
-          document.removeEventListener('mousemove', mm);
-          document.removeEventListener('mouseup', mu);
+          document.removeEventListener('mousemove', mm); document.removeEventListener('mouseup', mu);
           if (moved && el.classList.contains('text-annotation')) el.dataset.editing = 'false';
         };
-        document.addEventListener('mousemove', mm);
-        document.addEventListener('mouseup', mu);
+        document.addEventListener('mousemove', mm); document.addEventListener('mouseup', mu);
       });
     }
 
@@ -1949,7 +1454,7 @@
       el.addEventListener('mousedown', e => {
         if (!e.target.classList.contains('resize-handle')) return;
         e.preventDefault(); e.stopPropagation();
-        const r = el.getBoundingClientRect(), sw = r.width, sh = r.height, sx = e.clientX, sy = e.clientY;
+        const r  = el.getBoundingClientRect(), sw = r.width, sh = r.height, sx = e.clientX, sy = e.clientY;
         const mm = ev => { el.style.width = (ann.w = Math.max(20, sw + ev.clientX - sx)) + 'px'; el.style.height = (ann.h = Math.max(10, sh + ev.clientY - sy)) + 'px'; setDirty(true); };
         const mu = () => { document.removeEventListener('mousemove', mm); document.removeEventListener('mouseup', mu); };
         document.addEventListener('mousemove', mm); document.addEventListener('mouseup', mu);
@@ -1961,41 +1466,22 @@
       const st = { pg: this.currentPage, a: new Map(), p: new Map() };
       this.annotations.forEach((arr, pg) => st.a.set(pg, arr.map(a => ({ type: a.type, x: a.x, y: a.y, fontSize: a.fontSize, fontFamily: a.fontFamily, color: a.color, opacity: a.opacity, bold: a.bold, italic: a.italic, under: a.under, align: a.align, text: a.getText ? a.getText() : '', w: a.w, h: a.h }))));
       this.drawPaths.forEach((arr, pg) => st.p.set(pg, JSON.parse(JSON.stringify(arr))));
-      this.undoStack.push(st);
-      if (this.undoStack.length > 50) this.undoStack.shift();
+      this.undoStack.push(st); if (this.undoStack.length > 50) this.undoStack.shift();
       this.redoStack = [];
     }
-
     captureRedo() {
       const st = { pg: this.currentPage, a: new Map(), p: new Map() };
       this.annotations.forEach((arr, pg) => st.a.set(pg, arr.map(a => ({ type: a.type, x: a.x, y: a.y, fontSize: a.fontSize, fontFamily: a.fontFamily, color: a.color, opacity: a.opacity, bold: a.bold, italic: a.italic, under: a.under, align: a.align, text: a.getText ? a.getText() : '', w: a.w, h: a.h }))));
       this.drawPaths.forEach((arr, pg) => st.p.set(pg, JSON.parse(JSON.stringify(arr))));
       this.redoStack.push(st);
     }
-
-    async undo() {
-      if (!this.undoStack.length) { showHint('Nothing to undo'); return; }
-      this.captureRedo();
-      await this.restoreState(this.undoStack.pop());
-      showHint('↶ Undo');
-    }
-    async redo() {
-      if (!this.redoStack.length) { showHint('Nothing to redo'); return; }
-      this.saveState();
-      await this.restoreState(this.redoStack.pop());
-      showHint('↷ Redo');
-    }
+    async undo() { if (!this.undoStack.length) { showHint('Nothing to undo'); return; } this.captureRedo(); await this.restoreState(this.undoStack.pop()); showHint('↶ Undo'); }
+    async redo() { if (!this.redoStack.length) { showHint('Nothing to redo'); return; } this.saveState(); await this.restoreState(this.redoStack.pop()); showHint('↷ Redo'); }
 
     async restoreState(st) {
-      this.annotations = new Map();
-      this.drawPaths   = st.p;
+      this.annotations = new Map(); this.drawPaths = st.p;
       document.getElementById('annotation-layer').innerHTML = '';
-      st.a.forEach((arr, pg) => {
-        arr.forEach(a => {
-          if (a.type === 'text')      this.rebuildText(a, pg);
-          else if (a.type === 'whiteout') this.rebuildWhiteout(a, pg);
-        });
-      });
+      st.a.forEach((arr, pg) => { arr.forEach(a => { if (a.type === 'text') this.rebuildText(a, pg); else if (a.type === 'whiteout') this.rebuildWhiteout(a, pg); }); });
       this.restoreAnnotations(); this.restoreDrawings(); updateAnnCount();
     }
 
@@ -2015,12 +1501,10 @@
         el.addEventListener('blur',  () => { el.dataset.editing = 'false'; });
         el.addEventListener('input', () => setDirty(true));
         const db = this.makeDelBtn(() => this.removeAnn(ann)); ann._delBtn = db;
-        document.getElementById('ann-layer-x') || (() => {
-          const layer = document.getElementById('annotation-layer');
-          layer.appendChild(el); layer.appendChild(db);
-          this.positionDelBtn(el, db);
-          new MutationObserver(() => this.positionDelBtn(el, db)).observe(el, { attributes: true, attributeFilter: ['style'] });
-        })();
+        const layer = document.getElementById('annotation-layer');
+        layer.appendChild(el); layer.appendChild(db);
+        this.positionDelBtn(el, db);
+        new MutationObserver(() => this.positionDelBtn(el, db)).observe(el, { attributes: true, attributeFilter: ['style'] });
       }
       if (!this.annotations.has(pg)) this.annotations.set(pg, []);
       this.annotations.get(pg).push(ann);
@@ -2037,7 +1521,7 @@
       if (pg === this.currentPage) {
         this.makeDraggable(el, ann); this.makeResizable(el, ann);
         el.addEventListener('click', e => { e.stopPropagation(); this.selectAnn(ann); });
-        const db = this.makeDelBtn(() => this.removeAnn(ann)); ann._delBtn = db;
+        const db    = this.makeDelBtn(() => this.removeAnn(ann)); ann._delBtn = db;
         const layer = document.getElementById('annotation-layer');
         layer.appendChild(el); layer.appendChild(db);
         this.positionDelBtn(el, db);
@@ -2049,8 +1533,7 @@
 
     clearPage() {
       document.getElementById('annotation-layer').innerHTML = '';
-      this.annotations.delete(this.currentPage);
-      this.drawPaths.delete(this.currentPage);
+      this.annotations.delete(this.currentPage); this.drawPaths.delete(this.currentPage);
       const dc = document.getElementById('drawing-canvas');
       dc.getContext('2d').clearRect(0, 0, dc.width, dc.height);
       this.selectedAnn = null; setDirty(true); updateAnnCount();
@@ -2067,10 +1550,14 @@
 
       // Whiteout first (under text)
       (this.annotations.get(pgNum) || []).forEach(a => {
-        if (a.type === 'whiteout') {
-          ctx.fillStyle = a.color || '#ffffff';
-          ctx.fillRect(parseFloat(a.element.style.left), parseFloat(a.element.style.top), parseFloat(a.element.style.width), parseFloat(a.element.style.height));
-        }
+        if (a.type !== 'whiteout') return;
+        ctx.fillStyle = a.color || '#ffffff';
+        ctx.fillRect(
+          parseFloat(a.element.style.left),
+          parseFloat(a.element.style.top),
+          parseFloat(a.element.style.width),
+          parseFloat(a.element.style.height)
+        );
       });
 
       // Drawings
@@ -2083,21 +1570,55 @@
       (this.annotations.get(pgNum) || []).forEach(a => {
         if (a.type !== 'text') return;
         const el = a.element;
-        const x = parseFloat(el.style.left), y = parseFloat(el.style.top);
-        const fs = parseInt(a.fontSize);
+
+        // FIX: .text-annotation has padding: 4px 6px (top/bottom 4px, left/right 6px).
+        // The element's style.top/left point to the outer box edge. Without adding
+        // this offset the canvas text starts 6px left and 4px above where it appears
+        // on screen, causing a visible misalignment in the saved file.
+        const PADDING_LEFT = 6;
+        const PADDING_TOP  = 4;
+        const elLeft = parseFloat(el.style.left);
+        const elTop  = parseFloat(el.style.top);
+        // offsetWidth is reliable for the current page (element is in DOM).
+        // For off-page annotations fall back to a sensible estimate.
+        const elW    = (el.offsetWidth && el.offsetWidth > 0) ? el.offsetWidth : 200;
+        const fs     = parseInt(a.fontSize);
+        const align  = a.align || 'left';
+
+        // Compute the canvas x so that fillText honours the same textAlign
+        // that CSS applied to the annotation element.
+        let drawX;
+        if (align === 'center') {
+          drawX = elLeft + elW / 2;          // centre of element
+        } else if (align === 'right') {
+          drawX = elLeft + elW - PADDING_LEFT; // right edge minus padding
+        } else {
+          drawX = elLeft + PADDING_LEFT;       // left edge plus padding
+        }
+        const drawY = elTop + PADDING_TOP;
+
         ctx.save();
-        ctx.globalAlpha = parseFloat(el.style.opacity) || 1;
-        ctx.fillStyle   = a.color;
-        ctx.font = `${a.italic ? 'italic ' : ''}${a.bold ? '700' : '400'} ${fs}px ${a.fontFamily}, sans-serif`;
+        ctx.globalAlpha  = parseFloat(el.style.opacity) || 1;
+        ctx.fillStyle    = a.color;
+        ctx.font         = `${a.italic ? 'italic ' : ''}${a.bold ? '700' : '400'} ${fs}px ${a.fontFamily}, sans-serif`;
         ctx.textBaseline = 'top';
-        ctx.textAlign    = a.align || 'left';
+        ctx.textAlign    = align;
+
         a.getText().split('\n').forEach((line, i) => {
-          const ly = y + i * fs * 1.4;
-          ctx.fillText(line, x, ly);
+          const ly = drawY + i * fs * 1.4;
+          ctx.fillText(line, drawX, ly);
           if (a.under) {
             const tw = ctx.measureText(line).width;
-            ctx.beginPath(); ctx.moveTo(x, ly + fs); ctx.lineTo(x + tw, ly + fs);
-            ctx.strokeStyle = a.color; ctx.lineWidth = 1.5; ctx.stroke();
+            // Underline start depends on alignment direction
+            const ux = align === 'center' ? drawX - tw / 2
+                     : align === 'right'  ? drawX - tw
+                     : drawX;
+            ctx.beginPath();
+            ctx.moveTo(ux, ly + fs);
+            ctx.lineTo(ux + tw, ly + fs);
+            ctx.strokeStyle = a.color;
+            ctx.lineWidth   = 1.5;
+            ctx.stroke();
           }
         });
         ctx.restore();
@@ -2111,34 +1632,29 @@
       showLoader(true);
       try {
         const { PDFDocument } = PDFLib;
-        const newDoc = await PDFDocument.create();
+        const newDoc   = await PDFDocument.create();
         const srcPages = this.pdfLibDoc.getPages();
-        const mode = document.getElementById('pdf-pages-select').value;
-        const pages = mode === 'current' ? [this.currentPage] : Array.from({ length: this.totalPages }, (_, i) => i + 1);
-
+        const mode     = document.getElementById('pdf-pages-select').value;
+        const pages    = mode === 'current' ? [this.currentPage] : Array.from({ length: this.totalPages }, (_, i) => i + 1);
         for (const pg of pages) {
-          const flat = await this.flattenPage(pg);
+          const flat     = await this.flattenPage(pg);
           const imgData  = flat.toDataURL('image/png');
           const imgBytes = await fetch(imgData).then(r => r.arrayBuffer());
-          const img = await newDoc.embedPng(imgBytes);
+          const img      = await newDoc.embedPng(imgBytes);
           const { width, height } = srcPages[pg - 1].getSize();
           const np = newDoc.addPage([width, height]);
           np.drawImage(img, { x: 0, y: 0, width, height });
         }
-
-        const bytes = await newDoc.save();
+        const bytes  = await newDoc.save();
         const suffix = pages.length === 1 ? '_p' + pages[0] : '';
         this.download(bytes, this.fileName + suffix + '.pdf', 'application/pdf');
         setDirty(false);
         showHint('✅ PDF saved successfully!');
-
         document.getElementById('support-box').classList.add('show');
         document.getElementById('support-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
         if (typeof gtag !== 'undefined') gtag('event', 'pdf_saved', { event_category: 'tool_usage', event_label: 'edit_pdf' });
       } catch (err) {
-        console.error(err);
-        alert('Error saving PDF: ' + err.message);
+        console.error(err); alert('Error saving PDF: ' + err.message);
       } finally { showLoader(false); }
     }
 
@@ -2146,11 +1662,10 @@
     async saveAsImage() {
       showLoader(true);
       try {
-        const fmt  = document.getElementById('img-format-select').value;
-        const mode = document.getElementById('img-pages-select').value;
-        const mime = fmt === 'jpeg' ? 'image/jpeg' : 'image/png';
+        const fmt   = document.getElementById('img-format-select').value;
+        const mode  = document.getElementById('img-pages-select').value;
+        const mime  = fmt === 'jpeg' ? 'image/jpeg' : 'image/png';
         const pages = mode === 'current' ? [this.currentPage] : Array.from({ length: this.totalPages }, (_, i) => i + 1);
-
         for (const pg of pages) {
           const flat = await this.flattenPage(pg);
           const url  = flat.toDataURL(mime, fmt === 'jpeg' ? 0.92 : undefined);
@@ -2160,12 +1675,10 @@
           await new Promise(r => setTimeout(r, 200));
         }
         showHint('🖼️ Exported ' + pages.length + ' image' + (pages.length > 1 ? 's' : '') + ' successfully!');
-
         document.getElementById('support-box').classList.add('show');
         if (typeof gtag !== 'undefined') gtag('event', 'image_saved', { event_category: 'tool_usage', event_label: 'edit_pdf' });
       } catch (err) {
-        console.error(err);
-        alert('Error exporting image: ' + err.message);
+        console.error(err); alert('Error exporting image: ' + err.message);
       } finally { showLoader(false); }
     }
 
@@ -2176,20 +1689,13 @@
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       setTimeout(() => URL.revokeObjectURL(url), 200);
     }
-
-    hexToRgb(hex) {
-      const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return r ? { r: parseInt(r[1], 16), g: parseInt(r[2], 16), b: parseInt(r[3], 16) } : { r: 0, g: 0, b: 0 };
-    }
   }
 
   // ─────────────────────────────────────────────────────────────
   // BACK TO TOP
   // ─────────────────────────────────────────────────────────────
   const backToTop = document.querySelector('.back-to-top');
-  window.addEventListener('scroll', () => {
-    backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none';
-  });
+  window.addEventListener('scroll', () => { backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none'; });
   backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
   // ─────────────────────────────────────────────────────────────
