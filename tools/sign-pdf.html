@@ -6,25 +6,21 @@
   
   <title>Sign PDF Online – Draw & Add Electronic Signatures | Kimosabe Tools</title>
   
-  <!-- Meta Tags -->
   <meta name="description" content="Sign PDF documents online for free. Draw your signature and place it anywhere on your document. 100% private - your files never leave your browser.">
   <meta name="keywords" content="sign pdf, electronic signature, e-sign pdf, digital signature, pdf signer, privacy pdf tools">
   <meta name="author" content="Kimosabe Tools">
   
-  <!-- Open Graph -->
   <meta property="og:title" content="Sign PDF Online – Draw & Add Electronic Signatures | Kimosabe Tools">
   <meta property="og:description" content="Sign PDF documents 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/sign-pdf.html">
   <meta property="og:type" content="website">
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sign PDF Online – Draw & Add Electronic Signatures | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based PDF signing that keeps your documents private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   
-  <!-- Favicon & Logo -->
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -43,7 +39,7 @@
     });
   </script>
 
-  <!-- PDF Library -->
+  <!-- PDF & Signature libraries -->
   <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
 
@@ -52,16 +48,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Styles -->
   <style>
-    /* Import base styles from main site */
     :root {
-      /* Modern Color Palette */
       --primary: #4361ee;
       --primary-dark: #3a56d4;
       --secondary: #7209b7;
       --accent: #f72585;
-      --success: #4cc9f0;
       --light: #f8f9fa;
       --dark: #212529;
       --gray-100: #f8f9fa;
@@ -69,33 +61,23 @@
       --gray-300: #dee2e6;
       --gray-600: #6c757d;
       --gray-800: #343a40;
-      
-      /* Shadows */
       --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
       --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
       --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
       --shadow-hover: 0 15px 35px rgba(67, 97, 238, 0.15);
-      
-      /* Border Radius */
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
       --radius-xl: 24px;
-      
-      /* Spacing */
       --space-xs: 0.5rem;
       --space-sm: 1rem;
       --space-md: 1.5rem;
       --space-lg: 2rem;
       --space-xl: 3rem;
     }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
@@ -103,14 +85,14 @@
       background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
       min-height: 100vh;
     }
-    
+
     h1, h2, h3, h4 {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
       line-height: 1.2;
     }
-    
-    /* Navigation */
+
+    /* ── Navigation ── */
     .sticky-nav {
       position: sticky;
       top: 0;
@@ -120,7 +102,7 @@
       border-bottom: 1px solid rgba(0,0,0,0.05);
       padding: 1rem 0;
     }
-    
+
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -129,7 +111,7 @@
       justify-content: space-between;
       align-items: center;
     }
-    
+
     .nav-logo {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
@@ -140,7 +122,7 @@
       align-items: center;
       gap: 0.75rem;
     }
-    
+
     .nav-logo-img {
       width: 40px;
       height: 40px;
@@ -151,19 +133,10 @@
       flex-shrink: 0;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
     }
-    
-    .nav-logo-img img {
-      width: 24px;
-      height: 24px;
-      filter: brightness(0) invert(1);
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-    
+
+    .nav-logo-img img { width: 24px; height: 24px; filter: brightness(0) invert(1); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+
     .nav-links a {
       color: var(--gray-800);
       text-decoration: none;
@@ -171,11 +144,9 @@
       transition: color 0.2s;
       position: relative;
     }
-    
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-    
+
+    .nav-links a:hover { color: var(--primary); }
+
     .nav-links a::after {
       content: '';
       position: absolute;
@@ -186,11 +157,9 @@
       background: var(--primary);
       transition: width 0.3s;
     }
-    
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    
+
+    .nav-links a:hover::after { width: 100%; }
+
     .support-btn {
       background: linear-gradient(135deg, var(--accent) 0%, #ff6b9d 100%);
       color: white;
@@ -201,26 +170,18 @@
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: var(--shadow-md);
     }
-    
-    .support-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-    }
-    
-    /* Main Container */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 var(--space-md) var(--space-xl);
-    }
-    
-    /* Tool Header */
+
+    .support-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-md) var(--space-xl); }
+
     .tool-header {
       text-align: center;
       margin: var(--space-xl) 0 var(--space-lg);
       padding: 0 var(--space-md);
     }
-    
+
     .tool-header h1 {
       font-size: 2.5rem;
       color: var(--dark);
@@ -229,14 +190,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    
-    .tool-header p {
-      color: var(--gray-600);
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-    }
-    
+
+    .tool-header p { color: var(--gray-600); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+
     .tool-breadcrumb {
       display: flex;
       align-items: center;
@@ -246,18 +202,10 @@
       margin-bottom: var(--space-sm);
       font-size: 0.9rem;
     }
-    
-    .tool-breadcrumb a {
-      color: var(--primary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    
-    .tool-breadcrumb a:hover {
-      color: var(--secondary);
-    }
-    
-    /* Tool Wrapper */
+
+    .tool-breadcrumb a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
+    .tool-breadcrumb a:hover { color: var(--secondary); }
+
     .tool-wrapper {
       background: white;
       border-radius: var(--radius-xl);
@@ -267,8 +215,8 @@
       border: 1px solid var(--gray-200);
       animation: fadeIn 0.6s ease-out;
     }
-    
-    /* Upload Area */
+
+    /* ── Drop zone ── */
     #drop-zone {
       border: 3px dashed var(--gray-300);
       border-radius: var(--radius-lg);
@@ -280,21 +228,19 @@
       margin-bottom: var(--space-lg);
       position: relative;
       overflow: hidden;
+      outline: none;
     }
-    
-    #drop-zone:hover {
+
+    #drop-zone:hover,
+    #drop-zone:focus {
       border-color: var(--primary);
       background: rgba(67, 97, 238, 0.05);
       transform: translateY(-4px);
       box-shadow: var(--shadow-hover);
     }
-    
-    #drop-zone.dragover {
-      border-color: var(--primary);
-      background: rgba(67, 97, 238, 0.1);
-      border-style: solid;
-    }
-    
+
+    #drop-zone.dragover { border-color: var(--primary); background: rgba(67, 97, 238, 0.1); border-style: solid; }
+
     #drop-zone::before {
       content: '';
       position: absolute;
@@ -305,49 +251,46 @@
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
       transition: left 0.7s;
     }
-    
-    #drop-zone:hover::before {
-      left: 100%;
-    }
-    
-    .drop-zone-content .icon {
-      font-size: 3.5rem;
-      margin-bottom: var(--space-sm);
-      display: block;
-      color: var(--gray-600);
-    }
-    
-    .drop-zone-content p {
-      font-size: 1.125rem;
-      margin-bottom: var(--space-xs);
-      color: var(--gray-800);
-    }
-    
-    .drop-zone-content p strong {
-      color: var(--dark);
-    }
-    
-    .file-limit {
-      color: var(--gray-600);
-      font-size: 0.875rem;
-      display: block;
-      margin-top: var(--space-xs);
-    }
-    
-    /* Signature App */
-    .signature-app {
+
+    #drop-zone:hover::before { left: 100%; }
+
+    .drop-zone-content .icon { font-size: 3.5rem; margin-bottom: var(--space-sm); display: block; color: var(--gray-600); }
+    .drop-zone-content p { font-size: 1.125rem; margin-bottom: var(--space-xs); color: var(--gray-800); }
+    .drop-zone-content p strong { color: var(--dark); }
+    .file-limit { color: var(--gray-600); font-size: 0.875rem; display: block; margin-top: var(--space-xs); }
+
+    /* ── File info panel ── */
+    .file-info {
+      background: var(--gray-100);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--gray-200);
       display: none;
-      animation: fadeIn 0.5s ease-out;
     }
-    
-    /* Step Cards */
+
+    .file-info h4 { margin-bottom: var(--space-sm); color: var(--dark); font-size: 1.1rem; }
+
+    .file-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .file-stat { text-align: center; padding: var(--space-sm); background: white; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); }
+    .file-stat-label { display: block; color: var(--gray-600); font-size: 0.8rem; margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .file-stat-value { display: block; font-size: 1.2rem; font-weight: 700; color: var(--dark); }
+
+    /* ── Signature app ── */
+    .signature-app { display: none; animation: fadeIn 0.5s ease-out; }
+
     .step-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: var(--space-lg);
       margin-bottom: var(--space-lg);
     }
-    
+
     .step-card {
       background: white;
       border-radius: var(--radius-lg);
@@ -356,13 +299,9 @@
       transition: all 0.3s;
       box-shadow: var(--shadow-sm);
     }
-    
-    .step-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--primary);
-    }
-    
+
+    .step-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+
     .step-card h3 {
       color: var(--dark);
       margin-bottom: var(--space-sm);
@@ -371,7 +310,7 @@
       align-items: center;
       gap: 0.5rem;
     }
-    
+
     .step-number {
       display: inline-flex;
       align-items: center;
@@ -384,9 +323,10 @@
       font-weight: 600;
       font-size: 0.9rem;
       margin-right: 0.5rem;
+      flex-shrink: 0;
     }
-    
-    /* Canvas Container */
+
+    /* ── Canvas ── */
     .canvas-container {
       background: white;
       border: 2px solid var(--gray-300);
@@ -397,21 +337,22 @@
       background-image: radial-gradient(var(--gray-200) 1px, transparent 1px);
       background-size: 20px 20px;
       transition: border-color 0.3s;
+      /* FIX: explicit height so offsetWidth/Height are reliable before first paint */
+      min-height: 250px;
     }
-    
-    .canvas-container:hover {
-      border-color: var(--primary);
-    }
-    
+
+    .canvas-container:hover { border-color: var(--primary); }
+
     canvas {
+      /* FIX: 100% width so the ResizeObserver measurement is accurate */
       width: 100%;
       height: 250px;
       touch-action: none;
       cursor: crosshair;
       display: block;
     }
-    
-    /* Signature Controls */
+
+    /* ── Signature controls ── */
     .signature-controls {
       display: flex;
       gap: var(--space-sm);
@@ -419,23 +360,12 @@
       margin-bottom: var(--space-md);
       flex-wrap: wrap;
     }
-    
-    .signature-tip {
-      text-align: center;
-      color: var(--gray-600);
-      font-size: 0.9rem;
-      margin-top: var(--space-xs);
-      font-style: italic;
-    }
-    
-    /* Color Picker */
-    .color-picker {
-      display: flex;
-      gap: var(--space-xs);
-      margin: var(--space-md) 0;
-      justify-content: center;
-    }
-    
+
+    .signature-tip { text-align: center; color: var(--gray-600); font-size: 0.9rem; margin-top: var(--space-xs); font-style: italic; }
+
+    /* ── Color picker ── */
+    .color-picker { display: flex; gap: var(--space-xs); margin: var(--space-md) 0; justify-content: center; }
+
     .color-option {
       width: 32px;
       height: 32px;
@@ -445,28 +375,46 @@
       box-shadow: var(--shadow-sm);
       transition: transform 0.2s;
     }
-    
-    .color-option:hover {
-      transform: scale(1.1);
+
+    .color-option:hover { transform: scale(1.1); }
+    .color-option.active { border-color: var(--primary); transform: scale(1.1); }
+
+    /* ── Page selector ── */
+    .page-selector-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
     }
-    
-    .color-option.active {
-      border-color: var(--primary);
-      transform: scale(1.1);
+
+    .page-selector-row label { font-size: 0.9rem; color: var(--gray-600); font-weight: 500; white-space: nowrap; }
+
+    .page-selector-row select {
+      flex: 1;
+      min-width: 120px;
+      padding: 0.5rem 0.75rem;
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      background: white;
+      color: var(--dark);
+      cursor: pointer;
+      transition: border-color 0.2s;
     }
-    
-    /* Position Controls */
-    .position-controls {
-      margin-top: var(--space-md);
-    }
-    
+
+    .page-selector-row select:focus { outline: none; border-color: var(--primary); }
+
+    /* ── Position controls ── */
+    .position-controls { margin-top: var(--space-md); }
+
     .position-options {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: var(--space-sm);
       margin-top: var(--space-sm);
     }
-    
+
     .position-option {
       background: var(--gray-100);
       border: 1px solid var(--gray-300);
@@ -480,74 +428,13 @@
       align-items: center;
       gap: 0.25rem;
     }
-    
-    .position-option:hover {
-      border-color: var(--primary);
-      background: rgba(67, 97, 238, 0.05);
-    }
-    
-    .position-option.active {
-      border-color: var(--primary);
-      background: rgba(67, 97, 238, 0.1);
-      color: var(--primary);
-    }
-    
-    .position-icon {
-      font-size: 1.2rem;
-    }
-    
-    .position-label {
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-    
-    /* File Info */
-    .file-info {
-      background: var(--gray-100);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-      margin-bottom: var(--space-md);
-      border: 1px solid var(--gray-200);
-      display: none;
-    }
-    
-    .file-info h4 {
-      margin-bottom: var(--space-sm);
-      color: var(--dark);
-      font-size: 1.1rem;
-    }
-    
-    .file-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: var(--space-sm);
-    }
-    
-    .file-stat {
-      text-align: center;
-      padding: var(--space-sm);
-      background: white;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--gray-200);
-    }
-    
-    .file-stat-label {
-      display: block;
-      color: var(--gray-600);
-      font-size: 0.8rem;
-      margin-bottom: 0.25rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .file-stat-value {
-      display: block;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--dark);
-    }
-    
-    /* Status Area */
+
+    .position-option:hover { border-color: var(--primary); background: rgba(67, 97, 238, 0.05); }
+    .position-option.active { border-color: var(--primary); background: rgba(67, 97, 238, 0.1); color: var(--primary); }
+    .position-icon { font-size: 1.2rem; }
+    .position-label { font-size: 0.85rem; font-weight: 500; }
+
+    /* ── Status / results / donate ── */
     .status-area {
       background: var(--gray-100);
       border-radius: var(--radius-lg);
@@ -558,15 +445,26 @@
       display: none;
       animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
-    #status-text {
-      font-size: 1.125rem;
-      margin-bottom: var(--space-sm);
-      color: var(--gray-800);
-      font-weight: 500;
+
+    #status-text { font-size: 1.125rem; margin-bottom: var(--space-sm); color: var(--gray-800); font-weight: 500; }
+
+    /* FIX: persistent error dismiss button */
+    .dismiss-error-btn {
+      display: none;
+      margin-top: var(--space-sm);
+      padding: 0.5rem 1.25rem;
+      background: none;
+      border: 1px solid #ef4444;
+      color: #ef4444;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
     }
-    
-    /* Results Display */
+
+    .dismiss-error-btn:hover { background: #ef4444; color: white; }
+
     .results-display {
       background: white;
       border: 2px solid #22c55e;
@@ -576,14 +474,9 @@
       display: none;
       animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
-    .results-header {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-      margin-bottom: var(--space-lg);
-    }
-    
+
+    .results-header { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); }
+
     .success-icon {
       width: 60px;
       height: 60px;
@@ -596,64 +489,23 @@
       color: white;
       flex-shrink: 0;
     }
-    
+
     .signing-results {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: var(--space-md);
       margin-bottom: var(--space-lg);
     }
-    
-    .result-item {
-      background: var(--gray-100);
-      padding: var(--space-md);
-      border-radius: var(--radius-md);
-      text-align: center;
-      transition: transform 0.3s;
-    }
-    
-    .result-item:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-sm);
-    }
-    
-    .result-label {
-      display: block;
-      color: var(--gray-600);
-      font-size: 0.875rem;
-      margin-bottom: var(--space-xs);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-    
-    .result-value {
-      display: block;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--dark);
-    }
-    
-    .result-badge {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-top: var(--space-xs);
-    }
-    
-    /* Buttons */
-    .action-buttons {
-      display: flex;
-      gap: var(--space-sm);
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: var(--space-md);
-    }
-    
+
+    .result-item { background: var(--gray-100); padding: var(--space-md); border-radius: var(--radius-md); text-align: center; transition: transform 0.3s; }
+    .result-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+    .result-label { display: block; color: var(--gray-600); font-size: 0.875rem; margin-bottom: var(--space-xs); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+    .result-value { display: block; font-size: 1.5rem; font-weight: 700; color: var(--dark); }
+    .result-badge { display: inline-block; background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-top: var(--space-xs); }
+
+    /* ── Buttons ── */
+    .action-buttons { display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap; margin-top: var(--space-md); }
+
     .btn {
       padding: 0.875rem 2rem;
       border-radius: 50px;
@@ -669,45 +521,16 @@
       font-size: 1rem;
       min-width: 200px;
     }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      box-shadow: var(--shadow-md);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-    }
-    
-    .btn-success {
-      background: linear-gradient(135deg, #22c55e, #16a34a);
-      color: white;
-      box-shadow: var(--shadow-md);
-    }
-    
-    .btn-success:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px rgba(34, 197, 94, 0.3);
-      background: linear-gradient(135deg, #16a34a, #15803d);
-    }
-    
-    .btn-secondary {
-      background: white;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      box-shadow: var(--shadow-sm);
-    }
-    
-    .btn-secondary:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-      background: var(--primary);
-      color: white;
-    }
-    
+
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: var(--shadow-md); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+    .btn-success { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; box-shadow: var(--shadow-md); }
+    .btn-success:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(34, 197, 94, 0.3); }
+
+    .btn-secondary { background: white; color: var(--primary); border: 2px solid var(--primary); box-shadow: var(--shadow-sm); }
+    .btn-secondary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); background: var(--primary); color: white; }
+
     .btn-clear {
       background: var(--gray-200);
       color: var(--gray-800);
@@ -721,13 +544,10 @@
       align-items: center;
       gap: 0.5rem;
     }
-    
-    .btn-clear:hover {
-      background: var(--gray-300);
-      transform: translateY(-1px);
-    }
-    
-    /* Donate Reminder */
+
+    .btn-clear:hover { background: var(--gray-300); transform: translateY(-1px); }
+
+    /* ── Donate ── */
     .donate-reminder {
       background: linear-gradient(135deg, #fffbeb, #fef3c7);
       border: 2px dashed #f59e0b;
@@ -738,14 +558,9 @@
       animation: fadeIn 0.5s ease-in;
       display: none;
     }
-    
-    .donate-reminder p {
-      color: #92400e;
-      margin-bottom: var(--space-sm);
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-    
+
+    .donate-reminder p { color: #92400e; margin-bottom: var(--space-sm); font-size: 1.1rem; font-weight: 500; }
+
     .donate-link {
       background: linear-gradient(135deg, #f59e0b, #d97706);
       color: white;
@@ -759,170 +574,35 @@
       transition: all 0.3s;
       box-shadow: var(--shadow-sm);
     }
-    
-    .donate-link:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      background: linear-gradient(135deg, #d97706, #b45309);
-    }
-    
-    /* Feature Grid */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: var(--space-md);
-      margin: var(--space-lg) 0;
-    }
-    
-    .feature-item {
-      background: white;
-      padding: var(--space-lg);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--gray-200);
-      transition: all 0.3s ease;
-    }
-    
-    .feature-item:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--primary);
-    }
-    
-    .feature-item strong {
-      display: flex;
-      align-items: center;
-      gap: var(--space-xs);
-      color: var(--dark);
-      margin-bottom: var(--space-xs);
-      font-size: 1.1rem;
-    }
-    
-    .feature-item p {
-      color: var(--gray-600);
-      line-height: 1.5;
-      font-size: 0.95rem;
-    }
-    
-    /* More Tools Section */
-    .more-tools {
-      background: white;
-      border-radius: var(--radius-xl);
-      padding: var(--space-xl);
-      margin-top: var(--space-xl);
-      box-shadow: var(--shadow-md);
-    }
-    
-    .more-tools h3 {
-      font-size: 1.8rem;
-      margin-bottom: var(--space-lg);
-      color: var(--dark);
-      text-align: center;
-    }
-    
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: var(--space-sm);
-    }
-    
-    .tool-card {
-      background: var(--gray-100);
-      padding: var(--space-md);
-      border-radius: var(--radius-md);
-      text-decoration: none;
-      color: var(--gray-800);
-      text-align: center;
-      transition: all 0.3s;
-      border: 1px solid var(--gray-200);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-xs);
-    }
-    
-    .tool-card:hover {
-      background: var(--primary);
-      color: white;
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-    }
-    
-    .tool-card .card-icon {
-      font-size: 2rem;
-    }
-    
-    /* Footer */
-    .main-footer {
-      background: var(--dark);
-      color: white;
-      padding: var(--space-xl) 0;
-      margin-top: var(--space-xl);
-    }
-    
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 var(--space-md);
-      text-align: center;
-    }
-    
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .footer-logo-img {
-      width: 60px;
-      height: 60px;
-      background: white;
-      border-radius: 14px;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .footer-logo-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-    
-    .footer-logo-text {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      font-size: 1.8rem;
-    }
-    
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: var(--space-lg);
-      margin: var(--space-lg) 0;
-      flex-wrap: wrap;
-    }
-    
-    .footer-links a {
-      color: var(--gray-300);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    
-    .footer-links a:hover {
-      color: white;
-    }
-    
-    .copyright {
-      text-align: center;
-      color: var(--gray-600);
-      font-size: 0.9rem;
-      margin-top: var(--space-lg);
-    }
-    
-    /* Back to Top */
+
+    .donate-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+    /* ── Features / tools / footer ── */
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-md); margin: var(--space-lg) 0; }
+    .feature-item { background: white; padding: var(--space-lg); border-radius: var(--radius-md); border: 1px solid var(--gray-200); transition: all 0.3s ease; }
+    .feature-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+    .feature-item strong { display: flex; align-items: center; gap: var(--space-xs); color: var(--dark); margin-bottom: var(--space-xs); font-size: 1.1rem; }
+    .feature-item p { color: var(--gray-600); line-height: 1.5; font-size: 0.95rem; }
+
+    .more-tools { background: white; border-radius: var(--radius-xl); padding: var(--space-xl); margin-top: var(--space-xl); box-shadow: var(--shadow-md); }
+    .more-tools h3 { font-size: 1.8rem; margin-bottom: var(--space-lg); color: var(--dark); text-align: center; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-sm); }
+    .tool-card { background: var(--gray-100); padding: var(--space-md); border-radius: var(--radius-md); text-decoration: none; color: var(--gray-800); text-align: center; transition: all 0.3s; border: 1px solid var(--gray-200); display: flex; flex-direction: column; align-items: center; gap: var(--space-xs); }
+    .tool-card:hover { background: var(--primary); color: white; transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .tool-card .card-icon { font-size: 2rem; }
+
+    /* FIX: footer hardcoded — var(--dark) becomes white in dark mode override */
+    .main-footer { background: #212529; color: white; padding: var(--space-xl) 0; margin-top: var(--space-xl); }
+    .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-md); text-align: center; }
+    .footer-logo { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .footer-logo-img { width: 60px; height: 60px; background: white; border-radius: 14px; padding: 10px; display: flex; align-items: center; justify-content: center; }
+    .footer-logo-img img { width: 100%; height: 100%; object-fit: contain; }
+    .footer-logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.8rem; }
+    .footer-links { display: flex; justify-content: center; gap: var(--space-lg); margin: var(--space-lg) 0; flex-wrap: wrap; }
+    .footer-links a { color: var(--gray-300); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+    .copyright { text-align: center; color: var(--gray-600); font-size: 0.9rem; margin-top: var(--space-lg); }
+
     .back-to-top {
       position: fixed;
       bottom: 30px;
@@ -942,187 +622,58 @@
       transition: all 0.3s;
       z-index: 1000;
     }
-    
-    .back-to-top:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-hover);
-    }
-    
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Loading Animation */
-    .loading-dots {
-      display: inline-flex;
-      gap: 4px;
-      margin-left: 4px;
-    }
-    
-    .loading-dots span {
-      width: 8px;
-      height: 8px;
-      background: var(--primary);
-      border-radius: 50%;
-      animation: bounce 1.4s infinite ease-in-out both;
-    }
-    
+
+    .back-to-top:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+
+    /* ── Animations ── */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    .loading-dots { display: inline-flex; gap: 4px; margin-left: 4px; }
+    .loading-dots span { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
     .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
     .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
-    
-    @keyframes bounce {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
-    }
-    
-    /* Responsive */
+    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+    /* ── Responsive ── */
     @media (max-width: 768px) {
-      .tool-header h1 {
-        font-size: 2rem;
-      }
-      
-      .tool-wrapper {
-        padding: var(--space-lg);
-      }
-      
-      #drop-zone {
-        padding: var(--space-lg);
-      }
-      
-      .step-cards {
-        grid-template-columns: 1fr;
-      }
-      
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .tools-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .nav-links {
-        display: none;
-      }
-      
-      .action-buttons {
-        flex-direction: column;
-      }
-      
-      .btn {
-        width: 100%;
-        min-width: auto;
-      }
-      
-      .signing-results {
-        grid-template-columns: 1fr;
-      }
-      
-      .file-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .position-options {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      canvas {
-        height: 200px;
-      }
+      .tool-header h1 { font-size: 2rem; }
+      .tool-wrapper { padding: var(--space-lg); }
+      #drop-zone { padding: var(--space-lg); }
+      .step-cards { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+      .action-buttons { flex-direction: column; }
+      .btn { width: 100%; min-width: auto; }
+      .signing-results { grid-template-columns: 1fr; }
+      .file-stats { grid-template-columns: repeat(2, 1fr); }
+      .position-options { grid-template-columns: repeat(2, 1fr); }
+      canvas { height: 200px; }
     }
-    
-    /* Dark Mode */
+
+    /* ── Dark mode ── */
     @media (prefers-color-scheme: dark) {
-      :root {
-        --light: #1a1a1a;
-        --dark: #ffffff;
-        --gray-100: #2d2d2d;
-        --gray-200: #404040;
-        --gray-600: #a0a0a0;
-        --gray-800: #e0e0e0;
-      }
-      
-      body {
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-        color: var(--gray-800);
-      }
-      
-      .tool-wrapper,
-      .feature-item,
-      .step-card,
-      .more-tools {
-        background: var(--gray-100);
-        border-color: var(--gray-200);
-      }
-      
-      #drop-zone {
-        background: var(--gray-200);
-      }
-      
-      .donate-reminder {
-        background: linear-gradient(135deg, #2d2819, #3a321c);
-        border-color: #d97706;
-      }
-      
-      .sticky-nav {
-        background: rgba(26, 26, 26, 0.95);
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-      }
-      
-      .nav-links a {
-        color: var(--gray-300);
-      }
-      
-      .nav-logo-img {
-        background: var(--primary);
-      }
-      
-      .footer-logo-img {
-        background: var(--gray-200);
-      }
-      
-      .tool-card {
-        background: var(--gray-200);
-        border-color: var(--gray-300);
-      }
-      
-      .canvas-container {
-        background: var(--gray-100);
-        border-color: var(--gray-300);
-        background-image: radial-gradient(var(--gray-300) 1px, transparent 1px);
-      }
-      
-      .position-option {
-        background: var(--gray-200);
-        border-color: var(--gray-300);
-      }
-      
-      .file-info {
-        background: var(--gray-200);
-        border-color: var(--gray-300);
-      }
-      
-      .file-stat {
-        background: var(--gray-100);
-        border-color: var(--gray-300);
-      }
-      
-      .btn-clear {
-        background: var(--gray-300);
-        color: var(--gray-800);
-      }
+      :root { --light: #1a1a1a; --dark: #ffffff; --gray-100: #2d2d2d; --gray-200: #404040; --gray-600: #a0a0a0; --gray-800: #e0e0e0; }
+      body { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: var(--gray-800); }
+      .tool-wrapper, .feature-item, .step-card, .more-tools, .results-display { background: var(--gray-100); border-color: var(--gray-200); }
+      #drop-zone { background: var(--gray-200); }
+      .donate-reminder { background: linear-gradient(135deg, #2d2819, #3a321c); border-color: #d97706; }
+      .sticky-nav { background: rgba(26, 26, 26, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); }
+      .nav-links a { color: var(--gray-300); }
+      .tool-card { background: var(--gray-200); border-color: var(--gray-300); }
+      .canvas-container { background-color: var(--gray-100); border-color: var(--gray-300); background-image: radial-gradient(var(--gray-300) 1px, transparent 1px); }
+      .position-option { background: var(--gray-200); border-color: var(--gray-300); }
+      .file-info { background: var(--gray-200); border-color: var(--gray-300); }
+      .file-stat { background: var(--gray-100); border-color: var(--gray-300); }
+      .btn-clear { background: var(--gray-300); color: var(--gray-800); }
+      .result-item { background: var(--gray-200); }
+      .status-area { background: var(--gray-200); }
+      .page-selector-row select { background: var(--gray-200); border-color: var(--gray-300); color: var(--gray-800); }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
   <nav class="sticky-nav">
     <div class="nav-container">
       <a href="../index.html" class="nav-logo">
@@ -1140,49 +691,41 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
   <main class="container">
-    <!-- Tool Header -->
     <div class="tool-header">
       <div class="tool-breadcrumb">
-        <a href="../index.html">Home</a> / 
-        <a href="../index.html#tools">Tools</a> / 
+        <a href="../index.html">Home</a> /
+        <a href="../index.html#tools">Tools</a> /
         <span>Sign PDF</span>
       </div>
       <h1>Sign PDF Privately</h1>
-      <p>Add electronic signatures to PDF documents. Draw your signature and place it anywhere on your document. 100% private - your files never leave your browser.</p>
-      <div style="margin-top: var(--space-sm); display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-        <span style="background: rgba(67, 97, 238, 0.1); color: var(--primary); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
-          🔒 No Uploads
-        </span>
-        <span style="background: rgba(247, 37, 133, 0.1); color: var(--accent); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
-          ✍️ Draw Signature
-        </span>
-        <span style="background: rgba(34, 197, 94, 0.1); color: #22c55e; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
-          🆓 Completely Free
-        </span>
+      <p>Add an electronic signature to PDF documents. Draw your signature and place it on any page. 100% private — your files never leave your browser.</p>
+      <div style="margin-top:var(--space-sm); display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+        <span style="background:rgba(67,97,238,0.1); color:var(--primary); padding:0.5rem 1rem; border-radius:50px; font-size:0.9rem; font-weight:500;">🔒 No Uploads</span>
+        <span style="background:rgba(247,37,133,0.1); color:var(--accent); padding:0.5rem 1rem; border-radius:50px; font-size:0.9rem; font-weight:500;">✍️ Draw Signature</span>
+        <span style="background:rgba(34,197,94,0.1); color:#22c55e; padding:0.5rem 1rem; border-radius:50px; font-size:0.9rem; font-weight:500;">🆓 Completely Free</span>
       </div>
     </div>
 
-    <!-- Tool Wrapper -->
     <section class="tool-wrapper">
-      <!-- Upload Area -->
-      <div id="drop-zone" class="drop-zone" onclick="document.getElementById('pdfInput').click()">
+
+      <!-- Drop zone — no onclick attr; JS + keyboard accessible -->
+      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload a PDF to sign">
         <div class="drop-zone-content">
           <span class="icon">📄</span>
           <p><strong>Step 1: Upload PDF to Sign</strong></p>
-          <span class="file-limit">Supports PDF files • Maximum size: 50MB</span>
+          <span class="file-limit">PDF files only • Maximum size: 50 MB</span>
         </div>
         <input type="file" id="pdfInput" accept="application/pdf" hidden />
       </div>
 
-      <!-- File Info -->
+      <!-- File info -->
       <div id="file-info" class="file-info">
         <h4>PDF Details</h4>
         <div class="file-stats">
           <div class="file-stat">
             <span class="file-stat-label">File Name</span>
-            <span class="file-stat-value" id="file-name" style="font-size: 1rem; word-break: break-all;"></span>
+            <span class="file-stat-value" id="file-name" style="font-size:1rem; word-break:break-all;"></span>
           </div>
           <div class="file-stat">
             <span class="file-stat-label">Pages</span>
@@ -1194,54 +737,59 @@
           </div>
           <div class="file-stat">
             <span class="file-stat-label">Status</span>
-            <span class="file-stat-value" style="color: #22c55e;">Ready to Sign</span>
+            <span class="file-stat-value" style="color:#22c55e;">Ready to Sign</span>
           </div>
         </div>
       </div>
 
-      <!-- Signature App -->
+      <!-- Signature app -->
       <div id="signature-app" class="signature-app">
         <div class="step-cards">
-          <!-- Step 1: Draw Signature -->
+
+          <!-- Step 1: Draw signature -->
           <div class="step-card">
             <h3><span class="step-number">1</span> Draw Your Signature</h3>
-            <p style="color: var(--gray-600); margin-bottom: var(--space-sm);">Use your mouse, finger, or stylus to draw your signature below.</p>
-            
-            <div class="canvas-container">
+            <p style="color:var(--gray-600); margin-bottom:var(--space-sm);">Use your mouse, finger, or stylus to draw your signature below.</p>
+
+            <div class="canvas-container" id="canvas-container">
               <canvas id="signature-pad"></canvas>
             </div>
-            
+
             <div class="signature-controls">
-              <button id="clear-btn" class="btn-clear">
-                🗑️ Clear Signature
-              </button>
+              <button id="clear-btn" class="btn-clear">🗑️ Clear Signature</button>
             </div>
-            
-            <div class="signature-tip">
-              Tip: Sign slowly and clearly for best results
-            </div>
+
+            <div class="signature-tip">Tip: Sign slowly and clearly for best results</div>
           </div>
-          
-          <!-- Step 2: Customize -->
+
+          <!-- Step 2: Customise & place -->
           <div class="step-card">
-            <h3><span class="step-number">2</span> Customize & Place</h3>
-            <p style="color: var(--gray-600); margin-bottom: var(--space-sm);">Choose signature color and position on the document.</p>
-            
-            <!-- Color Picker -->
-            <div style="margin-bottom: var(--space-md);">
-              <div style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 0.5rem;">Signature Color:</div>
+            <h3><span class="step-number">2</span> Customise &amp; Place</h3>
+            <p style="color:var(--gray-600); margin-bottom:var(--space-sm);">Choose signature colour, target page, and position.</p>
+
+            <!-- Colour picker -->
+            <div style="margin-bottom:var(--space-md);">
+              <div style="font-size:0.9rem; color:var(--gray-600); margin-bottom:0.5rem;">Signature Colour:</div>
               <div class="color-picker">
-                <div class="color-option active" data-color="#000000" style="background: #000000;"></div>
-                <div class="color-option" data-color="#4361ee" style="background: #4361ee;"></div>
-                <div class="color-option" data-color="#dc2626" style="background: #dc2626;"></div>
-                <div class="color-option" data-color="#059669" style="background: #059669;"></div>
-                <div class="color-option" data-color="#7c3aed" style="background: #7c3aed;"></div>
+                <div class="color-option active" data-color="#000000" style="background:#000000;" title="Black"></div>
+                <div class="color-option" data-color="#4361ee" style="background:#4361ee;" title="Blue"></div>
+                <div class="color-option" data-color="#dc2626" style="background:#dc2626;" title="Red"></div>
+                <div class="color-option" data-color="#059669" style="background:#059669;" title="Green"></div>
+                <div class="color-option" data-color="#7c3aed" style="background:#7c3aed;" title="Purple"></div>
               </div>
             </div>
-            
-            <!-- Position Controls -->
+
+            <!-- FIX: page selector — default last page (most natural for contracts) -->
+            <div class="page-selector-row">
+              <label for="page-select">Sign page:</label>
+              <select id="page-select">
+                <!-- Populated dynamically after PDF load -->
+              </select>
+            </div>
+
+            <!-- Position controls -->
             <div class="position-controls">
-              <div style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 0.5rem;">Signature Position:</div>
+              <div style="font-size:0.9rem; color:var(--gray-600); margin-bottom:0.5rem;">Signature Position:</div>
               <div class="position-options">
                 <div class="position-option active" data-position="bottom-right">
                   <span class="position-icon">↘️</span>
@@ -1253,7 +801,7 @@
                 </div>
                 <div class="position-option" data-position="center">
                   <span class="position-icon">◎</span>
-                  <span class="position-label">Center</span>
+                  <span class="position-label">Centre</span>
                 </div>
                 <div class="position-option" data-position="all-pages">
                   <span class="position-icon">📄</span>
@@ -1261,126 +809,94 @@
                 </div>
               </div>
             </div>
-            
-            <div style="margin-top: var(--space-md); font-size: 0.85rem; color: var(--gray-600); text-align: center;">
-              Signature will be added to the selected position
+
+            <div style="margin-top:var(--space-md); font-size:0.85rem; color:var(--gray-600); text-align:center;">
+              Signature will be embedded as an image in the PDF
             </div>
           </div>
         </div>
-        
-        <!-- Step 3: Apply Signature -->
-        <div style="text-align: center; margin-top: var(--space-lg);">
-          <h3><span class="step-number">3</span> Apply Signature & Download</h3>
-          <p style="color: var(--gray-600); margin-bottom: var(--space-md); max-width: 500px; margin-left: auto; margin-right: auto;">
-            Your signature will be embedded into the PDF document. All processing happens locally in your browser.
+
+        <!-- Step 3 -->
+        <div style="text-align:center; margin-top:var(--space-lg);">
+          <h3><span class="step-number">3</span> Apply Signature &amp; Download</h3>
+          <p style="color:var(--gray-600); margin-bottom:var(--space-md); max-width:520px; margin-left:auto; margin-right:auto;">
+            Your signature will be embedded into the PDF. All processing happens locally in your browser — nothing is uploaded.
           </p>
-          
-          <button id="sign-btn" class="btn btn-success" style="min-width: 300px;">
-            ✍️ Apply Signature & Download PDF
+          <button id="sign-btn" class="btn btn-success" style="min-width:300px;">
+            ✍️ Apply Signature &amp; Download PDF
           </button>
         </div>
       </div>
 
-      <!-- Status Area -->
+      <!-- Status -->
       <div id="status-area" class="status-area">
         <p id="status-text">Applying signature to PDF<span class="loading-dots"><span></span><span></span><span></span></span></p>
+        <button id="dismiss-error-btn" class="dismiss-error-btn" onclick="dismissError()">Dismiss</button>
       </div>
 
-      <!-- Results Display -->
+      <!-- Results -->
       <div id="results-display" class="results-display">
         <div class="results-header">
           <div class="success-icon">✓</div>
           <div>
-            <h3 style="margin: 0; color: #22c55e; font-size: 1.5rem;">Successfully Signed!</h3>
-            <p style="margin: 0.25rem 0 0 0; color: var(--gray-600); font-size: 0.95rem;" id="result-filename"></p>
+            <h3 style="margin:0; color:#22c55e; font-size:1.5rem;">Successfully Signed!</h3>
+            <p style="margin:0.25rem 0 0 0; color:var(--gray-600); font-size:0.95rem;" id="result-filename"></p>
           </div>
         </div>
-        
-        <div class="signing-results" id="signing-results">
-          <!-- Results will be populated here -->
-        </div>
-        
+        <div class="signing-results" id="signing-results"></div>
         <div class="action-buttons">
-          <a href="#" id="downloadBtn" class="btn btn-success">
-            ⬇️ Download Signed PDF
-          </a>
-          <button class="btn btn-secondary" onclick="resetTool()">
-            🔄 Sign Another PDF
-          </button>
+          <a href="#" id="downloadBtn" class="btn btn-success" style="display:none;">⬇️ Download Signed PDF</a>
+          <button class="btn btn-secondary" onclick="resetTool()">🔄 Sign Another PDF</button>
         </div>
       </div>
 
-      <!-- Donate Reminder -->
+      <!-- Donate -->
       <div id="donate-reminder" class="donate-reminder">
         <p>💖 Saved you some time? Consider buying me a coffee to keep this tool free!</p>
-        <a href="../donate.html" class="donate-link">
-          ☕ Support Kimosabe Tools
-        </a>
+        <a href="../donate.html" class="donate-link">☕ Support Kimosabe Tools</a>
       </div>
     </section>
 
-    <!-- Features Section -->
     <section class="tool-description">
-      <h2 style="text-align: center; margin-bottom: var(--space-lg); color: var(--dark); font-size: 2rem;">
+      <h2 style="text-align:center; margin-bottom:var(--space-lg); color:var(--dark); font-size:2rem;">
         Secure Electronic Signatures
       </h2>
-      <p style="text-align: center; max-width: 700px; margin: 0 auto var(--space-xl); color: var(--gray-600); font-size: 1.1rem;">
-        Add legally valid electronic signatures to your PDF documents without compromising your privacy. All processing happens locally in your browser - your sensitive documents never leave your device.
+      <p style="text-align:center; max-width:700px; margin:0 auto var(--space-xl); color:var(--gray-600); font-size:1.1rem;">
+        Add a drawn electronic signature to your PDF documents without compromising your privacy. All processing happens locally — your sensitive documents never leave your device. Note: this tool embeds a signature image and does not provide a cryptographically certified signature.
       </p>
-      
       <div class="feature-grid">
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">🔒</span> 100% Private</strong>
+          <strong><span style="font-size:1.3rem;">🔒</span> 100% Private</strong>
           <p>No PDFs are ever uploaded to servers. Your documents stay on your device throughout the entire signing process.</p>
         </div>
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">✍️</span> Natural Signing</strong>
-          <p>Draw your signature naturally using mouse, touchscreen, or stylus. Supports different colors and sizes.</p>
+          <strong><span style="font-size:1.3rem;">✍️</span> Natural Signing</strong>
+          <p>Draw your signature naturally using mouse, touchscreen, or stylus. Supports five ink colours.</p>
         </div>
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">🎯</span> Flexible Placement</strong>
-          <p>Place your signature anywhere on the document. Choose from preset positions or customize as needed.</p>
+          <strong><span style="font-size:1.3rem;">🎯</span> Flexible Placement</strong>
+          <p>Choose exactly which page to sign and where to place it — bottom corners, centre, or every page at once.</p>
         </div>
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">🆓</span> Free Forever</strong>
-          <p>No watermarks, no signature limits, no registration needed. All tools are completely free to use with no hidden costs.</p>
+          <strong><span style="font-size:1.3rem;">🆓</span> Free Forever</strong>
+          <p>No watermarks, no limits, no registration needed. All tools are completely free to use with no hidden costs.</p>
         </div>
       </div>
     </section>
 
-    <!-- More Tools Section -->
     <nav class="more-tools">
       <h3>Explore More Tools</h3>
       <div class="tools-grid">
-        <a href="edit-pdf.html" class="tool-card">
-          <div class="card-icon">📝</div>
-          <span>Edit PDF</span>
-        </a>
-        <a href="rotate-split-pdf.html" class="tool-card">
-          <div class="card-icon">✂️</div>
-          <span>Rotate & Split PDF</span>
-        </a>
-        <a href="merge-pdf.html" class="tool-card">
-          <div class="card-icon">🔗</div>
-          <span>Merge PDF</span>
-        </a>
-        <a href="compress-pdf.html" class="tool-card">
-          <div class="card-icon">📉</div>
-          <span>Compress PDF</span>
-        </a>
-        <a href="pdf-to-image.html" class="tool-card">
-          <div class="card-icon">🖼️</div>
-          <span>PDF to Image</span>
-        </a>
-        <a href="image-to-pdf.html" class="tool-card">
-          <div class="card-icon">📄</div>
-          <span>Image to PDF</span>
-        </a>
+        <a href="edit-pdf.html" class="tool-card"><div class="card-icon">📝</div><span>Edit PDF</span></a>
+        <a href="rotate-split-pdf.html" class="tool-card"><div class="card-icon">✂️</div><span>Rotate &amp; Split</span></a>
+        <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+        <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+        <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
+        <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Compress Image</span></a>
       </div>
     </nav>
   </main>
 
-  <!-- Footer -->
   <footer class="main-footer">
     <div class="footer-content">
       <div class="footer-logo">
@@ -1389,292 +905,340 @@
         </div>
         <div class="footer-logo-text">Kimosabe Tools</div>
       </div>
-      
-      <div style="text-align: center; margin-bottom: 2rem;">
-        <p style="color: var(--gray-300); max-width: 500px; margin: 0 auto 1.5rem;">
+      <div style="text-align:center; margin-bottom:2rem;">
+        <p style="color:var(--gray-300); max-width:500px; margin:0 auto 1.5rem;">
           Join thousands of users who trust their privacy to Kimosabe Tools
         </p>
-        <a href="../index.html#tools" class="support-btn" style="display: inline-block;">
-          🚀 Explore All Tools
-        </a>
+        <a href="../index.html#tools" class="support-btn" style="display:inline-block;">🚀 Explore All Tools</a>
       </div>
-
       <nav class="footer-links">
         <a href="../about.html">About</a>
         <a href="../contact.html">Contact</a>
         <a href="../privacy.html">Privacy</a>
         <a href="../terms.html">Terms</a>
-        <a href="../donate.html" style="color: #ffd166;">Support Us</a>
+        <a href="../donate.html" style="color:#ffd166;">Support Us</a>
       </nav>
-
       <p class="copyright">
         © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
-        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+        <small style="opacity:0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
       </p>
     </div>
   </footer>
 
-  <!-- Back to Top Button -->
-  <button class="back-to-top" aria-label="Back to top">
-    ↑
-  </button>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
 
   <script>
-    // DOM Elements
-    const pdfInput = document.getElementById('pdfInput');
-    const dropZone = document.getElementById('drop-zone');
-    const signatureApp = document.getElementById('signature-app');
-    const fileInfo = document.getElementById('file-info');
-    const clearBtn = document.getElementById('clear-btn');
-    const signBtn = document.getElementById('sign-btn');
-    const statusArea = document.getElementById('status-area');
-    const statusText = document.getElementById('status-text');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const donateReminder = document.getElementById('donate-reminder');
-    const resultsDisplay = document.getElementById('results-display');
-    const signingResults = document.getElementById('signing-results');
-    const resultFilename = document.getElementById('result-filename');
-    const fileNameElement = document.getElementById('file-name');
-    const pageCountElement = document.getElementById('page-count');
-    const fileSizeElement = document.getElementById('file-size');
-    const colorOptions = document.querySelectorAll('.color-option');
+    // ─── DOM refs ─────────────────────────────────────────────────────────
+    const pdfInput        = document.getElementById('pdfInput');
+    const dropZone        = document.getElementById('drop-zone');
+    const signatureApp    = document.getElementById('signature-app');
+    const fileInfoEl      = document.getElementById('file-info');
+    const clearBtn        = document.getElementById('clear-btn');
+    const signBtn         = document.getElementById('sign-btn');
+    const statusArea      = document.getElementById('status-area');
+    const statusText      = document.getElementById('status-text');
+    const dismissErrorBtn = document.getElementById('dismiss-error-btn');
+    const downloadBtn     = document.getElementById('downloadBtn');
+    const donateReminder  = document.getElementById('donate-reminder');
+    const resultsDisplay  = document.getElementById('results-display');
+    const signingResults  = document.getElementById('signing-results');
+    const resultFilename  = document.getElementById('result-filename');
+    const fileNameEl      = document.getElementById('file-name');
+    const pageCountEl     = document.getElementById('page-count');
+    const fileSizeEl      = document.getElementById('file-size');
+    const pageSelect      = document.getElementById('page-select');
+    const colorOptions    = document.querySelectorAll('.color-option');
     const positionOptions = document.querySelectorAll('.position-option');
-    const canvas = document.getElementById('signature-pad');
+    const canvas          = document.getElementById('signature-pad');
+    const canvasContainer = document.getElementById('canvas-container');
 
-    let signaturePad = null;
-    let pdfBytes = null;
-    let originalFileName = '';
-    let originalFileSize = 0;
-    let pageCount = 0;
-    let selectedColor = '#000000';
-    let selectedPosition = 'bottom-right';
+    // ─── State ────────────────────────────────────────────────────────────
+    // FIX: store File object — avoids ArrayBuffer detachment on repeated loads
+    let activeFile         = null;
+    let originalFileName   = '';
+    let pageCount          = 0;
+    let selectedColor      = '#000000';
+    let selectedPosition   = 'bottom-right';
     let currentDownloadUrl = null;
+    let signaturePad       = null;
+    let resizeObserver     = null;
 
-    // Event Listeners
-    pdfInput.addEventListener('change', async (e) => {
-      if (e.target.files[0]) {
-        await handlePDFFile(e.target.files[0]);
-      }
+    // ─── Position label map ───────────────────────────────────────────────
+    const POSITION_LABELS = {
+      'bottom-right': 'Bottom Right',
+      'bottom-left':  'Bottom Left',
+      'center':       'Centre',
+      'all-pages':    'All Pages'
+    };
+
+    // ─── Drop zone — JS click + keyboard ──────────────────────────────────
+    dropZone.addEventListener('click', () => pdfInput.click());
+    dropZone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pdfInput.click(); }
     });
-
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.classList.add('dragover');
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-      dropZone.classList.remove('dragover');
-    });
-
+    dropZone.addEventListener('dragover',  (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', ()  => dropZone.classList.remove('dragover'));
     dropZone.addEventListener('drop', async (e) => {
       e.preventDefault();
       dropZone.classList.remove('dragover');
-      if (e.dataTransfer.files[0]) {
-        await handlePDFFile(e.dataTransfer.files[0]);
-      }
+      if (e.dataTransfer.files[0]) await handlePDFFile(e.dataTransfer.files[0]);
+    });
+    pdfInput.addEventListener('change', async (e) => {
+      if (e.target.files[0]) await handlePDFFile(e.target.files[0]);
     });
 
-    // Color selection
-    colorOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        colorOptions.forEach(opt => opt.classList.remove('active'));
-        option.classList.add('active');
-        selectedColor = option.dataset.color;
-        
-        if (signaturePad) {
-          signaturePad.penColor = selectedColor;
-        }
+    // ─── Colour selection — also updates live pen colour ─────────────────
+    colorOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        colorOptions.forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+        selectedColor = opt.dataset.color;
+        if (signaturePad) signaturePad.penColor = selectedColor;
       });
     });
 
-    // Position selection
-    positionOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        positionOptions.forEach(opt => opt.classList.remove('active'));
-        option.classList.add('active');
-        selectedPosition = option.dataset.position;
+    // ─── Position selection ───────────────────────────────────────────────
+    positionOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        positionOptions.forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+        selectedPosition = opt.dataset.position;
+        // Hide page selector when "all pages" is chosen
+        pageSelect.parentElement.style.display =
+          selectedPosition === 'all-pages' ? 'none' : 'flex';
       });
     });
 
-    // Clear signature button
-    clearBtn.addEventListener('click', () => {
-      if (signaturePad) {
-        signaturePad.clear();
-      }
-    });
+    // ─── Clear button ─────────────────────────────────────────────────────
+    clearBtn.addEventListener('click', () => { if (signaturePad) signaturePad.clear(); });
 
-    // Sign button
+    // ─── Sign button ──────────────────────────────────────────────────────
     signBtn.addEventListener('click', signPDF);
 
-    // Functions
-function initSignaturePad() {
-  const ratio = Math.max(window.devicePixelRatio || 1, 1);
-  canvas.width = canvas.offsetWidth * ratio;
-  canvas.height = canvas.offsetHeight * ratio;
-  canvas.getContext('2d').scale(ratio, ratio);
-  
-  signaturePad = new SignaturePad(canvas, {  // ← Changed here: capital S and P
-    backgroundColor: 'rgba(255, 255, 255, 0)',
-    penColor: selectedColor,
-    velocityFilterWeight: 0.7,
-    minWidth: 0.5,
-    maxWidth: 2.5,
-    throttle: 16,
-      });
+    // ─── Dismiss error ────────────────────────────────────────────────────
+    function dismissError() {
+      statusArea.style.display      = 'none';
+      dismissErrorBtn.style.display = 'none';
     }
 
+    // ─── Show persistent error (no auto-hide) ─────────────────────────────
+    function showError(message) {
+      statusArea.style.display      = 'block';
+      statusText.innerHTML          = `<span style="color:#ef4444;">⚠️ ${message}</span>`;
+      dismissErrorBtn.style.display = 'inline-flex';
+    }
+
+    // ─── Friendly PDF error messages ─────────────────────────────────────
+    function friendlyPdfError(err, action) {
+      const msg = (err.message || '').toLowerCase();
+      if (msg.includes('password') || msg.includes('encrypt')) {
+        return `This PDF is password-protected. Please remove the password before trying to ${action} it.`;
+      }
+      return `Could not ${action} this PDF. It may be corrupted or use an unsupported feature.`;
+    }
+
+    // ─── Initialise SignaturePad correctly ────────────────────────────────
+    // FIX: use requestAnimationFrame x2 instead of setTimeout(100) —
+    //      guarantees the canvas has been painted and has a real offsetWidth.
+    // FIX: attach a ResizeObserver so the canvas rescales on window resize,
+    //      preventing coordinate misalignment after the user resizes.
+    function initSignaturePad() {
+      rescaleCanvas();
+
+      signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgba(255,255,255,0)',  // transparent background
+        penColor:        selectedColor,
+        velocityFilterWeight: 0.7,
+        minWidth: 0.5,
+        maxWidth: 2.5,
+        throttle: 16,
+      });
+
+      // FIX: ResizeObserver keeps canvas crisp after any window resize
+      if (resizeObserver) resizeObserver.disconnect();
+      resizeObserver = new ResizeObserver(() => {
+        // Save current drawing, rescale, restore
+        const data = signaturePad ? signaturePad.toData() : null;
+        rescaleCanvas();
+        if (signaturePad) {
+          signaturePad.clear();
+          if (data && data.length) signaturePad.fromData(data);
+        }
+      });
+      resizeObserver.observe(canvasContainer);
+    }
+
+    function rescaleCanvas() {
+      const ratio  = Math.max(window.devicePixelRatio || 1, 1);
+      const w      = canvasContainer.offsetWidth  || 400;
+      const h      = canvasContainer.offsetHeight || 250;
+      canvas.width  = w * ratio;
+      canvas.height = h * ratio;
+      canvas.style.width  = w + 'px';
+      canvas.style.height = h + 'px';
+      canvas.getContext('2d').scale(ratio, ratio);
+    }
+
+    // ─── File handler ─────────────────────────────────────────────────────
     async function handlePDFFile(file) {
       if (file.type !== 'application/pdf') {
-        alert('Please upload a PDF file');
+        alert('Please upload a PDF file.');
         return;
       }
 
       if (file.size > 50 * 1024 * 1024) {
-        alert('File size exceeds 50MB limit. Please upload a smaller PDF.');
+        alert(`File is ${formatBytes(file.size)}. Maximum allowed size is 50 MB.`);
         return;
       }
 
-      originalFileName = file.name.replace(/\.pdf$/i, '');
-      originalFileSize = file.size;
-      
       try {
-        pdfBytes = await file.arrayBuffer();
-        
-        // Load PDF to get page count
-        const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
-        pageCount = pdfDoc.getPageCount();
-        
-        // Update UI
-        signatureApp.style.display = 'block';
-        fileInfo.style.display = 'block';
+        // Load once to read page count — fresh arrayBuffer, not stored
+        const bytes  = await file.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+
+        // FIX: store File object, not the ArrayBuffer
+        activeFile       = file;
+        originalFileName = file.name.replace(/\.pdf$/i, '');
+        pageCount        = pdfDoc.getPageCount();
+
+        // Populate page selector
+        // FIX: default to last page (natural signing position for contracts)
+        pageSelect.innerHTML = '';
+        for (let i = 1; i <= pageCount; i++) {
+          const opt      = document.createElement('option');
+          opt.value      = i;
+          opt.textContent = `Page ${i}${i === pageCount ? ' (last)' : ''}${i === 1 ? ' (first)' : ''}`;
+          pageSelect.appendChild(opt);
+        }
+        pageSelect.value = pageCount;  // select last page by default
+
+        // UI
+        signatureApp.style.display   = 'block';
+        fileInfoEl.style.display     = 'block';
         resultsDisplay.style.display = 'none';
         donateReminder.style.display = 'none';
-        statusArea.style.display = 'none';
-        downloadBtn.style.display = 'none';
-        
-        fileNameElement.textContent = file.name;
-        pageCountElement.textContent = pageCount;
-        fileSizeElement.textContent = formatBytes(file.size);
-        
-        // Initialize signature pad
-        setTimeout(initSignaturePad, 100);
-        
-        // Track file upload
+        statusArea.style.display     = 'none';
+        downloadBtn.style.display    = 'none';
+        dismissErrorBtn.style.display = 'none';
+
+        fileNameEl.textContent  = file.name;
+        pageCountEl.textContent = pageCount;
+        fileSizeEl.textContent  = formatBytes(file.size);
+
+        // FIX: double-rAF ensures layout is complete before measuring canvas
+        requestAnimationFrame(() => requestAnimationFrame(initSignaturePad));
+
         if (typeof gtag !== 'undefined') {
-          gtag('event', 'pdf_uploaded', {
-            'event_category': 'tool_usage',
-            'event_label': 'sign_pdf',
-            'value': Math.round(file.size / 1024),
-            'page_count': pageCount,
-            'transport_type': 'beacon'
-          });
+          gtag('event', 'pdf_uploaded', { event_category: 'tool_usage', event_label: 'sign_pdf', value: Math.round(file.size / 1024), page_count: pageCount, transport_type: 'beacon' });
         }
+
       } catch (err) {
         console.error('Error loading PDF:', err);
-        alert('Error loading PDF file. Please try again.');
+        showError(friendlyPdfError(err, 'load'));
       }
     }
 
+    // ─── Core signing ─────────────────────────────────────────────────────
     async function signPDF() {
-      if (!pdfBytes) {
-        alert('Please upload a PDF file first.');
-        return;
-      }
+      if (!activeFile) { alert('Please upload a PDF file first.'); return; }
 
       if (!signaturePad || signaturePad.isEmpty()) {
         alert('Please draw your signature first.');
         return;
       }
 
-      // Memory cleanup
       if (currentDownloadUrl) {
         URL.revokeObjectURL(currentDownloadUrl);
         currentDownloadUrl = null;
       }
 
-      statusArea.style.display = 'block';
-      statusText.innerHTML = `Adding signature to PDF<span class="loading-dots"><span></span><span></span><span></span></span>`;
-      resultsDisplay.style.display = 'none';
-      downloadBtn.style.display = 'none';
-      donateReminder.style.display = 'none';
+      statusArea.style.display      = 'block';
+      dismissErrorBtn.style.display = 'none';
+      statusText.innerHTML          = `Adding signature to PDF<span class="loading-dots"><span></span><span></span><span></span></span>`;
+      resultsDisplay.style.display  = 'none';
+      downloadBtn.style.display     = 'none';
+      donateReminder.style.display  = 'none';
 
       try {
-        const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
-        
-        // Convert signature to image
-        const signatureDataUrl = signaturePad.toDataURL();
-        const signatureImage = await pdfDoc.embedPng(signatureDataUrl);
-        const signatureDims = signatureImage.scale(0.3); // Scale down signature
-        
-        // Get pages to sign
-        const pagesToSign = selectedPosition === 'all-pages' 
-          ? pdfDoc.getPages() 
-          : [pdfDoc.getPage(0)]; // Only first page for other positions
-        
-        // Sign each page
+        // FIX: fresh arrayBuffer from File — no detachment risk
+        const bytes  = await activeFile.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+
+        // FIX: always export as PNG with transparent background.
+        // toDataURL('image/png') guarantees a PNG data URL so embedPng()
+        // never receives a JPEG and produces corrupted output.
+        const dataUrl    = signaturePad.toDataURL('image/png');
+        const pngResp    = await fetch(dataUrl);
+        const pngBuffer  = await pngResp.arrayBuffer();
+        const sigImage   = await pdfDoc.embedPng(pngBuffer);
+        const sigDims    = sigImage.scale(0.35);
+
+        // Determine which pages to sign
+        const allPages = pdfDoc.getPages();
+        let pagesToSign;
+
+        if (selectedPosition === 'all-pages') {
+          pagesToSign = allPages;
+        } else {
+          // FIX: use the page the user selected (1-based), not always page 0
+          const targetIndex = parseInt(pageSelect.value, 10) - 1;
+          pagesToSign = [pdfDoc.getPage(Math.min(targetIndex, allPages.length - 1))];
+        }
+
         pagesToSign.forEach(page => {
           const { width, height } = page.getSize();
           let x, y;
-          
-          // Calculate position based on selection
+
           switch (selectedPosition) {
             case 'bottom-right':
-              x = width - signatureDims.width - 50;
-              y = 50;
+              x = width  - sigDims.width  - 40;
+              y = 40;
               break;
             case 'bottom-left':
-              x = 50;
-              y = 50;
+              x = 40;
+              y = 40;
               break;
             case 'center':
-              x = (width - signatureDims.width) / 2;
-              y = (height - signatureDims.height) / 2;
+              x = (width  - sigDims.width)  / 2;
+              y = (height - sigDims.height) / 2;
               break;
-            default:
-              x = width - signatureDims.width - 50;
-              y = 50;
+            default: // all-pages — bottom right
+              x = width  - sigDims.width  - 40;
+              y = 40;
           }
-          
-          page.drawImage(signatureImage, {
-            x,
-            y,
-            width: signatureDims.width,
-            height: signatureDims.height,
-          });
+
+          page.drawImage(sigImage, { x, y, width: sigDims.width, height: sigDims.height });
         });
 
-        const signedBytes = await pdfDoc.save();
-        const blob = new Blob([signedBytes], { type: 'application/pdf' });
+        const signedBytes  = await pdfDoc.save();
+        const blob         = new Blob([signedBytes], { type: 'application/pdf' });
         currentDownloadUrl = URL.createObjectURL(blob);
-        
-        // Update results
+
         const fileName = `${originalFileName}_signed.pdf`;
-        downloadBtn.href = currentDownloadUrl;
-        downloadBtn.download = fileName;
+        downloadBtn.href      = currentDownloadUrl;
+        downloadBtn.download  = fileName;
         resultFilename.textContent = fileName;
-        
-        // Populate results
-        const positionNames = {
-          'bottom-right': 'Bottom Right',
-          'bottom-left': 'Bottom Left',
-          'center': 'Center',
-          'all-pages': 'All Pages'
-        };
-        
+        downloadBtn.style.display  = 'inline-flex';
+
+        const signedPageCount = pagesToSign.length;
+        const pageLabel       = selectedPosition === 'all-pages'
+          ? 'All Pages'
+          : `Page ${pageSelect.value} of ${pageCount}`;
+
         signingResults.innerHTML = `
           <div class="result-item">
             <span class="result-label">Pages Signed</span>
-            <span class="result-value">${pagesToSign.length}</span>
-            <span class="result-badge">${pagesToSign.length === pageCount ? 'All Pages' : 'First Page'}</span>
+            <span class="result-value">${signedPageCount}</span>
+            <span class="result-badge">${pageLabel}</span>
           </div>
           <div class="result-item">
-            <span class="result-label">Signature Color</span>
-            <span class="result-value" style="color: ${selectedColor};">●</span>
+            <span class="result-label">Signature Colour</span>
+            <span class="result-value" style="color:${selectedColor}; font-size:2rem;">●</span>
             <span class="result-badge">${selectedColor.toUpperCase()}</span>
           </div>
           <div class="result-item">
             <span class="result-label">Position</span>
-            <span class="result-value">${positionNames[selectedPosition]}</span>
+            <span class="result-value">${POSITION_LABELS[selectedPosition] || selectedPosition}</span>
             <span class="result-badge">Placed</span>
           </div>
           <div class="result-item">
@@ -1684,107 +1248,77 @@ function initSignaturePad() {
           </div>
         `;
 
-        // Show results
-        statusArea.style.display = 'none';
+        statusArea.style.display     = 'none';
         resultsDisplay.style.display = 'block';
-        downloadBtn.style.display = 'inline-flex';
         donateReminder.style.display = 'block';
 
-        // Track successful signing
         if (typeof gtag !== 'undefined') {
-          gtag('event', 'pdf_signed', {
-            'event_category': 'tool_usage',
-            'event_label': 'sign_pdf',
-            'value': pagesToSign.length,
-            'color': selectedColor,
-            'position': selectedPosition,
-            'transport_type': 'beacon'
-          });
+          gtag('event', 'pdf_signed', { event_category: 'tool_usage', event_label: 'sign_pdf', value: signedPageCount, color: selectedColor, position: selectedPosition, transport_type: 'beacon' });
         }
+
       } catch (err) {
         console.error(err);
-        statusText.innerHTML = `<span style="color: #ef4444;">Error: Could not sign PDF. Please try again.</span>`;
-        setTimeout(() => {
-          statusArea.style.display = 'none';
-        }, 3000);
+        showError(friendlyPdfError(err, 'sign'));
       }
     }
 
+    // ─── Helpers ──────────────────────────────────────────────────────────
     function formatBytes(bytes) {
       if (bytes === 0) return '0 Bytes';
-      const k = 1024;
-      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const k = 1024, sizes = ['Bytes','KB','MB','GB'];
       const i = Math.floor(Math.log(bytes) / Math.log(k));
       return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
+    // ─── Reset ────────────────────────────────────────────────────────────
     function resetTool() {
-      // Memory cleanup
       if (currentDownloadUrl) {
         URL.revokeObjectURL(currentDownloadUrl);
         currentDownloadUrl = null;
       }
 
-      // Reset UI
-      signatureApp.style.display = 'none';
-      fileInfo.style.display = 'none';
-      statusArea.style.display = 'none';
-      resultsDisplay.style.display = 'none';
-      donateReminder.style.display = 'none';
-      downloadBtn.style.display = 'none';
-      pdfInput.value = '';
-      dropZone.style.display = 'block';
-      
-      // Reset variables
-      signaturePad = null;
-      pdfBytes = null;
+      // FIX: clear canvas BEFORE nulling signaturePad reference
+      if (signaturePad) { signaturePad.clear(); signaturePad = null; }
+      if (resizeObserver) { resizeObserver.disconnect(); resizeObserver = null; }
+
+      activeFile       = null;
       originalFileName = '';
-      originalFileSize = 0;
-      pageCount = 0;
-      selectedColor = '#000000';
+      pageCount        = 0;
+      selectedColor    = '#000000';
       selectedPosition = 'bottom-right';
-      
-      // Reset color and position selections
-      colorOptions.forEach(opt => opt.classList.remove('active'));
+
+      signatureApp.style.display    = 'none';
+      fileInfoEl.style.display      = 'none';
+      statusArea.style.display      = 'none';
+      resultsDisplay.style.display  = 'none';
+      donateReminder.style.display  = 'none';
+      downloadBtn.style.display     = 'none';
+      dismissErrorBtn.style.display = 'none';
+      pdfInput.value                = '';
+      pageSelect.innerHTML          = '';
+
+      // Reset colour
+      colorOptions.forEach(o => o.classList.remove('active'));
       colorOptions[0].classList.add('active');
-      
-      positionOptions.forEach(opt => opt.classList.remove('active'));
+
+      // Reset position
+      positionOptions.forEach(o => o.classList.remove('active'));
       positionOptions[0].classList.add('active');
-      
-      // Clear canvas if it exists
-      if (signaturePad) {
-        signaturePad.clear();
-      }
+
+      // Restore page selector visibility
+      pageSelect.parentElement.style.display = 'flex';
     }
 
-    // Back to Top Button
+    // ─── Back to top ──────────────────────────────────────────────────────
     const backToTop = document.querySelector('.back-to-top');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        backToTop.style.display = 'flex';
-      } else {
-        backToTop.style.display = 'none';
-      }
-    });
-    
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    window.addEventListener('scroll', () => { backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none'; });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // Initialize tool
+    // ─── Analytics ────────────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', () => {
-      // Track page view
       if (typeof gtag !== 'undefined') {
-        gtag('event', 'page_view', {
-          'page_title': 'Sign PDF',
-          'page_location': window.location.href
-        });
+        gtag('event', 'page_view', { page_title: 'Sign PDF', page_location: window.location.href });
       }
-      
-      // Set default color and position
-      selectedColor = colorOptions[0].dataset.color;
-      selectedPosition = positionOptions[0].dataset.position;
     });
   </script>
 </body>
