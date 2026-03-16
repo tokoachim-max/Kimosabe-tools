@@ -3,32 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/image-resize.html">
   
-  <title>Resize Images Online Free | Change Image Dimensions – Kimosabe Tools</title>
+  <title>Resize Image Online Free – Change Image Dimensions in Pixels | Kimosabe Tools</title>
   
-  <!-- Meta Tags -->
-  <meta name="description" content="Resize images online for free. Change image width and height easily without installing software. Fast, secure, and private browser-based resizer.">
-  <meta name="keywords" content="resize image, image resizer, change image size, image dimensions, photo resizer, privacy tools">
+  <meta name="description" content="Resize images online for free. Set exact pixel dimensions, maintain aspect ratio, or use social media presets. JPG, PNG & WebP. No uploads — 100% private.">
+  <meta name="keywords" content="resize image online free, image resizer, change image dimensions, resize photo, resize jpg online, resize png online, image size changer, reduce image dimensions">
   <meta name="author" content="Kimosabe Tools">
   
-  <!-- Open Graph -->
-  <meta property="og:title" content="Resize Images Online Free | Change Image Dimensions – Kimosabe Tools">
-  <meta property="og:description" content="Resize images 100% locally in your browser. No server uploads, no tracking.">
+  <meta property="og:title" content="Resize Image Online Free – Change Image Dimensions | Kimosabe Tools">
+  <meta property="og:description" content="Resize images 100% locally in your browser. Set exact pixel dimensions, no uploads, no registration.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/image-resize.html">
   <meta property="og:type" content="website">
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Resize Images Online Free | Change Image Dimensions – Kimosabe Tools">
+  <meta name="twitter:title" content="Resize Image Online Free – Change Image Dimensions | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based image resizer that keeps your photos private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
   
-  <!-- Favicon & Logo -->
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
   <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+       crossorigin="anonymous"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Image Resizer",
+        "url": "https://kimosabe-tools.pages.dev/tools/image-resize.html",
+        "description": "Resize JPG, PNG, and WebP images to exact pixel dimensions. Maintains aspect ratio, includes social media presets. 100% browser-based, no uploads.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "provider": { "@type": "Organization", "name": "Kimosabe Tools", "url": "https://kimosabe-tools.pages.dev" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I resize an image without losing quality?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Enlarging an image always involves some quality loss since pixels must be created from nothing. Reducing an image generally preserves quality well. Our tool uses the browser's high-quality smoothing algorithm for the best result in both cases." }
+          },
+          {
+            "@type": "Question",
+            "name": "Will resizing change the file format?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. JPG images are saved as JPG, PNG as PNG, and WebP as WebP. The format is preserved unless you explicitly convert using our Image Converter tool." }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I resize an image for Instagram?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Use the Instagram preset (1080×1080) for square posts. Upload your image, click the Instagram preset, then click Resize. The tool automatically adjusts dimensions while maintaining your chosen aspect ratio lock setting." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a maximum image size I can resize?",
+            "acceptedAnswer": { "@type": "Answer", "text": "The upload limit is 50 MB. Output dimensions are capped at 10,000 × 10,000 pixels to protect your browser from running out of memory." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
@@ -36,28 +81,19 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-H50NB3F51Q', {
-      'anonymize_ip': true,
-      'allow_google_signals': false,
-      'allow_ad_personalization_signals': false
-    });
+    gtag('config', 'G-H50NB3F51Q', { 'anonymize_ip': true, 'allow_google_signals': false, 'allow_ad_personalization_signals': false });
   </script>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Styles -->
   <style>
-    /* Import base styles from main site */
     :root {
-      /* Modern Color Palette */
       --primary: #4361ee;
       --primary-dark: #3a56d4;
       --secondary: #7209b7;
       --accent: #f72585;
-      --success: #4cc9f0;
       --light: #f8f9fa;
       --dark: #212529;
       --gray-100: #f8f9fa;
@@ -65,33 +101,23 @@
       --gray-300: #dee2e6;
       --gray-600: #6c757d;
       --gray-800: #343a40;
-      
-      /* Shadows */
       --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
       --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
       --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
       --shadow-hover: 0 15px 35px rgba(67, 97, 238, 0.15);
-      
-      /* Border Radius */
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
       --radius-xl: 24px;
-      
-      /* Spacing */
       --space-xs: 0.5rem;
       --space-sm: 1rem;
       --space-md: 1.5rem;
       --space-lg: 2rem;
       --space-xl: 3rem;
     }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
@@ -99,14 +125,14 @@
       background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
       min-height: 100vh;
     }
-    
+
     h1, h2, h3, h4 {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
       line-height: 1.2;
     }
-    
-    /* Navigation */
+
+    /* ── Navigation ── */
     .sticky-nav {
       position: sticky;
       top: 0;
@@ -116,7 +142,7 @@
       border-bottom: 1px solid rgba(0,0,0,0.05);
       padding: 1rem 0;
     }
-    
+
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -125,7 +151,7 @@
       justify-content: space-between;
       align-items: center;
     }
-    
+
     .nav-logo {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
@@ -136,7 +162,7 @@
       align-items: center;
       gap: 0.75rem;
     }
-    
+
     .nav-logo-img {
       width: 40px;
       height: 40px;
@@ -148,20 +174,10 @@
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       padding: 8px;
     }
-    
-    .nav-logo-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: brightness(0) invert(1);
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-    
+
+    .nav-logo-img img { width: 100%; height: 100%; object-fit: contain; filter: brightness(0) invert(1); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+
     .nav-links a {
       color: var(--gray-800);
       text-decoration: none;
@@ -169,11 +185,9 @@
       transition: color 0.2s;
       position: relative;
     }
-    
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-    
+
+    .nav-links a:hover { color: var(--primary); }
+
     .nav-links a::after {
       content: '';
       position: absolute;
@@ -184,11 +198,9 @@
       background: var(--primary);
       transition: width 0.3s;
     }
-    
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    
+
+    .nav-links a:hover::after { width: 100%; }
+
     .support-btn {
       background: linear-gradient(135deg, var(--accent) 0%, #ff6b9d 100%);
       color: white;
@@ -199,26 +211,18 @@
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: var(--shadow-md);
     }
-    
-    .support-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-    }
-    
-    /* Main Container */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 var(--space-md) var(--space-xl);
-    }
-    
-    /* Tool Header */
+
+    .support-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-md) var(--space-xl); }
+
     .tool-header {
       text-align: center;
       margin: var(--space-xl) 0 var(--space-lg);
       padding: 0 var(--space-md);
     }
-    
+
     .tool-header h1 {
       font-size: 2.5rem;
       color: var(--dark);
@@ -227,14 +231,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    
-    .tool-header p {
-      color: var(--gray-600);
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-    }
-    
+
+    .tool-header p { color: var(--gray-600); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+
     .tool-breadcrumb {
       display: flex;
       align-items: center;
@@ -244,18 +243,10 @@
       margin-bottom: var(--space-sm);
       font-size: 0.9rem;
     }
-    
-    .tool-breadcrumb a {
-      color: var(--primary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    
-    .tool-breadcrumb a:hover {
-      color: var(--secondary);
-    }
-    
-    /* Tool Wrapper */
+
+    .tool-breadcrumb a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
+    .tool-breadcrumb a:hover { color: var(--secondary); }
+
     .tool-wrapper {
       background: white;
       border-radius: var(--radius-xl);
@@ -265,8 +256,8 @@
       border: 1px solid var(--gray-200);
       animation: fadeIn 0.6s ease-out;
     }
-    
-    /* Upload Area */
+
+    /* ── Drop zone ── */
     #drop-zone {
       border: 3px dashed var(--gray-300);
       border-radius: var(--radius-lg);
@@ -278,21 +269,19 @@
       margin-bottom: var(--space-lg);
       position: relative;
       overflow: hidden;
+      outline: none;
     }
-    
-    #drop-zone:hover {
+
+    #drop-zone:hover,
+    #drop-zone:focus {
       border-color: var(--primary);
       background: rgba(67, 97, 238, 0.05);
       transform: translateY(-4px);
       box-shadow: var(--shadow-hover);
     }
-    
-    #drop-zone.dragover {
-      border-color: var(--primary);
-      background: rgba(67, 97, 238, 0.1);
-      border-style: solid;
-    }
-    
+
+    #drop-zone.dragover { border-color: var(--primary); background: rgba(67, 97, 238, 0.1); border-style: solid; }
+
     #drop-zone::before {
       content: '';
       position: absolute;
@@ -303,36 +292,15 @@
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
       transition: left 0.7s;
     }
-    
-    #drop-zone:hover::before {
-      left: 100%;
-    }
-    
-    .drop-zone-content .icon {
-      font-size: 3.5rem;
-      margin-bottom: var(--space-sm);
-      display: block;
-      color: var(--gray-600);
-    }
-    
-    .drop-zone-content p {
-      font-size: 1.125rem;
-      margin-bottom: var(--space-xs);
-      color: var(--gray-800);
-    }
-    
-    .drop-zone-content p strong {
-      color: var(--dark);
-    }
-    
-    .file-limit {
-      color: var(--gray-600);
-      font-size: 0.875rem;
-      display: block;
-      margin-top: var(--space-xs);
-    }
-    
-    /* Controls Panel */
+
+    #drop-zone:hover::before { left: 100%; }
+
+    .drop-zone-content .icon { font-size: 3.5rem; margin-bottom: var(--space-sm); display: block; color: var(--gray-600); }
+    .drop-zone-content p { font-size: 1.125rem; margin-bottom: var(--space-xs); color: var(--gray-800); }
+    .drop-zone-content p strong { color: var(--dark); }
+    .file-limit { color: var(--gray-600); font-size: 0.875rem; display: block; margin-top: var(--space-xs); }
+
+    /* ── Controls panel ── */
     .controls-panel {
       background: white;
       border-radius: var(--radius-lg);
@@ -343,15 +311,10 @@
       display: none;
       animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
-    .controls-panel h3 {
-      font-size: 1.5rem;
-      margin-bottom: var(--space-md);
-      color: var(--dark);
-      text-align: center;
-    }
-    
-    /* Dimension Controls */
+
+    .controls-panel h3 { font-size: 1.5rem; margin-bottom: var(--space-md); color: var(--dark); text-align: center; }
+
+    /* ── Dimension controls ── */
     .dimension-controls {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -359,23 +322,13 @@
       align-items: center;
       margin-bottom: var(--space-lg);
     }
-    
-    .dimension-group {
-      text-align: center;
-    }
-    
-    .dimension-group label {
-      display: block;
-      margin-bottom: var(--space-xs);
-      font-weight: 600;
-      color: var(--gray-800);
-      font-size: 1rem;
-    }
-    
-    .dimension-input {
-      position: relative;
-    }
-    
+
+    .dimension-group { text-align: center; }
+
+    .dimension-group label { display: block; margin-bottom: var(--space-xs); font-weight: 600; color: var(--gray-800); font-size: 1rem; }
+
+    .dimension-input { position: relative; }
+
     .dimension-input input {
       width: 100%;
       padding: 0.875rem 1rem;
@@ -388,29 +341,13 @@
       transition: all 0.3s;
       background: white;
     }
-    
-    .dimension-input input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
-    }
-    
-    .dimension-unit {
-      position: absolute;
-      right: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--gray-600);
-      font-weight: 500;
-    }
-    
-    .aspect-lock {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-xs);
-    }
-    
+
+    .dimension-input input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1); }
+
+    .dimension-unit { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--gray-600); font-weight: 500; }
+
+    .aspect-lock { display: flex; flex-direction: column; align-items: center; gap: var(--space-xs); }
+
     .aspect-toggle {
       background: var(--gray-100);
       border: 2px solid var(--gray-300);
@@ -422,43 +359,17 @@
       align-items: center;
       justify-content: center;
     }
-    
-    .aspect-toggle:hover {
-      border-color: var(--primary);
-      background: rgba(67, 97, 238, 0.05);
-    }
-    
-    .aspect-toggle.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-    
-    .aspect-toggle .icon {
-      font-size: 1.5rem;
-    }
-    
-    /* Preset Sizes */
-    .preset-sizes {
-      margin-top: var(--space-lg);
-      padding-top: var(--space-md);
-      border-top: 1px solid var(--gray-200);
-    }
-    
-    .preset-sizes h4 {
-      margin-bottom: var(--space-sm);
-      color: var(--gray-800);
-      font-size: 1.1rem;
-      text-align: center;
-    }
-    
-    .preset-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: var(--space-sm);
-      margin-bottom: var(--space-md);
-    }
-    
+
+    .aspect-toggle:hover { border-color: var(--primary); background: rgba(67, 97, 238, 0.05); }
+    .aspect-toggle.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .aspect-toggle .icon { font-size: 1.5rem; }
+
+    /* ── Preset sizes ── */
+    .preset-sizes { margin-top: var(--space-lg); padding-top: var(--space-md); border-top: 1px solid var(--gray-200); }
+    .preset-sizes h4 { margin-bottom: var(--space-sm); color: var(--gray-800); font-size: 1.1rem; text-align: center; }
+
+    .preset-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-sm); margin-bottom: var(--space-md); }
+
     .preset-item {
       background: var(--gray-100);
       border: 2px solid var(--gray-300);
@@ -468,89 +379,41 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    
-    .preset-item:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-sm);
-      border-color: var(--primary);
-    }
-    
-    .preset-item.active {
-      border-color: var(--primary);
-      background: rgba(67, 97, 238, 0.1);
-      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
-    }
-    
-    .preset-name {
-      font-weight: 600;
-      color: var(--dark);
-      display: block;
-      margin-bottom: 0.25rem;
-    }
-    
-    .preset-dimensions {
-      font-size: 0.85rem;
-      color: var(--gray-600);
-      font-family: monospace;
-    }
-    
-    /* Quality Control */
-    .quality-control {
-      margin-top: var(--space-lg);
-      padding-top: var(--space-md);
-      border-top: 1px solid var(--gray-200);
-    }
-    
-    .quality-control h4 {
-      margin-bottom: var(--space-sm);
-      color: var(--gray-800);
-      font-size: 1.1rem;
-      text-align: center;
-    }
-    
-    .quality-slider-container {
+
+    .preset-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); border-color: var(--primary); }
+    .preset-item.active { border-color: var(--primary); background: rgba(67, 97, 238, 0.1); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1); }
+    .preset-name { font-weight: 600; color: var(--dark); display: block; margin-bottom: 0.25rem; }
+    .preset-dimensions { font-size: 0.85rem; color: var(--gray-600); font-family: monospace; }
+
+    /* ── Quality control ── */
+    .quality-control { margin-top: var(--space-lg); padding-top: var(--space-md); border-top: 1px solid var(--gray-200); }
+    .quality-control h4 { margin-bottom: var(--space-sm); color: var(--gray-800); font-size: 1.1rem; text-align: center; }
+
+    .quality-slider-container { display: flex; align-items: center; gap: var(--space-md); }
+
+    .quality-value { background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: var(--radius-md); font-weight: 600; min-width: 70px; text-align: center; }
+
+    .quality-slider { flex: 1; height: 8px; background: linear-gradient(to right, #ef4444, #f59e0b, #22c55e); border-radius: 4px; outline: none; -webkit-appearance: none; }
+    .quality-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: white; border: 3px solid var(--primary); cursor: pointer; box-shadow: var(--shadow-md); transition: all 0.2s; }
+    .quality-slider::-webkit-slider-thumb:hover { transform: scale(1.1); box-shadow: var(--shadow-hover); }
+
+    /* FIX: shown only when output is a lossy format */
+    .quality-note { font-size: 0.82rem; color: var(--gray-600); text-align: center; margin-top: 0.5rem; }
+
+    .info-note {
       display: flex;
-      align-items: center;
-      gap: var(--space-md);
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      font-size: 0.83rem;
+      line-height: 1.5;
+      margin-top: var(--space-sm);
     }
-    
-    .quality-value {
-      background: var(--primary);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius-md);
-      font-weight: 600;
-      min-width: 70px;
-      text-align: center;
-    }
-    
-    .quality-slider {
-      flex: 1;
-      height: 8px;
-      background: linear-gradient(to right, #ef4444, #f59e0b, #22c55e);
-      border-radius: 4px;
-      outline: none;
-      -webkit-appearance: none;
-    }
-    
-    .quality-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: white;
-      border: 3px solid var(--primary);
-      cursor: pointer;
-      box-shadow: var(--shadow-md);
-      transition: all 0.2s;
-    }
-    
-    .quality-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.1);
-      box-shadow: var(--shadow-hover);
-    }
-    
-    /* Status Area */
+
+    .info-note.info { background: rgba(67,97,238,0.06); border: 1px solid rgba(67,97,238,0.18); color: #1e3a8a; }
+
+    /* ── Status / results / donate ── */
     .status-area {
       background: var(--gray-100);
       border-radius: var(--radius-lg);
@@ -561,15 +424,9 @@
       display: none;
       animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
-    #status-text {
-      font-size: 1.125rem;
-      margin-bottom: var(--space-sm);
-      color: var(--gray-800);
-      font-weight: 500;
-    }
-    
-    /* Results Display */
+
+    #status-text { font-size: 1.125rem; margin-bottom: var(--space-sm); color: var(--gray-800); font-weight: 500; }
+
     .results-display {
       background: white;
       border: 2px solid #22c55e;
@@ -579,139 +436,31 @@
       display: none;
       animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
-    .results-header {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-      margin-bottom: var(--space-lg);
-    }
-    
-    .success-icon {
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, #22c55e, #16a34a);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      color: white;
-      flex-shrink: 0;
-    }
-    
-    .resize-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: var(--space-md);
-      margin-bottom: var(--space-lg);
-    }
-    
-    .stat-item {
-      background: var(--gray-100);
-      padding: var(--space-md);
-      border-radius: var(--radius-md);
-      text-align: center;
-      transition: transform 0.3s;
-    }
-    
-    .stat-item:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-sm);
-    }
-    
-    .stat-label {
-      display: block;
-      color: var(--gray-600);
-      font-size: 0.875rem;
-      margin-bottom: var(--space-xs);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-    
-    .stat-value {
-      display: block;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--dark);
-    }
-    
-    .change-badge {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-top: var(--space-xs);
-    }
-    
-    /* Buttons */
-    .action-buttons {
-      display: flex;
-      gap: var(--space-sm);
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: var(--space-md);
-    }
-    
-    .btn {
-      padding: 0.875rem 2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      min-width: 200px;
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      box-shadow: var(--shadow-md);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-    }
-    
-    .btn-success {
-      background: linear-gradient(135deg, #22c55e, #16a34a);
-      color: white;
-      box-shadow: var(--shadow-md);
-    }
-    
-    .btn-success:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px rgba(34, 197, 94, 0.3);
-      background: linear-gradient(135deg, #16a34a, #15803d);
-    }
-    
-    .btn-secondary {
-      background: white;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      box-shadow: var(--shadow-sm);
-    }
-    
-    .btn-secondary:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-      background: var(--primary);
-      color: white;
-    }
-    
-    /* Donate Reminder */
+
+    .results-header { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); }
+
+    .success-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #22c55e, #16a34a); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; flex-shrink: 0; }
+
+    .resize-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); margin-bottom: var(--space-lg); }
+
+    .stat-item { background: var(--gray-100); padding: var(--space-md); border-radius: var(--radius-md); text-align: center; transition: transform 0.3s; }
+    .stat-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+    .stat-label { display: block; color: var(--gray-600); font-size: 0.875rem; margin-bottom: var(--space-xs); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+    .stat-value { display: block; font-size: 1.5rem; font-weight: 700; color: var(--dark); }
+    .change-badge { display: inline-block; background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-top: var(--space-xs); }
+
+    /* ── Buttons ── */
+    .action-buttons { display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap; margin-top: var(--space-md); }
+
+    .btn { padding: 0.875rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; cursor: pointer; font-size: 1rem; min-width: 200px; }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: var(--shadow-md); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .btn-success { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; box-shadow: var(--shadow-md); }
+    .btn-success:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(34, 197, 94, 0.3); }
+    .btn-secondary { background: white; color: var(--primary); border: 2px solid var(--primary); box-shadow: var(--shadow-sm); }
+    .btn-secondary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); background: var(--primary); color: white; }
+
+    /* ── Donate ── */
     .donate-reminder {
       background: linear-gradient(135deg, #fffbeb, #fef3c7);
       border: 2px dashed #f59e0b;
@@ -722,457 +471,107 @@
       animation: fadeIn 0.5s ease-in;
       display: none;
     }
-    
-    .donate-reminder p {
-      color: #92400e;
-      margin-bottom: var(--space-sm);
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-    
-    .donate-link {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.3s;
-      box-shadow: var(--shadow-sm);
-    }
-    
-    .donate-link:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      background: linear-gradient(135deg, #d97706, #b45309);
-    }
-    
-    /* Preview Area */
-    .preview-area {
-      display: flex;
-      gap: var(--space-lg);
-      margin-top: var(--space-lg);
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    .preview-box {
+
+    .donate-reminder p { color: #92400e; margin-bottom: var(--space-sm); font-size: 1.1rem; font-weight: 500; }
+
+    .donate-link { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 0.75rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s; box-shadow: var(--shadow-sm); }
+    .donate-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+    /* ── Preview area ── */
+    .preview-area { display: flex; gap: var(--space-lg); margin-top: var(--space-lg); justify-content: center; flex-wrap: wrap; }
+    .preview-box { background: white; border-radius: var(--radius-md); padding: var(--space-md); border: 1px solid var(--gray-200); text-align: center; min-width: 200px; flex: 1; max-width: 300px; }
+    .preview-box h4 { margin-bottom: var(--space-sm); color: var(--gray-800); font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .preview-image { width: 100%; height: 150px; object-fit: contain; border-radius: var(--radius-sm); border: 1px solid var(--gray-300); background: var(--gray-100); margin-bottom: var(--space-sm); }
+    .preview-info { color: var(--gray-600); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.25rem; }
+
+    /* ── Features / tools / footer ── */
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-md); margin: var(--space-lg) 0; }
+    .feature-item { background: white; padding: var(--space-lg); border-radius: var(--radius-md); border: 1px solid var(--gray-200); transition: all 0.3s ease; }
+    .feature-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+    .feature-item strong { display: flex; align-items: center; gap: var(--space-xs); color: var(--dark); margin-bottom: var(--space-xs); font-size: 1.1rem; }
+    .feature-item p { color: var(--gray-600); line-height: 1.5; font-size: 0.95rem; }
+
+    .more-tools { background: white; border-radius: var(--radius-xl); padding: var(--space-xl); margin-top: var(--space-xl); box-shadow: var(--shadow-md); }
+    .more-tools h3 { font-size: 1.8rem; margin-bottom: var(--space-lg); color: var(--dark); text-align: center; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-sm); }
+    .tool-card { background: var(--gray-100); padding: var(--space-md); border-radius: var(--radius-md); text-decoration: none; color: var(--gray-800); text-align: center; transition: all 0.3s; border: 1px solid var(--gray-200); display: flex; flex-direction: column; align-items: center; gap: var(--space-xs); }
+    .tool-card:hover { background: var(--primary); color: white; transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .tool-card .card-icon { font-size: 2rem; }
+
+    /* FIX: hardcoded footer bg — var(--dark) becomes white in dark mode override */
+    .main-footer { background: #212529; color: white; padding: var(--space-xl) 0; margin-top: var(--space-xl); }
+    .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-md); text-align: center; }
+    .footer-logo { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .footer-logo-img { width: 60px; height: 60px; background: white; border-radius: 14px; padding: 10px; display: flex; align-items: center; justify-content: center; }
+    .footer-logo-img img { width: 100%; height: 100%; object-fit: contain; }
+    .footer-logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.8rem; }
+    .footer-links { display: flex; justify-content: center; gap: var(--space-lg); margin: var(--space-lg) 0; flex-wrap: wrap; }
+    .footer-links a { color: var(--gray-300); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+    .copyright { text-align: center; color: var(--gray-600); font-size: 0.9rem; margin-top: var(--space-lg); }
+
+    .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: var(--shadow-lg); transition: all 0.3s; z-index: 1000; }
+    .back-to-top:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+
+    /* ── FAQ section ── */
+    .faq-section {
       background: white;
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-top: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       border: 1px solid var(--gray-200);
-      text-align: center;
-      min-width: 200px;
-      flex: 1;
-      max-width: 300px;
     }
-    
-    .preview-box h4 {
-      margin-bottom: var(--space-sm);
-      color: var(--gray-800);
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-    
-    .preview-image {
-      width: 100%;
-      height: 150px;
-      object-fit: contain;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--gray-300);
-      background: var(--gray-100);
-      margin-bottom: var(--space-sm);
-    }
-    
-    .preview-info {
-      color: var(--gray-600);
-      font-size: 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    
-    /* Feature Grid */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: var(--space-md);
-      margin: var(--space-lg) 0;
-    }
-    
-    .feature-item {
-      background: white;
-      padding: var(--space-lg);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--gray-200);
-      transition: all 0.3s ease;
-    }
-    
-    .feature-item:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--primary);
-    }
-    
-    .feature-item strong {
-      display: flex;
-      align-items: center;
-      gap: var(--space-xs);
-      color: var(--dark);
-      margin-bottom: var(--space-xs);
-      font-size: 1.1rem;
-    }
-    
-    .feature-item p {
-      color: var(--gray-600);
-      line-height: 1.5;
-      font-size: 0.95rem;
-    }
-    
-    /* More Tools Section */
-    .more-tools {
-      background: white;
-      border-radius: var(--radius-xl);
-      padding: var(--space-xl);
-      margin-top: var(--space-xl);
-      box-shadow: var(--shadow-md);
-    }
-    
-    .more-tools h3 {
-      font-size: 1.8rem;
-      margin-bottom: var(--space-lg);
-      color: var(--dark);
-      text-align: center;
-    }
-    
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: var(--space-sm);
-    }
-    
-    .tool-card {
-      background: var(--gray-100);
-      padding: var(--space-md);
-      border-radius: var(--radius-md);
-      text-decoration: none;
-      color: var(--gray-800);
-      text-align: center;
-      transition: all 0.3s;
-      border: 1px solid var(--gray-200);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-xs);
-    }
-    
-    .tool-card:hover {
-      background: var(--primary);
-      color: white;
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-    }
-    
-    .tool-card .card-icon {
-      font-size: 2rem;
-    }
-    
-    /* Footer */
-    .main-footer {
-      background: var(--dark);
-      color: white;
-      padding: var(--space-xl) 0;
-      margin-top: var(--space-xl);
-    }
-    
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 var(--space-md);
-      text-align: center;
-    }
-    
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .footer-logo-img {
-      width: 60px;
-      height: 60px;
-      background: white;
-      border-radius: 14px;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .footer-logo-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-    
-    .footer-logo-text {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      font-size: 1.8rem;
-    }
-    
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: var(--space-lg);
-      margin: var(--space-lg) 0;
-      flex-wrap: wrap;
-    }
-    
-    .footer-links a {
-      color: var(--gray-300);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    
-    .footer-links a:hover {
-      color: white;
-    }
-    
-    .copyright {
-      text-align: center;
-      color: var(--gray-600);
-      font-size: 0.9rem;
-      margin-top: var(--space-lg);
-    }
-    
-    /* Back to Top */
-    .back-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      box-shadow: var(--shadow-lg);
-      transition: all 0.3s;
-      z-index: 1000;
-    }
-    
-    .back-to-top:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-hover);
-    }
-    
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Loading Animation */
-    .loading-dots {
-      display: inline-flex;
-      gap: 4px;
-      margin-left: 4px;
-    }
-    
-    .loading-dots span {
-      width: 8px;
-      height: 8px;
-      background: var(--primary);
-      border-radius: 50%;
-      animation: bounce 1.4s infinite ease-in-out both;
-    }
-    
+
+    /* ── Animations ── */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .loading-dots { display: inline-flex; gap: 4px; margin-left: 4px; }
+    .loading-dots span { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
     .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
     .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
-    
-    @keyframes bounce {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
-    }
-    
-    /* Responsive */
+    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+    /* ── Responsive ── */
     @media (max-width: 768px) {
-      .tool-header h1 {
-        font-size: 2rem;
-      }
-      
-      .tool-wrapper {
-        padding: var(--space-lg);
-      }
-      
-      #drop-zone {
-        padding: var(--space-lg);
-      }
-      
-      .preview-area {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .preview-box {
-        width: 100%;
-        max-width: 300px;
-      }
-      
-      .dimension-controls {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-      }
-      
-      .aspect-lock {
-        order: 3;
-        margin-top: var(--space-sm);
-      }
-      
-      .preset-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .tools-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .nav-links {
-        display: none;
-      }
-      
-      .action-buttons {
-        flex-direction: column;
-      }
-      
-      .btn {
-        width: 100%;
-        min-width: auto;
-      }
-      
-      .resize-stats {
-        grid-template-columns: 1fr;
-      }
-      
-      .quality-slider-container {
-        flex-direction: column;
-        align-items: stretch;
-      }
+      .tool-header h1 { font-size: 2rem; }
+      .tool-wrapper { padding: var(--space-lg); }
+      #drop-zone { padding: var(--space-lg); }
+      .preview-area { flex-direction: column; align-items: center; }
+      .preview-box { width: 100%; max-width: 300px; }
+      .dimension-controls { grid-template-columns: 1fr; gap: var(--space-md); }
+      .aspect-lock { order: 3; margin-top: var(--space-sm); }
+      .preset-grid { grid-template-columns: repeat(2, 1fr); }
+      .feature-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+      .action-buttons { flex-direction: column; }
+      .btn { width: 100%; min-width: auto; }
+      .resize-stats { grid-template-columns: 1fr; }
+      .quality-slider-container { flex-direction: column; align-items: stretch; }
     }
-    
-    /* Dark Mode */
+
+    /* ── Dark mode ── */
     @media (prefers-color-scheme: dark) {
-      :root {
-        --light: #1a1a1a;
-        --dark: #ffffff;
-        --gray-100: #2d2d2d;
-        --gray-200: #404040;
-        --gray-600: #a0a0a0;
-        --gray-800: #e0e0e0;
-      }
-      
-      body {
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-        color: var(--gray-800);
-      }
-      
-      .tool-wrapper,
-      .feature-item,
-      .controls-panel,
-      .preview-box,
-      .more-tools {
-        background: var(--gray-100);
-        border-color: var(--gray-200);
-      }
-      
-      #drop-zone {
-        background: var(--gray-200);
-      }
-      
-      .donate-reminder {
-        background: linear-gradient(135deg, #2d2819, #3a321c);
-        border-color: #d97706;
-      }
-      
-      .sticky-nav {
-        background: rgba(26, 26, 26, 0.95);
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-      }
-      
-      .nav-links a {
-        color: var(--gray-300);
-      }
-      
-      .nav-logo-img {
-        background: var(--primary);
-      }
-      
-      .footer-logo-img {
-        background: var(--gray-200);
-      }
-      
-      .tool-card {
-        background: var(--gray-200);
-        border-color: var(--gray-300);
-      }
-      
-      .dimension-input input {
-        background: var(--gray-200);
-        border-color: var(--gray-300);
-        color: var(--gray-800);
-      }
-      
-      .preset-item {
-        background: var(--gray-200);
-        border-color: var(--gray-300);
-      }
-      
-      .aspect-toggle {
-        background: var(--gray-200);
-        border-color: var(--gray-300);
-      }
-      
-      .quality-slider {
-        background: linear-gradient(to right, #dc2626, #d97706, #16a34a);
-      }
-      
-      .quality-slider::-webkit-slider-thumb {
-        background: var(--gray-800);
-        border-color: var(--primary);
-      }
-      
-      .preview-image {
-        background: var(--gray-200);
-        border-color: var(--gray-300);
-      }
+      :root { --light: #1a1a1a; --dark: #ffffff; --gray-100: #2d2d2d; --gray-200: #404040; --gray-600: #a0a0a0; --gray-800: #e0e0e0; }
+      body { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: var(--gray-800); }
+      .tool-wrapper, .feature-item, .controls-panel, .preview-box, .more-tools, .results-display, .faq-section { background: var(--gray-100); border-color: var(--gray-200); }
+      #drop-zone { background: var(--gray-200); }
+      .donate-reminder { background: linear-gradient(135deg, #2d2819, #3a321c); border-color: #d97706; }
+      .sticky-nav { background: rgba(26, 26, 26, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); }
+      .nav-links a { color: var(--gray-300); }
+      .tool-card { background: var(--gray-200); border-color: var(--gray-300); }
+      .dimension-input input { background: var(--gray-200); border-color: var(--gray-300); color: var(--gray-800); }
+      .preset-item { background: var(--gray-200); border-color: var(--gray-300); }
+      .aspect-toggle { background: var(--gray-200); border-color: var(--gray-300); }
+      .quality-slider { background: linear-gradient(to right, #dc2626, #d97706, #16a34a); }
+      .quality-slider::-webkit-slider-thumb { background: var(--gray-800); border-color: var(--primary); }
+      .preview-image { background: var(--gray-200); border-color: var(--gray-300); }
+      .stat-item { background: var(--gray-200); }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
   <nav class="sticky-nav">
     <div class="nav-container">
       <a href="../index.html" class="nav-logo">
@@ -1190,47 +589,46 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
   <main class="container">
-    <!-- Tool Header -->
+
+    <!-- Ad: above tool -->
+    <div style="max-width:1200px;margin:0 auto 1.5rem;padding:0 1.5rem;text-align:center;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="TOP_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <div class="tool-header">
       <div class="tool-breadcrumb">
-        <a href="../index.html">Home</a> / 
-        <a href="../index.html#tools">Tools</a> / 
-        <span>Image Resize</span>
+        <a href="../index.html">Home</a> /
+        <a href="../index.html#tools">Tools</a> /
+        <span>Resize Image</span>
       </div>
-      <h1>Image Resize</h1>
-      <p>Change your image dimensions exactly how you need them. 100% private — images never leave your browser.</p>
-      <div style="margin-top: var(--space-sm); display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-        <span style="background: rgba(67, 97, 238, 0.1); color: var(--primary); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
-          🔒 No Uploads
-        </span>
-        <span style="background: rgba(247, 37, 133, 0.1); color: var(--accent); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
-          📐 Pixel Perfect
-        </span>
-        <span style="background: rgba(34, 197, 94, 0.1); color: #22c55e; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 500;">
-          🆓 Completely Free
-        </span>
+      <h1>Resize Image Online Free</h1>
+      <p>Change image dimensions to exact pixels. Lock aspect ratio, use social media presets, or enter custom sizes. 100% private — images never leave your browser.</p>
+      <div style="margin-top:var(--space-sm); display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+        <span style="background:rgba(67,97,238,0.1); color:var(--primary); padding:0.5rem 1rem; border-radius:50px; font-size:0.9rem; font-weight:500;">🔒 No Uploads</span>
+        <span style="background:rgba(247,37,133,0.1); color:var(--accent); padding:0.5rem 1rem; border-radius:50px; font-size:0.9rem; font-weight:500;">📐 Pixel Perfect</span>
+        <span style="background:rgba(34,197,94,0.1); color:#22c55e; padding:0.5rem 1rem; border-radius:50px; font-size:0.9rem; font-weight:500;">🆓 Completely Free</span>
       </div>
     </div>
 
-    <!-- Tool Wrapper -->
     <section class="tool-wrapper">
-      <!-- File Upload Area -->
-      <div id="drop-zone" class="drop-zone" onclick="document.getElementById('imageInput').click()">
+
+      <!-- Drop zone — no onclick attr; JS + keyboard accessible -->
+      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload an image to resize">
         <div class="drop-zone-content">
           <span class="icon">📐</span>
           <p><strong>Click to upload</strong> or drag your image here</p>
-          <span class="file-limit">Supports JPG, PNG, WebP, GIF • Maximum size: 50MB</span>
+          <span class="file-limit">JPG, PNG, WebP • Maximum size: 50 MB</span>
         </div>
-        <input type="file" id="imageInput" accept="image/*" hidden />
+        <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp" hidden />
       </div>
 
-      <!-- Controls Panel -->
+      <!-- Controls panel -->
       <div id="controls" class="controls-panel">
         <h3>Resize Settings</h3>
-        
-        <!-- Dimension Controls -->
+
+        <!-- Dimension controls -->
         <div class="dimension-controls">
           <div class="dimension-group">
             <label for="widthInput">Width</label>
@@ -1239,14 +637,14 @@
               <span class="dimension-unit">px</span>
             </div>
           </div>
-          
+
           <div class="aspect-lock">
-            <label style="font-size: 0.85rem; color: var(--gray-600);">Aspect Ratio</label>
+            <label style="font-size:0.85rem; color:var(--gray-600);">Aspect Ratio</label>
             <div id="aspectToggle" class="aspect-toggle active" title="Maintain aspect ratio">
               <span class="icon">🔗</span>
             </div>
           </div>
-          
+
           <div class="dimension-group">
             <label for="heightInput">Height</label>
             <div class="dimension-input">
@@ -1256,58 +654,39 @@
           </div>
         </div>
 
-        <!-- Preset Sizes -->
+        <!-- Preset sizes -->
         <div class="preset-sizes">
           <h4>Common Sizes</h4>
           <div class="preset-grid">
-            <div class="preset-item" data-width="1080" data-height="1080">
-              <span class="preset-name">Instagram</span>
-              <span class="preset-dimensions">1080×1080</span>
-            </div>
-            <div class="preset-item" data-width="1200" data-height="630">
-              <span class="preset-name">Facebook</span>
-              <span class="preset-dimensions">1200×630</span>
-            </div>
-            <div class="preset-item" data-width="1280" data-height="720">
-              <span class="preset-name">HD Video</span>
-              <span class="preset-dimensions">1280×720</span>
-            </div>
-            <div class="preset-item" data-width="1920" data-height="1080">
-              <span class="preset-name">Full HD</span>
-              <span class="preset-dimensions">1920×1080</span>
-            </div>
-            <div class="preset-item" data-width="150" data-height="150">
-              <span class="preset-name">Thumbnail</span>
-              <span class="preset-dimensions">150×150</span>
-            </div>
-            <div class="preset-item" data-width="800" data-height="600">
-              <span class="preset-name">Web Standard</span>
-              <span class="preset-dimensions">800×600</span>
-            </div>
+            <div class="preset-item" data-width="1080" data-height="1080"><span class="preset-name">Instagram</span><span class="preset-dimensions">1080×1080</span></div>
+            <div class="preset-item" data-width="1200" data-height="630"><span class="preset-name">Facebook</span><span class="preset-dimensions">1200×630</span></div>
+            <div class="preset-item" data-width="1280" data-height="720"><span class="preset-name">HD Video</span><span class="preset-dimensions">1280×720</span></div>
+            <div class="preset-item" data-width="1920" data-height="1080"><span class="preset-name">Full HD</span><span class="preset-dimensions">1920×1080</span></div>
+            <div class="preset-item" data-width="150" data-height="150"><span class="preset-name">Thumbnail</span><span class="preset-dimensions">150×150</span></div>
+            <div class="preset-item" data-width="800" data-height="600"><span class="preset-name">Web Standard</span><span class="preset-dimensions">800×600</span></div>
           </div>
         </div>
 
-        <!-- Quality Control -->
-        <div class="quality-control">
+        <!-- Quality control — FIX: shown only for lossy output, hidden for PNG -->
+        <div class="quality-control" id="quality-control">
           <h4>Output Quality: <span id="quality-value">90%</span></h4>
           <div class="quality-slider-container">
             <input type="range" id="quality-slider" class="quality-slider" min="10" max="100" value="90">
           </div>
-          <p class="tip-text" style="margin-top: 0.5rem; text-align: center; color: var(--gray-600); font-size: 0.85rem;">
-            Higher quality = larger file size. Lower quality = smaller file size.
-          </p>
+          <p class="quality-note">Higher quality = larger file size. Lower quality = smaller file size.</p>
+          <!-- Shown when PNG is loaded -->
+          <div id="png-lossless-note" class="info-note info" style="display:none;">
+            ℹ️ PNG uses lossless compression — the quality slider has no effect. For smaller PNG output, convert to JPEG or WebP using our Image Converter.
+          </div>
         </div>
 
-        <!-- Action Buttons -->
         <div class="action-buttons">
-          <button id="resizeBtn" class="btn btn-primary">
-            📐 Resize Image
-          </button>
+          <button id="resizeBtn" class="btn btn-primary">📐 Resize Image</button>
         </div>
       </div>
 
-      <!-- Preview Area -->
-      <div id="preview-area" class="preview-area" style="display: none;">
+      <!-- Preview area -->
+      <div id="preview-area" class="preview-area" style="display:none;">
         <div class="preview-box">
           <h4><span>📤</span> Original</h4>
           <img id="original-preview" class="preview-image" alt="Original image">
@@ -1316,117 +695,113 @@
             <div id="original-size">0 KB</div>
           </div>
         </div>
-        
         <div class="preview-box">
           <h4><span>📥</span> Resized</h4>
           <img id="resized-preview" class="preview-image" alt="Resized image">
           <div class="preview-info">
-            <div id="resized-dimensions">0 × 0 px</div>
-            <div id="resized-size">0 KB</div>
+            <div id="resized-dimensions">—</div>
+            <div id="resized-size">—</div>
           </div>
         </div>
       </div>
 
-      <!-- Status Area -->
+      <!-- Status -->
       <div id="status-area" class="status-area">
-        <p id="status-text">Processing image<span class="loading-dots"><span></span><span></span><span></span></span></p>
+        <p id="status-text">Resizing image<span class="loading-dots"><span></span><span></span><span></span></span></p>
       </div>
 
-      <!-- Results Display -->
+      <!-- Results -->
       <div id="results-display" class="results-display">
         <div class="results-header">
           <div class="success-icon">✓</div>
           <div>
-            <h3 style="margin: 0; color: #22c55e; font-size: 1.5rem;">Resize Complete!</h3>
-            <p style="margin: 0.25rem 0 0 0; color: var(--gray-600); font-size: 0.95rem;" id="result-filename"></p>
+            <h3 style="margin:0; color:#22c55e; font-size:1.5rem;">Resize Complete!</h3>
+            <p style="margin:0.25rem 0 0 0; color:var(--gray-600); font-size:0.95rem;" id="result-filename"></p>
           </div>
         </div>
-        
-        <div class="resize-stats" id="resize-stats">
-          <!-- Stats will be populated here -->
-        </div>
-        
+        <div class="resize-stats" id="resize-stats"></div>
         <div class="action-buttons">
-          <a href="#" id="downloadBtn" class="btn btn-success">
-            ⬇️ Download Resized Image
-          </a>
-          <button class="btn btn-secondary" onclick="resetTool()">
-            🔄 Resize Another
-          </button>
+          <a href="#" id="downloadBtn" class="btn btn-success" style="display:none;">⬇️ Download Resized Image</a>
+          <button class="btn btn-secondary" onclick="resetTool()">🔄 Resize Another</button>
         </div>
       </div>
 
-      <!-- Donate Reminder -->
+      <!-- Donate -->
       <div id="donate-reminder" class="donate-reminder">
         <p>💖 Saved you some time? Consider buying me a coffee to keep this tool free!</p>
-        <a href="../donate.html" class="donate-link">
-          ☕ Support Kimosabe Tools
-        </a>
+        <a href="../donate.html" class="donate-link">☕ Support Kimosabe Tools</a>
       </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Features -->
     <section class="tool-description">
-      <h2 style="text-align: center; margin-bottom: var(--space-lg); color: var(--dark); font-size: 2rem;">
-        Fast & Accurate Resizing
+      <h2 style="text-align:center; margin-bottom:var(--space-lg); color:var(--dark); font-size:2rem;">
+        Fast &amp; Accurate Image Resizing
       </h2>
-      <p style="text-align: center; max-width: 700px; margin: 0 auto var(--space-xl); color: var(--gray-600); font-size: 1.1rem;">
-        Whether you need to fit a specific social media requirement or reduce dimensions for a website, our tool uses high-quality bicubic interpolation logic built into your browser's engine.
+      <p style="text-align:center; max-width:700px; margin:0 auto var(--space-xl); color:var(--gray-600); font-size:1.1rem;">
+        Whether you need to fit a social media requirement or reduce dimensions for a website, our tool uses high-quality smoothing built directly into your browser for sharp, accurate results.
       </p>
-      
       <div class="feature-grid">
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">🔒</span> 100% Private</strong>
+          <strong><span style="font-size:1.3rem;">🔒</span> 100% Private</strong>
           <p>Your photos stay on your device throughout the process. No uploads to our servers means maximum privacy.</p>
         </div>
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">⚡</span> Precise Control</strong>
-          <p>Set exact pixel dimensions or use preset sizes for social media platforms and common use cases.</p>
+          <strong><span style="font-size:1.3rem;">📐</span> Precise Control</strong>
+          <p>Set exact pixel dimensions or use presets for Instagram, Facebook, HD video, and more.</p>
         </div>
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">🎯</span> Smart Resizing</strong>
-          <p>Maintain aspect ratio automatically or customize freely. High-quality bicubic interpolation for best results.</p>
+          <strong><span style="font-size:1.3rem;">🔗</span> Aspect Ratio Lock</strong>
+          <p>Toggle the aspect ratio lock to maintain proportions automatically, or unlock for freeform resizing.</p>
         </div>
         <div class="feature-item">
-          <strong><span style="font-size: 1.3rem;">🆓</span> Free Forever</strong>
-          <p>No watermarks, no file limits, no registration needed. All tools are completely free to use.</p>
+          <strong><span style="font-size:1.3rem;">🆓</span> Free Forever</strong>
+          <p>No watermarks, no file limits, no registration needed. Completely free to use.</p>
         </div>
       </div>
     </section>
 
-    <!-- More Tools Section -->
+    <!-- FAQ -->
+    <section class="faq-section">      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">Frequently Asked Questions</h2>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+        <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I resize an image without losing quality?</h3>
+        <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Reducing an image generally preserves quality well. Enlarging always involves some quality loss since new pixels must be interpolated. Our tool uses the browser's high-quality smoothing algorithm for the sharpest results in both cases.</p>
+      </div>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+        <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Will resizing change the file format?</h3>
+        <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">No. JPG images are saved as JPG, PNG as PNG, and WebP as WebP. If you also want to change format, use our Image Converter tool after resizing.</p>
+      </div>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+        <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">How do I resize an image for Instagram?</h3>
+        <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Upload your image, then click the Instagram preset (1080×1080). The dimensions fill in automatically. Click Resize and download. For Stories (1080×1920) enter the dimensions manually.</p>
+      </div>
+      <div style="padding:1.25rem 0;">
+        <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Is there a maximum size I can resize to?</h3>
+        <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Upload limit is 50 MB. Output dimensions are capped at 10,000 × 10,000 pixels to protect your browser from running out of memory on very large canvases.</p>
+      </div>
+    </section>
+
+    <!-- More tools -->
     <nav class="more-tools">
       <h3>Explore More Tools</h3>
       <div class="tools-grid">
-        <a href="image-compressor.html" class="tool-card">
-          <div class="card-icon">📁</div>
-          <span>Compress Image</span>
-        </a>
-        <a href="image-converter.html" class="tool-card">
-          <div class="card-icon">🔄</div>
-          <span>Convert Image</span>
-        </a>
-        <a href="image-to-pdf.html" class="tool-card">
-          <div class="card-icon">📄</div>
-          <span>Image to PDF</span>
-        </a>
-        <a href="compress-pdf.html" class="tool-card">
-          <div class="card-icon">📉</div>
-          <span>Compress PDF</span>
-        </a>
-        <a href="merge-pdf.html" class="tool-card">
-          <div class="card-icon">🔗</div>
-          <span>Merge PDF</span>
-        </a>
-        <a href="edit-pdf.html" class="tool-card">
-          <div class="card-icon">✏️</div>
-          <span>Edit PDF</span>
-        </a>
+        <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Compress Image</span></a>
+        <a href="image-converter.html"  class="tool-card"><div class="card-icon">🔄</div><span>Convert Image</span></a>
+        <a href="image-to-pdf.html"     class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
+        <a href="compress-pdf.html"     class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+        <a href="merge-pdf.html"        class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+        <a href="edit-pdf.html"         class="tool-card"><div class="card-icon">✏️</div><span>Edit PDF</span></a>
       </div>
     </nav>
+
+    <!-- Ad: below results -->
+    <div style="max-width:1200px;margin:2rem auto 0;padding:0 1.5rem;text-align:center;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="BOTTOM_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
   </main>
 
-  <!-- Footer -->
   <footer class="main-footer">
     <div class="footer-content">
       <div class="footer-logo">
@@ -1435,225 +810,192 @@
         </div>
         <div class="footer-logo-text">Kimosabe Tools</div>
       </div>
-      
-      <div style="text-align: center; margin-bottom: 2rem;">
-        <p style="color: var(--gray-300); max-width: 500px; margin: 0 auto 1.5rem;">
+      <div style="text-align:center; margin-bottom:2rem;">
+        <p style="color:var(--gray-300); max-width:500px; margin:0 auto 1.5rem;">
           Join thousands of users who trust their privacy to Kimosabe Tools
         </p>
-        <a href="../index.html#tools" class="support-btn" style="display: inline-block;">
-          🚀 Explore All Tools
-        </a>
+        <a href="../index.html#tools" class="support-btn" style="display:inline-block;">🚀 Explore All Tools</a>
       </div>
-
       <nav class="footer-links">
         <a href="../about.html">About</a>
         <a href="../contact.html">Contact</a>
         <a href="../privacy.html">Privacy</a>
         <a href="../terms.html">Terms</a>
-        <a href="../donate.html" style="color: #ffd166;">Support Us</a>
+        <a href="../donate.html" style="color:#ffd166;">Support Us</a>
       </nav>
-
       <p class="copyright">
         © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
-        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+        <small style="opacity:0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
       </p>
     </div>
   </footer>
 
-  <!-- Back to Top Button -->
-  <button class="back-to-top" aria-label="Back to top">
-    ↑
-  </button>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
 
   <script>
-    // DOM Elements
-    const imageInput = document.getElementById('imageInput');
-    const dropZone = document.getElementById('drop-zone');
-    const controls = document.getElementById('controls');
-    const widthInput = document.getElementById('widthInput');
-    const heightInput = document.getElementById('heightInput');
-    const aspectToggle = document.getElementById('aspectToggle');
-    const qualitySlider = document.getElementById('quality-slider');
-    const qualityValue = document.getElementById('quality-value');
-    const resizeBtn = document.getElementById('resizeBtn');
-    const statusArea = document.getElementById('status-area');
-    const statusText = document.getElementById('status-text');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const donateReminder = document.getElementById('donate-reminder');
-    const resultsDisplay = document.getElementById('results-display');
-    const resizeStats = document.getElementById('resize-stats');
-    const resultFilename = document.getElementById('result-filename');
-    const previewArea = document.getElementById('preview-area');
-    const originalPreview = document.getElementById('original-preview');
-    const resizedPreview = document.getElementById('resized-preview');
-    const originalDimensions = document.getElementById('original-dimensions');
-    const originalSize = document.getElementById('original-size');
-    const resizedDimensions = document.getElementById('resized-dimensions');
-    const resizedSize = document.getElementById('resized-size');
-    const presetItems = document.querySelectorAll('.preset-item');
+    // ─── DOM refs ─────────────────────────────────────────────────────────
+    const imageInput       = document.getElementById('imageInput');
+    const dropZone         = document.getElementById('drop-zone');
+    const controls         = document.getElementById('controls');
+    const widthInput       = document.getElementById('widthInput');
+    const heightInput      = document.getElementById('heightInput');
+    const aspectToggle     = document.getElementById('aspectToggle');
+    const qualitySlider    = document.getElementById('quality-slider');
+    const qualityValue     = document.getElementById('quality-value');
+    const qualityControl   = document.getElementById('quality-control');
+    const pngLosslessNote  = document.getElementById('png-lossless-note');
+    const resizeBtn        = document.getElementById('resizeBtn');
+    const statusArea       = document.getElementById('status-area');
+    const statusText       = document.getElementById('status-text');
+    const downloadBtn      = document.getElementById('downloadBtn');
+    const donateReminder   = document.getElementById('donate-reminder');
+    const resultsDisplay   = document.getElementById('results-display');
+    const resizeStats      = document.getElementById('resize-stats');
+    const resultFilename   = document.getElementById('result-filename');
+    const previewArea      = document.getElementById('preview-area');
+    const originalPreview  = document.getElementById('original-preview');
+    const resizedPreview   = document.getElementById('resized-preview');
+    const originalDimsEl   = document.getElementById('original-dimensions');
+    const originalSizeEl   = document.getElementById('original-size');
+    const resizedDimsEl    = document.getElementById('resized-dimensions');
+    const resizedSizeEl    = document.getElementById('resized-size');
+    const presetItems      = document.querySelectorAll('.preset-item');
 
+    // ─── State ────────────────────────────────────────────────────────────
     let currentDownloadUrl = null;
-    let activeFile = null;
-    let originalImageData = null;
-    let originalWidth = 0;
-    let originalHeight = 0;
-    let aspectRatio = 1;
+    let currentPreviewUrl  = null;   // FIX: tracked separately to avoid blob leak
+    let activeFile         = null;
+    let originalImageData  = null;
+    let originalWidth      = 0;
+    let originalHeight     = 0;
+    let aspectRatio        = 1;
     let maintainAspectRatio = true;
 
-    // Event Listeners
-    imageInput.addEventListener('change', (e) => {
-      if (e.target.files[0]) {
-        handleImageFile(e.target.files[0]);
-      }
-    });
+    // ─── Supported MIME types ─────────────────────────────────────────────
+    const ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
 
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.classList.add('dragover');
+    // ─── Drop zone — JS click + keyboard ──────────────────────────────────
+    dropZone.addEventListener('click', () => imageInput.click());
+    dropZone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); imageInput.click(); }
     });
-
-    dropZone.addEventListener('dragleave', () => {
-      dropZone.classList.remove('dragover');
-    });
-
+    dropZone.addEventListener('dragover',  (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
     dropZone.addEventListener('drop', (e) => {
       e.preventDefault();
       dropZone.classList.remove('dragover');
-      if (e.dataTransfer.files[0]) {
-        handleImageFile(e.dataTransfer.files[0]);
-      }
+      if (e.dataTransfer.files[0]) handleImageFile(e.dataTransfer.files[0]);
     });
+    imageInput.addEventListener('change', (e) => { if (e.target.files[0]) handleImageFile(e.target.files[0]); });
 
-    // Aspect ratio toggle
+    // ─── Aspect ratio toggle ──────────────────────────────────────────────
     aspectToggle.addEventListener('click', () => {
       maintainAspectRatio = !maintainAspectRatio;
-      if (maintainAspectRatio) {
-        aspectToggle.classList.add('active');
-        aspectToggle.querySelector('.icon').textContent = '🔗';
-        aspectToggle.title = "Maintain aspect ratio";
-      } else {
-        aspectToggle.classList.remove('active');
-        aspectToggle.querySelector('.icon').textContent = '🔓';
-        aspectToggle.title = "Free resize (aspect ratio unlocked)";
-      }
+      aspectToggle.classList.toggle('active', maintainAspectRatio);
+      aspectToggle.querySelector('.icon').textContent = maintainAspectRatio ? '🔗' : '🔓';
+      aspectToggle.title = maintainAspectRatio ? 'Maintain aspect ratio' : 'Free resize (aspect ratio unlocked)';
     });
 
-    // Width input
+    // ─── Width input — update height when locked ──────────────────────────
     widthInput.addEventListener('input', () => {
       if (maintainAspectRatio && originalWidth > 0 && widthInput.value) {
-        const newWidth = parseInt(widthInput.value) || 1;
-        const newHeight = Math.round(newWidth / aspectRatio);
-        heightInput.value = newHeight;
+        heightInput.value = Math.max(1, Math.round(parseInt(widthInput.value) / aspectRatio));
       }
+      clearPresets();
     });
 
-    // Height input
+    // ─── Height input — update width when locked ──────────────────────────
     heightInput.addEventListener('input', () => {
       if (maintainAspectRatio && originalHeight > 0 && heightInput.value) {
-        const newHeight = parseInt(heightInput.value) || 1;
-        const newWidth = Math.round(newHeight * aspectRatio);
-        widthInput.value = newWidth;
+        widthInput.value = Math.max(1, Math.round(parseInt(heightInput.value) * aspectRatio));
       }
+      clearPresets();
     });
 
-    // Quality slider
+    // ─── Quality slider ───────────────────────────────────────────────────
     qualitySlider.addEventListener('input', (e) => {
       qualityValue.textContent = `${e.target.value}%`;
     });
 
-    // Preset sizes
+    // ─── Preset sizes ─────────────────────────────────────────────────────
     presetItems.forEach(item => {
       item.addEventListener('click', () => {
-        // Remove active class from all presets
-        presetItems.forEach(preset => preset.classList.remove('active'));
-        
-        // Add active class to clicked preset
+        presetItems.forEach(p => p.classList.remove('active'));
         item.classList.add('active');
-        
-        // Set dimensions
-        const width = parseInt(item.dataset.width);
-        const height = parseInt(item.dataset.height);
-        widthInput.value = width;
-        heightInput.value = height;
-        
-        // Update aspect ratio if needed
-        if (originalWidth > 0 && originalHeight > 0) {
-          const presetAspectRatio = width / height;
-          const currentAspectRatio = originalWidth / originalHeight;
-          
-          // If aspect ratios are significantly different, ask user
-          if (Math.abs(presetAspectRatio - currentAspectRatio) > 0.1) {
-            // We'll auto-crop by default, but can add option later
-            // For now, just apply the preset
-          }
-        }
+        widthInput.value  = item.dataset.width;
+        heightInput.value = item.dataset.height;
       });
     });
 
-    // Resize button
-    resizeBtn.addEventListener('click', resizeImage);
+    function clearPresets() {
+      presetItems.forEach(p => p.classList.remove('active'));
+    }
 
-    // Functions
+    // ─── Helpers ──────────────────────────────────────────────────────────
+    function formatBytes(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024, sizes = ['Bytes','KB','MB','GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    function safeRevoke(url) { if (url) { try { URL.revokeObjectURL(url); } catch (_) {} } }
+
+    // ─── File handler ─────────────────────────────────────────────────────
     function handleImageFile(file) {
-      // Validate file
-      if (!file.type.startsWith('image/')) {
-        alert('Please upload an image file (JPG, PNG, GIF, WebP)');
+      if (!ALLOWED.includes(file.type)) {
+        alert('Please upload a JPG, PNG, or WebP image.');
         return;
       }
 
       if (file.size > 50 * 1024 * 1024) {
-        alert('File size exceeds 50MB limit. Please upload a smaller image.');
+        alert(`File is ${formatBytes(file.size)}. Maximum allowed size is 50 MB.`);
         return;
       }
 
-      // Memory cleanup
-      if (currentDownloadUrl) {
-        URL.revokeObjectURL(currentDownloadUrl);
-        currentDownloadUrl = null;
-      }
+      safeRevoke(currentDownloadUrl);
+      safeRevoke(currentPreviewUrl);
+      currentDownloadUrl = null;
+      currentPreviewUrl  = null;
 
       activeFile = file;
-      
-      // Update UI
-      controls.style.display = 'block';
+
+      // FIX: show/hide PNG lossless note and quality slider relevance
+      const isPng = file.type === 'image/png';
+      pngLosslessNote.style.display = isPng ? 'flex' : 'none';
+
+      controls.style.display      = 'block';
       resultsDisplay.style.display = 'none';
       donateReminder.style.display = 'none';
-      statusArea.style.display = 'none';
-      downloadBtn.style.display = 'none';
-      previewArea.style.display = 'none';
+      statusArea.style.display     = 'none';
+      downloadBtn.style.display    = 'none';
+      previewArea.style.display    = 'none';
+      resizedDimsEl.textContent    = '—';
+      resizedSizeEl.textContent    = '—';
 
-      // Read and process image
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (event) => {
         originalImageData = event.target.result;
-        
-        // Load image to get dimensions
         const img = new Image();
         img.onload = () => {
-          originalWidth = img.width;
-          originalHeight = img.height;
-          aspectRatio = originalWidth / originalHeight;
-          
-          // Set initial dimensions
-          widthInput.value = originalWidth;
+          originalWidth  = img.naturalWidth;
+          originalHeight = img.naturalHeight;
+          aspectRatio    = originalWidth / originalHeight;
+
+          widthInput.value  = originalWidth;
           heightInput.value = originalHeight;
-          
-          // Show original preview
-          originalPreview.src = originalImageData;
-          originalDimensions.textContent = `${originalWidth} × ${originalHeight} px`;
-          originalSize.textContent = formatBytes(file.size);
-          previewArea.style.display = 'flex';
-          
-          // Track file upload
+
+          originalPreview.src          = originalImageData;
+          originalDimsEl.textContent   = `${originalWidth} × ${originalHeight} px`;
+          originalSizeEl.textContent   = formatBytes(file.size);
+          previewArea.style.display    = 'flex';
+
           if (typeof gtag !== 'undefined') {
             gtag('event', 'image_uploaded', {
-              'event_category': 'tool_usage',
-              'event_label': 'resize_image',
-              'value': Math.round(file.size / 1024),
-              'file_type': file.type,
-              'dimensions': `${originalWidth}x${originalHeight}`,
-              'transport_type': 'beacon'
+              event_category: 'tool_usage', event_label: 'resize_image',
+              value: Math.round(file.size / 1024), file_type: file.type,
+              dimensions: `${originalWidth}x${originalHeight}`, transport_type: 'beacon'
             });
           }
         };
@@ -1661,208 +1003,161 @@
       };
     }
 
+    // ─── Core resize ──────────────────────────────────────────────────────
     function resizeImage() {
-      if (!originalImageData || !activeFile) {
-        alert('Please upload an image first.');
-        return;
-      }
+      if (!originalImageData || !activeFile) { alert('Please upload an image first.'); return; }
 
-      // Get target dimensions
-      const targetWidth = parseInt(widthInput.value) || originalWidth;
+      const targetWidth  = parseInt(widthInput.value)  || originalWidth;
       const targetHeight = parseInt(heightInput.value) || originalHeight;
 
-      // Validate dimensions
-      if (targetWidth < 1 || targetWidth > 10000) {
-        alert('Width must be between 1 and 10000 pixels.');
-        return;
-      }
-      if (targetHeight < 1 || targetHeight > 10000) {
-        alert('Height must be between 1 and 10000 pixels.');
-        return;
-      }
+      if (targetWidth  < 1 || targetWidth  > 10000) { alert('Width must be between 1 and 10,000 pixels.');  return; }
+      if (targetHeight < 1 || targetHeight > 10000) { alert('Height must be between 1 and 10,000 pixels.'); return; }
 
-      // Memory cleanup
-      if (currentDownloadUrl) {
-        URL.revokeObjectURL(currentDownloadUrl);
-        currentDownloadUrl = null;
-      }
+      safeRevoke(currentDownloadUrl);
+      safeRevoke(currentPreviewUrl);
+      currentDownloadUrl = null;
+      currentPreviewUrl  = null;
 
-      statusArea.style.display = 'block';
-      statusText.innerHTML = `Resizing image<span class="loading-dots"><span></span><span></span><span></span></span>`;
-      resultsDisplay.style.display = 'none';
-      downloadBtn.style.display = 'none';
-      resizedPreview.src = '';
-      resizedSize.textContent = 'Resizing...';
+      statusArea.style.display      = 'block';
+      statusText.innerHTML          = `Resizing image<span class="loading-dots"><span></span><span></span><span></span></span>`;
+      resultsDisplay.style.display  = 'none';
+      downloadBtn.style.display     = 'none';
+      resizedPreview.src            = '';
+      resizedSizeEl.textContent     = 'Resizing…';
 
       const img = new Image();
       img.src = originalImageData;
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-
-        // Set canvas dimensions
-        canvas.width = targetWidth;
+        const ctx    = canvas.getContext('2d');
+        canvas.width  = targetWidth;
         canvas.height = targetHeight;
-
-        // Enable high-quality resizing
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
 
-        // Draw resized image
+        // FIX: fill white for JPEG to prevent black transparent areas
+        const outputMime = activeFile.type === 'image/png' ? 'image/png' : activeFile.type === 'image/webp' ? 'image/webp' : 'image/jpeg';
+        if (outputMime === 'image/jpeg') {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, targetWidth, targetHeight);
+        }
+
         ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
-        // Set quality for output
-        const quality = qualitySlider.value / 100;
-        const mimeType = activeFile.type === 'image/png' ? 'image/png' : 'image/jpeg';
-        const qualitySetting = mimeType === 'image/png' ? 1 : quality;
+        // FIX: quality param only meaningful for lossy formats; undefined for PNG
+        const quality = outputMime === 'image/png' ? undefined : qualitySlider.value / 100;
 
         canvas.toBlob((blob) => {
-          const oldSize = activeFile.size;
-          const newSize = blob.size;
-          const savedPercent = ((oldSize - newSize) / oldSize * 100).toFixed(1);
+          if (!blob) { statusText.innerHTML = '<span style="color:#ef4444;">⚠️ Resize failed. Please try another image.</span>'; return; }
 
-          // Update resized preview
-          resizedPreview.src = URL.createObjectURL(blob);
-          resizedDimensions.textContent = `${targetWidth} × ${targetHeight} px`;
-          resizedSize.textContent = formatBytes(newSize);
+          const oldSize   = activeFile.size;
+          const newSize   = blob.size;
+          const rawDiff   = oldSize - newSize;
+          const isSmaller = rawDiff > 0;
+          const absPct    = Math.abs((rawDiff / oldSize) * 100).toFixed(1);
 
-          // Create download link
-          currentDownloadUrl = URL.createObjectURL(blob);
-          downloadBtn.href = currentDownloadUrl;
-          const fileName = activeFile.name.replace(/\.[^/.]+$/, "");
-          downloadBtn.download = `${fileName}_${targetWidth}x${targetHeight}.${mimeType.split('/')[1]}`;
-          
-          // Update results
-          resultFilename.textContent = `${fileName}_${targetWidth}x${targetHeight}.${mimeType.split('/')[1]}`;
-          
-          // Populate stats
-          const sizeChange = oldSize > newSize ? 'smaller' : 'larger';
-          const sizeChangeText = sizeChange === 'smaller' ? 'Smaller' : 'Larger';
-          const sizeChangeColor = sizeChange === 'smaller' ? '#22c55e' : '#f59e0b';
-          
+          // FIX: track preview URL separately so it can be revoked before next resize
+          currentPreviewUrl            = URL.createObjectURL(blob);
+          resizedPreview.src           = currentPreviewUrl;
+          resizedDimsEl.textContent    = `${targetWidth} × ${targetHeight} px`;
+          resizedSizeEl.textContent    = formatBytes(newSize);
+
+          currentDownloadUrl     = URL.createObjectURL(blob);
+          const ext              = outputMime.split('/')[1] === 'jpeg' ? 'jpg' : outputMime.split('/')[1];
+          const baseName         = activeFile.name.replace(/\.[^/.]+$/, '');
+          downloadBtn.href       = currentDownloadUrl;
+          downloadBtn.download   = `${baseName}_${targetWidth}x${targetHeight}.${ext}`;
+          downloadBtn.style.display = 'inline-flex';
+
+          resultFilename.textContent = `${baseName}_${targetWidth}x${targetHeight}.${ext}`;
+
           resizeStats.innerHTML = `
             <div class="stat-item">
               <span class="stat-label">Original Size</span>
               <span class="stat-value">${originalWidth} × ${originalHeight}</span>
-              <span class="change-badge" style="background: var(--primary)">${originalWidth}×${originalHeight}px</span>
+              <span class="change-badge" style="background:var(--primary)">${originalWidth}×${originalHeight}px</span>
             </div>
             <div class="stat-item">
               <span class="stat-label">New Size</span>
               <span class="stat-value">${targetWidth} × ${targetHeight}</span>
-              <span class="change-badge" style="background: #22c55e">${targetWidth}×${targetHeight}px</span>
+              <span class="change-badge" style="background:#22c55e">${targetWidth}×${targetHeight}px</span>
             </div>
             <div class="stat-item">
               <span class="stat-label">File Size</span>
               <span class="stat-value">${formatBytes(newSize)}</span>
-              <span class="change-badge" style="background: ${sizeChangeColor}">
-                ${sizeChangeText} ${Math.abs(savedPercent)}%
+              <span class="change-badge" style="background:${isSmaller ? '#22c55e' : '#f59e0b'}">
+                ${isSmaller ? '▼ Smaller' : '▲ Larger'} ${absPct}%
               </span>
             </div>
           `;
 
-          // Show results
-          statusArea.style.display = 'none';
+          statusArea.style.display     = 'none';
           resultsDisplay.style.display = 'block';
-          downloadBtn.style.display = 'inline-flex';
           donateReminder.style.display = 'block';
 
-          // Track successful resize
           if (typeof gtag !== 'undefined') {
             gtag('event', 'image_resized', {
-              'event_category': 'tool_usage',
-              'event_label': 'resize_image',
-              'value': quality * 100,
-              'from_dimensions': `${originalWidth}x${originalHeight}`,
-              'to_dimensions': `${targetWidth}x${targetHeight}`,
-              'aspect_locked': maintainAspectRatio,
-              'size_change': sizeChange,
-              'transport_type': 'beacon'
+              event_category: 'tool_usage', event_label: 'resize_image',
+              from_dimensions: `${originalWidth}x${originalHeight}`,
+              to_dimensions: `${targetWidth}x${targetHeight}`,
+              aspect_locked: maintainAspectRatio, transport_type: 'beacon'
             });
           }
-        }, mimeType, qualitySetting);
+        }, outputMime, quality);
       };
     }
 
-    function formatBytes(bytes) {
-      if (bytes === 0) return '0 Bytes';
-      const k = 1024;
-      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    }
+    resizeBtn.addEventListener('click', resizeImage);
 
+    // ─── Reset ────────────────────────────────────────────────────────────
     function resetTool() {
-      // Memory cleanup
-      if (currentDownloadUrl) {
-        URL.revokeObjectURL(currentDownloadUrl);
-        currentDownloadUrl = null;
-      }
+      safeRevoke(currentDownloadUrl);
+      safeRevoke(currentPreviewUrl);
+      currentDownloadUrl = null;
+      currentPreviewUrl  = null;
+      activeFile         = null;
+      originalImageData  = null;
+      originalWidth      = 0;
+      originalHeight     = 0;
+      aspectRatio        = 1;
 
-      // Reset UI
-      controls.style.display = 'none';
-      statusArea.style.display = 'none';
+      controls.style.display       = 'none';
+      statusArea.style.display     = 'none';
       resultsDisplay.style.display = 'none';
       donateReminder.style.display = 'none';
-      previewArea.style.display = 'none';
-      downloadBtn.style.display = 'none';
-      imageInput.value = '';
-      
-      // Reset variables
-      activeFile = null;
-      originalImageData = null;
-      originalWidth = 0;
-      originalHeight = 0;
-      aspectRatio = 1;
-      
-      // Reset inputs
-      widthInput.value = '';
-      heightInput.value = '';
-      maintainAspectRatio = true;
+      previewArea.style.display    = 'none';
+      downloadBtn.style.display    = 'none';
+      pngLosslessNote.style.display = 'none';
+      imageInput.value              = '';
+      widthInput.value              = '';
+      heightInput.value             = '';
+      maintainAspectRatio           = true;
       aspectToggle.classList.add('active');
       aspectToggle.querySelector('.icon').textContent = '🔗';
-      aspectToggle.title = "Maintain aspect ratio";
-      qualitySlider.value = 90;
-      qualityValue.textContent = '90%';
-      
-      // Clear presets
-      presetItems.forEach(preset => preset.classList.remove('active'));
-      
-      // Clear previews
+      aspectToggle.title = 'Maintain aspect ratio';
+      qualitySlider.value          = 90;
+      qualityValue.textContent     = '90%';
+
+      presetItems.forEach(p => p.classList.remove('active'));
       originalPreview.src = '';
-      resizedPreview.src = '';
-      originalDimensions.textContent = '0 × 0 px';
-      originalSize.textContent = '0 KB';
-      resizedDimensions.textContent = '0 × 0 px';
-      resizedSize.textContent = '0 KB';
+      resizedPreview.src  = '';
+      originalDimsEl.textContent = '0 × 0 px';
+      originalSizeEl.textContent = '0 KB';
+      resizedDimsEl.textContent  = '—';
+      resizedSizeEl.textContent  = '—';
     }
 
-    // Back to Top Button
+    // ─── Back to top ──────────────────────────────────────────────────────
     const backToTop = document.querySelector('.back-to-top');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        backToTop.style.display = 'flex';
-      } else {
-        backToTop.style.display = 'none';
-      }
-    });
-    
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    window.addEventListener('scroll', () => { backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none'; });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // Initialize tool
+    // ─── Analytics ────────────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', () => {
-      // Track page view
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'page_view', {
-          'page_title': 'Image Resize',
-          'page_location': window.location.href
-        });
-      }
-      
-      // Set initial quality display
       qualityValue.textContent = `${qualitySlider.value}%`;
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', { page_title: 'Image Resize', page_location: window.location.href });
+      }
     });
   </script>
 </body>
