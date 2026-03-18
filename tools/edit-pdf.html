@@ -126,7 +126,6 @@
 
     /* ── Upload Zone ── */
     .drop-zone {
-      display: block;
       background: white;
       border: 3px dashed var(--gray-300);
       border-radius: var(--radius-lg);
@@ -135,7 +134,6 @@
       cursor: pointer;
       transition: all 0.3s;
       margin-bottom: 2rem;
-      text-decoration: none;
     }
     .drop-zone:hover, .drop-zone.dragover { border-color: var(--primary); background: rgba(46, 117, 182, 0.05); }
     .drop-zone-content .icon { font-size: 4rem; display: block; margin-bottom: 1rem; }
@@ -675,13 +673,13 @@
       </div>
     </div>
 
-    <label class="drop-zone" id="drop-zone" for="pdf-upload" tabindex="0">
-      <div class="drop-zone-content">
+    <div class="drop-zone" id="drop-zone">
+      <label for="pdf-upload" class="drop-zone-content" style="cursor:pointer;display:block;width:100%;height:100%;">
         <span class="icon">📄</span>
         <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
         <span class="file-limit">Your file stays on your device. No uploads, ever.</span>
-      </div>
-    </label>
+      </label>
+    </div>
     <input type="file" id="pdf-upload" accept=".pdf" hidden>
 
     <div class="editor-section" id="editor-section">
@@ -1163,7 +1161,7 @@
   }
   function resetDropZone() {
     const c = document.querySelector('.drop-zone-content');
-    if (c) c.innerHTML = `<span class="icon">📄</span><p><strong>Click to upload PDF or drag and drop</strong></p><span class="file-limit">Your file stays on your device. No uploads, ever.</span>`;
+    if (c) c.innerHTML = `<span class="icon">📄</span><p><strong>Click to upload</strong> or drag and drop your PDF here</p><span class="file-limit">Your file stays on your device. No uploads, ever.</span>`;
   }
   function showDropZoneError(msg) {
     const c = document.querySelector('.drop-zone-content');
@@ -1177,25 +1175,26 @@
     const dz  = document.getElementById('drop-zone');
     const inp = document.getElementById('pdf-upload');
 
-    // Click is handled natively by the <label for="pdf-upload"> — no JS needed.
-    // Drag-and-drop listeners:
-    dz.addEventListener('dragenter', e => { e.preventDefault(); dz.classList.add('dragover'); });
-    dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('dragover'); });
+    // File input change — the <label for="pdf-upload"> handles opening the picker natively
+    inp.addEventListener('change', e => {
+      const file = e.target.files[0];
+      e.target.value = ''; // reset so same file can be re-selected
+      if (file) handleFileUpload(file);
+    });
+
+    // Drag-and-drop — must be on the outer div, not the label
+    dz.addEventListener('dragenter', e => { e.preventDefault(); e.stopPropagation(); dz.classList.add('dragover'); });
+    dz.addEventListener('dragover',  e => { e.preventDefault(); e.stopPropagation(); dz.classList.add('dragover'); });
     dz.addEventListener('dragleave', e => {
-      // Only remove dragover when leaving the drop zone itself, not its children
+      e.stopPropagation();
       if (!dz.contains(e.relatedTarget)) dz.classList.remove('dragover');
     });
     dz.addEventListener('drop', e => {
       e.preventDefault();
+      e.stopPropagation();
       dz.classList.remove('dragover');
-      if (e.dataTransfer.files[0]) handleFileUpload(e.dataTransfer.files[0]);
-    });
-
-    // File input change
-    inp.addEventListener('change', e => {
-      if (e.target.files[0]) handleFileUpload(e.target.files[0]);
-      // Reset so same file can be re-selected
-      e.target.value = '';
+      const file = e.dataTransfer.files[0];
+      if (file) handleFileUpload(file);
     });
   }
 
@@ -1234,7 +1233,7 @@
 
   function openNewFile() {
     if (pdfEditor && pdfEditor.isDirty && !confirm('You have unsaved changes. Open a new file anyway?')) return;
-    document.getElementById('drop-zone').style.display = 'block';
+    document.getElementById('drop-zone').style.removeProperty('display');
     document.getElementById('editor-section').classList.remove('active');
     document.getElementById('privacy-badge').classList.remove('show');
     const inp = document.getElementById('pdf-upload');
