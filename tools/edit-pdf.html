@@ -126,6 +126,7 @@
 
     /* ── Upload Zone ── */
     .drop-zone {
+      display: block;
       background: white;
       border: 3px dashed var(--gray-300);
       border-radius: var(--radius-lg);
@@ -134,6 +135,7 @@
       cursor: pointer;
       transition: all 0.3s;
       margin-bottom: 2rem;
+      text-decoration: none;
     }
     .drop-zone:hover, .drop-zone.dragover { border-color: var(--primary); background: rgba(46, 117, 182, 0.05); }
     .drop-zone-content .icon { font-size: 4rem; display: block; margin-bottom: 1rem; }
@@ -673,14 +675,14 @@
       </div>
     </div>
 
-    <div class="drop-zone" id="drop-zone" tabindex="0" role="button" aria-label="Upload a PDF file">
+    <label class="drop-zone" id="drop-zone" for="pdf-upload" tabindex="0">
       <div class="drop-zone-content">
         <span class="icon">📄</span>
-        <p><strong>Click to upload PDF or drag and drop</strong></p>
+        <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
         <span class="file-limit">Your file stays on your device. No uploads, ever.</span>
       </div>
-      <input type="file" id="pdf-upload" accept=".pdf" hidden>
-    </div>
+    </label>
+    <input type="file" id="pdf-upload" accept=".pdf" hidden>
 
     <div class="editor-section" id="editor-section">
 
@@ -1174,14 +1176,26 @@
   function setupUpload() {
     const dz  = document.getElementById('drop-zone');
     const inp = document.getElementById('pdf-upload');
-    dz.addEventListener('click', (e) => { if (e.target === inp) return; inp.click(); });
-    inp.addEventListener('change', e => handleFileUpload(e.target.files[0]));
-    dz.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inp.click(); } });
+
+    // Click is handled natively by the <label for="pdf-upload"> — no JS needed.
+    // Drag-and-drop listeners:
+    dz.addEventListener('dragenter', e => { e.preventDefault(); dz.classList.add('dragover'); });
     dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('dragover'); });
-    dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+    dz.addEventListener('dragleave', e => {
+      // Only remove dragover when leaving the drop zone itself, not its children
+      if (!dz.contains(e.relatedTarget)) dz.classList.remove('dragover');
+    });
     dz.addEventListener('drop', e => {
-      e.preventDefault(); dz.classList.remove('dragover');
+      e.preventDefault();
+      dz.classList.remove('dragover');
       if (e.dataTransfer.files[0]) handleFileUpload(e.dataTransfer.files[0]);
+    });
+
+    // File input change
+    inp.addEventListener('change', e => {
+      if (e.target.files[0]) handleFileUpload(e.target.files[0]);
+      // Reset so same file can be re-selected
+      e.target.value = '';
     });
   }
 
@@ -1220,7 +1234,7 @@
 
   function openNewFile() {
     if (pdfEditor && pdfEditor.isDirty && !confirm('You have unsaved changes. Open a new file anyway?')) return;
-    document.getElementById('drop-zone').style.display = '';
+    document.getElementById('drop-zone').style.display = 'block';
     document.getElementById('editor-section').classList.remove('active');
     document.getElementById('privacy-badge').classList.remove('show');
     const inp = document.getElementById('pdf-upload');
