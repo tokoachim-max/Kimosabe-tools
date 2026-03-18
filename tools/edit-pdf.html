@@ -126,6 +126,7 @@
 
     /* ── Upload Zone ── */
     .drop-zone {
+      position: relative;
       background: white;
       border: 3px dashed var(--gray-300);
       border-radius: var(--radius-lg);
@@ -674,13 +675,15 @@
     </div>
 
     <div class="drop-zone" id="drop-zone">
-      <label for="pdf-upload" class="drop-zone-content" style="cursor:pointer;display:block;width:100%;height:100%;">
+      <div class="drop-zone-content">
         <span class="icon">📄</span>
         <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
         <span class="file-limit">Your file stays on your device. No uploads, ever.</span>
-      </label>
+      </div>
+      <!-- The input covers the entire drop zone — clicking anywhere triggers browse -->
+      <input type="file" id="pdf-upload" accept=".pdf"
+             style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;z-index:2;">
     </div>
-    <input type="file" id="pdf-upload" accept=".pdf" hidden>
 
     <div class="editor-section" id="editor-section">
 
@@ -1157,11 +1160,11 @@
 
   function showDropZoneLoading(msg) {
     const c = document.querySelector('.drop-zone-content');
-    if (c) c.innerHTML = `<div class="spinner" style="margin:0 auto 1rem;"></div><p><strong>${msg}</strong></p><span class="file-limit">Please wait...</span>`;
+    if (c) c.innerHTML = `<div class="spinner" style="margin:0 auto 1rem;pointer-events:none;"></div><p style="pointer-events:none;"><strong>${msg}</strong></p><span class="file-limit" style="pointer-events:none;">Please wait...</span>`;
   }
   function resetDropZone() {
     const c = document.querySelector('.drop-zone-content');
-    if (c) c.innerHTML = `<span class="icon">📄</span><p><strong>Click to upload</strong> or drag and drop your PDF here</p><span class="file-limit">Your file stays on your device. No uploads, ever.</span>`;
+    if (c) c.innerHTML = `<span class="icon" style="pointer-events:none;">📄</span><p style="pointer-events:none;"><strong>Click to upload</strong> or drag and drop your PDF here</p><span class="file-limit" style="pointer-events:none;">Your file stays on your device. No uploads, ever.</span>`;
   }
   function showDropZoneError(msg) {
     const c = document.querySelector('.drop-zone-content');
@@ -1175,35 +1178,35 @@
     const dz  = document.getElementById('drop-zone');
     const inp = document.getElementById('pdf-upload');
 
-    // File input change — the <label for="pdf-upload"> handles opening the picker natively
+    // The file input physically covers the drop zone (opacity:0, inset:0),
+    // so the user clicks directly on it — no JS click() trickery needed.
     inp.addEventListener('change', e => {
       const file = e.target.files[0];
-      e.target.value = ''; // reset so same file can be re-selected
-      if (file) handleFileUpload(file);
+      if (!file) return;
+      e.target.value = ''; // allow same file to be re-selected
+      handleFileUpload(file);
     });
 
-    // Drag-and-drop — must be on the outer div, not the label
-    dz.addEventListener('dragenter', e => { e.preventDefault(); e.stopPropagation(); dz.classList.add('dragover'); });
-    dz.addEventListener('dragover',  e => { e.preventDefault(); e.stopPropagation(); dz.classList.add('dragover'); });
-    dz.addEventListener('dragleave', e => {
-      e.stopPropagation();
-      if (!dz.contains(e.relatedTarget)) dz.classList.remove('dragover');
-    });
-    dz.addEventListener('drop', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      dz.classList.remove('dragover');
-      const file = e.dataTransfer.files[0];
-      if (file) handleFileUpload(file);
+    // Drag-and-drop: listen on the drop zone div.
+    // The transparent input is above the div but we also listen on the input itself
+    // in case the drag targets it directly.
+    [dz, inp].forEach(el => {
+      el.addEventListener('dragenter', e => { e.preventDefault(); dz.classList.add('dragover'); });
+      el.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('dragover'); });
+      el.addEventListener('dragleave', e => {
+        if (!dz.contains(e.relatedTarget)) dz.classList.remove('dragover');
+      });
+      el.addEventListener('drop', e => {
+        e.preventDefault();
+        dz.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file) handleFileUpload(file);
+      });
     });
   }
 
   async function handleFileUpload(file) {
     if (!file) return;
-    if (typeof pdfjsLib === 'undefined' || typeof PDFLib === 'undefined') {
-      alert('PDF tools are still loading. Please wait a moment and try again.');
-      return;
-    }
     if (file.type !== 'application/pdf') return alert('Please select a valid PDF file.');
     if (file.size > 100 * 1024 * 1024) return alert('File size exceeds 100MB limit.');
     document.getElementById('support-box').classList.remove('show');
