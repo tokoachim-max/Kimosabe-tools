@@ -673,7 +673,7 @@
       </div>
     </div>
 
-    <div class="drop-zone" id="drop-zone">
+    <div class="drop-zone" id="drop-zone" tabindex="0" role="button" aria-label="Upload a PDF file">
       <div class="drop-zone-content">
         <span class="icon">📄</span>
         <p><strong>Click to upload PDF or drag and drop</strong></p>
@@ -1134,6 +1134,8 @@
   }
 
   async function initializeApp() {
+    // FIX: attach upload listeners immediately so clicks work during library loading
+    setupUpload();
     try {
       showDropZoneLoading('Loading PDF Tools...');
       await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
@@ -1148,7 +1150,6 @@
       }
       if (!pdfjsLib || !PDFLib) throw new Error('Required libraries unavailable');
       resetDropZone();
-      setupUpload();
     } catch (err) {
       showDropZoneError(err.message);
     }
@@ -1173,8 +1174,9 @@
   function setupUpload() {
     const dz  = document.getElementById('drop-zone');
     const inp = document.getElementById('pdf-upload');
-    dz.addEventListener('click', () => inp.click());
+    dz.addEventListener('click', (e) => { if (e.target === inp) return; inp.click(); });
     inp.addEventListener('change', e => handleFileUpload(e.target.files[0]));
+    dz.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inp.click(); } });
     dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('dragover'); });
     dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
     dz.addEventListener('drop', e => {
@@ -1185,6 +1187,10 @@
 
   async function handleFileUpload(file) {
     if (!file) return;
+    if (typeof pdfjsLib === 'undefined' || typeof PDFLib === 'undefined') {
+      alert('PDF tools are still loading. Please wait a moment and try again.');
+      return;
+    }
     if (file.type !== 'application/pdf') return alert('Please select a valid PDF file.');
     if (file.size > 100 * 1024 * 1024) return alert('File size exceeds 100MB limit.');
     document.getElementById('support-box').classList.remove('show');
