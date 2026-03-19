@@ -680,6 +680,7 @@
         <span class="file-limit">Your file stays on your device. No uploads, ever.</span>
       </div>
     </div>
+    <input type="file" id="pdf-upload" accept=".pdf" style="display:none">
 
     <div class="editor-section" id="editor-section">
 
@@ -1171,37 +1172,26 @@
   // UPLOAD
   // ─────────────────────────────────────────────────────────────
   function setupUpload() {
-    const dz = document.getElementById('drop-zone');
+    var dz  = document.getElementById('drop-zone');
+    var inp = document.getElementById('pdf-upload');
 
-    // CLICK: create a fresh <input> on each click and trigger it immediately.
-    // Called synchronously inside a user-gesture handler — browsers always permit
-    // this. No popup-blocker, no security restrictions, works on all browsers.
-    function openFilePicker() {
-      const tmp = document.createElement('input');
-      tmp.type   = 'file';
-      tmp.accept = '.pdf';
-      tmp.style.display = 'none';
-      document.body.appendChild(tmp);
-      tmp.addEventListener('change', () => {
-        const file = tmp.files[0];
-        document.body.removeChild(tmp);
-        if (file) handleFileUpload(file);
-      });
-      tmp.click();
-    }
+    // Click anywhere on drop zone -> open file picker
+    dz.addEventListener('click', function() { inp.click(); });
 
-    dz.addEventListener('click', openFilePicker);
-
-    // DRAG & DROP
-    dz.addEventListener('dragenter', e => { e.preventDefault(); dz.classList.add('dragover'); });
-    dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('dragover'); });
-    dz.addEventListener('dragleave', e => {
-      if (!dz.contains(e.relatedTarget)) dz.classList.remove('dragover');
+    // File selected via browser dialog
+    inp.addEventListener('change', function() {
+      var file = inp.files[0];
+      inp.value = '';
+      if (file) handleFileUpload(file);
     });
-    dz.addEventListener('drop', e => {
+
+    // Drag and drop
+    dz.addEventListener('dragover',  function(e) { e.preventDefault(); dz.classList.add('dragover'); });
+    dz.addEventListener('dragleave', function(e) { dz.classList.remove('dragover'); });
+    dz.addEventListener('drop', function(e) {
       e.preventDefault();
       dz.classList.remove('dragover');
-      const file = e.dataTransfer.files[0];
+      var file = e.dataTransfer.files[0];
       if (file) handleFileUpload(file);
     });
   }
@@ -1240,7 +1230,8 @@
     document.getElementById('drop-zone').style.removeProperty('display');
     document.getElementById('editor-section').classList.remove('active');
     document.getElementById('privacy-badge').classList.remove('show');
-    document.getElementById('drop-zone').click();
+    var inp = document.getElementById('pdf-upload');
+    inp.value = ''; inp.click();
   }
 
   // ─────────────────────────────────────────────────────────────
