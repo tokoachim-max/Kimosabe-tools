@@ -411,6 +411,30 @@
     .tool-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
     .card-icon { font-size: 2rem; margin-bottom: 0.5rem; }
 
+
+    /* ── Highlight annotation ── */
+    .highlight-rect { position:absolute; cursor:move; pointer-events:auto; z-index:99; border-radius:2px; border:1px dashed rgba(0,0,0,0.2); }
+    .highlight-rect:hover { filter:brightness(0.9); }
+    .highlight-rect.selected { outline:2px solid var(--success); outline-offset:1px; }
+    .highlight-rect .resize-handle { opacity:0; }
+    .highlight-rect:hover .resize-handle, .highlight-rect.selected .resize-handle { opacity:1; }
+
+    /* ── Image annotation ── */
+    .image-ann { position:absolute; cursor:move; pointer-events:auto; z-index:100; border:2px dashed rgba(46,117,182,0.5); border-radius:2px; overflow:hidden; }
+    .image-ann:hover { border-color:var(--primary); }
+    .image-ann.selected { border-color:var(--success); border-style:solid; }
+    .image-ann .resize-handle { opacity:0; }
+    .image-ann:hover .resize-handle, .image-ann.selected .resize-handle { opacity:1; }
+
+    /* ── FAQ section (dark-mode-safe) ── */
+    .faq-section { background:white; border-radius:16px; padding:2.5rem; margin-top:2.5rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); border:1px solid var(--gray-200); }
+
+    /* ── Link modal fields ── */
+    .modal-field { margin-bottom:1rem; }
+    .modal-field label { display:block; font-size:0.85rem; font-weight:600; color:var(--gray-700); margin-bottom:0.35rem; }
+    .modal-field input { width:100%; padding:0.6rem 0.75rem; border:2px solid var(--gray-300); border-radius:var(--radius-md); font-size:0.95rem; font-family:inherit; }
+    .modal-field input:focus { outline:none; border-color:var(--primary); }
+
     /* ── Dark Mode ── */
     @media (prefers-color-scheme: dark) {
       :root {
@@ -508,6 +532,8 @@
       .tool-card { background: #2d2d2d; color: #e5e5e5; }
       .support-notice { background: linear-gradient(135deg, #2d2819, #3a321c); border-color: #d97706; }
       .page-controls button:disabled { background: #404040; color: #737373; }
+      .faq-section { background: #2d2d2d; border-color: #404040; }
+      .image-ann { border-color: rgba(46,117,182,0.7); }
     }
 
     /* ── Responsive ── */
@@ -646,17 +672,32 @@
           <button class="tool-btn" data-tip="Open new PDF" onclick="openNewFile()"><span>📂</span> <span style="font-size:0.78rem">Open</span></button>
         </div>
         <div class="toolbar-group">
-          <button class="tool-btn" id="tool-select"   data-tip="Select / Move (V)"   onclick="setTool('select')">🖱 Select</button>
-          <button class="tool-btn" id="tool-text"     data-tip="Add Text (T)"         onclick="setTool('text')">📝 Text</button>
-          <button class="tool-btn" id="tool-whiteout" data-tip="Whiteout / Cover (W)" onclick="setTool('whiteout')">⬜ Whiteout</button>
-          <button class="tool-btn" id="tool-draw"     data-tip="Freehand Draw (D)"    onclick="setTool('draw')">✏️ Draw</button>
-          <button class="tool-btn" id="tool-eraser"   data-tip="Eraser (E)"           onclick="setTool('eraser')">🧹 Eraser</button>
+          <button class="tool-btn" id="tool-select"    data-tip="Select / Move (V)"    onclick="setTool('select')">🖱 Select</button>
+          <button class="tool-btn" id="tool-text"      data-tip="Add Text (T)"          onclick="setTool('text')">📝 Text</button>
+          <button class="tool-btn" id="tool-whiteout"  data-tip="Whiteout / Cover (W)"  onclick="setTool('whiteout')">⬜ Whiteout</button>
+          <button class="tool-btn" id="tool-highlight" data-tip="Highlight (H)"          onclick="setTool('highlight')" style="color:#a07000;">🟡 Highlight</button>
+          <button class="tool-btn" id="tool-redact"    data-tip="Redact (black cover)"   onclick="setTool('redact')" style="color:#111;">⬛ Redact</button>
+          <button class="tool-btn" id="tool-draw"      data-tip="Freehand Draw (D)"      onclick="setTool('draw')">✏️ Draw</button>
+          <button class="tool-btn" id="tool-eraser"    data-tip="Eraser (E)"             onclick="setTool('eraser')">🧹 Eraser</button>
+        </div>
+        <div class="toolbar-group">
+          <button class="tool-btn" id="tool-check"  data-tip="Add Checkmark"   onclick="setTool('check')"  style="color:#10B981;font-weight:700;">✓ Check</button>
+          <button class="tool-btn" id="tool-cross"  data-tip="Add Cross"       onclick="setTool('cross')"  style="color:#EF4444;font-weight:700;">✗ Cross</button>
+          <button class="tool-btn" id="tool-link"   data-tip="Add Link"        onclick="setTool('link')"   style="color:#2563eb;">🔗 Link</button>
+          <button class="tool-btn" id="tool-image"  data-tip="Insert Image"    onclick="setTool('image')">🖼️ Image</button>
+          <input type="file" id="image-file-input" accept="image/*" hidden>
         </div>
         <div class="toolbar-group">
           <button class="tool-btn" id="tool-rect"    data-tip="Rectangle (R)"  onclick="setTool('rect')"    style="font-size:1rem;">▭</button>
           <button class="tool-btn" id="tool-ellipse" data-tip="Ellipse"        onclick="setTool('ellipse')" style="font-size:1rem;">⬭</button>
           <button class="tool-btn" id="tool-line"    data-tip="Line"           onclick="setTool('line')"    style="font-size:1rem;">╱</button>
           <button class="tool-btn" id="tool-arrow"   data-tip="Arrow"          onclick="setTool('arrow')"   style="font-size:1rem;">↗</button>
+        </div>
+        <div class="toolbar-group">
+          <button class="tool-btn" data-tip="Delete selected (Del)" onclick="pdfEditor&&pdfEditor.deleteSelected()" style="color:var(--danger);border-color:var(--danger);">🗑 Del</button>
+          <button class="tool-btn" data-tip="Bring to front"        onclick="pdfEditor&&pdfEditor.bringToFront()">⬆ Front</button>
+          <button class="tool-btn" data-tip="Send to back"          onclick="pdfEditor&&pdfEditor.sendToBack()">⬇ Back</button>
+          <button class="tool-btn" data-tip="Rotate 45° clockwise"  onclick="pdfEditor&&pdfEditor.rotateSelected(45)">↻ Rotate</button>
         </div>
         <div class="toolbar-group">
           <button class="tool-btn" id="btn-undo" data-tip="Undo (Ctrl+Z)" onclick="pdfEditor&&pdfEditor.undo()">↶ Undo</button>
@@ -772,6 +813,33 @@
             <button class="tool-btn" style="color:var(--danger);border-color:var(--danger);" onclick="pdfEditor&&pdfEditor.clearDrawings()">Clear drawings</button>
           </div>
         </div>
+
+        <!-- Highlight context -->
+        <div id="ctx-highlight" style="display:none;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+          <div class="ctx-group"><span class="ctx-label">Color</span><input type="color" id="hl-color" class="color-picker" value="#ffff00" oninput="applyHlStyle()"></div>
+          <div class="ctx-group">
+            <button class="tool-btn" onclick="setHlPreset('#ffff00')" style="color:#a07000;">🟡 Yellow</button>
+            <button class="tool-btn" onclick="setHlPreset('#90EE90')" style="color:#2d7a2d;">🟩 Green</button>
+            <button class="tool-btn" onclick="setHlPreset('#87CEEB')" style="color:#1a6a9a;">🟦 Blue</button>
+            <button class="tool-btn" onclick="setHlPreset('#FFB6C1')" style="color:#b0304a;">🟥 Pink</button>
+          </div>
+          <div class="ctx-group"><span class="ctx-label">Opacity</span><input type="range" class="range-input" id="hl-opacity" min="10" max="80" value="40" oninput="applyHlStyle();document.getElementById('hl-opa-val').textContent=this.value+'%'"><span class="range-val" id="hl-opa-val">40%</span></div>
+        </div>
+        <!-- Stamp context -->
+        <div id="ctx-stamp" style="display:none;align-items:center;gap:0.4rem;">
+          <div class="ctx-group"><span class="ctx-label">Size</span><input type="range" class="range-input" id="stamp-size" min="16" max="120" value="40" oninput="document.getElementById('stamp-size-val').textContent=this.value"><span class="range-val" id="stamp-size-val">40</span></div>
+          <div class="ctx-group"><span class="ctx-label">Color</span><input type="color" id="stamp-color" class="color-picker" value="#10B981"></div>
+        </div>
+        <!-- Link context -->
+        <div id="ctx-link" style="display:none;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+          <div class="ctx-group"><span class="ctx-label">URL</span><input type="text" id="link-url-input" placeholder="https://example.com" style="width:220px;padding:0.35rem 0.5rem;border:2px solid var(--gray-300);border-radius:6px;font-size:0.85rem;"><button class="tool-btn" onclick="applyLinkUrl()" style="border-color:var(--primary);color:var(--primary);">Set URL</button></div>
+          <div class="ctx-group"><button class="tool-btn" onclick="openLinkInTab()" style="color:#2563eb;">🔗 Open</button></div>
+        </div>
+        <!-- Image context -->
+        <div id="ctx-image" style="display:none;align-items:center;gap:0.4rem;">
+          <div class="ctx-group"><span class="ctx-label" id="img-ann-dims">Select an image annotation</span></div>
+          <div class="ctx-group"><button class="tool-btn" onclick="pdfEditor&&pdfEditor.dupSel()">📋 Dup</button></div>
+        </div>
       </div>
 
       <div class="loader" id="loader">
@@ -849,10 +917,8 @@
 
     
     <!-- FAQ Section -->
-    <section style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200,#e5e7eb);">
-      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark,#212529);text-align:center;">
-        Frequently Asked Questions
-      </h2>
+    <section class="faq-section">
+      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">Frequently Asked Questions</h2>
         <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
           <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Can I fill in a PDF form using this tool?</h3>
           <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Yes. Use the Text tool to click on any form field and type your answer. The text is positioned exactly where you click.</p>
@@ -925,7 +991,21 @@
   <button class="back-to-top" aria-label="Back to top">↑</button>
   <div class="privacy-badge" id="privacy-badge">🔒 100% Private - No Uploads</div>
 
-  <!-- Export Modal -->
+  <!-- Link Modal -->
+  <div class="modal-overlay" id="link-modal">
+    <div class="modal-box" style="max-width:400px;">
+      <h3>Add Link</h3>
+      <p>Enter the display text and URL for this link annotation.</p>
+      <div class="modal-field"><label>Display Text</label><input type="text" id="link-modal-text" placeholder="Click here"></div>
+      <div class="modal-field"><label>URL</label><input type="text" id="link-modal-url" placeholder="https://example.com"></div>
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" onclick="closeLinkModal()">Cancel</button>
+        <button class="btn-modal-export" onclick="confirmAddLink()">Add Link</button>
+      </div>
+    </div>
+  </div>
+
+    <!-- Export Modal -->
   <div class="modal-overlay" id="export-modal">
     <div class="modal-box">
       <h3>Export Document</h3>
@@ -1088,14 +1168,14 @@
   // ─────────────────────────────────────────────────────────────
   // TOOL MANAGEMENT
   // ─────────────────────────────────────────────────────────────
-  const ALL_TOOLS = ['select','text','whiteout','draw','eraser','rect','ellipse','line','arrow'];
-  const CTX_IDS   = { text:'ctx-text', whiteout:'ctx-whiteout', draw:'ctx-draw', eraser:'ctx-eraser', rect:'ctx-shape', ellipse:'ctx-shape', line:'ctx-shape', arrow:'ctx-shape' };
+  const ALL_TOOLS = ['select','text','whiteout','highlight','redact','check','cross','link','image','draw','eraser','rect','ellipse','line','arrow'];
+  const CTX_IDS   = { text:'ctx-text', whiteout:'ctx-whiteout', redact:'ctx-whiteout', highlight:'ctx-highlight', check:'ctx-stamp', cross:'ctx-stamp', link:'ctx-link', image:'ctx-image', draw:'ctx-draw', eraser:'ctx-eraser', rect:'ctx-shape', ellipse:'ctx-shape', line:'ctx-shape', arrow:'ctx-shape' };
 
   function setTool(tool) {
     currentTool = tool;
     ALL_TOOLS.forEach(t => { const b = document.getElementById('tool-' + t); if (b) b.classList.toggle('active', t === tool); });
     const ctx = document.getElementById('context-toolbar');
-    ['ctx-text','ctx-whiteout','ctx-draw','ctx-eraser','ctx-shape'].forEach(id => { document.getElementById(id).style.display = 'none'; });
+    ['ctx-text','ctx-whiteout','ctx-highlight','ctx-stamp','ctx-link','ctx-image','ctx-draw','ctx-eraser','ctx-shape'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
     const ctxId = CTX_IDS[tool];
     if (ctxId) { document.getElementById(ctxId).style.display = 'flex'; ctx.classList.add('visible'); }
     else ctx.classList.remove('visible');
@@ -1103,7 +1183,7 @@
     const drawCanvas = document.getElementById('drawing-canvas');
     annLayer.classList.remove('active');
     drawCanvas.classList.remove('active');
-    if (['text','whiteout','select'].includes(tool)) annLayer.classList.add('active');
+    if (['text','whiteout','highlight','redact','check','cross','link','image','select'].includes(tool)) annLayer.classList.add('active');
     else if (['draw','eraser','rect','ellipse','line','arrow'].includes(tool)) drawCanvas.classList.add('active');
     document.getElementById('status-tool').textContent = tool ? (tool.charAt(0).toUpperCase() + tool.slice(1)) : 'Ready';
     if (pdfEditor) pdfEditor.deselect();
@@ -1183,6 +1263,40 @@
   // ─────────────────────────────────────────────────────────────
   // CLEAR / DIRTY / COUNT
   // ─────────────────────────────────────────────────────────────
+  function applyHlStyle() {
+    if (!pdfEditor || !pdfEditor.selectedAnn || pdfEditor.selectedAnn.type !== 'highlight') return;
+    const a = pdfEditor.selectedAnn;
+    a.hlColor = document.getElementById('hl-color').value;
+    a.hlOpacity = document.getElementById('hl-opacity').value / 100;
+    a.element.style.background = a.hlColor; a.element.style.opacity = a.hlOpacity;
+  }
+  function setHlPreset(c) { document.getElementById('hl-color').value = c; applyHlStyle(); }
+
+  let _pendingLinkPos = null;
+  function openLinkModal(x, y) {
+    _pendingLinkPos = { x, y };
+    document.getElementById('link-modal-text').value = '';
+    document.getElementById('link-modal-url').value  = '';
+    document.getElementById('link-modal').classList.add('active');
+    setTimeout(() => document.getElementById('link-modal-text').focus(), 100);
+  }
+  function closeLinkModal() { document.getElementById('link-modal').classList.remove('active'); _pendingLinkPos = null; }
+  function confirmAddLink() {
+    const text = document.getElementById('link-modal-text').value.trim() || 'Link';
+    const href = document.getElementById('link-modal-url').value.trim();
+    if (!href) { alert('Please enter a URL.'); return; }
+    closeLinkModal();
+    if (_pendingLinkPos && pdfEditor) { pdfEditor.saveState(); pdfEditor.addLink(_pendingLinkPos.x, _pendingLinkPos.y, { text, href }); }
+  }
+  function applyLinkUrl() {
+    if (!pdfEditor || !pdfEditor.selectedAnn || pdfEditor.selectedAnn.type !== 'link') return;
+    pdfEditor.selectedAnn.href = document.getElementById('link-url-input').value.trim(); showHint('🔗 URL updated');
+  }
+  function openLinkInTab() {
+    if (!pdfEditor || !pdfEditor.selectedAnn || pdfEditor.selectedAnn.type !== 'link') return;
+    if (pdfEditor.selectedAnn.href) window.open(pdfEditor.selectedAnn.href, '_blank');
+  }
+
   function clearCurrentPage() { if (!pdfEditor || !confirm('Clear all annotations on this page?')) return; pdfEditor.clearPage(); showHint('🗑️ Page cleared'); }
   function setDirty(v) {
     document.getElementById('status-unsaved').style.display = v ? '' : 'none';
@@ -1268,6 +1382,7 @@
       this.setupKeys();
       this.renderPage();
       this.buildThumbnails();
+      this.setupImageInput();
     }
 
     // ── RENDER PAGE ──────────────────────────────────────────
@@ -1425,12 +1540,29 @@
 
     eraseAt(p) {
       const sz = +document.getElementById('eraser-size').value;
-      if (!this.drawPaths.has(this.currentPage)) return;
-      this.drawPaths.set(this.currentPage,
-        this.drawPaths.get(this.currentPage).filter(path =>
-          !path.pts || !path.pts.some(pt => Math.hypot(pt.x - p.x, pt.y - p.y) < sz)
-        )
-      );
+      // Erase freehand paths AND shape paths
+      if (this.drawPaths.has(this.currentPage)) {
+        this.drawPaths.set(this.currentPage,
+          this.drawPaths.get(this.currentPage).filter(path => {
+            if (path.pts) return !path.pts.some(pt => Math.hypot(pt.x-p.x, pt.y-p.y) < sz);
+            if (path.s && path.e) {
+              const minX=Math.min(path.s.x,path.e.x)-sz, maxX=Math.max(path.s.x,path.e.x)+sz;
+              const minY=Math.min(path.s.y,path.e.y)-sz, maxY=Math.max(path.s.y,path.e.y)+sz;
+              return !(p.x>=minX && p.x<=maxX && p.y>=minY && p.y<=maxY);
+            }
+            return true;
+          })
+        );
+      }
+      // Also erase annotation elements (whiteout, highlight, etc.)
+      if (this.annotations.has(this.currentPage)) {
+        const toRemove = this.annotations.get(this.currentPage).filter(a => {
+          const ex=parseFloat(a.element.style.left), ey=parseFloat(a.element.style.top);
+          const ew=parseFloat(a.element.style.width)||80, eh=parseFloat(a.element.style.height)||24;
+          return p.x>=ex-sz && p.x<=ex+ew+sz && p.y>=ey-sz && p.y<=ey+eh+sz;
+        });
+        toRemove.forEach(a => this.removeAnn(a));
+      }
       this.restoreDrawings(); setDirty(true);
     }
 
@@ -1468,27 +1600,39 @@
       const canvas = document.getElementById('pdf-canvas');
 
       const handleClick = e => {
-        if (!['text','whiteout'].includes(currentTool)) return;
-        if (e.target.classList.contains('text-annotation') ||
-            e.target.classList.contains('whiteout-rect') ||
+        const clickable = ['text','whiteout','highlight','redact','check','cross','link','image'];
+        if (!clickable.includes(currentTool)) return;
+        if (e.target.classList.contains('text-annotation')      ||
+            e.target.classList.contains('whiteout-rect')         ||
+            e.target.classList.contains('highlight-rect')        ||
+            e.target.classList.contains('image-ann')             ||
             e.target.classList.contains('annotation-delete-btn') ||
             e.target.classList.contains('resize-handle')) return;
 
-        const r = layer.getBoundingClientRect();
+        // FIX: don't spawn a second text box when one is being edited
+        if (currentTool === 'text') {
+          const editing = document.querySelector('.text-annotation[data-editing="true"]');
+          if (editing) { editing.blur(); return; }
+        }
 
-        // FIX: canvas-wrapper may have CSS transform:scale() applied for zoom.
-        // getBoundingClientRect() returns post-transform (visual) coordinates,
-        // but style.left/top are in pre-transform layout coords. Divide by
-        // the scale factor so annotations land exactly where the user clicked.
+        const r      = layer.getBoundingClientRect();
         const wrapEl = document.getElementById('canvas-wrapper');
         const tfStr  = wrapEl.style.transform;
         const sc     = tfStr ? (parseFloat(tfStr.match(/scale\(([^)]+)\)/)?.[1]) || 1) : 1;
         const x = (e.clientX - r.left) / sc;
         const y = (e.clientY - r.top)  / sc;
 
-        this.saveState();
-        if (currentTool === 'text')     this.addText(x, y);
-        else                            this.addWhiteout(x, y);
+        if      (currentTool === 'text')      { this.saveState(); this.addText(x, y); }
+        else if (currentTool === 'whiteout')  { this.saveState(); this.addWhiteout(x, y); }
+        else if (currentTool === 'redact')    { this.saveState(); this.addWhiteout(x, y, { color:'#000000' }); }
+        else if (currentTool === 'highlight') { this.saveState(); this.addHighlight(x, y); }
+        else if (currentTool === 'check')     { this.saveState(); this.addStamp(x, y, 'check'); }
+        else if (currentTool === 'cross')     { this.saveState(); this.addStamp(x, y, 'cross'); }
+        else if (currentTool === 'link')      { openLinkModal(x, y); }
+        else if (currentTool === 'image')     {
+          const fi = document.getElementById('image-file-input');
+          fi._pendingPos = { x, y }; fi.click();
+        }
       };
 
       layer.addEventListener('click',  handleClick);
@@ -1583,7 +1727,123 @@
       setDirty(true); updateAnnCount();
     }
 
-    makeDelBtn(cb) {
+    // ── IMAGE FILE INPUT HANDLER ─────────────────────────────
+    setupImageInput() {
+      document.getElementById('image-file-input').addEventListener('change', (e) => {
+        const file = e.target.files[0]; if (!file) return;
+        const pos = e.target._pendingPos || { x:60, y:60 };
+        e.target.value = '';
+        const reader = new FileReader();
+        reader.onload = ev => {
+          const img = new Image();
+          img.onload = () => {
+            const maxW=300, s=img.width>maxW ? maxW/img.width : 1;
+            this.saveState();
+            this.addImageAnn(pos.x, pos.y, ev.target.result, Math.round(img.width*s), Math.round(img.height*s));
+          };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ── ADD HIGHLIGHT ─────────────────────────────────────────
+    addHighlight(x, y, opts={}) {
+      const layer = document.getElementById('annotation-layer');
+      const c  = opts.hlColor   || document.getElementById('hl-color').value || '#ffff00';
+      const op = opts.hlOpacity !== undefined ? opts.hlOpacity : document.getElementById('hl-opacity').value/100;
+      const el = document.createElement('div');
+      el.className = 'highlight-rect';
+      el.style.left=(x)+'px'; el.style.top=(y)+'px';
+      el.style.width=(opts.w||160)+'px'; el.style.height=(opts.h||20)+'px';
+      el.style.background=c; el.style.opacity=op;
+      const rh=document.createElement('div'); rh.className='resize-handle'; el.appendChild(rh);
+      const ann={type:'highlight',element:el,x,y,w:opts.w||160,h:opts.h||20,hlColor:c,hlOpacity:op,rotation:0};
+      this.makeDraggable(el,ann); this.makeResizable(el,ann);
+      el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
+      const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
+      layer.appendChild(el); layer.appendChild(db);
+      this.positionDelBtn(el,db);
+      new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      if(!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage,[]);
+      this.annotations.get(this.currentPage).push(ann);
+      setDirty(true); updateAnnCount(); return ann;
+    }
+
+    // ── ADD STAMP (check / cross) ─────────────────────────────
+    addStamp(x, y, stampType, opts={}) {
+      const char  = stampType==='check' ? '✓' : '✗';
+      const color = opts.color || document.getElementById('stamp-color').value || (stampType==='check'?'#10B981':'#EF4444');
+      const size  = opts.size  || +document.getElementById('stamp-size').value || 40;
+      const TX=Math.max(0,x-6), TY=Math.max(0,y-4);
+      const layer=document.getElementById('annotation-layer');
+      const el=document.createElement('div');
+      el.className='text-annotation'; el.contentEditable='false'; el.spellcheck=false;
+      el.style.left=TX+'px'; el.style.top=TY+'px';
+      el.style.fontSize=size+'px'; el.style.fontFamily='Arial'; el.style.color=color;
+      el.style.fontWeight='700'; el.style.opacity='1'; el.textContent=char; el.dataset.editing='false';
+      const ann={type:'text',element:el,x:TX,y:TY,fontSize:size,fontFamily:'Arial',color,opacity:100,bold:true,italic:false,under:false,align:'left',rotation:0,getText:()=>el.textContent};
+      this.makeDraggable(el,ann);
+      el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
+      const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
+      layer.appendChild(el); layer.appendChild(db);
+      this.positionDelBtn(el,db);
+      new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      if(!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage,[]);
+      this.annotations.get(this.currentPage).push(ann);
+      setDirty(true); updateAnnCount(); return ann;
+    }
+
+    // ── ADD LINK ──────────────────────────────────────────────
+    addLink(x, y, opts={}) {
+      const TX=Math.max(0,x-6), TY=Math.max(0,y-4);
+      const layer=document.getElementById('annotation-layer');
+      const el=document.createElement('div');
+      el.className='text-annotation'; el.contentEditable='true'; el.spellcheck=false;
+      el.style.left=TX+'px'; el.style.top=TY+'px';
+      el.style.fontSize=(opts.fontSize||16)+'px'; el.style.fontFamily=opts.fontFamily||'Helvetica';
+      el.style.color='#2563eb'; el.style.textDecoration='underline'; el.style.cursor='pointer'; el.style.opacity='1';
+      el.textContent=opts.text||'Link'; el.dataset.editing='false';
+      const ann={type:'link',element:el,x:TX,y:TY,fontSize:opts.fontSize||16,fontFamily:opts.fontFamily||'Helvetica',color:'#2563eb',opacity:100,bold:false,italic:false,under:true,align:'left',href:opts.href||'',rotation:0,getText:()=>el.textContent};
+      this.makeDraggable(el,ann);
+      el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
+      el.addEventListener('dblclick',()=>{if(ann.href) window.open(ann.href,'_blank');});
+      el.addEventListener('focus',()=>{el.dataset.editing='true';this.selectAnn(ann);});
+      el.addEventListener('blur',()=>{el.dataset.editing='false';});
+      el.addEventListener('input',()=>setDirty(true));
+      const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
+      layer.appendChild(el); layer.appendChild(db);
+      this.positionDelBtn(el,db);
+      new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      if(!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage,[]);
+      this.annotations.get(this.currentPage).push(ann);
+      setDirty(true); updateAnnCount(); return ann;
+    }
+
+    // ── ADD IMAGE ANNOTATION ──────────────────────────────────
+    addImageAnn(x, y, dataUrl, w, h) {
+      const layer=document.getElementById('annotation-layer');
+      const el=document.createElement('div');
+      el.className='image-ann';
+      el.style.left=x+'px'; el.style.top=y+'px'; el.style.width=w+'px'; el.style.height=h+'px';
+      const img=document.createElement('img'); img.src=dataUrl;
+      img.style.cssText='width:100%;height:100%;object-fit:contain;display:block;pointer-events:none;';
+      el.appendChild(img);
+      const rh=document.createElement('div'); rh.className='resize-handle'; el.appendChild(rh);
+      const ann={type:'image',element:el,x,y,w,h,dataUrl,rotation:0,getText:()=>''};
+      this.makeDraggable(el,ann); this.makeResizable(el,ann);
+      el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
+      const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
+      layer.appendChild(el); layer.appendChild(db);
+      this.positionDelBtn(el,db);
+      new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      if(!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage,[]);
+      this.annotations.get(this.currentPage).push(ann);
+      setDirty(true); updateAnnCount();
+      showHint('🖼️ Image placed — drag to move, resize from corner');
+    }
+
+        makeDelBtn(cb) {
       const btn = document.createElement('button');
       btn.className = 'annotation-delete-btn'; btn.innerHTML = '×';
       btn.addEventListener('mousedown', e => e.stopPropagation());
@@ -1609,28 +1869,80 @@
     // ── SELECT ───────────────────────────────────────────────
     selectAnn(ann) {
       this.deselect(); this.selectedAnn = ann; ann.element.classList.add('selected');
-      if (ann.type === 'text') {
-        document.getElementById('font-size').value   = parseInt(ann.fontSize);
-        document.getElementById('font-family').value = ann.fontFamily;
-        document.getElementById('text-color').value  = ann.color;
+      if (ann.type === 'text' || ann.type === 'link') {
+        document.getElementById('font-size').value    = parseInt(ann.fontSize);
+        document.getElementById('font-family').value  = ann.fontFamily;
+        document.getElementById('text-color').value   = ann.color;
         document.getElementById('text-opacity').value = ann.opacity || 100;
-        document.getElementById('text-opa-val').textContent = (ann.opacity || 100) + '%';
+        document.getElementById('text-opa-val').textContent = (ann.opacity||100)+'%';
         document.getElementById('btn-bold').classList.toggle('active',   !!ann.bold);
         document.getElementById('btn-italic').classList.toggle('active', !!ann.italic);
         document.getElementById('btn-under').classList.toggle('active',  !!ann.under);
-        ['al','ac','ar'].forEach(k => document.getElementById('btn-' + k).classList.toggle('active', { al:'left', ac:'center', ar:'right' }[k] === (ann.align || 'left')));
-        if (currentTool !== 'text') { setTool('text'); document.getElementById('ctx-text').style.display = 'flex'; document.getElementById('context-toolbar').classList.add('visible'); }
+        ['al','ac','ar'].forEach(k=>document.getElementById('btn-'+k).classList.toggle('active',{al:'left',ac:'center',ar:'right'}[k]===(ann.align||'left')));
+        if (ann.type==='link') {
+          document.getElementById('link-url-input').value = ann.href||'';
+          if (currentTool!=='link') { setTool('link'); document.getElementById('ctx-link').style.display='flex'; document.getElementById('context-toolbar').classList.add('visible'); }
+        } else {
+          if (currentTool!=='text') { setTool('text'); document.getElementById('ctx-text').style.display='flex'; document.getElementById('context-toolbar').classList.add('visible'); }
+        }
       } else if (ann.type === 'whiteout') {
-        document.getElementById('whiteout-color').value = ann.color || '#ffffff';
-        if (currentTool !== 'whiteout') { setTool('whiteout'); document.getElementById('ctx-whiteout').style.display = 'flex'; document.getElementById('context-toolbar').classList.add('visible'); }
+        document.getElementById('whiteout-color').value = ann.color||'#ffffff';
+        if (currentTool!=='whiteout') { setTool('whiteout'); document.getElementById('ctx-whiteout').style.display='flex'; document.getElementById('context-toolbar').classList.add('visible'); }
+      } else if (ann.type === 'highlight') {
+        document.getElementById('hl-color').value   = ann.hlColor||'#ffff00';
+        document.getElementById('hl-opacity').value = Math.round((ann.hlOpacity||0.4)*100);
+        document.getElementById('hl-opa-val').textContent = Math.round((ann.hlOpacity||0.4)*100)+'%';
+        if (currentTool!=='highlight') { setTool('highlight'); document.getElementById('ctx-highlight').style.display='flex'; document.getElementById('context-toolbar').classList.add('visible'); }
+      } else if (ann.type === 'image') {
+        const d=document.getElementById('img-ann-dims'); if(d) d.textContent=Math.round(ann.w)+'×'+Math.round(ann.h)+' px';
+        if (currentTool!=='image') { setTool('image'); document.getElementById('ctx-image').style.display='flex'; document.getElementById('context-toolbar').classList.add('visible'); }
       }
     }
     deselect() { if (this.selectedAnn) { this.selectedAnn.element.classList.remove('selected'); this.selectedAnn = null; } }
     dupSel() {
-      if (!this.selectedAnn) return; const a = this.selectedAnn; this.saveState();
-      if (a.type === 'text')     this.addText(a.x+20, a.y+20, { text: a.getText(), fontSize: a.fontSize, fontFamily: a.fontFamily, color: a.color, opacity: a.opacity, bold: a.bold, italic: a.italic, under: a.under, align: a.align });
-      else if (a.type === 'whiteout') this.addWhiteout(a.x+20, a.y+20, { w: a.w, h: a.h, color: a.color });
+      if (!this.selectedAnn) return; const a=this.selectedAnn; this.saveState();
+      if      (a.type==='text')      this.addText(a.x+20,a.y+20,{text:a.getText(),fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align});
+      else if (a.type==='link')      this.addLink(a.x+20,a.y+20,{text:a.getText(),href:a.href});
+      else if (a.type==='whiteout')  this.addWhiteout(a.x+20,a.y+20,{w:a.w,h:a.h,color:a.color});
+      else if (a.type==='highlight') this.addHighlight(a.x+20,a.y+20,{w:a.w,h:a.h,hlColor:a.hlColor,hlOpacity:a.hlOpacity});
+      else if (a.type==='image')     this.addImageAnn(a.x+20,a.y+20,a.dataUrl,a.w,a.h);
       showHint('📋 Annotation duplicated');
+    }
+
+    // ── ARRANGE ───────────────────────────────────────────────
+    deleteSelected() {
+      if (!this.selectedAnn) { showHint('Select an annotation first'); return; }
+      this.saveState(); this.removeAnn(this.selectedAnn); showHint('🗑 Deleted');
+    }
+    bringToFront() {
+      if (!this.selectedAnn) { showHint('Select an annotation first'); return; }
+      const pg=this.annotations.get(this.currentPage); if(!pg) return;
+      const i=pg.indexOf(this.selectedAnn); if(i<pg.length-1){
+        pg.splice(i,1); pg.push(this.selectedAnn);
+        const layer=document.getElementById('annotation-layer');
+        layer.appendChild(this.selectedAnn.element);
+        if(this.selectedAnn._delBtn) layer.appendChild(this.selectedAnn._delBtn);
+        setDirty(true); showHint('⬆ Brought to front');
+      }
+    }
+    sendToBack() {
+      if (!this.selectedAnn) { showHint('Select an annotation first'); return; }
+      const pg=this.annotations.get(this.currentPage); if(!pg) return;
+      const i=pg.indexOf(this.selectedAnn); if(i>0){
+        pg.splice(i,1); pg.unshift(this.selectedAnn);
+        const layer=document.getElementById('annotation-layer');
+        layer.insertBefore(this.selectedAnn.element,layer.firstChild);
+        if(this.selectedAnn._delBtn) layer.appendChild(this.selectedAnn._delBtn);
+        setDirty(true); showHint('⬇ Sent to back');
+      }
+    }
+    rotateSelected(deg) {
+      if (!this.selectedAnn) { showHint('Select an annotation first'); return; }
+      this.saveState();
+      const a=this.selectedAnn;
+      a.rotation=((a.rotation||0)+deg)%360;
+      a.element.style.transform=`rotate(${a.rotation}deg)`;
+      setDirty(true); showHint(`↻ Rotated ${a.rotation}°`);
     }
 
     // ── DRAG / RESIZE ────────────────────────────────────────
@@ -1671,14 +1983,14 @@
     // ── UNDO / REDO ──────────────────────────────────────────
     saveState() {
       const st = { pg: this.currentPage, a: new Map(), p: new Map() };
-      this.annotations.forEach((arr, pg) => st.a.set(pg, arr.map(a => ({ type: a.type, x: a.x, y: a.y, fontSize: a.fontSize, fontFamily: a.fontFamily, color: a.color, opacity: a.opacity, bold: a.bold, italic: a.italic, under: a.under, align: a.align, text: a.getText ? a.getText() : '', w: a.w, h: a.h }))));
+      this.annotations.forEach((arr, pg) => st.a.set(pg, arr.map(a => ({ type:a.type,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation }))));
       this.drawPaths.forEach((arr, pg) => st.p.set(pg, JSON.parse(JSON.stringify(arr))));
       this.undoStack.push(st); if (this.undoStack.length > 50) this.undoStack.shift();
       this.redoStack = [];
     }
     captureRedo() {
       const st = { pg: this.currentPage, a: new Map(), p: new Map() };
-      this.annotations.forEach((arr, pg) => st.a.set(pg, arr.map(a => ({ type: a.type, x: a.x, y: a.y, fontSize: a.fontSize, fontFamily: a.fontFamily, color: a.color, opacity: a.opacity, bold: a.bold, italic: a.italic, under: a.under, align: a.align, text: a.getText ? a.getText() : '', w: a.w, h: a.h }))));
+      this.annotations.forEach((arr, pg) => st.a.set(pg, arr.map(a => ({ type:a.type,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation }))));
       this.drawPaths.forEach((arr, pg) => st.p.set(pg, JSON.parse(JSON.stringify(arr))));
       this.redoStack.push(st);
     }
@@ -1688,7 +2000,13 @@
     async restoreState(st) {
       this.annotations = new Map(); this.drawPaths = st.p;
       document.getElementById('annotation-layer').innerHTML = '';
-      st.a.forEach((arr, pg) => { arr.forEach(a => { if (a.type === 'text') this.rebuildText(a, pg); else if (a.type === 'whiteout') this.rebuildWhiteout(a, pg); }); });
+      st.a.forEach((arr, pg) => { arr.forEach(a => {
+        if      (a.type==='text')      this.rebuildText(a, pg);
+        else if (a.type==='link')      this.rebuildLink(a, pg);
+        else if (a.type==='whiteout')  this.rebuildWhiteout(a, pg);
+        else if (a.type==='highlight') this.rebuildHighlight(a, pg);
+        else if (a.type==='image')     this.rebuildImage(a, pg);
+      }); });
       this.restoreAnnotations(); this.restoreDrawings(); updateAnnCount();
     }
 
@@ -1738,6 +2056,78 @@
       this.annotations.get(pg).push(ann);
     }
 
+    rebuildLink(a, pg) {
+      const el=document.createElement('div');
+      el.className='text-annotation'; el.contentEditable='true'; el.spellcheck=false;
+      el.style.left=a.x+'px'; el.style.top=a.y+'px';
+      el.style.fontSize=a.fontSize+'px'; el.style.fontFamily=a.fontFamily;
+      el.style.color='#2563eb'; el.style.textDecoration='underline'; el.style.cursor='pointer';
+      el.style.opacity=(a.opacity||100)/100; el.textContent=a.text; el.dataset.editing='false';
+      if(a.rotation) el.style.transform=`rotate(${a.rotation}deg)`;
+      const ann={type:'link',element:el,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:'#2563eb',opacity:a.opacity||100,bold:false,italic:false,under:true,align:'left',href:a.href||'',rotation:a.rotation||0,getText:()=>el.textContent};
+      if(pg===this.currentPage){
+        this.makeDraggable(el,ann);
+        el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
+        el.addEventListener('dblclick',()=>{if(ann.href)window.open(ann.href,'_blank');});
+        el.addEventListener('focus',()=>{el.dataset.editing='true';this.selectAnn(ann);});
+        el.addEventListener('blur',()=>{el.dataset.editing='false';});
+        el.addEventListener('input',()=>setDirty(true));
+        const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
+        const layer=document.getElementById('annotation-layer');
+        layer.appendChild(el); layer.appendChild(db);
+        this.positionDelBtn(el,db);
+        new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      }
+      if(!this.annotations.has(pg)) this.annotations.set(pg,[]);
+      this.annotations.get(pg).push(ann);
+    }
+
+    rebuildHighlight(a, pg) {
+      const el=document.createElement('div');
+      el.className='highlight-rect';
+      el.style.left=a.x+'px'; el.style.top=a.y+'px';
+      el.style.width=(a.w||160)+'px'; el.style.height=(a.h||20)+'px';
+      el.style.background=a.hlColor||'#ffff00'; el.style.opacity=a.hlOpacity||0.4;
+      if(a.rotation) el.style.transform=`rotate(${a.rotation}deg)`;
+      const rh=document.createElement('div'); rh.className='resize-handle'; el.appendChild(rh);
+      const ann={type:'highlight',element:el,x:a.x,y:a.y,w:a.w||160,h:a.h||20,hlColor:a.hlColor||'#ffff00',hlOpacity:a.hlOpacity||0.4,rotation:a.rotation||0};
+      if(pg===this.currentPage){
+        this.makeDraggable(el,ann); this.makeResizable(el,ann);
+        el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
+        const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
+        const layer=document.getElementById('annotation-layer');
+        layer.appendChild(el); layer.appendChild(db);
+        this.positionDelBtn(el,db);
+        new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      }
+      if(!this.annotations.has(pg)) this.annotations.set(pg,[]);
+      this.annotations.get(pg).push(ann);
+    }
+
+    rebuildImage(a, pg) {
+      const el=document.createElement('div');
+      el.className='image-ann';
+      el.style.left=a.x+'px'; el.style.top=a.y+'px';
+      el.style.width=(a.w||200)+'px'; el.style.height=(a.h||150)+'px';
+      if(a.rotation) el.style.transform=`rotate(${a.rotation}deg)`;
+      const img=document.createElement('img'); img.src=a.dataUrl||'';
+      img.style.cssText='width:100%;height:100%;object-fit:contain;display:block;pointer-events:none;';
+      el.appendChild(img);
+      const rh=document.createElement('div'); rh.className='resize-handle'; el.appendChild(rh);
+      const ann={type:'image',element:el,x:a.x,y:a.y,w:a.w||200,h:a.h||150,dataUrl:a.dataUrl||'',rotation:a.rotation||0,getText:()=>''};
+      if(pg===this.currentPage){
+        this.makeDraggable(el,ann); this.makeResizable(el,ann);
+        el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
+        const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
+        const layer=document.getElementById('annotation-layer');
+        layer.appendChild(el); layer.appendChild(db);
+        this.positionDelBtn(el,db);
+        new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      }
+      if(!this.annotations.has(pg)) this.annotations.set(pg,[]);
+      this.annotations.get(pg).push(ann);
+    }
+
     clearPage() {
       document.getElementById('annotation-layer').innerHTML = '';
       this.annotations.delete(this.currentPage); this.drawPaths.delete(this.currentPage);
@@ -1754,6 +2144,17 @@
       oc.width = vp.width; oc.height = vp.height;
       const ctx = oc.getContext('2d');
       await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+      // Highlights (semi-transparent, lowest layer)
+      (this.annotations.get(pgNum)||[]).forEach(a=>{
+        if(a.type!=='highlight') return;
+        const ex=parseFloat(a.element.style.left), ey=parseFloat(a.element.style.top);
+        const ew=parseFloat(a.element.style.width), eh=parseFloat(a.element.style.height);
+        ctx.save();
+        if(a.rotation){ctx.translate(ex+ew/2,ey+eh/2);ctx.rotate(a.rotation*Math.PI/180);ctx.translate(-(ex+ew/2),-(ey+eh/2));}
+        ctx.globalAlpha=a.hlOpacity||0.4; ctx.fillStyle=a.hlColor||'#ffff00';
+        ctx.fillRect(ex,ey,ew,eh); ctx.restore();
+      });
 
       // Whiteout first (under text)
       (this.annotations.get(pgNum) || []).forEach(a => {
@@ -1773,9 +2174,25 @@
         else if (path.pts) this.redrawPath(ctx, path);
       });
 
+      // Images (above drawings, below text)
+      const _imgps=[]; (this.annotations.get(pgNum)||[]).forEach(a=>{
+        if(a.type!=='image'||!a.dataUrl) return;
+        _imgps.push(new Promise(r=>{if(a._fi){r();return;} const i=new Image(); i.onload=()=>{a._fi=i;r();}; i.onerror=r; i.src=a.dataUrl;}));
+      });
+      if(_imgps.length) await Promise.all(_imgps);
+      (this.annotations.get(pgNum)||[]).forEach(a=>{
+        if(a.type!=='image'||!a._fi) return;
+        const ex=parseFloat(a.element.style.left), ey=parseFloat(a.element.style.top);
+        const ew=parseFloat(a.element.style.width), eh=parseFloat(a.element.style.height);
+        ctx.save();
+        if(a.rotation){ctx.translate(ex+ew/2,ey+eh/2);ctx.rotate(a.rotation*Math.PI/180);ctx.drawImage(a._fi,-ew/2,-eh/2,ew,eh);}
+        else ctx.drawImage(a._fi,ex,ey,ew,eh);
+        ctx.restore();
+      });
+
       // Text on top
       (this.annotations.get(pgNum) || []).forEach(a => {
-        if (a.type !== 'text') return;
+        if (a.type !== 'text' && a.type !== 'link') return;
         const el = a.element;
 
         // FIX: .text-annotation has padding: 4px 6px (top/bottom 4px, left/right 6px).
@@ -1806,7 +2223,8 @@
 
         ctx.save();
         ctx.globalAlpha  = parseFloat(el.style.opacity) || 1;
-        ctx.fillStyle    = a.color;
+        const _fc = (a.type==='link') ? '#2563eb' : a.color;
+        ctx.fillStyle    = _fc;
         ctx.font         = `${a.italic ? 'italic ' : ''}${a.bold ? '700' : '400'} ${fs}px ${a.fontFamily}, sans-serif`;
         ctx.textBaseline = 'top';
         ctx.textAlign    = align;
@@ -1823,7 +2241,7 @@
             ctx.beginPath();
             ctx.moveTo(ux, ly + fs);
             ctx.lineTo(ux + tw, ly + fs);
-            ctx.strokeStyle = a.color;
+            ctx.strokeStyle = _fc;
             ctx.lineWidth   = 1.5;
             ctx.stroke();
           }
