@@ -135,7 +135,7 @@
             "name": "Are my files uploaded to a server?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. All processing happens entirely inside your browser. Your files never leave your device and are never uploaded to any server."
+              "text": "No. All processing happens entirely inside your browser. Your files are processed in memory on your own device and are never transmitted anywhere."
             }
           },
           {
@@ -169,22 +169,44 @@
   </script>
 
   <!-- ═══════════════════════════════════════════════════════════
-       NEW: Inline critical styles
+       IMPROVED: Inline critical styles
        - Fixes accessibility contrast issue on hero badges
        - Removes FOUC (flash of unstyled content) on animation
        - animation-delay via CSS custom properties (cleaner markup)
        - Accessible reduced-motion support
+       FIX (new): scroll-padding-top + pointer-events corrections
   ═══════════════════════════════════════════════════════════ -->
   <style>
+    /* ════════════════════════════════════════════════════════
+       FIX: Smooth scroll with sticky-nav offset.
+       scroll-padding-top prevents the nav from covering
+       the section heading after an anchor jump, which made
+       the page look like the button did nothing.
+    ════════════════════════════════════════════════════════ */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    /* FIX: Belt-and-suspenders — scroll-margin-top on each
+       anchor target section for browsers that need it. */
+    #tools, #features, #faq, #about {
+      scroll-margin-top: 80px;
+    }
+
     /* ── Accessible fade-in: elements start visible if JS/CSS slow ── */
     .fade-in {
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.5s ease, transform 0.5s ease;
+      /* FIX: opacity:0 elements without pointer-events:none silently
+         absorb clicks, blocking the hero-cta button underneath. */
+      pointer-events: none;
     }
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
+      pointer-events: auto;
     }
     /* Respect reduced-motion OS preference */
     @media (prefers-reduced-motion: reduce) {
@@ -249,6 +271,10 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       transition: transform 0.2s, box-shadow 0.2s;
       margin-top: 1.75rem;
+      /* Ensure the CTA itself is never blocked by a fade-in overlay */
+      pointer-events: auto;
+      position: relative;
+      z-index: 10;
     }
     .hero-cta:hover {
       transform: translateY(-3px);
@@ -738,6 +764,40 @@
     });
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ════════════════════════════════════════════════════════
+    // FIX: Universal anchor scroll handler.
+    //
+    // "Browse All Tools" appeared broken for three reasons:
+    //
+    // 1. .fade-in { pointer-events not set } — an invisible
+    //    opacity:0 element above the button absorbed the click.
+    //    Fixed in CSS above.
+    //
+    // 2. No scroll-padding-top — the sticky nav (≈72px) covered
+    //    the #tools heading after the jump, so visually it looked
+    //    like nothing happened. Fixed in CSS above.
+    //
+    // 3. This JS handler provides dynamic compensation: it reads
+    //    the nav's actual rendered height so the offset is correct
+    //    at every screen size, including mobile where the nav may
+    //    be taller or shorter.
+    // ════════════════════════════════════════════════════════
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      var hash = link.getAttribute('href');
+      if (!hash || hash === '#') return;
+      var target = document.querySelector(hash);
+      if (!target) return;
+      e.preventDefault();
+      var navEl  = document.querySelector('.sticky-nav');
+      var offset = navEl ? navEl.getBoundingClientRect().height : 72;
+      var top    = target.getBoundingClientRect().top + window.pageYOffset - offset - 8;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      // Update URL hash without triggering a native jump
+      history.pushState(null, '', hash);
     });
 
     // ── IMPROVED: Intersection Observer for fade-in ─────────────
