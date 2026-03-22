@@ -76,7 +76,6 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      /* FIX: matches the gradient background used across all other Kimosabe tools */
       background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
       color: var(--gray-800);
       line-height: 1.6;
@@ -250,21 +249,43 @@
       background: transparent;
       outline: none;
       cursor: grab;
-      min-width: 80px;
-      max-width: 500px;
+      min-width: 40px;
+      min-height: 20px;
+      max-width: 800px;
       white-space: pre-wrap;
       word-wrap: break-word;
       pointer-events: auto;
       font-family: inherit;
       line-height: 1.4;
       border-radius: 2px;
-      transition: all 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
       z-index: 100;
       user-select: none;
+      overflow-wrap: break-word;
     }
     .text-annotation:hover { border-color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
     .text-annotation[data-editing="true"] { background: rgba(255,255,255,0.95); border-style: solid; border-color: var(--primary); cursor: text; user-select: text; box-shadow: 0 0 0 3px rgba(46,117,182,0.1); }
     .text-annotation.selected { border-color: var(--success); border-style: solid; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); }
+
+    /* ── Text Annotation Resize Handle ── */
+    .text-annotation .text-resize-handle {
+      position: absolute;
+      right: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 30px;
+      background: var(--primary);
+      border-radius: 4px;
+      cursor: ew-resize;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 10;
+    }
+    .text-annotation:hover .text-resize-handle,
+    .text-annotation.selected .text-resize-handle,
+    .text-annotation[data-editing="true"] .text-resize-handle { opacity: 0.7; }
+    .text-annotation .text-resize-handle:hover { opacity: 1; }
 
     /* ── Whiteout ── */
     .whiteout-rect { position: absolute; cursor: move; pointer-events: auto; z-index: 100; border: 2px dashed var(--gray-400); }
@@ -371,7 +392,7 @@
     .hint-toast { position: fixed; top: 90px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; font-size: 0.88rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 10000; animation: slideDown 0.3s ease-out; pointer-events: none; }
     @keyframes slideDown { from{opacity:0;transform:translateX(-50%) translateY(-12px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
 
-    /* ── Footer — hardcoded dark so dark-mode var(--dark) override doesn't affect it ── */
+    /* ── Footer ── */
     .main-footer { background: #111827; color: var(--gray-300); padding: 3rem 2rem 2rem; margin-top: 4rem; }
     .footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
     .footer-logo { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
@@ -411,7 +432,6 @@
     .tool-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
     .card-icon { font-size: 2rem; margin-bottom: 0.5rem; }
 
-
     /* ── Highlight annotation ── */
     .highlight-rect { position:absolute; cursor:move; pointer-events:auto; z-index:99; border-radius:2px; border:1px dashed rgba(0,0,0,0.2); }
     .highlight-rect:hover { filter:brightness(0.9); }
@@ -426,7 +446,7 @@
     .image-ann .resize-handle { opacity:0; }
     .image-ann:hover .resize-handle, .image-ann.selected .resize-handle { opacity:1; }
 
-    /* ── FAQ section (dark-mode-safe) ── */
+    /* ── FAQ section ── */
     .faq-section { background:white; border-radius:16px; padding:2.5rem; margin-top:2.5rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); border:1px solid var(--gray-200); }
 
     /* ── Link modal fields ── */
@@ -626,9 +646,7 @@
   </nav>
 
   <main class="container">
-  <!-- AD_TOP_INJECTED -->
 
-  <!-- Ad: above tool -->
   <div style="max-width:1200px;margin:0 auto 1.5rem;padding:0 1.5rem;text-align:center;">
     <ins class="adsbygoogle"
          style="display:block"
@@ -638,7 +656,6 @@
          data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-
 
     <div class="tool-header">
       <div class="tool-breadcrumb">
@@ -814,7 +831,6 @@
           </div>
         </div>
 
-        <!-- Highlight context -->
         <div id="ctx-highlight" style="display:none;align-items:center;gap:0.4rem;flex-wrap:wrap;">
           <div class="ctx-group"><span class="ctx-label">Color</span><input type="color" id="hl-color" class="color-picker" value="#ffff00" oninput="applyHlStyle()"></div>
           <div class="ctx-group">
@@ -825,17 +841,17 @@
           </div>
           <div class="ctx-group"><span class="ctx-label">Opacity</span><input type="range" class="range-input" id="hl-opacity" min="10" max="80" value="40" oninput="applyHlStyle();document.getElementById('hl-opa-val').textContent=this.value+'%'"><span class="range-val" id="hl-opa-val">40%</span></div>
         </div>
-        <!-- Stamp context -->
+
         <div id="ctx-stamp" style="display:none;align-items:center;gap:0.4rem;">
           <div class="ctx-group"><span class="ctx-label">Size</span><input type="range" class="range-input" id="stamp-size" min="16" max="120" value="40" oninput="document.getElementById('stamp-size-val').textContent=this.value"><span class="range-val" id="stamp-size-val">40</span></div>
           <div class="ctx-group"><span class="ctx-label">Color</span><input type="color" id="stamp-color" class="color-picker" value="#10B981"></div>
         </div>
-        <!-- Link context -->
+
         <div id="ctx-link" style="display:none;align-items:center;gap:0.4rem;flex-wrap:wrap;">
           <div class="ctx-group"><span class="ctx-label">URL</span><input type="text" id="link-url-input" placeholder="https://example.com" style="width:220px;padding:0.35rem 0.5rem;border:2px solid var(--gray-300);border-radius:6px;font-size:0.85rem;"><button class="tool-btn" onclick="applyLinkUrl()" style="border-color:var(--primary);color:var(--primary);">Set URL</button></div>
           <div class="ctx-group"><button class="tool-btn" onclick="openLinkInTab()" style="color:#2563eb;">🔗 Open</button></div>
         </div>
-        <!-- Image context -->
+
         <div id="ctx-image" style="display:none;align-items:center;gap:0.4rem;">
           <div class="ctx-group"><span class="ctx-label" id="img-ann-dims">Select an image annotation</span></div>
           <div class="ctx-group"><button class="tool-btn" onclick="pdfEditor&&pdfEditor.dupSel()">📋 Dup</button></div>
@@ -877,7 +893,7 @@
         </div>
       </div>
 
-    </div><!-- end editor-section -->
+    </div>
 
     <div id="support-box" class="support-notice">
       <p>✅ <strong>PDF Edited Successfully!</strong></p>
@@ -915,8 +931,6 @@
       </div>
     </section>
 
-    
-    <!-- FAQ Section -->
     <section class="faq-section">
       <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">Frequently Asked Questions</h2>
         <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
@@ -949,9 +963,6 @@
       </div>
     </nav>
 
-    <!-- AD_BOTTOM_INJECTED -->
-
-  <!-- Ad: below results -->
   <div style="max-width:1200px;margin:2rem auto 0;padding:0 1.5rem;text-align:center;">
     <ins class="adsbygoogle"
          style="display:block"
@@ -1005,7 +1016,7 @@
     </div>
   </div>
 
-    <!-- Export Modal -->
+  <!-- Export Modal -->
   <div class="modal-overlay" id="export-modal">
     <div class="modal-box">
       <h3>Export Document</h3>
@@ -1056,6 +1067,19 @@
   let currentScale = 1.5;
   let currentTool = null;
   let exportType = 'pdf';
+
+  // FIX: Display scale = 1.5, but export at 3x for print-quality output
+  const DISPLAY_SCALE = 1.5;
+  const EXPORT_SCALE  = 3;
+
+  // ─────────────────────────────────────────────────────────────
+  // HELPER: Get wrapper CSS scale factor
+  // ─────────────────────────────────────────────────────────────
+  function getWrapperScale() {
+    const wrapEl = document.getElementById('canvas-wrapper');
+    const tfStr = wrapEl ? wrapEl.style.transform : '';
+    return tfStr ? (parseFloat(tfStr.match(/scale\(([^)]+)\)/)?.[1]) || 1) : 1;
+  }
 
   // ─────────────────────────────────────────────────────────────
   // LIBRARY LOADER
@@ -1193,11 +1217,11 @@
   // ZOOM
   // ─────────────────────────────────────────────────────────────
   function adjustZoom(delta) { setZoom(Math.max(0.3, Math.min(4, currentScale + delta))); }
-  function resetZoom()       { setZoom(1.5); }
+  function resetZoom()       { setZoom(DISPLAY_SCALE); }
   function setZoom(z) {
     currentScale = z;
-    const pct = Math.round((z / 1.5) * 100);
-    document.getElementById('canvas-wrapper').style.transform       = `scale(${z / 1.5})`;
+    const pct = Math.round((z / DISPLAY_SCALE) * 100);
+    document.getElementById('canvas-wrapper').style.transform       = `scale(${z / DISPLAY_SCALE})`;
     document.getElementById('canvas-wrapper').style.transformOrigin = 'top center';
     document.getElementById('zoom-display').textContent  = pct + '%';
     document.getElementById('status-zoom').textContent   = 'Zoom: ' + pct + '%';
@@ -1207,7 +1231,7 @@
     const area   = document.getElementById('canvas-scroll-area');
     const canvas = document.getElementById('pdf-canvas');
     if (!canvas.width) return;
-    setZoom(((area.clientWidth - 64) / canvas.width) * 1.5);
+    setZoom(((area.clientWidth - 64) / canvas.width) * DISPLAY_SCALE);
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -1224,7 +1248,7 @@
   // TEXT STYLE HELPERS
   // ─────────────────────────────────────────────────────────────
   function applyTextStyle() {
-    if (!pdfEditor || !pdfEditor.selectedAnn || pdfEditor.selectedAnn.type !== 'text') return;
+    if (!pdfEditor || !pdfEditor.selectedAnn || (pdfEditor.selectedAnn.type !== 'text' && pdfEditor.selectedAnn.type !== 'link')) return;
     const a = pdfEditor.selectedAnn, el = a.element;
     a.fontSize   = document.getElementById('font-size').value;
     a.fontFamily = document.getElementById('font-family').value;
@@ -1232,18 +1256,18 @@
     a.opacity    = document.getElementById('text-opacity').value;
     el.style.fontSize   = a.fontSize + 'px';
     el.style.fontFamily = a.fontFamily;
-    el.style.color      = a.color;
+    if (a.type !== 'link') el.style.color = a.color;
     el.style.opacity    = a.opacity / 100;
   }
   function toggleFmt(f) {
-    if (!pdfEditor || !pdfEditor.selectedAnn || pdfEditor.selectedAnn.type !== 'text') return;
+    if (!pdfEditor || !pdfEditor.selectedAnn || (pdfEditor.selectedAnn.type !== 'text' && pdfEditor.selectedAnn.type !== 'link')) return;
     const a = pdfEditor.selectedAnn, el = a.element;
     if (f === 'bold')   { a.bold   = !a.bold;   el.style.fontWeight     = a.bold   ? '700'       : '400';      document.getElementById('btn-bold').classList.toggle('active',   a.bold); }
     if (f === 'italic') { a.italic = !a.italic; el.style.fontStyle      = a.italic ? 'italic'    : 'normal';   document.getElementById('btn-italic').classList.toggle('active', a.italic); }
     if (f === 'under')  { a.under  = !a.under;  el.style.textDecoration = a.under  ? 'underline' : 'none';     document.getElementById('btn-under').classList.toggle('active',  a.under); }
   }
   function setAlign(al) {
-    if (!pdfEditor || !pdfEditor.selectedAnn || pdfEditor.selectedAnn.type !== 'text') return;
+    if (!pdfEditor || !pdfEditor.selectedAnn || (pdfEditor.selectedAnn.type !== 'text' && pdfEditor.selectedAnn.type !== 'link')) return;
     pdfEditor.selectedAnn.align = al;
     pdfEditor.selectedAnn.element.style.textAlign = al;
     ['al','ac','ar'].forEach(k => document.getElementById('btn-' + k).classList.toggle('active', { al:'left', ac:'center', ar:'right' }[k] === al));
@@ -1261,7 +1285,7 @@
   }
 
   // ─────────────────────────────────────────────────────────────
-  // CLEAR / DIRTY / COUNT
+  // HIGHLIGHT / LINK / CLEAR helpers
   // ─────────────────────────────────────────────────────────────
   function applyHlStyle() {
     if (!pdfEditor || !pdfEditor.selectedAnn || pdfEditor.selectedAnn.type !== 'highlight') return;
@@ -1297,7 +1321,13 @@
     if (pdfEditor.selectedAnn.href) window.open(pdfEditor.selectedAnn.href, '_blank');
   }
 
-  function clearCurrentPage() { if (!pdfEditor || !confirm('Clear all annotations on this page?')) return; pdfEditor.clearPage(); showHint('🗑️ Page cleared'); }
+  // FIX: clearCurrentPage now calls saveState() so it can be undone
+  function clearCurrentPage() {
+    if (!pdfEditor || !confirm('Clear all annotations on this page?')) return;
+    pdfEditor.saveState();
+    pdfEditor.clearPage();
+    showHint('🗑️ Page cleared');
+  }
   function setDirty(v) {
     document.getElementById('status-unsaved').style.display = v ? '' : 'none';
     document.getElementById('status-dot').classList.toggle('unsaved', v);
@@ -1343,14 +1373,19 @@
   document.addEventListener('mousemove', function(e) {
     const wrapper = document.getElementById('canvas-wrapper'); if (!wrapper) return;
     const r  = wrapper.getBoundingClientRect();
-    const sc = currentScale / 1.5;
+    const sc = getWrapperScale();
     const x  = Math.round((e.clientX - r.left) / sc);
     const y  = Math.round((e.clientY - r.top)  / sc);
     if (x >= 0 && y >= 0) document.getElementById('status-coords').textContent = 'x: ' + x + '  y: ' + y;
   });
 
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('page-jump').addEventListener('change', function() {
+    // FIX: Validate page-jump input — only allow numbers
+    const pj = document.getElementById('page-jump');
+    pj.addEventListener('keydown', function(e) {
+      if (['e','E','+','-','.'].includes(e.key)) e.preventDefault();
+    });
+    pj.addEventListener('change', function() {
       if (!pdfEditor) return;
       const p = parseInt(this.value);
       if (p >= 1 && p <= pdfEditor.totalPages) { pdfEditor.currentPage = p; pdfEditor.renderPage(); }
@@ -1378,6 +1413,8 @@
       this.isDrawing   = false;
       this.curPath     = null;
       this.shapeStart  = null;
+      // FIX: Track last known touch/mouse position for touch end events
+      this._lastPos    = null;
       this.setupDrawCanvas();
       this.setupKeys();
       this.renderPage();
@@ -1388,7 +1425,7 @@
     // ── RENDER PAGE ──────────────────────────────────────────
     async renderPage() {
       const page = await this.pdfDoc.getPage(this.currentPage);
-      const vp   = page.getViewport({ scale: 1.5 });
+      const vp   = page.getViewport({ scale: DISPLAY_SCALE });
       const cv   = document.getElementById('pdf-canvas');
       cv.width = vp.width; cv.height = vp.height;
       const dc = document.getElementById('drawing-canvas');
@@ -1456,6 +1493,7 @@
       if (!['draw','eraser','rect','ellipse','line','arrow'].includes(t)) return;
       this.saveState();
       const p = this.canvasPos(e);
+      this._lastPos = p; // FIX: Store for touch end fallback
       this.isDrawing = true;
       if (t === 'draw') {
         if (!this.drawPaths.has(this.currentPage)) this.drawPaths.set(this.currentPage, []);
@@ -1470,6 +1508,7 @@
     drawMove(e) {
       if (!this.isDrawing) return;
       const t = currentTool, p = this.canvasPos(e);
+      this._lastPos = p; // FIX: Update last known position
       const dc = document.getElementById('drawing-canvas');
       const ctx = dc.getContext('2d');
       if (t === 'draw') {
@@ -1488,7 +1527,8 @@
         if (!this.drawPaths.has(this.currentPage)) this.drawPaths.set(this.currentPage, []);
         this.drawPaths.get(this.currentPage).push(this.curPath); this.curPath = null; setDirty(true);
       } else if (['rect','ellipse','line','arrow'].includes(t) && this.shapeStart) {
-        const p = this.canvasPos(e.clientX !== undefined ? e : { clientX: 0, clientY: 0 });
+        // FIX: Use _lastPos as fallback when touch events have no clientX
+        const p = (e.clientX !== undefined) ? this.canvasPos(e) : (this._lastPos || { x: 0, y: 0 });
         if (!this.drawPaths.has(this.currentPage)) this.drawPaths.set(this.currentPage, []);
         this.drawPaths.get(this.currentPage).push(this.makeShapePath(t, this.shapeStart, p));
         this.shapeStart = null; this.restoreDrawings(); setDirty(true);
@@ -1533,14 +1573,13 @@
       } else if (path.type === 'ellipse') {
         const cx = (path.s.x + path.e.x) / 2, cy = (path.s.y + path.e.y) / 2;
         const rx = Math.abs(path.e.x - path.s.x) / 2, ry = Math.abs(path.e.y - path.s.y) / 2;
-        ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+        ctx.ellipse(cx, cy, Math.max(rx, 1), Math.max(ry, 1), 0, 0, Math.PI * 2);
         if (path.filled) ctx.fill(); ctx.stroke();
       }
     }
 
     eraseAt(p) {
       const sz = +document.getElementById('eraser-size').value;
-      // Erase freehand paths AND shape paths
       if (this.drawPaths.has(this.currentPage)) {
         this.drawPaths.set(this.currentPage,
           this.drawPaths.get(this.currentPage).filter(path => {
@@ -1554,7 +1593,6 @@
           })
         );
       }
-      // Also erase annotation elements (whiteout, highlight, etc.)
       if (this.annotations.has(this.currentPage)) {
         const toRemove = this.annotations.get(this.currentPage).filter(a => {
           const ex=parseFloat(a.element.style.left), ey=parseFloat(a.element.style.top);
@@ -1607,18 +1645,17 @@
             e.target.classList.contains('highlight-rect')        ||
             e.target.classList.contains('image-ann')             ||
             e.target.classList.contains('annotation-delete-btn') ||
-            e.target.classList.contains('resize-handle')) return;
+            e.target.classList.contains('resize-handle')         ||
+            e.target.classList.contains('text-resize-handle')) return;
 
-        // FIX: don't spawn a second text box when one is being edited
+        // FIX: don't spawn a new text box when one is being edited
         if (currentTool === 'text') {
           const editing = document.querySelector('.text-annotation[data-editing="true"]');
           if (editing) { editing.blur(); return; }
         }
 
         const r      = layer.getBoundingClientRect();
-        const wrapEl = document.getElementById('canvas-wrapper');
-        const tfStr  = wrapEl.style.transform;
-        const sc     = tfStr ? (parseFloat(tfStr.match(/scale\(([^)]+)\)/)?.[1]) || 1) : 1;
+        const sc     = getWrapperScale();
         const x = (e.clientX - r.left) / sc;
         const y = (e.clientY - r.top)  / sc;
 
@@ -1640,10 +1677,15 @@
 
       document.addEventListener('keydown', e => {
         const ae      = document.activeElement;
-        const editing = ae && ae.classList.contains('text-annotation');
+        const editing = ae && ae.classList.contains('text-annotation') && ae.dataset.editing === 'true';
         if ((e.ctrlKey||e.metaKey) && e.key==='z' && !e.shiftKey)           { e.preventDefault(); this.undo(); }
         if ((e.ctrlKey||e.metaKey) && (e.key==='y'||(e.shiftKey&&e.key==='z'))) { e.preventDefault(); this.redo(); }
         if ((e.ctrlKey||e.metaKey) && e.key==='d' && this.selectedAnn)       { e.preventDefault(); this.dupSel(); }
+        // FIX: Ctrl+B/I/U for text formatting when editing
+        if (editing && (e.ctrlKey||e.metaKey) && e.key==='b') { e.preventDefault(); toggleFmt('bold'); }
+        if (editing && (e.ctrlKey||e.metaKey) && e.key==='i') { e.preventDefault(); toggleFmt('italic'); }
+        if (editing && (e.ctrlKey||e.metaKey) && e.key==='u') { e.preventDefault(); toggleFmt('under'); }
+
         if (!editing && this.selectedAnn) {
           const step = e.shiftKey ? 10 : 1, a = this.selectedAnn; let mv = false;
           if (e.key==='ArrowLeft')  { a.element.style.left = (a.x -= step) + 'px'; mv = true; }
@@ -1654,10 +1696,12 @@
           if ((e.key==='Delete'||e.key==='Backspace') && !editing) { e.preventDefault(); this.saveState(); this.removeAnn(this.selectedAnn); }
         }
         if (e.key === 'Escape') { this.deselect(); setTool('select'); }
+        // FIX: Added 'h' shortcut for highlight
         if (!editing) {
           if (e.key === 't') setTool('text');
           if (e.key === 'w') setTool('whiteout');
-          if (e.key === 'd') setTool('draw');
+          if (e.key === 'h') setTool('highlight');
+          if (e.key === 'd' && !e.ctrlKey && !e.metaKey) setTool('draw');
           if (e.key === 'e') setTool('eraser');
           if (e.key === 'r') setTool('rect');
           if (e.key === 'v') setTool('select');
@@ -1684,11 +1728,36 @@
       el.style.fontStyle      = opts.italic ? 'italic'    : 'normal';
       el.style.textDecoration = opts.under  ? 'underline' : 'none';
       el.style.textAlign      = opts.align  || 'left';
+      if (opts.width) el.style.width = opts.width + 'px';
+      if (opts.rotation) el.style.transform = `rotate(${opts.rotation}deg)`;
       el.textContent = opts.text || '';
       el.dataset.editing = 'true';
-      const ann = { type: 'text', element: el, x, y, fontSize: fs, fontFamily: ff, color: fc, opacity: opts.opacity || 100, bold: !!opts.bold, italic: !!opts.italic, under: !!opts.under, align: opts.align || 'left', getText: () => el.textContent };
+
+      // FIX: Add width resize handle to text annotations
+      const trh = document.createElement('div');
+      trh.className = 'text-resize-handle';
+      el.appendChild(trh);
+
+      const ann = { type: 'text', element: el, x, y, fontSize: fs, fontFamily: ff, color: fc, opacity: opts.opacity || 100, bold: !!opts.bold, italic: !!opts.italic, under: !!opts.under, align: opts.align || 'left', width: opts.width || null, rotation: opts.rotation || 0, getText: () => el.textContent };
       this.makeDraggable(el, ann);
+      this.makeTextResizable(el, ann, trh);
       el.addEventListener('click', e => { e.stopPropagation(); this.selectAnn(ann); });
+      // FIX: Double-click to enter edit mode from any tool
+      el.addEventListener('dblclick', e => {
+        e.stopPropagation();
+        el.dataset.editing = 'true';
+        el.focus();
+        // Place cursor at click position
+        try {
+          const range = document.caretRangeFromPoint(e.clientX, e.clientY);
+          if (range) {
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+          }
+        } catch(_) { /* fallback: just focus */ }
+        this.selectAnn(ann);
+      });
       el.addEventListener('focus', () => { el.dataset.editing = 'true'; this.selectAnn(ann); });
       el.addEventListener('blur',  () => { el.dataset.editing = 'false'; });
       el.addEventListener('input', () => setDirty(true));
@@ -1696,11 +1765,45 @@
       ann._delBtn = delBtn;
       layer.appendChild(el); layer.appendChild(delBtn);
       this.positionDelBtn(el, delBtn);
-      new MutationObserver(() => this.positionDelBtn(el, delBtn)).observe(el, { attributes: true, attributeFilter: ['style'] });
+      const obs = new MutationObserver(() => this.positionDelBtn(el, delBtn));
+      obs.observe(el, { attributes: true, attributeFilter: ['style'] });
+      ann._observer = obs; // FIX: Store observer reference for cleanup
+
       if (!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage, []);
       this.annotations.get(this.currentPage).push(ann);
-      if (!opts.text) { setTimeout(() => { el.focus(); document.execCommand('selectAll'); }, 30); }
+
+      // FIX: Improved new text box focus — use zero-width space for visible height
+      if (!opts.text) {
+        el.innerHTML = '\u200B';
+        setTimeout(() => {
+          el.focus();
+          const range = document.createRange();
+          range.selectNodeContents(el);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }, 30);
+      }
       setDirty(true); updateAnnCount();
+    }
+
+    // FIX: Width-resize for text annotations (horizontal drag)
+    makeTextResizable(el, ann, handle) {
+      handle.addEventListener('mousedown', e => {
+        e.preventDefault(); e.stopPropagation();
+        const sc = getWrapperScale();
+        const startX = e.clientX;
+        const startW = el.offsetWidth;
+        const mm = ev => {
+          const newW = Math.max(40, startW + (ev.clientX - startX) / sc);
+          el.style.width = newW + 'px';
+          ann.width = newW;
+          setDirty(true);
+        };
+        const mu = () => { document.removeEventListener('mousemove', mm); document.removeEventListener('mouseup', mu); };
+        document.addEventListener('mousemove', mm);
+        document.addEventListener('mouseup', mu);
+      });
     }
 
     // ── ADD WHITEOUT ─────────────────────────────────────────
@@ -1714,14 +1817,16 @@
       el.style.height     = (opts.h || 50)  + 'px';
       el.style.background = c;
       const rh = document.createElement('div'); rh.className = 'resize-handle'; el.appendChild(rh);
-      const ann = { type: 'whiteout', element: el, x, y, w: opts.w || 160, h: opts.h || 50, color: c };
+      const ann = { type: 'whiteout', element: el, x, y, w: opts.w || 160, h: opts.h || 50, color: c, rotation: 0 };
       this.makeDraggable(el, ann); this.makeResizable(el, ann);
       el.addEventListener('click', e => { e.stopPropagation(); this.selectAnn(ann); });
       const delBtn = this.makeDelBtn(() => this.removeAnn(ann));
       ann._delBtn = delBtn;
       layer.appendChild(el); layer.appendChild(delBtn);
       this.positionDelBtn(el, delBtn);
-      new MutationObserver(() => this.positionDelBtn(el, delBtn)).observe(el, { attributes: true, attributeFilter: ['style'] });
+      const obs = new MutationObserver(() => this.positionDelBtn(el, delBtn));
+      obs.observe(el, { attributes: true, attributeFilter: ['style'] });
+      ann._observer = obs;
       if (!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage, []);
       this.annotations.get(this.currentPage).push(ann);
       setDirty(true); updateAnnCount();
@@ -1757,20 +1862,23 @@
       el.style.left=(x)+'px'; el.style.top=(y)+'px';
       el.style.width=(opts.w||160)+'px'; el.style.height=(opts.h||20)+'px';
       el.style.background=c; el.style.opacity=op;
+      if (opts.rotation) el.style.transform=`rotate(${opts.rotation}deg)`;
       const rh=document.createElement('div'); rh.className='resize-handle'; el.appendChild(rh);
-      const ann={type:'highlight',element:el,x,y,w:opts.w||160,h:opts.h||20,hlColor:c,hlOpacity:op,rotation:0};
+      const ann={type:'highlight',element:el,x,y,w:opts.w||160,h:opts.h||20,hlColor:c,hlOpacity:op,rotation:opts.rotation||0};
       this.makeDraggable(el,ann); this.makeResizable(el,ann);
       el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
       const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
       layer.appendChild(el); layer.appendChild(db);
       this.positionDelBtn(el,db);
-      new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      const obs=new MutationObserver(()=>this.positionDelBtn(el,db));
+      obs.observe(el,{attributes:true,attributeFilter:['style']});
+      ann._observer=obs;
       if(!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage,[]);
       this.annotations.get(this.currentPage).push(ann);
       setDirty(true); updateAnnCount(); return ann;
     }
 
-    // ── ADD STAMP (check / cross) ─────────────────────────────
+    // ── ADD STAMP ─────────────────────────────────────
     addStamp(x, y, stampType, opts={}) {
       const char  = stampType==='check' ? '✓' : '✗';
       const color = opts.color || document.getElementById('stamp-color').value || (stampType==='check'?'#10B981':'#EF4444');
@@ -1782,13 +1890,15 @@
       el.style.left=TX+'px'; el.style.top=TY+'px';
       el.style.fontSize=size+'px'; el.style.fontFamily='Arial'; el.style.color=color;
       el.style.fontWeight='700'; el.style.opacity='1'; el.textContent=char; el.dataset.editing='false';
-      const ann={type:'text',element:el,x:TX,y:TY,fontSize:size,fontFamily:'Arial',color,opacity:100,bold:true,italic:false,under:false,align:'left',rotation:0,getText:()=>el.textContent};
+      const ann={type:'text',element:el,x:TX,y:TY,fontSize:size,fontFamily:'Arial',color,opacity:100,bold:true,italic:false,under:false,align:'left',rotation:0,width:null,getText:()=>el.textContent};
       this.makeDraggable(el,ann);
       el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
       const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
       layer.appendChild(el); layer.appendChild(db);
       this.positionDelBtn(el,db);
-      new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      const obs=new MutationObserver(()=>this.positionDelBtn(el,db));
+      obs.observe(el,{attributes:true,attributeFilter:['style']});
+      ann._observer=obs;
       if(!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage,[]);
       this.annotations.get(this.currentPage).push(ann);
       setDirty(true); updateAnnCount(); return ann;
@@ -1804,7 +1914,8 @@
       el.style.fontSize=(opts.fontSize||16)+'px'; el.style.fontFamily=opts.fontFamily||'Helvetica';
       el.style.color='#2563eb'; el.style.textDecoration='underline'; el.style.cursor='pointer'; el.style.opacity='1';
       el.textContent=opts.text||'Link'; el.dataset.editing='false';
-      const ann={type:'link',element:el,x:TX,y:TY,fontSize:opts.fontSize||16,fontFamily:opts.fontFamily||'Helvetica',color:'#2563eb',opacity:100,bold:false,italic:false,under:true,align:'left',href:opts.href||'',rotation:0,getText:()=>el.textContent};
+      if(opts.rotation) el.style.transform=`rotate(${opts.rotation}deg)`;
+      const ann={type:'link',element:el,x:TX,y:TY,fontSize:opts.fontSize||16,fontFamily:opts.fontFamily||'Helvetica',color:'#2563eb',opacity:100,bold:false,italic:false,under:true,align:'left',href:opts.href||'',rotation:opts.rotation||0,width:null,getText:()=>el.textContent};
       this.makeDraggable(el,ann);
       el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
       el.addEventListener('dblclick',()=>{if(ann.href) window.open(ann.href,'_blank');});
@@ -1814,7 +1925,9 @@
       const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
       layer.appendChild(el); layer.appendChild(db);
       this.positionDelBtn(el,db);
-      new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      const obs=new MutationObserver(()=>this.positionDelBtn(el,db));
+      obs.observe(el,{attributes:true,attributeFilter:['style']});
+      ann._observer=obs;
       if(!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage,[]);
       this.annotations.get(this.currentPage).push(ann);
       setDirty(true); updateAnnCount(); return ann;
@@ -1836,14 +1949,16 @@
       const db=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=db;
       layer.appendChild(el); layer.appendChild(db);
       this.positionDelBtn(el,db);
-      new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+      const obs=new MutationObserver(()=>this.positionDelBtn(el,db));
+      obs.observe(el,{attributes:true,attributeFilter:['style']});
+      ann._observer=obs;
       if(!this.annotations.has(this.currentPage)) this.annotations.set(this.currentPage,[]);
       this.annotations.get(this.currentPage).push(ann);
       setDirty(true); updateAnnCount();
       showHint('🖼️ Image placed — drag to move, resize from corner');
     }
 
-        makeDelBtn(cb) {
+    makeDelBtn(cb) {
       const btn = document.createElement('button');
       btn.className = 'annotation-delete-btn'; btn.innerHTML = '×';
       btn.addEventListener('mousedown', e => e.stopPropagation());
@@ -1854,11 +1969,14 @@
       const layer = document.getElementById('annotation-layer');
       if (!layer || !el.parentNode) return;
       const er = el.getBoundingClientRect(), lr = layer.getBoundingClientRect();
-      btn.style.left = (er.right - lr.left + 5)  + 'px';
-      btn.style.top  = (er.top   - lr.top  - 13) + 'px';
+      const sc = getWrapperScale();
+      btn.style.left = ((er.right - lr.left) / sc + 5)  + 'px';
+      btn.style.top  = ((er.top   - lr.top)  / sc - 13) + 'px';
     }
 
+    // FIX: Disconnect MutationObserver when removing annotations
     removeAnn(ann) {
+      if (ann._observer) { ann._observer.disconnect(); ann._observer = null; }
       ann.element.remove(); if (ann._delBtn) ann._delBtn.remove();
       const pg = this.annotations.get(this.currentPage) || [];
       const i  = pg.indexOf(ann); if (i > -1) pg.splice(i, 1);
@@ -1887,7 +2005,7 @@
         }
       } else if (ann.type === 'whiteout') {
         document.getElementById('whiteout-color').value = ann.color||'#ffffff';
-        if (currentTool!=='whiteout') { setTool('whiteout'); document.getElementById('ctx-whiteout').style.display='flex'; document.getElementById('context-toolbar').classList.add('visible'); }
+        if (currentTool!=='whiteout' && currentTool!=='redact') { setTool('whiteout'); document.getElementById('ctx-whiteout').style.display='flex'; document.getElementById('context-toolbar').classList.add('visible'); }
       } else if (ann.type === 'highlight') {
         document.getElementById('hl-color').value   = ann.hlColor||'#ffff00';
         document.getElementById('hl-opacity').value = Math.round((ann.hlOpacity||0.4)*100);
@@ -1901,8 +2019,8 @@
     deselect() { if (this.selectedAnn) { this.selectedAnn.element.classList.remove('selected'); this.selectedAnn = null; } }
     dupSel() {
       if (!this.selectedAnn) return; const a=this.selectedAnn; this.saveState();
-      if      (a.type==='text')      this.addText(a.x+20,a.y+20,{text:a.getText(),fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align});
-      else if (a.type==='link')      this.addLink(a.x+20,a.y+20,{text:a.getText(),href:a.href});
+      if      (a.type==='text')      this.addText(a.x+20,a.y+20,{text:a.getText(),fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,width:a.width,rotation:a.rotation});
+      else if (a.type==='link')      this.addLink(a.x+20,a.y+20,{text:a.getText(),href:a.href,rotation:a.rotation});
       else if (a.type==='whiteout')  this.addWhiteout(a.x+20,a.y+20,{w:a.w,h:a.h,color:a.color});
       else if (a.type==='highlight') this.addHighlight(a.x+20,a.y+20,{w:a.w,h:a.h,hlColor:a.hlColor,hlOpacity:a.hlOpacity});
       else if (a.type==='image')     this.addImageAnn(a.x+20,a.y+20,a.dataUrl,a.w,a.h);
@@ -1946,18 +2064,22 @@
     }
 
     // ── DRAG / RESIZE ────────────────────────────────────────
+    // FIX: Scale-aware dragging — divide mouse deltas by CSS scale factor
     makeDraggable(el, ann) {
-      let ox, oy, sx, sy, moved;
+      let ox, oy, sx, sy, moved, sc;
       el.addEventListener('mousedown', e => {
-        if (e.target.classList.contains('resize-handle')) return;
+        if (e.target.classList.contains('resize-handle') || e.target.classList.contains('text-resize-handle')) return;
         if (el.classList.contains('text-annotation') && el.dataset.editing === 'true' && !e.ctrlKey) {
           const r = el.getBoundingClientRect(), edge = 12;
           if (e.clientX-r.left>edge && r.right-e.clientX>edge && e.clientY-r.top>edge && r.bottom-e.clientY>edge) return;
         }
         e.preventDefault(); moved = false;
         sx = e.clientX; sy = e.clientY; ox = el.offsetLeft; oy = el.offsetTop;
+        sc = getWrapperScale(); // FIX: Capture scale at drag start
+
         const mm = ev => {
-          const dx = ev.clientX - sx, dy = ev.clientY - sy;
+          const dx = (ev.clientX - sx) / sc;  // FIX: Divide by scale
+          const dy = (ev.clientY - sy) / sc;  // FIX: Divide by scale
           if (!moved && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) moved = true;
           if (moved) { el.style.left = (ann.x = ox + dx) + 'px'; el.style.top = (ann.y = oy + dy) + 'px'; setDirty(true); }
         };
@@ -1969,12 +2091,19 @@
       });
     }
 
+    // FIX: Scale-aware resizing
     makeResizable(el, ann) {
       el.addEventListener('mousedown', e => {
         if (!e.target.classList.contains('resize-handle')) return;
         e.preventDefault(); e.stopPropagation();
-        const r  = el.getBoundingClientRect(), sw = r.width, sh = r.height, sx = e.clientX, sy = e.clientY;
-        const mm = ev => { el.style.width = (ann.w = Math.max(20, sw + ev.clientX - sx)) + 'px'; el.style.height = (ann.h = Math.max(10, sh + ev.clientY - sy)) + 'px'; setDirty(true); };
+        const sw = parseFloat(el.style.width), sh = parseFloat(el.style.height);
+        const sx = e.clientX, sy = e.clientY;
+        const sc = getWrapperScale(); // FIX: Capture scale
+        const mm = ev => {
+          el.style.width  = (ann.w = Math.max(20, sw + (ev.clientX - sx) / sc)) + 'px'; // FIX: /sc
+          el.style.height = (ann.h = Math.max(10, sh + (ev.clientY - sy) / sc)) + 'px'; // FIX: /sc
+          setDirty(true);
+        };
         const mu = () => { document.removeEventListener('mousemove', mm); document.removeEventListener('mouseup', mu); };
         document.addEventListener('mousemove', mm); document.addEventListener('mouseup', mu);
       });
@@ -1983,14 +2112,14 @@
     // ── UNDO / REDO ──────────────────────────────────────────
     saveState() {
       const st = { pg: this.currentPage, a: new Map(), p: new Map() };
-      this.annotations.forEach((arr, pg) => st.a.set(pg, arr.map(a => ({ type:a.type,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation }))));
+      this.annotations.forEach((arr, pg) => st.a.set(pg, arr.map(a => ({ type:a.type,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation,width:a.width }))));
       this.drawPaths.forEach((arr, pg) => st.p.set(pg, JSON.parse(JSON.stringify(arr))));
       this.undoStack.push(st); if (this.undoStack.length > 50) this.undoStack.shift();
       this.redoStack = [];
     }
     captureRedo() {
       const st = { pg: this.currentPage, a: new Map(), p: new Map() };
-      this.annotations.forEach((arr, pg) => st.a.set(pg, arr.map(a => ({ type:a.type,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation }))));
+      this.annotations.forEach((arr, pg) => st.a.set(pg, arr.map(a => ({ type:a.type,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation,width:a.width }))));
       this.drawPaths.forEach((arr, pg) => st.p.set(pg, JSON.parse(JSON.stringify(arr))));
       this.redoStack.push(st);
     }
@@ -1998,6 +2127,8 @@
     async redo() { if (!this.redoStack.length) { showHint('Nothing to redo'); return; } this.saveState(); await this.restoreState(this.redoStack.pop()); showHint('↷ Redo'); }
 
     async restoreState(st) {
+      // FIX: Disconnect all observers before clearing
+      this.annotations.forEach(arr => arr.forEach(a => { if (a._observer) { a._observer.disconnect(); a._observer = null; } }));
       this.annotations = new Map(); this.drawPaths = st.p;
       document.getElementById('annotation-layer').innerHTML = '';
       st.a.forEach((arr, pg) => { arr.forEach(a => {
@@ -2018,10 +2149,23 @@
       el.style.opacity = (a.opacity || 100) / 100; el.style.fontWeight = a.bold ? '700' : '400';
       el.style.fontStyle = a.italic ? 'italic' : 'normal'; el.style.textDecoration = a.under ? 'underline' : 'none';
       el.style.textAlign = a.align || 'left'; el.textContent = a.text; el.dataset.editing = 'false';
-      const ann = { type: 'text', element: el, x: a.x, y: a.y, fontSize: a.fontSize, fontFamily: a.fontFamily, color: a.color, opacity: a.opacity, bold: a.bold, italic: a.italic, under: a.under, align: a.align, getText: () => el.textContent };
+      if (a.width) el.style.width = a.width + 'px';
+      if (a.rotation) el.style.transform = `rotate(${a.rotation}deg)`;
+
+      const trh = document.createElement('div');
+      trh.className = 'text-resize-handle';
+      el.appendChild(trh);
+
+      const ann = { type: 'text', element: el, x: a.x, y: a.y, fontSize: a.fontSize, fontFamily: a.fontFamily, color: a.color, opacity: a.opacity, bold: a.bold, italic: a.italic, under: a.under, align: a.align, rotation: a.rotation || 0, width: a.width || null, getText: () => el.textContent };
       if (pg === this.currentPage) {
         this.makeDraggable(el, ann);
+        this.makeTextResizable(el, ann, trh);
         el.addEventListener('click', e => { e.stopPropagation(); this.selectAnn(ann); });
+        el.addEventListener('dblclick', e => {
+          e.stopPropagation(); el.dataset.editing = 'true'; el.focus();
+          try { const range = document.caretRangeFromPoint(e.clientX, e.clientY); if (range) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range); } } catch(_) {}
+          this.selectAnn(ann);
+        });
         el.addEventListener('focus', () => { el.dataset.editing = 'true'; this.selectAnn(ann); });
         el.addEventListener('blur',  () => { el.dataset.editing = 'false'; });
         el.addEventListener('input', () => setDirty(true));
@@ -2029,7 +2173,9 @@
         const layer = document.getElementById('annotation-layer');
         layer.appendChild(el); layer.appendChild(db);
         this.positionDelBtn(el, db);
-        new MutationObserver(() => this.positionDelBtn(el, db)).observe(el, { attributes: true, attributeFilter: ['style'] });
+        const obs = new MutationObserver(() => this.positionDelBtn(el, db));
+        obs.observe(el, { attributes: true, attributeFilter: ['style'] });
+        ann._observer = obs;
       }
       if (!this.annotations.has(pg)) this.annotations.set(pg, []);
       this.annotations.get(pg).push(ann);
@@ -2042,7 +2188,7 @@
       el.style.width = (a.w || 160) + 'px'; el.style.height = (a.h || 50) + 'px';
       el.style.background = a.color || '#ffffff';
       const rh = document.createElement('div'); rh.className = 'resize-handle'; el.appendChild(rh);
-      const ann = { type: 'whiteout', element: el, x: a.x, y: a.y, w: a.w || 160, h: a.h || 50, color: a.color || '#ffffff' };
+      const ann = { type: 'whiteout', element: el, x: a.x, y: a.y, w: a.w || 160, h: a.h || 50, color: a.color || '#ffffff', rotation: 0 };
       if (pg === this.currentPage) {
         this.makeDraggable(el, ann); this.makeResizable(el, ann);
         el.addEventListener('click', e => { e.stopPropagation(); this.selectAnn(ann); });
@@ -2050,7 +2196,9 @@
         const layer = document.getElementById('annotation-layer');
         layer.appendChild(el); layer.appendChild(db);
         this.positionDelBtn(el, db);
-        new MutationObserver(() => this.positionDelBtn(el, db)).observe(el, { attributes: true, attributeFilter: ['style'] });
+        const obs = new MutationObserver(() => this.positionDelBtn(el, db));
+        obs.observe(el, { attributes: true, attributeFilter: ['style'] });
+        ann._observer = obs;
       }
       if (!this.annotations.has(pg)) this.annotations.set(pg, []);
       this.annotations.get(pg).push(ann);
@@ -2064,7 +2212,8 @@
       el.style.color='#2563eb'; el.style.textDecoration='underline'; el.style.cursor='pointer';
       el.style.opacity=(a.opacity||100)/100; el.textContent=a.text; el.dataset.editing='false';
       if(a.rotation) el.style.transform=`rotate(${a.rotation}deg)`;
-      const ann={type:'link',element:el,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:'#2563eb',opacity:a.opacity||100,bold:false,italic:false,under:true,align:'left',href:a.href||'',rotation:a.rotation||0,getText:()=>el.textContent};
+      if(a.width) el.style.width=a.width+'px';
+      const ann={type:'link',element:el,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:'#2563eb',opacity:a.opacity||100,bold:false,italic:false,under:true,align:'left',href:a.href||'',rotation:a.rotation||0,width:a.width||null,getText:()=>el.textContent};
       if(pg===this.currentPage){
         this.makeDraggable(el,ann);
         el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
@@ -2076,7 +2225,9 @@
         const layer=document.getElementById('annotation-layer');
         layer.appendChild(el); layer.appendChild(db);
         this.positionDelBtn(el,db);
-        new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+        const obs=new MutationObserver(()=>this.positionDelBtn(el,db));
+        obs.observe(el,{attributes:true,attributeFilter:['style']});
+        ann._observer=obs;
       }
       if(!this.annotations.has(pg)) this.annotations.set(pg,[]);
       this.annotations.get(pg).push(ann);
@@ -2098,7 +2249,9 @@
         const layer=document.getElementById('annotation-layer');
         layer.appendChild(el); layer.appendChild(db);
         this.positionDelBtn(el,db);
-        new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+        const obs=new MutationObserver(()=>this.positionDelBtn(el,db));
+        obs.observe(el,{attributes:true,attributeFilter:['style']});
+        ann._observer=obs;
       }
       if(!this.annotations.has(pg)) this.annotations.set(pg,[]);
       this.annotations.get(pg).push(ann);
@@ -2122,13 +2275,19 @@
         const layer=document.getElementById('annotation-layer');
         layer.appendChild(el); layer.appendChild(db);
         this.positionDelBtn(el,db);
-        new MutationObserver(()=>this.positionDelBtn(el,db)).observe(el,{attributes:true,attributeFilter:['style']});
+        const obs=new MutationObserver(()=>this.positionDelBtn(el,db));
+        obs.observe(el,{attributes:true,attributeFilter:['style']});
+        ann._observer=obs;
       }
       if(!this.annotations.has(pg)) this.annotations.set(pg,[]);
       this.annotations.get(pg).push(ann);
     }
 
     clearPage() {
+      // FIX: Disconnect observers before clearing
+      if (this.annotations.has(this.currentPage)) {
+        this.annotations.get(this.currentPage).forEach(a => { if (a._observer) { a._observer.disconnect(); a._observer = null; } });
+      }
       document.getElementById('annotation-layer').innerHTML = '';
       this.annotations.delete(this.currentPage); this.drawPaths.delete(this.currentPage);
       const dc = document.getElementById('drawing-canvas');
@@ -2137,41 +2296,56 @@
     }
 
     // ── FLATTEN PAGE TO CANVAS ───────────────────────────────
+    // FIX: Export at higher resolution (EXPORT_SCALE) for print quality
+    // Annotations are stored at DISPLAY_SCALE coordinates, so we apply a
+    // ratio multiplier to position them correctly at the export resolution.
     async flattenPage(pgNum) {
       const page = await this.pdfDoc.getPage(pgNum);
-      const vp   = page.getViewport({ scale: 1.5 });
+      const vp   = page.getViewport({ scale: EXPORT_SCALE });
       const oc   = document.createElement('canvas');
       oc.width = vp.width; oc.height = vp.height;
       const ctx = oc.getContext('2d');
       await page.render({ canvasContext: ctx, viewport: vp }).promise;
 
+      // Ratio to scale annotation coordinates from display space to export space
+      const R = EXPORT_SCALE / DISPLAY_SCALE;
+
       // Highlights (semi-transparent, lowest layer)
       (this.annotations.get(pgNum)||[]).forEach(a=>{
         if(a.type!=='highlight') return;
-        const ex=parseFloat(a.element.style.left), ey=parseFloat(a.element.style.top);
-        const ew=parseFloat(a.element.style.width), eh=parseFloat(a.element.style.height);
+        const ex=parseFloat(a.element.style.left)*R, ey=parseFloat(a.element.style.top)*R;
+        const ew=parseFloat(a.element.style.width)*R, eh=parseFloat(a.element.style.height)*R;
         ctx.save();
         if(a.rotation){ctx.translate(ex+ew/2,ey+eh/2);ctx.rotate(a.rotation*Math.PI/180);ctx.translate(-(ex+ew/2),-(ey+eh/2));}
         ctx.globalAlpha=a.hlOpacity||0.4; ctx.fillStyle=a.hlColor||'#ffff00';
         ctx.fillRect(ex,ey,ew,eh); ctx.restore();
       });
 
-      // Whiteout first (under text)
+      // Whiteout (under text)
       (this.annotations.get(pgNum) || []).forEach(a => {
         if (a.type !== 'whiteout') return;
         ctx.fillStyle = a.color || '#ffffff';
         ctx.fillRect(
-          parseFloat(a.element.style.left),
-          parseFloat(a.element.style.top),
-          parseFloat(a.element.style.width),
-          parseFloat(a.element.style.height)
+          parseFloat(a.element.style.left)*R,
+          parseFloat(a.element.style.top)*R,
+          parseFloat(a.element.style.width)*R,
+          parseFloat(a.element.style.height)*R
         );
       });
 
-      // Drawings
+      // Drawings — scale all coordinates by R
       (this.drawPaths.get(pgNum) || []).forEach(path => {
-        if (path.type && path.s) this.renderShape(ctx, path);
-        else if (path.pts) this.redrawPath(ctx, path);
+        const scaled = JSON.parse(JSON.stringify(path));
+        if (scaled.pts) {
+          scaled.pts = scaled.pts.map(pt => ({ x: pt.x * R, y: pt.y * R }));
+          scaled.width = (scaled.width || 1) * R;
+          this.redrawPath(ctx, scaled);
+        } else if (scaled.s && scaled.e) {
+          scaled.s = { x: scaled.s.x * R, y: scaled.s.y * R };
+          scaled.e = { x: scaled.e.x * R, y: scaled.e.y * R };
+          scaled.width = (scaled.width || 1) * R;
+          this.renderShape(ctx, scaled);
+        }
       });
 
       // Images (above drawings, below text)
@@ -2182,8 +2356,8 @@
       if(_imgps.length) await Promise.all(_imgps);
       (this.annotations.get(pgNum)||[]).forEach(a=>{
         if(a.type!=='image'||!a._fi) return;
-        const ex=parseFloat(a.element.style.left), ey=parseFloat(a.element.style.top);
-        const ew=parseFloat(a.element.style.width), eh=parseFloat(a.element.style.height);
+        const ex=parseFloat(a.element.style.left)*R, ey=parseFloat(a.element.style.top)*R;
+        const ew=parseFloat(a.element.style.width)*R, eh=parseFloat(a.element.style.height)*R;
         ctx.save();
         if(a.rotation){ctx.translate(ex+ew/2,ey+eh/2);ctx.rotate(a.rotation*Math.PI/180);ctx.drawImage(a._fi,-ew/2,-eh/2,ew,eh);}
         else ctx.drawImage(a._fi,ex,ey,ew,eh);
@@ -2191,35 +2365,18 @@
       });
 
       // Text on top
+      // FIX: Use canvas measureText for width calculation instead of offsetWidth
+      // This works correctly for off-screen pages too
       (this.annotations.get(pgNum) || []).forEach(a => {
         if (a.type !== 'text' && a.type !== 'link') return;
         const el = a.element;
 
-        // FIX: .text-annotation has padding: 4px 6px (top/bottom 4px, left/right 6px).
-        // The element's style.top/left point to the outer box edge. Without adding
-        // this offset the canvas text starts 6px left and 4px above where it appears
-        // on screen, causing a visible misalignment in the saved file.
-        const PADDING_LEFT = 6;
-        const PADDING_TOP  = 4;
-        const elLeft = parseFloat(el.style.left);
-        const elTop  = parseFloat(el.style.top);
-        // offsetWidth is reliable for the current page (element is in DOM).
-        // For off-page annotations fall back to a sensible estimate.
-        const elW    = (el.offsetWidth && el.offsetWidth > 0) ? el.offsetWidth : 200;
-        const fs     = parseInt(a.fontSize);
+        const PADDING_LEFT = 6 * R;
+        const PADDING_TOP  = 4 * R;
+        const elLeft = parseFloat(el.style.left) * R;
+        const elTop  = parseFloat(el.style.top) * R;
+        const fs     = parseInt(a.fontSize) * R;
         const align  = a.align || 'left';
-
-        // Compute the canvas x so that fillText honours the same textAlign
-        // that CSS applied to the annotation element.
-        let drawX;
-        if (align === 'center') {
-          drawX = elLeft + elW / 2;          // centre of element
-        } else if (align === 'right') {
-          drawX = elLeft + elW - PADDING_LEFT; // right edge minus padding
-        } else {
-          drawX = elLeft + PADDING_LEFT;       // left edge plus padding
-        }
-        const drawY = elTop + PADDING_TOP;
 
         ctx.save();
         ctx.globalAlpha  = parseFloat(el.style.opacity) || 1;
@@ -2229,12 +2386,38 @@
         ctx.textBaseline = 'top';
         ctx.textAlign    = align;
 
-        a.getText().split('\n').forEach((line, i) => {
+        // FIX: Measure actual text width for alignment instead of relying on offsetWidth
+        const lines = a.getText().split('\n');
+        const maxLineWidth = Math.max(...lines.map(l => ctx.measureText(l).width));
+        const elW = maxLineWidth + PADDING_LEFT * 2 + 12 * R;
+
+        // If annotation has an explicit width set by the user, use that
+        const effectiveW = a.width ? a.width * R : elW;
+
+        let drawX;
+        if (align === 'center') {
+          drawX = elLeft + effectiveW / 2;
+        } else if (align === 'right') {
+          drawX = elLeft + effectiveW - PADDING_LEFT;
+        } else {
+          drawX = elLeft + PADDING_LEFT;
+        }
+        const drawY = elTop + PADDING_TOP;
+
+        // Handle rotation
+        if (a.rotation) {
+          const cx = elLeft + effectiveW / 2;
+          const cy = elTop + (lines.length * fs * 1.4 + PADDING_TOP * 2) / 2;
+          ctx.translate(cx, cy);
+          ctx.rotate(a.rotation * Math.PI / 180);
+          ctx.translate(-cx, -cy);
+        }
+
+        lines.forEach((line, i) => {
           const ly = drawY + i * fs * 1.4;
           ctx.fillText(line, drawX, ly);
           if (a.under) {
             const tw = ctx.measureText(line).width;
-            // Underline start depends on alignment direction
             const ux = align === 'center' ? drawX - tw / 2
                      : align === 'right'  ? drawX - tw
                      : drawX;
@@ -2242,7 +2425,7 @@
             ctx.moveTo(ux, ly + fs);
             ctx.lineTo(ux + tw, ly + fs);
             ctx.strokeStyle = _fc;
-            ctx.lineWidth   = 1.5;
+            ctx.lineWidth   = 1.5 * R;
             ctx.stroke();
           }
         });
