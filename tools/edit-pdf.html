@@ -422,7 +422,7 @@
 
       <div class="context-toolbar" id="context-toolbar">
         <div id="ctx-text" style="display:none;align-items:center;gap:0.4rem;flex-wrap:wrap;">
-          <div class="ctx-group"><span class="ctx-label">Font</span><select id="font-family" onchange="applyTextStyle()"><option value="Helvetica">Helvetica</option><option value="Times-Roman">Times Roman</option><option value="Courier">Courier</option><option value="Georgia">Georgia</option><option value="Arial">Arial</option></select><input type="number" id="font-size" class="font-size-input" value="16" min="6" max="144" oninput="applyTextStyle()"><input type="color" id="text-color" class="color-picker" value="#000000" oninput="applyTextStyle()" title="Text color"></div>
+          <div class="ctx-group"><span class="ctx-label">Font</span><select id="font-family" onchange="applyTextStyle()"><option value="Helvetica, Arial, sans-serif">Helvetica</option><option value="'Times New Roman', Times, serif">Times Roman</option><option value="'Courier New', Courier, monospace">Courier</option><option value="Georgia, serif">Georgia</option><option value="Arial, Helvetica, sans-serif">Arial</option></select><input type="number" id="font-size" class="font-size-input" value="16" min="6" max="144" oninput="applyTextStyle()"><input type="color" id="text-color" class="color-picker" value="#000000" oninput="applyTextStyle()" title="Text color"></div>
           <div class="ctx-group"><button class="tool-btn" id="btn-bold" data-tip="Bold" onclick="toggleFmt('bold')"><b>B</b></button><button class="tool-btn" id="btn-italic" data-tip="Italic" onclick="toggleFmt('italic')"><i>I</i></button><button class="tool-btn" id="btn-under" data-tip="Underline" onclick="toggleFmt('under')"><u>U</u></button></div>
           <div class="ctx-group"><button class="tool-btn" id="btn-al" onclick="setAlign('left')">≡◂</button><button class="tool-btn" id="btn-ac" onclick="setAlign('center')">≡</button><button class="tool-btn" id="btn-ar" onclick="setAlign('right')">▸≡</button></div>
           <div class="ctx-group"><span class="ctx-label">Opacity</span><input type="range" class="range-input" id="text-opacity" min="10" max="100" value="100" oninput="applyTextStyle();document.getElementById('text-opa-val').textContent=this.value+'%'"><span class="range-val" id="text-opa-val">100%</span></div>
@@ -604,9 +604,14 @@ async function handleFileUpload(file) {
     window.addEventListener('beforeunload',e=>{if(pdfEditor&&pdfEditor.isDirty){e.preventDefault();e.returnValue='';}});
     if(typeof gtag!=='undefined')gtag('event','pdf_uploaded',{event_category:'tool_usage',event_label:'edit_pdf'});
   } catch(err) {
+    // FIX: Detect password-protected PDFs reliably via the exception name
+    // (pdf.js throws a PasswordException) and pdf-lib's encryption error,
+    // instead of fragile substring matching on err.message.
     let msg='Error loading PDF.';
-    if(err.message.includes('password'))msg='This PDF is password-protected.';
-    else if(err.message.includes('Invalid'))msg='Invalid or corrupted PDF.';
+    if(err && (err.name==='PasswordException' || /password/i.test(err.message||'') || /encrypt/i.test(err.message||'')))
+      msg='This PDF is password-protected or encrypted. Please remove the password and try again.';
+    else if(err && /invalid|corrupt/i.test(err.message||''))
+      msg='Invalid or corrupted PDF.';
     alert(msg);
   } finally { showLoader(false); }
 }
@@ -690,7 +695,8 @@ function openLinkModal(x,y){_pendingLinkPos={x,y};document.getElementById('link-
 function closeLinkModal(){document.getElementById('link-modal').classList.remove('active');_pendingLinkPos=null;}
 function confirmAddLink(){const t=document.getElementById('link-modal-text').value.trim()||'Link',h=document.getElementById('link-modal-url').value.trim();if(!h){alert('Please enter a URL.');return;}closeLinkModal();if(_pendingLinkPos&&pdfEditor){pdfEditor.saveState();pdfEditor.addLink(_pendingLinkPos.x,_pendingLinkPos.y,{text:t,href:h});}}
 function applyLinkUrl(){if(!pdfEditor||!pdfEditor.selectedAnn||pdfEditor.selectedAnn.type!=='link')return;pdfEditor.selectedAnn.href=document.getElementById('link-url-input').value.trim();showHint('🔗 URL updated');}
-function openLinkInTab(){if(!pdfEditor||!pdfEditor.selectedAnn||pdfEditor.selectedAnn.type!=='link')return;if(pdfEditor.selectedAnn.href)window.open(pdfEditor.selectedAnn.href,'_blank');}
+// FIX: open links with noopener so the opened tab can't reach back via window.opener
+function openLinkInTab(){if(!pdfEditor||!pdfEditor.selectedAnn||pdfEditor.selectedAnn.type!=='link')return;if(pdfEditor.selectedAnn.href)window.open(pdfEditor.selectedAnn.href,'_blank','noopener');}
 function clearCurrentPage(){if(!pdfEditor||!confirm('Clear all annotations on this page?'))return;pdfEditor.saveState();pdfEditor.clearPage();showHint('🗑️ Page cleared');}
 function setDirty(v){document.getElementById('status-unsaved').style.display=v?'':'none';document.getElementById('status-dot').classList.toggle('unsaved',v);if(pdfEditor)pdfEditor.isDirty=v;}
 function updateAnnCount(){if(!pdfEditor)return;let n=0;pdfEditor.annotations.forEach(a=>n+=a.length);document.getElementById('status-ann').textContent='Annotations: '+n;}
@@ -1049,14 +1055,22 @@ class PDFEditor {
     el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
     el.addEventListener('dblclick',e=>{e.stopPropagation();el.dataset.editing='true';el.focus();try{const r=document.caretRangeFromPoint(e.clientX,e.clientY);if(r){const s=window.getSelection();s.removeAllRanges();s.addRange(r);}}catch(_){}this.selectAnn(ann);});
     el.addEventListener('focus',()=>{el.dataset.editing='true';this.selectAnn(ann);});
-    el.addEventListener('blur',()=>{el.dataset.editing='false';});
+    // FIX: On blur, drop the box if it is empty — prevents stray empty dashed
+    // boxes lingering when a user clicks Text then clicks away without typing.
+    el.addEventListener('blur',()=>{
+      el.dataset.editing='false';
+      if(!ann.getText().trim()){ this.removeAnn(ann); }
+    });
     el.addEventListener('input',()=>setDirty(true));
     const delBtn=this.makeDelBtn(()=>this.removeAnn(ann)); ann._delBtn=delBtn;
     layer.appendChild(el);layer.appendChild(delBtn);
     this.positionDelBtn(el,delBtn);
     if(!this.annotations.has(this.currentPage))this.annotations.set(this.currentPage,[]);
     this.annotations.get(this.currentPage).push(ann);
-    if(!opts.text){el.innerHTML='\u200B';setTimeout(()=>{el.focus();const r=document.createRange();r.selectNodeContents(el);const s=window.getSelection();s.removeAllRanges();s.addRange(r);},30);}
+    // FIX: Only auto-focus a genuinely NEW blank box (opts.text===undefined).
+    // During undo/redo restore, _rebuildAnn passes text:'' for empty boxes, so
+    // they must NOT grab focus or get the \u200B placeholder mid-restore.
+    if(opts.text===undefined){el.innerHTML='\u200B';setTimeout(()=>{el.focus();const r=document.createRange();r.selectNodeContents(el);const s=window.getSelection();s.removeAllRanges();s.addRange(r);},30);}
     setDirty(true);updateAnnCount();
   }
 
@@ -1125,9 +1139,9 @@ class PDFEditor {
     const TX=Math.max(0,x-6),TY=Math.max(0,y-4);
     const layer=document.getElementById('annotation-layer');
     const el=document.createElement('div');el.className='text-annotation';el.contentEditable='false';el.spellcheck=false;
-    el.style.left=TX+'px';el.style.top=TY+'px';el.style.fontSize=size+'px';el.style.fontFamily='Arial';
+    el.style.left=TX+'px';el.style.top=TY+'px';el.style.fontSize=size+'px';el.style.fontFamily='Arial, Helvetica, sans-serif';
     el.style.color=color;el.style.fontWeight='700';el.style.opacity='1';el.textContent=char;el.dataset.editing='false';
-    const ann={type:'text',element:el,x:TX,y:TY,fontSize:size,fontFamily:'Arial',color,opacity:100,bold:true,italic:false,under:false,align:'left',rotation:0,width:null,getText:()=>el.textContent.replace(/\u200B/g,'')};
+    const ann={type:'text',element:el,x:TX,y:TY,fontSize:size,fontFamily:'Arial, Helvetica, sans-serif',color,opacity:100,bold:true,italic:false,under:false,align:'left',rotation:0,width:null,getText:()=>el.textContent.replace(/\u200B/g,'')};
     this.makeDraggable(el,ann);el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
     const db=this.makeDelBtn(()=>this.removeAnn(ann));ann._delBtn=db;
     layer.appendChild(el);layer.appendChild(db);this.positionDelBtn(el,db);
@@ -1140,14 +1154,15 @@ class PDFEditor {
     const TX=Math.max(0,x-6),TY=Math.max(0,y-4);
     const layer=document.getElementById('annotation-layer');
     const el=document.createElement('div');el.className='text-annotation';el.contentEditable='true';el.spellcheck=false;
-    el.style.left=TX+'px';el.style.top=TY+'px';el.style.fontSize=(opts.fontSize||16)+'px';el.style.fontFamily=opts.fontFamily||'Helvetica';
+    el.style.left=TX+'px';el.style.top=TY+'px';el.style.fontSize=(opts.fontSize||16)+'px';el.style.fontFamily=opts.fontFamily||'Helvetica, Arial, sans-serif';
     el.style.color='#2563eb';el.style.textDecoration='underline';el.style.cursor='pointer';el.style.opacity='1';
     el.textContent=opts.text||'Link';el.dataset.editing='false';
     if(opts.rotation)el.style.transform=`rotate(${opts.rotation}deg)`;
-    const ann={type:'link',element:el,x:TX,y:TY,fontSize:opts.fontSize||16,fontFamily:opts.fontFamily||'Helvetica',color:'#2563eb',opacity:100,bold:false,italic:false,under:true,align:'left',href:opts.href||'',rotation:opts.rotation||0,width:null,getText:()=>el.textContent.replace(/\u200B/g,'')};
+    const ann={type:'link',element:el,x:TX,y:TY,fontSize:opts.fontSize||16,fontFamily:opts.fontFamily||'Helvetica, Arial, sans-serif',color:'#2563eb',opacity:100,bold:false,italic:false,under:true,align:'left',href:opts.href||'',rotation:opts.rotation||0,width:null,getText:()=>el.textContent.replace(/\u200B/g,'')};
     this.makeDraggable(el,ann);
     el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
-    el.addEventListener('dblclick',()=>{if(ann.href)window.open(ann.href,'_blank');});
+    // FIX: open link with noopener
+    el.addEventListener('dblclick',()=>{if(ann.href)window.open(ann.href,'_blank','noopener');});
     el.addEventListener('focus',()=>{el.dataset.editing='true';this.selectAnn(ann);});
     el.addEventListener('blur',()=>{el.dataset.editing='false';});
     el.addEventListener('input',()=>setDirty(true));
@@ -1276,20 +1291,36 @@ class PDFEditor {
   }
 
   // ── UNDO / REDO ────────────────────────────────────────
+  // FIX: Redo was broken — saveState() (called inside the old redo) clears
+  // redoStack, so redo could never pop a state. Reworked around a shared
+  // _snapshot() helper. undo()/redo() push the *current* state onto the
+  // opposite stack before restoring, and only saveState() (used for fresh
+  // edits) clears the redo history.
+  _snapshot() {
+    const st={pg:this.currentPage,a:new Map(),p:new Map()};
+    this.annotations.forEach((arr,pg)=>st.a.set(pg,arr.map(a=>({type:a.type,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation,width:a.width}))));
+    this.drawPaths.forEach((arr,pg)=>st.p.set(pg,JSON.parse(JSON.stringify(arr))));
+    return st;
+  }
   saveState() {
-    const st={pg:this.currentPage,a:new Map(),p:new Map()};
-    this.annotations.forEach((arr,pg)=>st.a.set(pg,arr.map(a=>({type:a.type,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation,width:a.width}))));
-    this.drawPaths.forEach((arr,pg)=>st.p.set(pg,JSON.parse(JSON.stringify(arr))));
-    this.undoStack.push(st);if(this.undoStack.length>50)this.undoStack.shift();this.redoStack=[];
+    this.undoStack.push(this._snapshot());
+    if(this.undoStack.length>50)this.undoStack.shift();
+    this.redoStack=[];
   }
-  captureRedo(){
-    const st={pg:this.currentPage,a:new Map(),p:new Map()};
-    this.annotations.forEach((arr,pg)=>st.a.set(pg,arr.map(a=>({type:a.type,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation,width:a.width}))));
-    this.drawPaths.forEach((arr,pg)=>st.p.set(pg,JSON.parse(JSON.stringify(arr))));
-    this.redoStack.push(st);
+  async undo() {
+    if(!this.undoStack.length){showHint('Nothing to undo');return;}
+    this.redoStack.push(this._snapshot());
+    if(this.redoStack.length>50)this.redoStack.shift();
+    await this.restoreState(this.undoStack.pop());
+    showHint('↶ Undo');
   }
-  async undo(){if(!this.undoStack.length){showHint('Nothing to undo');return;}this.captureRedo();await this.restoreState(this.undoStack.pop());showHint('↶ Undo');}
-  async redo(){if(!this.redoStack.length){showHint('Nothing to redo');return;}this.saveState();await this.restoreState(this.redoStack.pop());showHint('↷ Redo');}
+  async redo() {
+    if(!this.redoStack.length){showHint('Nothing to redo');return;}
+    this.undoStack.push(this._snapshot());
+    if(this.undoStack.length>50)this.undoStack.shift();
+    await this.restoreState(this.redoStack.pop());
+    showHint('↷ Redo');
+  }
 
   async restoreState(st) {
     this.annotations=new Map();this.drawPaths=st.p;
@@ -1304,12 +1335,13 @@ class PDFEditor {
     this.restoreAnnotations();this.restoreDrawings();updateAnnCount();
   }
 
-  // Unified rebuild — creates annotation via existing add* methods for correct page
+  // Unified rebuild — creates annotation via existing add* methods for correct page.
+  // Text/link always pass an explicit `text` (even '') so addText won't auto-focus.
   _rebuildAnn(type, a, pg) {
     const savedPage=this.currentPage;
     this.currentPage=pg;
-    if(type==='text')this.addText(a.x,a.y,{text:a.text,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,width:a.width,rotation:a.rotation});
-    else if(type==='link')this.addLink(a.x,a.y,{text:a.text,href:a.href,fontSize:a.fontSize,fontFamily:a.fontFamily,rotation:a.rotation,width:a.width});
+    if(type==='text')this.addText(a.x,a.y,{text:a.text||'',fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,width:a.width,rotation:a.rotation});
+    else if(type==='link')this.addLink(a.x,a.y,{text:a.text||'',href:a.href,fontSize:a.fontSize,fontFamily:a.fontFamily,rotation:a.rotation,width:a.width});
     else if(type==='whiteout')this.addWhiteout(a.x,a.y,{w:a.w,h:a.h,color:a.color});
     else if(type==='highlight')this.addHighlight(a.x,a.y,{w:a.w,h:a.h,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation});
     else if(type==='image')this.addImageAnn(a.x,a.y,a.dataUrl,a.w||200,a.h||150);
@@ -1335,8 +1367,9 @@ class PDFEditor {
 
     const R=EXPORT_SCALE/DISPLAY_SCALE;
 
-    // CSS padding on .text-annotation: 4px 6px (at display scale)
-    const PAD_X=6, PAD_Y=4;
+    // CSS on .text-annotation: padding 4px 6px + border 2px (box-sizing:border-box).
+    // The text content therefore starts at x + border + padding.
+    const PAD_X=6, PAD_Y=4, BORDER=2;
 
     // 1. Highlights
     (this.annotations.get(pgNum)||[]).forEach(a=>{
@@ -1375,7 +1408,7 @@ class PDFEditor {
       ctx.restore();
     });
 
-    // 5. Text — FIXED positioning + word wrap
+    // 5. Text — FIXED positioning (border + half-leading) + word wrap
     (this.annotations.get(pgNum)||[]).forEach(a=>{
       if(a.type!=='text'&&a.type!=='link')return;
 
@@ -1385,30 +1418,36 @@ class PDFEditor {
       const fs=parseInt(a.fontSize)*R;
       const fc=(a.type==='link')?'#2563eb':a.color;
       const fontStr=`${a.italic?'italic ':''}${a.bold?'700':'400'} ${fs}px ${a.fontFamily}, sans-serif`;
-      const lineH=fs*1.4;
+      const lineH=fs*1.4;                       // matches CSS line-height:1.4
       const align=a.align||'left';
 
-      // FIX: Position = annotation position + CSS padding, all scaled by R
+      // FIX: content origin = annotation pos + (border + padding), scaled by R
       const boxX=a.x*R;
       const boxY=a.y*R;
-      const padX=PAD_X*R;
-      const padY=PAD_Y*R;
+      const padX=(PAD_X+BORDER)*R;
+      const padY=(PAD_Y+BORDER)*R;
+      // FIX: CSS centers each line within its 1.4 line-box; with textBaseline
+      // 'top' we must add half the leading so the first glyph isn't too high.
+      const halfLeading=(lineH-fs)/2;
 
       ctx.save();
       ctx.globalAlpha=parseFloat(a.opacity||100)/100;
       ctx.fillStyle=fc;
       ctx.font=fontStr;
-      // FIX: Always use textAlign='left' — compute x offset manually
-      // This avoids the double-centering bug
+      // Always left-align in canvas; compute x manually to avoid double-centering
       ctx.textAlign='left';
       ctx.textBaseline='top';
 
-      // Determine effective width for word wrapping
+      // Determine effective wrap width.
+      // FIX: when no explicit width, cap at the CSS max-width (800px) so export
+      // wraps at the same place the editor does.
       const hasExplicitWidth=a.width&&a.width>0;
-      const wrapWidth=hasExplicitWidth?(a.width*R-padX*2):0;
+      const MAX_W=800;
+      const wrapWidth=hasExplicitWidth
+        ? (a.width*R - padX*2)
+        : (MAX_W*R - padX*2);
 
-      // FIX: Word-wrap text using canvas measurement
-      const lines=wrapWidth>0?wrapTextLines(ctx,text,wrapWidth):text.split('\n');
+      const lines=wrapTextLines(ctx,text,wrapWidth);
 
       // Handle rotation around annotation center
       if(a.rotation){
@@ -1418,20 +1457,16 @@ class PDFEditor {
         ctx.translate(cx,cy);ctx.rotate(a.rotation*Math.PI/180);ctx.translate(-cx,-cy);
       }
 
-      // Draw each line
+      // Draw each line. Alignment is computed within the CONTENT box.
       lines.forEach((line,i)=>{
         const lw=ctx.measureText(line).width;
-        let drawX;
-        if(align==='center'){
-          const containerW=hasExplicitWidth?(a.width*R):(lw+padX*2);
-          drawX=boxX+(containerW-lw)/2;
-        } else if(align==='right'){
-          const containerW=hasExplicitWidth?(a.width*R):(lw+padX*2);
-          drawX=boxX+containerW-lw-padX;
-        } else {
-          drawX=boxX+padX;
+        let drawX=boxX+padX; // left
+        if(hasExplicitWidth){
+          const contentW=a.width*R - padX*2;
+          if(align==='center')      drawX=boxX+padX+(contentW-lw)/2;
+          else if(align==='right')  drawX=boxX+padX+(contentW-lw);
         }
-        const drawY=boxY+padY+i*lineH;
+        const drawY=boxY+padY+halfLeading+i*lineH;
         ctx.fillText(line,drawX,drawY);
 
         // Underline
