@@ -5,7 +5,7 @@
   <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/image-converter.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Image Converter – Convert JPG to PNG, PNG to WebP & More Free | Kimosabe Tools</title>
+  <title>Image Converter – JPG, PNG & WebP Online Free | Kimosabe Tools</title>
   
   <!-- Meta Tags -->
   <meta name="description" content="Convert images between JPG, PNG, and WebP formats instantly in your browser. Full-resolution output, no file uploads, no registration. Free online image format converter.">
@@ -16,14 +16,22 @@
   <meta property="og:title" content="Image Converter: JPG, PNG, WebP – Fast & Private | Kimosabe Tools">
   <meta property="og:description" content="Convert between image formats 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser image format converter">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/image-converter.html">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Image Converter: JPG, PNG, WebP – Fast & Private | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based image conversion that keeps your photos private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
   
   <!-- Favicon & Logo -->
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
@@ -44,7 +52,7 @@
     });
   </script>
 
-  <!-- Fonts -->
+  <!-- Fonts — Plus Jakarta Sans IS used here (headings, logo), so keep it. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
@@ -266,7 +274,7 @@
     }
     
     #drop-zone:hover,
-    #drop-zone:focus {
+    #drop-zone:focus-visible {
       border-color: var(--primary);
       background: rgba(67, 97, 238, 0.05);
       transform: translateY(-4px);
@@ -356,6 +364,12 @@
       box-shadow: var(--shadow-sm);
       border-color: var(--primary);
     }
+
+    .format-option:focus-visible {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.25);
+    }
     
     .format-option.active {
       border-color: var(--primary);
@@ -363,7 +377,7 @@
       box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
     }
 
-    /* FIX: visually de-emphasise the same-format option */
+    /* visually de-emphasise the same-format option */
     .format-option.same-format {
       opacity: 0.5;
       position: relative;
@@ -371,6 +385,25 @@
 
     .format-option.same-format::after {
       content: 'Same as input';
+      position: absolute;
+      bottom: 0.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.65rem;
+      color: var(--gray-600);
+      white-space: nowrap;
+      font-style: italic;
+    }
+
+    /* unsupported (e.g. WebP encode not available) */
+    .format-option.unsupported {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .format-option.unsupported::after {
+      content: 'Not supported here';
       position: absolute;
       bottom: 0.4rem;
       left: 50%;
@@ -407,7 +440,7 @@
       display: block;
     }
 
-    /* ── Same-format warning note ── */
+    /* ── Notes ── */
     .info-note {
       display: flex;
       align-items: flex-start;
@@ -492,6 +525,10 @@
     .quality-slider::-webkit-slider-thumb:hover {
       transform: scale(1.1);
       box-shadow: var(--shadow-hover);
+    }
+
+    .quality-slider:focus-visible {
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.35);
     }
     
     /* ── Status / results ── */
@@ -887,6 +924,16 @@
     
     .back-to-top:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
     
+    /* ── FAQ section ── */
+    .faq-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-top: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid var(--gray-200);
+    }
+    
     /* ── Animations ── */
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -926,7 +973,7 @@
       }
       
       body { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: var(--gray-800); }
-      .tool-wrapper, .feature-item, .controls-panel, .preview-box, .more-tools, .results-display { background: var(--gray-100); border-color: var(--gray-200); }
+      .tool-wrapper, .feature-item, .controls-panel, .preview-box, .more-tools, .results-display, .faq-section { background: var(--gray-100); border-color: var(--gray-200); }
       #drop-zone { background: var(--gray-200); }
       .donate-reminder { background: linear-gradient(135deg, #2d2819, #3a321c); border-color: #d97706; }
       .sticky-nav { background: rgba(26, 26, 26, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -944,7 +991,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
        crossorigin="anonymous"></script>
 
-  <!-- Structured Data: WebApplication + FAQ -->
+  <!-- Structured Data: WebApplication + BreadcrumbList + FAQ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -967,6 +1014,14 @@
           "name": "Kimosabe Tools",
           "url": "https://kimosabe-tools.pages.dev"
         }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Image Converter", "item": "https://kimosabe-tools.pages.dev/tools/image-converter.html" }
+        ]
       },
       {
         "@type": "FAQPage",
@@ -1048,9 +1103,9 @@
     <section class="tool-wrapper">
 
       <!-- Drop zone — click handled via JS, no onclick attribute -->
-      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload an image to convert">
+      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload an image to convert — click, press Enter, or drag and drop">
         <div class="drop-zone-content">
-          <span class="icon">🔄</span>
+          <span class="icon" aria-hidden="true">🔄</span>
           <p><strong>Click to upload</strong> or drag your image here</p>
           <span class="file-limit">Supports JPG, PNG, WebP • Maximum size: 50 MB</span>
         </div>
@@ -1063,44 +1118,53 @@
 
         <!-- Contextual notes — shown/hidden by JS -->
         <div id="same-format-note" class="info-note warn" style="display:none;">
-          <span class="note-icon">⚠️</span>
+          <span class="note-icon" aria-hidden="true">⚠️</span>
           <span>
             <strong>Same format selected.</strong> Converting a file to its own format will re-encode it,
             which may slightly reduce quality with no benefit. Choose a different output format for best results.
           </span>
         </div>
 
-        <!-- FIX: GIF removed — canvas.toBlob() does not support GIF encoding.
+        <!-- Shown when the browser can't encode WebP -->
+        <div id="webp-unsupported-note" class="info-note warn" style="display:none;">
+          <span class="note-icon" aria-hidden="true">⚠️</span>
+          <span>
+            <strong>WebP output isn't available in this browser.</strong> Your browser can't encode WebP, so that
+            option has been disabled. Try JPG or PNG, or use an up-to-date browser.
+          </span>
+        </div>
+
+        <!-- GIF removed — canvas.toBlob() does not support GIF encoding.
              Passing 'image/gif' silently produces a PNG with a .gif extension,
              which is a broken file. Only formats with real browser support are listed. -->
-        <div class="format-selection" id="format-selection">
-          <div class="format-option" data-format="image/png" data-extension="png">
-            <span class="format-icon">🖼️</span>
+        <div class="format-selection" id="format-selection" role="group" aria-label="Output format">
+          <div class="format-option" data-format="image/png" data-extension="png" role="button" tabindex="0" aria-pressed="false" aria-label="Convert to PNG — lossless, supports transparency">
+            <span class="format-icon" aria-hidden="true">🖼️</span>
             <span class="format-name">PNG</span>
             <span class="format-ext">.png</span>
             <span class="format-tip">Lossless, supports transparency</span>
           </div>
 
-          <div class="format-option" data-format="image/jpeg" data-extension="jpg">
-            <span class="format-icon">📷</span>
+          <div class="format-option" data-format="image/jpeg" data-extension="jpg" role="button" tabindex="0" aria-pressed="false" aria-label="Convert to JPG — compressed, great for photos">
+            <span class="format-icon" aria-hidden="true">📷</span>
             <span class="format-name">JPG</span>
             <span class="format-ext">.jpg / .jpeg</span>
             <span class="format-tip">Compressed, great for photos</span>
           </div>
 
-          <div class="format-option" data-format="image/webp" data-extension="webp">
-            <span class="format-icon">🌐</span>
+          <div class="format-option" data-format="image/webp" data-extension="webp" role="button" tabindex="0" aria-pressed="false" aria-label="Convert to WebP — modern format, small and sharp">
+            <span class="format-icon" aria-hidden="true">🌐</span>
             <span class="format-name">WebP</span>
             <span class="format-ext">.webp</span>
             <span class="format-tip">Modern format, small & sharp</span>
           </div>
         </div>
 
-        <!-- Quality control — FIX: only shown for lossy output formats -->
+        <!-- Quality control — only shown for lossy output formats -->
         <div class="quality-control" id="quality-control" style="display:none;">
           <h4>Quality: <span id="quality-value">85%</span></h4>
           <div class="quality-slider-container">
-            <input type="range" id="quality-slider" class="quality-slider" min="10" max="100" value="85">
+            <input type="range" id="quality-slider" class="quality-slider" min="10" max="100" value="85" aria-label="Output quality">
             <span class="quality-value" id="quality-badge">85%</span>
           </div>
           <p style="text-align:center; color:var(--gray-600); font-size:0.85rem; margin-top:0.5rem;">
@@ -1116,7 +1180,7 @@
       <!-- Preview area -->
       <div id="preview-area" class="preview-area" style="display:none;">
         <div class="preview-box">
-          <h4><span>📤</span> Original</h4>
+          <h4><span aria-hidden="true">📤</span> Original</h4>
           <img id="original-preview" class="preview-image" alt="Original image">
           <div class="preview-info">
             <div id="original-format"></div>
@@ -1124,7 +1188,7 @@
           </div>
         </div>
         <div class="preview-box">
-          <h4><span>📥</span> Converted</h4>
+          <h4><span aria-hidden="true">📥</span> Converted</h4>
           <img id="converted-preview" class="preview-image" alt="Converted image">
           <div class="preview-info">
             <div id="converted-format"></div>
@@ -1190,27 +1254,26 @@
       </div>
     </section>
 
-    
     <!-- FAQ Section -->
-    <section style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200,#e5e7eb);">
-      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark,#212529);text-align:center;">
+    <section class="faq-section">
+      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">
         Frequently Asked Questions
       </h2>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">What image formats can I convert between?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">You can convert between JPG, PNG, and WebP. GIF is not supported for output as browsers cannot encode GIF files natively.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">What image formats can I convert between?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">You can convert between JPG, PNG, and WebP. GIF is not supported for output as browsers cannot encode GIF files natively.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Will converting reduce image quality?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Converting PNG to PNG or WebP to WebP keeps full quality. Converting to JPEG uses the quality slider — 85% is a good balance between quality and file size.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Will converting reduce image quality?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Converting PNG to PNG or WebP to WebP keeps full quality. Converting to JPEG uses the quality slider — 85% is a good balance between quality and file size.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Does converting resize my image?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">No. The converter preserves your original resolution exactly. Use our Resize Image tool if you need to change dimensions.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Does converting resize my image?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">No. The converter preserves your original resolution exactly. Use our Resize Image tool if you need to change dimensions.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Why does my PNG look different after converting to JPEG?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">JPEG does not support transparency. Transparent areas are filled with white when converting to JPEG.</p>
+        <div style="padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Why does my PNG look different after converting to JPEG?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">JPEG does not support transparency. Transparent areas are filled with white when converting to JPEG.</p>
         </div>
     </section>
 
@@ -1295,11 +1358,12 @@
     const qualityBadge     = document.getElementById('quality-badge');
     const qualityControl   = document.getElementById('quality-control');
     const sameFormatNote   = document.getElementById('same-format-note');
+    const webpUnsupportedNote = document.getElementById('webp-unsupported-note');
     const formatOptions    = document.querySelectorAll('.format-option');
 
     // ─── State ────────────────────────────────────────────────────────────
     let currentDownloadUrl = null;
-    let currentPreviewUrl  = null;   // FIX: tracked separately to avoid leak
+    let currentPreviewUrl  = null;   // tracked separately to avoid leak
     let activeFile         = null;
     let originalImageData  = null;
     let selectedFormat     = 'image/png';
@@ -1307,6 +1371,36 @@
 
     // ─── LOSSY formats — only these benefit from a quality slider ─────────
     const LOSSY_FORMATS = new Set(['image/jpeg', 'image/webp']);
+
+    // ─── Feature detection: can this browser ENCODE WebP via canvas? ──────
+    // Older Safari can decode WebP but not encode it; canvas silently falls
+    // back to PNG, producing a mislabeled .webp file. Detect once and disable
+    // the WebP option entirely where encoding isn't real.
+    const WEBP_ENCODE_SUPPORTED = (() => {
+      try {
+        const c = document.createElement('canvas');
+        c.width = c.height = 1;
+        return c.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+      } catch (_) { return false; }
+    })();
+
+    // Disable the WebP card up front if the browser can't encode it
+    (function applyWebpSupport() {
+      if (WEBP_ENCODE_SUPPORTED) return;
+      formatOptions.forEach(o => {
+        if (o.dataset.format === 'image/webp') {
+          o.classList.add('unsupported');
+          o.setAttribute('aria-disabled', 'true');
+          o.setAttribute('tabindex', '-1');
+        }
+      });
+      webpUnsupportedNote.style.display = 'flex';
+    })();
+
+    // True if a format card is selectable
+    function isOptionSelectable(opt) {
+      return !opt.classList.contains('unsupported');
+    }
 
     // ─── Drop zone — JS-only click, keyboard accessible ───────────────────
     dropZone.addEventListener('click', () => imageInput.click());
@@ -1322,14 +1416,20 @@
     });
     imageInput.addEventListener('change', (e) => { if (e.target.files[0]) handleImageFile(e.target.files[0]); });
 
-    // ─── Format selection ─────────────────────────────────────────────────
+    // ─── Format selection (mouse + keyboard) ──────────────────────────────
+    function selectFormat(option) {
+      if (!isOptionSelectable(option)) return;
+      formatOptions.forEach(o => { o.classList.remove('active'); o.setAttribute('aria-pressed', 'false'); });
+      option.classList.add('active');
+      option.setAttribute('aria-pressed', 'true');
+      selectedFormat    = option.dataset.format;
+      selectedExtension = option.dataset.extension;
+      updateContextualUI();
+    }
     formatOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        formatOptions.forEach(o => o.classList.remove('active'));
-        option.classList.add('active');
-        selectedFormat    = option.dataset.format;
-        selectedExtension = option.dataset.extension;
-        updateContextualUI();
+      option.addEventListener('click', () => selectFormat(option));
+      option.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectFormat(option); }
       });
     });
 
@@ -1363,25 +1463,24 @@
       if (url) { try { URL.revokeObjectURL(url); } catch (_) {} }
     }
 
+    // Is the given output format the same as the active input file's format?
+    function isSameAsInput(format) {
+      if (!activeFile) return false;
+      return activeFile.type === format ||
+             (activeFile.type === 'image/jpg' && format === 'image/jpeg');
+    }
+
     // ─── Update quality slider visibility + same-format warning ──────────
-    // FIX: quality slider now only shown when output is a lossy format.
-    // FIX: same-format note shown when output matches input.
     function updateContextualUI() {
       // Quality slider — only relevant for JPEG/WebP output
       qualityControl.style.display = LOSSY_FORMATS.has(selectedFormat) ? 'block' : 'none';
 
       // Same-format warning
-      const isSameFormat = activeFile && (
-        activeFile.type === selectedFormat ||
-        (activeFile.type === 'image/jpg' && selectedFormat === 'image/jpeg')
-      );
-      sameFormatNote.style.display = isSameFormat ? 'flex' : 'none';
+      sameFormatNote.style.display = isSameAsInput(selectedFormat) ? 'flex' : 'none';
 
       // De-emphasise the matching format card
       formatOptions.forEach(o => {
-        const isSame = o.dataset.format === (activeFile ? activeFile.type : null) ||
-                       (activeFile && activeFile.type === 'image/jpg' && o.dataset.format === 'image/jpeg');
-        o.classList.toggle('same-format', !!isSame);
+        o.classList.toggle('same-format', isSameAsInput(o.dataset.format) && !o.classList.contains('unsupported'));
       });
     }
 
@@ -1417,17 +1516,21 @@
       convertedFormatEl.textContent = '';
       convertedSizeEl.textContent   = '';
 
-      // Auto-select first format that differs from input
-      // so the default selection is never the same format
-      let defaultFormat = formatOptions[0];
+      // Auto-select the first SELECTABLE format that differs from the input,
+      // so the default is never the same format and never a disabled option.
+      let defaultFormat = null;
       for (const opt of formatOptions) {
-        if (opt.dataset.format !== file.type && !(file.type === 'image/jpg' && opt.dataset.format === 'image/jpeg')) {
-          defaultFormat = opt;
-          break;
-        }
+        if (!isOptionSelectable(opt)) continue;
+        if (!isSameAsInput(opt.dataset.format)) { defaultFormat = opt; break; }
       }
-      formatOptions.forEach(o => o.classList.remove('active'));
+      // Fallback: first selectable option (covers the rare all-same edge case)
+      if (!defaultFormat) {
+        defaultFormat = Array.from(formatOptions).find(isOptionSelectable) || formatOptions[0];
+      }
+
+      formatOptions.forEach(o => { o.classList.remove('active'); o.setAttribute('aria-pressed', 'false'); });
       defaultFormat.classList.add('active');
+      defaultFormat.setAttribute('aria-pressed', 'true');
       selectedFormat    = defaultFormat.dataset.format;
       selectedExtension = defaultFormat.dataset.extension;
 
@@ -1481,12 +1584,12 @@
         const canvas = document.createElement('canvas');
         const ctx    = canvas.getContext('2d');
 
-        // FIX: No dimension cap — converter preserves original resolution.
+        // No dimension cap — converter preserves original resolution.
         // (The compressor tool is the right place to downscale.)
         canvas.width  = img.naturalWidth;
         canvas.height = img.naturalHeight;
 
-        // FIX: White background for JPEG to handle transparent inputs
+        // White background for JPEG to handle transparent inputs
         if (selectedFormat === 'image/jpeg') {
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -1511,7 +1614,7 @@
           const absPct   = Math.abs((rawDiff / oldSize) * 100).toFixed(1);
           const isSmaller = rawDiff > 0;
 
-          // FIX: Track preview URL separately so it can be revoked independently
+          // Track preview URL separately so it can be revoked independently
           currentPreviewUrl              = URL.createObjectURL(blob);
           convertedPreview.src           = currentPreviewUrl;
           convertedFormatEl.textContent  = getFormatName(selectedFormat);
@@ -1519,11 +1622,13 @@
 
           currentDownloadUrl  = URL.createObjectURL(blob);
           const baseName      = activeFile.name.replace(/\.[^/.]+$/, '');
+          const outName       = `${baseName}_converted.${selectedExtension}`;
           downloadBtn.href     = currentDownloadUrl;
-          downloadBtn.download = `${baseName}_converted.${selectedExtension}`;
+          downloadBtn.download = outName;
           downloadBtn.style.display = 'inline-flex';
 
-          resultFilename.textContent = `${baseName}.${selectedExtension}`;
+          // Show the actual download filename (matches the saved file)
+          resultFilename.textContent = outName;
 
           conversionStats.innerHTML = `
             <div class="stat-item">
@@ -1590,10 +1695,13 @@
       qualityValueEl.textContent   = '85%';
       qualityBadge.textContent     = '85%';
 
-      formatOptions.forEach(o => { o.classList.remove('active', 'same-format'); });
-      formatOptions[0].classList.add('active');
-      selectedFormat    = formatOptions[0].dataset.format;
-      selectedExtension = formatOptions[0].dataset.extension;
+      // Reset selection to the first SELECTABLE option
+      formatOptions.forEach(o => { o.classList.remove('active', 'same-format'); o.setAttribute('aria-pressed', 'false'); });
+      const firstSelectable = Array.from(formatOptions).find(isOptionSelectable) || formatOptions[0];
+      firstSelectable.classList.add('active');
+      firstSelectable.setAttribute('aria-pressed', 'true');
+      selectedFormat    = firstSelectable.dataset.format;
+      selectedExtension = firstSelectable.dataset.extension;
 
       originalPreview.src           = '';
       convertedPreview.src          = '';
