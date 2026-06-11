@@ -5,7 +5,7 @@
   <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/sign-pdf.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Sign PDF Online Free – Draw Electronic Signature on PDF | Kimosabe Tools</title>
+  <title>Sign PDF Online Free – Add E-Signature | Kimosabe Tools</title>
   
   <meta name="description" content="Add a handwritten electronic signature to any PDF document online. Draw with mouse, touchscreen, or stylus. Choose page and position. Free, private, no uploads.">
   <meta name="keywords" content="sign pdf online, electronic signature pdf, e-sign pdf free, draw signature on pdf, add signature to pdf online, pdf signer free, sign pdf without uploading">
@@ -14,13 +14,21 @@
   <meta property="og:title" content="Sign PDF Online – Draw & Add Electronic Signatures | Kimosabe Tools">
   <meta property="og:description" content="Sign PDF documents 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser PDF signing tool">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/sign-pdf.html">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sign PDF Online – Draw & Add Electronic Signatures | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based PDF signing that keeps your documents private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
   
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -46,7 +54,7 @@
   <!-- pdf.js for page preview rendering -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
-  <!-- Fonts -->
+  <!-- Fonts — Inter + Plus Jakarta Sans + 5 cursive fonts (all used by the type-signature feature), keep all. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Caveat:wght@400;500;600;700&family=Sacramento&family=Pacifico&display=swap" rel="stylesheet">
@@ -127,7 +135,7 @@
 
     /* ── Drop zone ── */
     #drop-zone { border: 3px dashed var(--gray-300); border-radius: var(--radius-lg); padding: var(--space-xl); text-align: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; background: var(--gray-100); margin-bottom: var(--space-lg); position: relative; overflow: hidden; outline: none; }
-    #drop-zone:hover, #drop-zone:focus { border-color: var(--primary); background: rgba(67, 97, 238, 0.05); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    #drop-zone:hover, #drop-zone:focus-visible { border-color: var(--primary); background: rgba(67, 97, 238, 0.05); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
     #drop-zone.dragover { border-color: var(--primary); background: rgba(67, 97, 238, 0.1); border-style: solid; }
     #drop-zone::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: left 0.7s; }
     #drop-zone:hover::before { left: 100%; }
@@ -152,6 +160,7 @@
     .sig-tab { flex: 1; padding: 0.75rem 1rem; border: none; background: transparent; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.95rem; font-weight: 600; color: var(--gray-600); transition: all 0.25s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
     .sig-tab:hover { color: var(--dark); background: rgba(255,255,255,0.5); }
     .sig-tab.active { background: white; color: var(--primary); box-shadow: var(--shadow-sm); }
+    .sig-tab:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(67,97,238,0.35); }
     .sig-tab-panel { display: none; animation: fadeIn 0.3s ease-out; }
     .sig-tab-panel.active { display: block; }
 
@@ -181,10 +190,12 @@
     .font-option { padding: 0.6rem 0.75rem; border: 2px solid var(--gray-200); border-radius: var(--radius-sm); cursor: pointer; text-align: center; transition: all 0.2s; font-size: 1.2rem; background: white; }
     .font-option:hover { border-color: var(--primary); background: rgba(67, 97, 238, 0.04); }
     .font-option.active { border-color: var(--primary); background: rgba(67, 97, 238, 0.08); }
+    .font-option:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(67,97,238,0.35); }
 
     /* ── Upload signature ── */
     .upload-zone { border: 2px dashed var(--gray-300); border-radius: var(--radius-md); padding: var(--space-lg); text-align: center; cursor: pointer; transition: all 0.2s; background: var(--gray-100); }
     .upload-zone:hover { border-color: var(--primary); background: rgba(67, 97, 238, 0.04); }
+    .upload-zone:focus-visible { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67,97,238,0.25); }
     .upload-preview { margin-top: var(--space-sm); display: none; }
     .upload-preview img { max-width: 100%; max-height: 150px; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); background: white; padding: 8px; }
 
@@ -193,6 +204,7 @@
     .color-option { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: var(--shadow-sm); transition: transform 0.2s; }
     .color-option:hover { transform: scale(1.1); }
     .color-option.active { border-color: var(--primary); transform: scale(1.1); }
+    .color-option:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(67,97,238,0.5); }
 
     /* ── Size slider ── */
     .size-control { margin: var(--space-md) 0; }
@@ -237,6 +249,7 @@
     .position-option { background: var(--gray-100); border: 1px solid var(--gray-300); border-radius: var(--radius-sm); padding: 0.6rem var(--space-xs); text-align: center; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
     .position-option:hover { border-color: var(--primary); background: rgba(67, 97, 238, 0.05); }
     .position-option.active { border-color: var(--primary); background: rgba(67, 97, 238, 0.1); color: var(--primary); }
+    .position-option:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(67,97,238,0.35); }
     .position-icon { font-size: 1.1rem; }
     .position-label { font-size: 0.8rem; font-weight: 500; }
 
@@ -367,12 +380,20 @@
         "provider": { "@type": "Organization", "name": "Kimosabe Tools", "url": "https://kimosabe-tools.pages.dev" }
       },
       {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Sign PDF", "item": "https://kimosabe-tools.pages.dev/tools/sign-pdf.html" }
+        ]
+      },
+      {
         "@type": "FAQPage",
         "mainEntity": [
           { "@type": "Question", "name": "Is an electronic signature drawn in a browser legally binding?", "acceptedAnswer": {"@type": "Answer", "text": "An image-based drawn signature is not a cryptographically certified signature. It provides a visual representation but does not include a digital certificate or audit trail. For legally binding e-signatures, use a certified service like DocuSign."} },
-          { "@type": "Question", "name": "Can I choose which page my signature appears on?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. After uploading, use the page selector to choose any page. It defaults to the last page, which is standard for most contracts."} },
-          { "@type": "Question", "name": "Can I drag my signature to an exact position?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The live PDF preview shows your document page. Drag the signature overlay to place it exactly where you want."} },
-          { "@type": "Question", "name": "What signature methods are supported?", "acceptedAnswer": {"@type": "Answer", "text": "Three methods: draw with mouse/finger/stylus, type your name in a cursive font, or upload a signature image (PNG/JPG)."} }
+          { "@type": "Question", "name": "Can I drag my signature to an exact position?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. After creating your signature, the live preview shows your actual PDF page. Drag the signature overlay to place it exactly where you need it."} },
+          { "@type": "Question", "name": "What signature input methods are supported?", "acceptedAnswer": {"@type": "Answer", "text": "Three methods: draw freehand with mouse, finger, or stylus; type your name and choose a cursive font; or upload an existing signature image (PNG with transparency works best)."} },
+          { "@type": "Question", "name": "Can I add my signature to every page?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Select All Pages in the position options to embed your signature on every page of the document."} }
         ]
       }
     ]
@@ -414,9 +435,9 @@
 
     <section class="tool-wrapper">
       <!-- Drop zone -->
-      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload a PDF to sign">
+      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload a PDF to sign — click, press Enter, or drag and drop">
         <div class="drop-zone-content">
-          <span class="icon">📄</span>
+          <span class="icon" aria-hidden="true">📄</span>
           <p><strong>Upload PDF to Sign</strong></p>
           <span class="file-limit">PDF files only • Maximum size: 50 MB</span>
         </div>
@@ -440,37 +461,38 @@
 
           <!-- ── STEP 1: Create signature ── -->
           <div class="step-card">
-            <h3><span class="step-number">1</span> Create Your Signature</h3>
+            <h3><span class="step-number" aria-hidden="true">1</span> Create Your Signature</h3>
 
             <!-- Tabs: Draw / Type / Upload -->
-            <div class="sig-tabs">
-              <button class="sig-tab active" data-tab="draw">✍️ Draw</button>
-              <button class="sig-tab" data-tab="type">⌨️ Type</button>
-              <button class="sig-tab" data-tab="upload">📁 Upload</button>
+            <div class="sig-tabs" role="tablist" aria-label="Signature input method">
+              <button class="sig-tab active" data-tab="draw" role="tab" id="tab-draw" aria-selected="true" aria-controls="panel-draw"><span aria-hidden="true">✍️</span> Draw</button>
+              <button class="sig-tab" data-tab="type" role="tab" id="tab-type" aria-selected="false" aria-controls="panel-type" tabindex="-1"><span aria-hidden="true">⌨️</span> Type</button>
+              <button class="sig-tab" data-tab="upload" role="tab" id="tab-upload" aria-selected="false" aria-controls="panel-upload" tabindex="-1"><span aria-hidden="true">📁</span> Upload</button>
             </div>
 
             <!-- ─ DRAW panel ─ -->
-            <div class="sig-tab-panel active" id="panel-draw">
+            <div class="sig-tab-panel active" id="panel-draw" role="tabpanel" aria-labelledby="tab-draw">
               <div class="canvas-container" id="canvas-container">
-                <canvas id="signature-pad"></canvas>
+                <canvas id="signature-pad" aria-label="Signature drawing area — draw with mouse, finger, or stylus" role="img"></canvas>
               </div>
               <div class="signature-controls">
-                <button id="clear-btn" class="btn-clear">🗑️ Clear</button>
-                <button id="undo-btn" class="btn-clear">↩️ Undo</button>
+                <button id="clear-btn" class="btn-clear"><span aria-hidden="true">🗑️</span> Clear</button>
+                <button id="undo-btn" class="btn-clear"><span aria-hidden="true">↩️</span> Undo</button>
               </div>
               <div class="signature-tip">Draw slowly for best results</div>
             </div>
 
             <!-- ─ TYPE panel ─ -->
-            <div class="sig-tab-panel" id="panel-type">
+            <div class="sig-tab-panel" id="panel-type" role="tabpanel" aria-labelledby="tab-type" hidden>
+              <label for="type-sig-input" style="font-size:0.85rem; color:var(--gray-600); display:block; margin-bottom:0.4rem;">Your name</label>
               <input type="text" class="type-sig-input" id="type-sig-input" placeholder="Type your name…" maxlength="60" autocomplete="off" />
-              <div style="font-size:0.85rem; color:var(--gray-600); margin-bottom:0.5rem;">Choose a font:</div>
-              <div class="font-picker" id="font-picker">
-                <div class="font-option active" data-font="Dancing Script" style="font-family:'Dancing Script',cursive;">Dancing Script</div>
-                <div class="font-option" data-font="Great Vibes" style="font-family:'Great Vibes',cursive;">Great Vibes</div>
-                <div class="font-option" data-font="Caveat" style="font-family:'Caveat',cursive;">Caveat</div>
-                <div class="font-option" data-font="Sacramento" style="font-family:'Sacramento',cursive;">Sacramento</div>
-                <div class="font-option" data-font="Pacifico" style="font-family:'Pacifico',cursive;">Pacifico</div>
+              <div style="font-size:0.85rem; color:var(--gray-600); margin-bottom:0.5rem;" id="font-picker-label">Choose a font:</div>
+              <div class="font-picker" id="font-picker" role="radiogroup" aria-labelledby="font-picker-label">
+                <div class="font-option active" data-font="Dancing Script" role="radio" tabindex="0" aria-checked="true" aria-label="Dancing Script font" style="font-family:'Dancing Script',cursive;">Dancing Script</div>
+                <div class="font-option" data-font="Great Vibes" role="radio" tabindex="-1" aria-checked="false" aria-label="Great Vibes font" style="font-family:'Great Vibes',cursive;">Great Vibes</div>
+                <div class="font-option" data-font="Caveat" role="radio" tabindex="-1" aria-checked="false" aria-label="Caveat font" style="font-family:'Caveat',cursive;">Caveat</div>
+                <div class="font-option" data-font="Sacramento" role="radio" tabindex="-1" aria-checked="false" aria-label="Sacramento font" style="font-family:'Sacramento',cursive;">Sacramento</div>
+                <div class="font-option" data-font="Pacifico" role="radio" tabindex="-1" aria-checked="false" aria-label="Pacifico font" style="font-family:'Pacifico',cursive;">Pacifico</div>
               </div>
               <div class="type-sig-preview" id="type-sig-preview">
                 <span class="type-sig-text" id="type-sig-text" style="font-family:'Dancing Script',cursive;">Your Name</span>
@@ -478,39 +500,39 @@
             </div>
 
             <!-- ─ UPLOAD panel ─ -->
-            <div class="sig-tab-panel" id="panel-upload">
-              <div class="upload-zone" id="upload-zone">
-                <span style="font-size:2rem; display:block; margin-bottom:0.5rem;">🖼️</span>
+            <div class="sig-tab-panel" id="panel-upload" role="tabpanel" aria-labelledby="tab-upload" hidden>
+              <div class="upload-zone" id="upload-zone" role="button" tabindex="0" aria-label="Upload a signature image">
+                <span style="font-size:2rem; display:block; margin-bottom:0.5rem;" aria-hidden="true">🖼️</span>
                 <p style="color:var(--gray-800); font-weight:500;">Click or drop a signature image</p>
                 <span style="color:var(--gray-600); font-size:0.85rem;">PNG with transparency works best</span>
                 <input type="file" id="sigImageInput" accept="image/png,image/jpeg,image/webp" hidden />
               </div>
               <div class="upload-preview" id="upload-preview">
                 <img id="upload-preview-img" alt="Uploaded signature" />
-                <div style="margin-top:0.5rem;"><button class="btn-clear" id="remove-upload-btn">🗑️ Remove</button></div>
+                <div style="margin-top:0.5rem;"><button class="btn-clear" id="remove-upload-btn"><span aria-hidden="true">🗑️</span> Remove</button></div>
               </div>
             </div>
 
             <!-- Colour picker (for draw + type) -->
             <div id="color-section" style="margin-top:var(--space-md);">
-              <div style="font-size:0.85rem; color:var(--gray-600); margin-bottom:0.4rem;">Ink Colour:</div>
-              <div class="color-picker">
-                <div class="color-option active" data-color="#000000" style="background:#000000;" title="Black"></div>
-                <div class="color-option" data-color="#4361ee" style="background:#4361ee;" title="Blue"></div>
-                <div class="color-option" data-color="#dc2626" style="background:#dc2626;" title="Red"></div>
-                <div class="color-option" data-color="#059669" style="background:#059669;" title="Green"></div>
-                <div class="color-option" data-color="#7c3aed" style="background:#7c3aed;" title="Purple"></div>
+              <div style="font-size:0.85rem; color:var(--gray-600); margin-bottom:0.4rem;" id="color-label">Ink Colour:</div>
+              <div class="color-picker" role="radiogroup" aria-labelledby="color-label">
+                <div class="color-option active" data-color="#000000" role="radio" tabindex="0" aria-checked="true" aria-label="Black ink" style="background:#000000;" title="Black"></div>
+                <div class="color-option" data-color="#4361ee" role="radio" tabindex="-1" aria-checked="false" aria-label="Blue ink" style="background:#4361ee;" title="Blue"></div>
+                <div class="color-option" data-color="#dc2626" role="radio" tabindex="-1" aria-checked="false" aria-label="Red ink" style="background:#dc2626;" title="Red"></div>
+                <div class="color-option" data-color="#059669" role="radio" tabindex="-1" aria-checked="false" aria-label="Green ink" style="background:#059669;" title="Green"></div>
+                <div class="color-option" data-color="#7c3aed" role="radio" tabindex="-1" aria-checked="false" aria-label="Purple ink" style="background:#7c3aed;" title="Purple"></div>
               </div>
             </div>
           </div>
 
           <!-- ── STEP 2: Position ── -->
           <div class="step-card">
-            <h3><span class="step-number">2</span> Position &amp; Size</h3>
+            <h3><span class="step-number" aria-hidden="true">2</span> Position &amp; Size</h3>
 
             <div class="size-control">
-              <label><span>Signature Size:</span><span id="size-label">25%</span></label>
-              <input type="range" id="sig-size" min="10" max="50" value="25" step="1">
+              <label for="sig-size"><span>Signature Size:</span><span id="size-label">25%</span></label>
+              <input type="range" id="sig-size" min="10" max="50" value="25" step="1" aria-label="Signature size percent">
             </div>
 
             <div class="page-selector-row" id="page-selector-wrapper">
@@ -519,14 +541,14 @@
             </div>
 
             <div class="position-controls">
-              <div style="font-size:0.85rem; color:var(--gray-600); margin-bottom:0.4rem;">Quick Position:</div>
-              <div class="position-options">
-                <div class="position-option active" data-position="bottom-right"><span class="position-icon">↘️</span><span class="position-label">Bottom Right</span></div>
-                <div class="position-option" data-position="bottom-left"><span class="position-icon">↙️</span><span class="position-label">Bottom Left</span></div>
-                <div class="position-option" data-position="top-right"><span class="position-icon">↗️</span><span class="position-label">Top Right</span></div>
-                <div class="position-option" data-position="top-left"><span class="position-icon">↖️</span><span class="position-label">Top Left</span></div>
-                <div class="position-option" data-position="center"><span class="position-icon">◎</span><span class="position-label">Centre</span></div>
-                <div class="position-option" data-position="all-pages"><span class="position-icon">📄</span><span class="position-label">All Pages</span></div>
+              <div style="font-size:0.85rem; color:var(--gray-600); margin-bottom:0.4rem;" id="position-label">Quick Position:</div>
+              <div class="position-options" role="radiogroup" aria-labelledby="position-label">
+                <div class="position-option active" data-position="bottom-right" role="radio" tabindex="0" aria-checked="true" aria-label="Bottom right"><span class="position-icon" aria-hidden="true">↘️</span><span class="position-label">Bottom Right</span></div>
+                <div class="position-option" data-position="bottom-left" role="radio" tabindex="-1" aria-checked="false" aria-label="Bottom left"><span class="position-icon" aria-hidden="true">↙️</span><span class="position-label">Bottom Left</span></div>
+                <div class="position-option" data-position="top-right" role="radio" tabindex="-1" aria-checked="false" aria-label="Top right"><span class="position-icon" aria-hidden="true">↗️</span><span class="position-label">Top Right</span></div>
+                <div class="position-option" data-position="top-left" role="radio" tabindex="-1" aria-checked="false" aria-label="Top left"><span class="position-icon" aria-hidden="true">↖️</span><span class="position-label">Top Left</span></div>
+                <div class="position-option" data-position="center" role="radio" tabindex="-1" aria-checked="false" aria-label="Centre"><span class="position-icon" aria-hidden="true">◎</span><span class="position-label">Centre</span></div>
+                <div class="position-option" data-position="all-pages" role="radio" tabindex="-1" aria-checked="false" aria-label="All pages"><span class="position-icon" aria-hidden="true">📄</span><span class="position-label">All Pages</span></div>
               </div>
             </div>
 
@@ -538,14 +560,14 @@
 
         <!-- ── STEP 3: Live preview ── -->
         <div class="preview-section" id="preview-section">
-          <h3><span class="step-number">3</span> Preview — Drag to Reposition</h3>
-          <p style="color:var(--gray-600); font-size:0.9rem; margin-bottom:var(--space-md);">This is a live preview of the selected page. Drag the signature box to place it exactly where you want.</p>
+          <h3><span class="step-number" aria-hidden="true">3</span> Preview — Drag to Reposition</h3>
+          <p style="color:var(--gray-600); font-size:0.9rem; margin-bottom:var(--space-md);">This is a live preview of the selected page. Drag the signature box to place it exactly where you want, or use the Quick Position buttons above.</p>
           <div class="preview-wrapper" id="preview-wrapper">
             <div class="preview-container" id="preview-container">
               <canvas id="pdf-preview-canvas"></canvas>
               <div class="sig-overlay" id="sig-overlay">
                 <img id="sig-overlay-img" alt="" />
-                <span class="drag-hint" id="drag-hint">↕ Drag to move</span>
+                <span class="drag-hint" id="drag-hint" aria-hidden="true">↕ Drag to move</span>
               </div>
             </div>
           </div>
@@ -553,7 +575,7 @@
 
         <!-- ── STEP 4: Apply ── -->
         <div style="text-align:center; margin-top:var(--space-lg);">
-          <h3><span class="step-number">4</span> Apply Signature &amp; Download</h3>
+          <h3><span class="step-number" aria-hidden="true">4</span> Apply Signature &amp; Download</h3>
           <p style="color:var(--gray-600); margin-bottom:var(--space-md); max-width:520px; margin-left:auto; margin-right:auto;">
             All processing happens locally — nothing is uploaded.
           </p>
@@ -562,7 +584,7 @@
       </div>
 
       <!-- Status -->
-      <div id="status-area" class="status-area">
+      <div id="status-area" class="status-area" aria-live="polite">
         <p id="status-text">Applying signature<span class="loading-dots"><span></span><span></span><span></span></span></p>
         <button id="dismiss-error-btn" class="dismiss-error-btn">Dismiss</button>
       </div>
@@ -603,7 +625,7 @@
       </div>
     </section>
 
-    <section style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200,#e5e7eb);">
+    <section class="faq-section" style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200,#e5e7eb);">
       <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark,#212529);text-align:center;">Frequently Asked Questions</h2>
       <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
         <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">Is an electronic signature drawn in a browser legally binding?</h3>
@@ -617,7 +639,7 @@
         <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">What signature input methods are supported?</h3>
         <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Three methods: draw freehand with mouse, finger, or stylus; type your name and choose a cursive font; or upload an existing signature image (PNG with transparency works best).</p>
       </div>
-      <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
+      <div style="padding:1.25rem 0;">
         <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">Can I add my signature to every page?</h3>
         <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Yes. Select "All Pages" in the position options to embed your signature on every page of the document.</p>
       </div>
@@ -746,20 +768,63 @@ const POSITION_LABELS = {
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Tabs
+// Tabs — proper tablist semantics + arrow-key navigation
 // ═══════════════════════════════════════════════════════════════════════════
-document.querySelectorAll('.sig-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.sig-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.sig-tab-panel').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    activeTab = tab.dataset.tab;
-    $('panel-' + activeTab).classList.add('active');
-    // Show colour picker for draw/type, hide for upload
-    colorSection.style.display = activeTab === 'upload' ? 'none' : 'block';
-    updatePreviewSignature();
+const sigTabs = Array.from(document.querySelectorAll('.sig-tab'));
+function activateTab(tab) {
+  sigTabs.forEach(t => {
+    const on = t === tab;
+    t.classList.toggle('active', on);
+    t.setAttribute('aria-selected', String(on));
+    t.tabIndex = on ? 0 : -1;
+  });
+  document.querySelectorAll('.sig-tab-panel').forEach(p => {
+    const on = p.id === 'panel-' + tab.dataset.tab;
+    p.classList.toggle('active', on);
+    if (on) { p.removeAttribute('hidden'); } else { p.setAttribute('hidden', ''); }
+  });
+  activeTab = tab.dataset.tab;
+  // Show colour picker for draw/type, hide for upload
+  colorSection.style.display = activeTab === 'upload' ? 'none' : 'block';
+  updatePreviewSignature();
+}
+sigTabs.forEach((tab, i) => {
+  tab.addEventListener('click', () => activateTab(tab));
+  tab.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      const next = sigTabs[(i + 1) % sigTabs.length];
+      next.focus(); activateTab(next);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prev = sigTabs[(i - 1 + sigTabs.length) % sigTabs.length];
+      prev.focus(); activateTab(prev);
+    }
   });
 });
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Generic keyboard helper for div-based radio groups
+// ═══════════════════════════════════════════════════════════════════════════
+function wireRadioGroup(nodeList, onSelect) {
+  const items = Array.from(nodeList);
+  items.forEach((item, i) => {
+    item.addEventListener('click', () => selectItem(item));
+    item.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectItem(item); }
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault(); const n = items[(i + 1) % items.length]; n.focus(); selectItem(n);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault(); const p = items[(i - 1 + items.length) % items.length]; p.focus(); selectItem(p);
+      }
+    });
+  });
+  function selectItem(item) {
+    items.forEach(o => { o.classList.remove('active'); o.setAttribute('aria-checked', 'false'); o.tabIndex = -1; });
+    item.classList.add('active'); item.setAttribute('aria-checked', 'true'); item.tabIndex = 0;
+    onSelect(item);
+  }
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Drop zone
@@ -774,15 +839,11 @@ pdfInput.addEventListener('change', async e => { if (e.target.files[0]) await ha
 // ═══════════════════════════════════════════════════════════════════════════
 // Colour
 // ═══════════════════════════════════════════════════════════════════════════
-colorOptions.forEach(opt => {
-  opt.addEventListener('click', () => {
-    colorOptions.forEach(o => o.classList.remove('active'));
-    opt.classList.add('active');
-    selectedColor = opt.dataset.color;
-    if (signaturePad) signaturePad.penColor = selectedColor;
-    typeSigText.style.color = selectedColor;
-    updatePreviewSignature();
-  });
+wireRadioGroup(colorOptions, opt => {
+  selectedColor = opt.dataset.color;
+  if (signaturePad) signaturePad.penColor = selectedColor;
+  typeSigText.style.color = selectedColor;
+  updatePreviewSignature();
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -797,14 +858,10 @@ sigSizeSlider.addEventListener('input', () => {
 // ═══════════════════════════════════════════════════════════════════════════
 // Position quick-picks
 // ═══════════════════════════════════════════════════════════════════════════
-positionOptions.forEach(opt => {
-  opt.addEventListener('click', () => {
-    positionOptions.forEach(o => o.classList.remove('active'));
-    opt.classList.add('active');
-    selectedPosition = opt.dataset.position;
-    pageSelectorWrap.style.display = selectedPosition === 'all-pages' ? 'none' : 'flex';
-    snapOverlayToPosition(selectedPosition === 'all-pages' ? 'bottom-right' : selectedPosition);
-  });
+wireRadioGroup(positionOptions, opt => {
+  selectedPosition = opt.dataset.position;
+  pageSelectorWrap.style.display = selectedPosition === 'all-pages' ? 'none' : 'flex';
+  snapOverlayToPosition(selectedPosition === 'all-pages' ? 'bottom-right' : selectedPosition);
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -814,20 +871,17 @@ typeSigInput.addEventListener('input', () => {
   typeSigText.textContent = typeSigInput.value || 'Your Name';
   updatePreviewSignature();
 });
-document.querySelectorAll('.font-option').forEach(opt => {
-  opt.addEventListener('click', () => {
-    document.querySelectorAll('.font-option').forEach(o => o.classList.remove('active'));
-    opt.classList.add('active');
-    selectedFont = opt.dataset.font;
-    typeSigText.style.fontFamily = `'${selectedFont}', cursive`;
-    updatePreviewSignature();
-  });
+wireRadioGroup(document.querySelectorAll('.font-option'), opt => {
+  selectedFont = opt.dataset.font;
+  typeSigText.style.fontFamily = `'${selectedFont}', cursive`;
+  updatePreviewSignature();
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Upload signature
 // ═══════════════════════════════════════════════════════════════════════════
 uploadZone.addEventListener('click', () => sigImageInput.click());
+uploadZone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sigImageInput.click(); } });
 uploadZone.addEventListener('dragover', e => { e.preventDefault(); });
 uploadZone.addEventListener('drop', e => { e.preventDefault(); if (e.dataTransfer.files[0]) handleSigImage(e.dataTransfer.files[0]); });
 sigImageInput.addEventListener('change', e => { if (e.target.files[0]) handleSigImage(e.target.files[0]); });
@@ -1065,7 +1119,8 @@ sigOverlay.addEventListener('pointerdown', e => {
   dragHint.style.display = 'none';
 
   // Deactivate preset buttons when user drags manually
-  positionOptions.forEach(o => o.classList.remove('active'));
+  positionOptions.forEach(o => { o.classList.remove('active'); o.setAttribute('aria-checked', 'false'); });
+  selectedPosition = 'custom';
 });
 
 sigOverlay.addEventListener('pointermove', e => {
@@ -1116,7 +1171,12 @@ async function handlePDFFile(file) {
     for (let i = 1; i <= pageCount; i++) {
       const opt = document.createElement('option');
       opt.value = i;
-      opt.textContent = `Page ${i}${i === pageCount ? ' (last)' : ''}${i === 1 ? ' (first)' : ''}`;
+      // Avoid "(last) (first)" on a single-page PDF
+      let suffix = '';
+      if (pageCount === 1)      suffix = ' (only page)';
+      else if (i === 1)         suffix = ' (first)';
+      else if (i === pageCount) suffix = ' (last)';
+      opt.textContent = `Page ${i}${suffix}`;
       pageSelect.appendChild(opt);
     }
     pageSelect.value = pageCount;
@@ -1154,6 +1214,12 @@ async function handlePDFFile(file) {
 // ═══════════════════════════════════════════════════════════════════════════
 async function signPDF() {
   if (!cachedPdfBytes) { alert('Please upload a PDF file first.'); return; }
+
+  // Ensure cursive web fonts are loaded before rasterising typed text,
+  // otherwise the PNG can fall back to a default font on first use.
+  if (activeTab === 'type' && document.fonts && document.fonts.ready) {
+    try { await document.fonts.ready; } catch (_) {}
+  }
 
   const sigDataUrl = getSignatureDataUrl();
   if (!sigDataUrl) {
@@ -1193,7 +1259,6 @@ async function signPDF() {
     const sigAspect  = sigNativeH / sigNativeW;
 
     const allPages  = pdfDoc.getPages();
-    const margin    = 36;
 
     let pagesToSign;
     if (selectedPosition === 'all-pages') {
@@ -1210,15 +1275,12 @@ async function signPDF() {
 
       // Convert drag fraction to PDF coordinates
       // PDF origin is bottom-left; preview origin is top-left
-      let x, y;
-
-      // If position was set by drag (no preset active), use frac directly
       const maxX = width - sigW;
       const maxY = height - sigH;
 
-      x = sigPosFrac.x * maxX;
+      let x = sigPosFrac.x * maxX;
       // Invert Y: preview top=0 → PDF top=height
-      y = height - sigH - (sigPosFrac.y * maxY);
+      let y = height - sigH - (sigPosFrac.y * maxY);
 
       // Clamp
       x = Math.max(0, Math.min(x, width - sigW));
@@ -1277,6 +1339,7 @@ function formatBytes(bytes) {
 function dismissError() { statusArea.style.display = 'none'; dismissErrorBtn.style.display = 'none'; }
 function showError(message) { statusArea.style.display = 'block'; statusText.innerHTML = `<span style="color:#ef4444;">⚠️ ${message}</span>`; dismissErrorBtn.style.display = 'inline-flex'; }
 function friendlyPdfError(err, action) {
+  if (err && err.name === 'PasswordException') return `This PDF is password-protected. Please remove the password before trying to ${action} it.`;
   const msg = (err.message || '').toLowerCase();
   if (msg.includes('password') || msg.includes('encrypt')) return `This PDF is password-protected. Please remove the password before trying to ${action} it.`;
   return `Could not ${action} this PDF. It may be corrupted or use an unsupported feature.`;
@@ -1302,18 +1365,24 @@ function resetTool() {
   uploadPreview.style.display = 'none'; uploadZone.style.display = 'block';
   sigImageInput.value = ''; colorSection.style.display = 'block';
 
-  colorOptions.forEach(o => o.classList.remove('active')); colorOptions[0].classList.add('active');
-  positionOptions.forEach(o => o.classList.remove('active')); positionOptions[0].classList.add('active');
+  colorOptions.forEach(o => { o.classList.remove('active'); o.setAttribute('aria-checked', 'false'); o.tabIndex = -1; });
+  colorOptions[0].classList.add('active'); colorOptions[0].setAttribute('aria-checked', 'true'); colorOptions[0].tabIndex = 0;
+  positionOptions.forEach(o => { o.classList.remove('active'); o.setAttribute('aria-checked', 'false'); o.tabIndex = -1; });
+  positionOptions[0].classList.add('active'); positionOptions[0].setAttribute('aria-checked', 'true'); positionOptions[0].tabIndex = 0;
   pageSelectorWrap.style.display = 'flex';
   sigSizeSlider.value = 25; sigSizeLabel.textContent = '25%';
 
-  document.querySelectorAll('.sig-tab').forEach(t => t.classList.remove('active'));
-  document.querySelector('.sig-tab[data-tab="draw"]').classList.add('active');
-  document.querySelectorAll('.sig-tab-panel').forEach(p => p.classList.remove('active'));
-  $('panel-draw').classList.add('active');
+  // Reset tabs
+  sigTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); t.tabIndex = -1; });
+  const drawTab = document.querySelector('.sig-tab[data-tab="draw"]');
+  drawTab.classList.add('active'); drawTab.setAttribute('aria-selected', 'true'); drawTab.tabIndex = 0;
+  document.querySelectorAll('.sig-tab-panel').forEach(p => { p.classList.remove('active'); p.setAttribute('hidden', ''); });
+  const drawPanel = $('panel-draw'); drawPanel.classList.add('active'); drawPanel.removeAttribute('hidden');
 
-  document.querySelectorAll('.font-option').forEach(o => o.classList.remove('active'));
-  document.querySelector('.font-option[data-font="Dancing Script"]').classList.add('active');
+  const fontOpts = document.querySelectorAll('.font-option');
+  fontOpts.forEach(o => { o.classList.remove('active'); o.setAttribute('aria-checked', 'false'); o.tabIndex = -1; });
+  const defFont = document.querySelector('.font-option[data-font="Dancing Script"]');
+  defFont.classList.add('active'); defFont.setAttribute('aria-checked', 'true'); defFont.tabIndex = 0;
   selectedFont = 'Dancing Script';
 }
 
