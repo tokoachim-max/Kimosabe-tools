@@ -5,7 +5,7 @@
   <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/compress-pdf.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Compress PDF Online Free – Reduce PDF Size Without Losing Quality | Kimosabe Tools</title>
+  <title>Compress PDF Online Free – Reduce PDF Size | Kimosabe Tools</title>
   
   <meta name="description" content="Compress PDF files up to 85% smaller directly in your browser. No file uploads, no registration, 100% free. Works on any PDF — photos, scans, documents.">
   <meta name="keywords" content="compress pdf, reduce pdf size, shrink pdf file, pdf compressor online free, compress pdf without uploading, small pdf, pdf file size reducer">
@@ -14,13 +14,21 @@
   <meta property="og:title" content="Compress PDF Online – Shrink PDF File Size | Kimosabe Tools">
   <meta property="og:description" content="Reduce PDF size 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser PDF compressor">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/compress-pdf.html">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Compress PDF Online – Shrink PDF File Size | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based PDF compression that keeps your files private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
   
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
@@ -40,6 +48,7 @@
     });
   </script>
 
+  <!-- Fonts — kept: the shared stylesheet uses Plus Jakarta Sans for headings/logo. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
@@ -113,6 +122,12 @@
       box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
     }
 
+    /* keyboard focus ring on the (visually hidden) radio */
+    .compression-option input[type="radio"]:focus-visible + label {
+      border-color: var(--primary, #4361ee);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.35);
+    }
+
     .compression-option .level-icon { font-size: 1.5rem; }
 
     .compression-option .level-name {
@@ -155,12 +170,33 @@
 
     .raster-note .note-icon { flex-shrink: 0; font-size: 1rem; margin-top: 0.05rem; }
 
+    /* ── Already-optimised info note ── */
+    .kept-original-note {
+      display: none;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      background: rgba(67, 97, 238, 0.06);
+      border: 1px solid rgba(67, 97, 238, 0.18);
+      border-radius: 10px;
+      font-size: 0.82rem;
+      color: #1e3a8a;
+      line-height: 1.5;
+    }
+
     /* ── Page progress ── */
     .page-progress-label {
       font-size: 0.85rem;
       color: var(--gray-600, #6b7280);
       margin-top: 0.5rem;
       text-align: center;
+    }
+
+    /* drop zone focus-visible (in case shared CSS only styles :focus) */
+    #drop-zone:focus-visible {
+      outline: 2px solid var(--primary, #4361ee);
+      outline-offset: 3px;
     }
 
     /* ── Results stats ── */
@@ -213,7 +249,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
        crossorigin="anonymous"></script>
 
-  <!-- Structured Data: WebApplication + FAQ -->
+  <!-- Structured Data: WebApplication + BreadcrumbList + FAQ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -236,6 +272,14 @@
           "name": "Kimosabe Tools",
           "url": "https://kimosabe-tools.pages.dev"
         }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Compress PDF", "item": "https://kimosabe-tools.pages.dev/tools/compress-pdf.html" }
+        ]
       },
       {
         "@type": "FAQPage",
@@ -327,13 +371,13 @@
 
       <!-- ── Compression Level Selector ── -->
       <div class="compression-selector">
-        <h3>🎚️ Compression Level</h3>
-        <div class="compression-options">
+        <h3 id="compression-level-heading"><span aria-hidden="true">🎚️</span> Compression Level</h3>
+        <div class="compression-options" role="radiogroup" aria-labelledby="compression-level-heading">
 
           <div class="compression-option">
             <input type="radio" name="compression" id="level-low" value="low">
             <label for="level-low">
-              <span class="level-icon">🖼️</span>
+              <span class="level-icon" aria-hidden="true">🖼️</span>
               <span class="level-name">Low</span>
               <span class="level-desc">High quality, smaller savings</span>
               <span class="level-badge badge-low">~20–40% off</span>
@@ -343,9 +387,9 @@
           <div class="compression-option">
             <input type="radio" name="compression" id="level-medium" value="medium" checked>
             <label for="level-medium">
-              <span class="level-icon">⚖️</span>
+              <span class="level-icon" aria-hidden="true">⚖️</span>
               <span class="level-name">Medium</span>
-              <span class="level-desc">Balanced quality & size</span>
+              <span class="level-desc">Balanced quality &amp; size</span>
               <span class="level-badge badge-medium">~40–65% off</span>
             </label>
           </div>
@@ -353,7 +397,7 @@
           <div class="compression-option">
             <input type="radio" name="compression" id="level-high" value="high">
             <label for="level-high">
-              <span class="level-icon">📦</span>
+              <span class="level-icon" aria-hidden="true">📦</span>
               <span class="level-name">High</span>
               <span class="level-desc">Smallest file, lower quality</span>
               <span class="level-badge badge-high">~65–85% off</span>
@@ -364,7 +408,7 @@
 
         <!-- Honest caveat about rasterisation -->
         <div class="raster-note">
-          <span class="note-icon">⚠️</span>
+          <span class="note-icon" aria-hidden="true">⚠️</span>
           <span>
             <strong>How it works:</strong> Each page is rendered to an image then re-encoded as JPEG at the chosen quality. This achieves real file-size reduction. Trade-off: text in the output will not be selectable or searchable (it becomes part of the image). Best for sharing and archiving.
           </span>
@@ -372,9 +416,9 @@
       </div>
 
       <!-- File Upload Area -->
-      <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Upload PDF file">
+      <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Upload PDF file — click, press Enter, or drag and drop">
         <div class="drop-zone-content">
-          <span class="icon">📄</span>
+          <span class="icon" aria-hidden="true">📄</span>
           <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
           <span id="file-name-label" class="file-limit">Maximum size: 50 MB • PDF files only</span>
         </div>
@@ -385,10 +429,10 @@
       <div class="progress-container" id="progress-container" style="display:none;">
         <div class="progress-bar" id="progress-bar"></div>
       </div>
-      <p class="page-progress-label" id="page-progress-label" style="display:none;"></p>
+      <p class="page-progress-label" id="page-progress-label" style="display:none;" aria-live="polite"></p>
       
       <!-- Status Area -->
-      <div id="status-area" class="status-area" style="display:none;">
+      <div id="status-area" class="status-area" style="display:none;" aria-live="polite">
         <p id="status-text">Processing your PDF<span class="loading-dots"><span></span><span></span><span></span></span></p>
         <div id="stats"></div>
         
@@ -403,6 +447,12 @@
           </div>
           
           <div class="results-stats" id="results-stats"></div>
+
+          <!-- Shown when the original was already smaller and we kept it -->
+          <div class="kept-original-note" id="kept-original-note">
+            <span aria-hidden="true">ℹ️</span>
+            <span>This PDF was already well-optimised, so we kept your original file unchanged — you'll never get a file larger than what you started with.</span>
+          </div>
           
           <div class="action-buttons">
             <a href="#" id="download-btn" class="btn btn-success">
@@ -451,27 +501,25 @@
       </div>
     </section>
 
-    <!-- More Tools Section -->
-    
     <!-- FAQ Section -->
-    <section style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200,#e5e7eb);">
+    <section class="faq-section" style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200,#e5e7eb);">
       <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark,#212529);text-align:center;">
         Frequently Asked Questions
       </h2>
         <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Does compressing a PDF reduce quality?</h3>
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">Does compressing a PDF reduce quality?</h3>
           <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Our Medium setting reduces file size by 40–65% with minimal visible quality loss. The High setting gives maximum compression but is best for sharing, not printing.</p>
         </div>
         <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Is my PDF uploaded to a server?</h3>
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">Is my PDF uploaded to a server?</h3>
           <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Never. All compression happens inside your browser using JavaScript. Your file never leaves your device.</p>
         </div>
         <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">What is the maximum PDF size I can compress?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">You can compress PDF files up to 50 MB. For larger files, consider splitting the PDF first using our Rotate & Split PDF tool.</p>
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">What is the maximum PDF size I can compress?</h3>
+          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">You can compress PDF files up to 50 MB. For larger files, consider splitting the PDF first using our Rotate &amp; Split PDF tool.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Why is my compressed PDF larger than the original?</h3>
+        <div style="padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">Why is my compressed PDF larger than the original?</h3>
           <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Some PDFs are already heavily optimised. Our tool will always keep the smaller of the two files, so you will never receive a file larger than your original.</p>
         </div>
     </section>
@@ -585,6 +633,7 @@
     const resultsStats      = document.getElementById('results-stats');
     const resultFilename    = document.getElementById('result-filename');
     const fileNameLabel     = document.getElementById('file-name-label');
+    const keptOriginalNote  = document.getElementById('kept-original-note');
 
     let currentDownloadUrl = null;
 
@@ -634,6 +683,7 @@
       resultsDisplay.style.display    = 'none';
       progressContainer.style.display = 'none';
       pageProgressLabel.style.display = 'none';
+      keptOriginalNote.style.display  = 'none';
       updateProgress(0);
       fileInput.value    = '';
       fileNameLabel.textContent = 'Maximum size: 50 MB • PDF files only';
@@ -659,6 +709,14 @@
       const bytes   = new Uint8Array(binary.length);
       for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
       return bytes;
+    }
+
+    // ─── Broaden password / encryption detection ──────────────────────────
+    function isPasswordError(err) {
+      if (!err) return false;
+      if (err.name === 'PasswordException') return true;
+      const m = (err.message || '').toLowerCase();
+      return m.includes('password') || m.includes('encrypt');
     }
 
     // ─── Main handler ─────────────────────────────────────────────────────
@@ -695,6 +753,7 @@
       statusArea.style.display        = 'block';
       donateReminder.style.display    = 'none';
       resultsDisplay.style.display    = 'none';
+      keptOriginalNote.style.display  = 'none';
       statsDiv.innerHTML              = '';
       progressContainer.style.display = 'block';
       pageProgressLabel.style.display = 'block';
@@ -705,10 +764,13 @@
 
       try {
         // ── 4. Load with pdf.js ──
-        const arrayBuffer = await file.arrayBuffer();
+        // Keep a pristine copy of the original bytes for the fallback path
+        // (pdf.js may detach the buffer it's given, so copy before handing it over).
+        const originalBuffer = await file.arrayBuffer();
+        const originalBytes  = new Uint8Array(originalBuffer.slice(0));
         updateProgress(5);
 
-        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const loadingTask = pdfjsLib.getDocument({ data: originalBuffer });
         const pdfDoc      = await loadingTask.promise;
         const totalPages  = pdfDoc.numPages;
 
@@ -738,17 +800,30 @@
         // ── 6. Save ──
         updateProgress(95);
         pageProgressLabel.textContent = 'Saving compressed PDF…';
-        const pdfBytes = await outDoc.save({ useObjectStreams: true });
+        const compressedBytes = await outDoc.save({ useObjectStreams: true });
         updateProgress(100);
 
-        // ── 7. Results ──
-        const oldSize    = file.size;
-        const newSize    = pdfBytes.length;
-        const rawSaved   = oldSize - newSize;
-        const savedBytes = Math.max(0, rawSaved);    // never show negative
+        // ── 7. Keep the SMALLER of the two — honour our stated promise ──
+        const oldSize = file.size;
+        let   finalBytes, finalSize, keptOriginal;
+
+        if (compressedBytes.length < oldSize) {
+          finalBytes   = compressedBytes;
+          finalSize    = compressedBytes.length;
+          keptOriginal = false;
+        } else {
+          // Recompression didn't help (already-optimised / vector PDF) —
+          // serve the untouched original so the user never gets a bigger file.
+          finalBytes   = originalBytes;
+          finalSize    = oldSize;
+          keptOriginal = true;
+        }
+
+        const rawSaved   = oldSize - finalSize;
+        const savedBytes = Math.max(0, rawSaved);
         const savedPct   = Math.max(0, ((rawSaved / oldSize) * 100)).toFixed(1);
 
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const blob = new Blob([finalBytes], { type: 'application/pdf' });
         currentDownloadUrl = URL.createObjectURL(blob);
 
         resultFilename.textContent = file.name;
@@ -760,8 +835,8 @@
             <span class="stat-value">${formatBytes(oldSize)}</span>
           </div>
           <div class="stat-item">
-            <span class="stat-label">Compressed Size</span>
-            <span class="stat-value">${formatBytes(newSize)}</span>
+            <span class="stat-label">${keptOriginal ? 'Final Size' : 'Compressed Size'}</span>
+            <span class="stat-value">${formatBytes(finalSize)}</span>
           </div>
           <div class="stat-item">
             <span class="stat-label">Space Saved</span>
@@ -770,17 +845,24 @@
           </div>
         `;
 
-        statsDiv.innerHTML = savedBytes > 0
-          ? `Size reduced by <strong>${savedPct}%</strong> (${formatBytes(savedBytes)})`
-          : `File already well-optimised — minimal further reduction achieved.`;
+        // Show the explanatory note only when we fell back to the original
+        keptOriginalNote.style.display = keptOriginal ? 'flex' : 'none';
 
+        statsDiv.innerHTML = keptOriginal
+          ? `Your PDF was already well-optimised — we kept the original so it's never larger.`
+          : `Size reduced by <strong>${savedPct}%</strong> (${formatBytes(savedBytes)})`;
+
+        // Download name reflects whether we actually compressed
         downloadBtn.href     = currentDownloadUrl;
-        downloadBtn.download = `compressed_${file.name.replace('.pdf', '')}_kimosabe.pdf`;
+        downloadBtn.download = keptOriginal
+          ? file.name
+          : `compressed_${file.name.replace(/\.pdf$/i, '')}_kimosabe.pdf`;
+        downloadBtn.textContent = keptOriginal ? '⬇️ Download PDF' : '⬇️ Download Compressed PDF';
         downloadBtn.style.display = 'inline-flex';
 
         setTimeout(() => {
           pageProgressLabel.style.display = 'none';
-          statusText.innerHTML            = 'Compression Complete!';
+          statusText.innerHTML            = keptOriginal ? 'Already Optimised' : 'Compression Complete!';
           resultsDisplay.style.display    = 'block';
           donateReminder.style.display    = 'block';
 
@@ -789,6 +871,7 @@
               event_category: 'tool_usage',
               event_label:    'compress_pdf',
               value:          savedPct,
+              kept_original:  keptOriginal,
               transport_type: 'beacon'
             });
           }
@@ -796,8 +879,8 @@
 
       } catch (err) {
         console.error('PDF Compression Error:', err);
-        const friendly = err.message && err.message.includes('password')
-          ? 'This PDF is password-protected. Please remove the password first.'
+        const friendly = isPasswordError(err)
+          ? 'This PDF is password-protected or encrypted. Please remove the password first.'
           : (err.message || 'This PDF might be corrupted or unsupported.');
 
         statusText.innerHTML         = `<span style="color:#ef4444;">⚠️ Error: ${friendly}</span>`;
