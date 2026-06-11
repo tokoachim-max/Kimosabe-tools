@@ -5,7 +5,7 @@
   <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/image-compressor.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Compress Images Online Free – JPG, PNG & WebP Compressor | Kimosabe Tools</title>
+  <title>Compress Images Online Free – JPG, PNG & WebP | Kimosabe Tools</title>
   
   <meta name="description" content="Compress JPG, PNG, and WebP images up to 90% smaller in your browser. No uploads. Drag, drop, download. Free image optimizer with live quality preview.">
   <meta name="keywords" content="compress image online, image compressor, reduce image size, jpg compressor, png compressor, webp compressor, compress photo free, optimize images">
@@ -14,13 +14,21 @@
   <meta property="og:title" content="Compress Images Online – Fast & Private | Kimosabe Tools">
   <meta property="og:description" content="Reduce image size 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser image compressor">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/image-compressor.html">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Compress Images Online – Fast & Private | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based image compression that keeps your photos private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
   
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
@@ -42,7 +50,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../assets/css/style.css">
 
@@ -115,6 +123,11 @@
       box-shadow: var(--shadow-hover);
     }
 
+    /* Visible keyboard focus for the slider */
+    .quality-slider:focus-visible {
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.35);
+    }
+
     .quality-labels {
       display: flex;
       justify-content: space-between;
@@ -176,6 +189,12 @@
     }
 
     .format-options label:hover .fmt-btn {
+      border-color: var(--primary);
+    }
+
+    /* Visible keyboard focus for the radio "buttons" */
+    .format-options input[type="radio"]:focus-visible + .fmt-btn {
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.35);
       border-color: var(--primary);
     }
 
@@ -306,7 +325,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
        crossorigin="anonymous"></script>
 
-  <!-- Structured Data: WebApplication + FAQ -->
+  <!-- Structured Data: WebApplication + BreadcrumbList + FAQ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -329,6 +348,14 @@
           "name": "Kimosabe Tools",
           "url": "https://kimosabe-tools.pages.dev"
         }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Image Compressor", "item": "https://kimosabe-tools.pages.dev/tools/image-compressor.html" }
+        ]
       },
       {
         "@type": "FAQPage",
@@ -419,13 +446,13 @@
     <section class="tool-wrapper">
 
       <!-- File Upload Area -->
-      <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Upload image file">
+      <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Upload image file — click, press Enter, or drag and drop">
         <div class="drop-zone-content">
-          <span class="icon">🖼️</span>
+          <span class="icon" aria-hidden="true">🖼️</span>
           <p><strong>Click to upload</strong> or drag and drop images</p>
-          <span class="file-limit">Supports JPG, PNG, WebP • Maximum size: 50 MB</span>
+          <span class="file-limit">Supports JPG, PNG, WebP, GIF • Maximum size: 50 MB</span>
         </div>
-        <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp" hidden />
+        <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp,image/gif" hidden />
       </div>
 
       <!-- Controls Panel (shown after file selected) -->
@@ -437,7 +464,7 @@
             Compression Quality:
             <span id="qualityVal" class="quality-value">80%</span>
           </label>
-          <input type="range" id="qualityRange" class="quality-slider" min="10" max="100" value="80">
+          <input type="range" id="qualityRange" class="quality-slider" min="10" max="100" value="80" aria-label="Compression quality">
           <div class="quality-labels">
             <span>Smaller file</span>
             <span>Balanced</span>
@@ -455,12 +482,16 @@
 
         <!-- Contextual notes shown/hidden by JS -->
         <div id="gif-note" class="info-note warn" style="display:none;">
-          <span class="note-icon">⚠️</span>
+          <span class="note-icon" aria-hidden="true">⚠️</span>
           <span><strong>Animated GIF detected:</strong> Only the first frame will be compressed. Animation will be lost. Consider keeping the original if animation matters.</span>
         </div>
         <div id="png-note" class="info-note info" style="display:none;">
-          <span class="note-icon">ℹ️</span>
+          <span class="note-icon" aria-hidden="true">ℹ️</span>
           <span><strong>PNG selected as output:</strong> PNG uses lossless compression — the quality slider has no effect. For significant size reduction, switch the output format to JPEG or WebP.</span>
+        </div>
+        <div id="webp-note" class="info-note warn" style="display:none;">
+          <span class="note-icon" aria-hidden="true">⚠️</span>
+          <span><strong>WebP not supported by this browser:</strong> Your browser can't encode WebP, so that option has been hidden. Try JPEG instead, or use an up-to-date browser.</span>
         </div>
       </div>
 
@@ -541,31 +572,30 @@
       </div>
     </section>
 
-    <!-- More Tools Section -->
-    
     <!-- FAQ Section -->
     <section style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200,#e5e7eb);">
       <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark,#212529);text-align:center;">
         Frequently Asked Questions
       </h2>
         <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Does image compression reduce quality?</h3>
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">Does image compression reduce quality?</h3>
           <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">It depends on the quality level you choose. At 80% quality most images look identical to the original but are 50–70% smaller. Use the live preview slider to find the right balance before downloading.</p>
         </div>
         <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Can I compress PNG images?</h3>
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">Can I compress PNG images?</h3>
           <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Yes. For PNG files you can either keep them as PNG (lossless) or convert them to JPEG or WebP for much smaller file sizes.</p>
         </div>
         <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Is there a file size limit?</h3>
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">Is there a file size limit?</h3>
           <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Yes, 50 MB per image. Most images are well under this limit.</p>
         </div>
         <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Why is my compressed image the same size?</h3>
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">Why is my compressed image the same size?</h3>
           <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">If your image is already highly optimised, re-encoding it may not reduce the size further. Our tool automatically returns the original file if compression would make it larger.</p>
         </div>
     </section>
 
+    <!-- More Tools Section -->
     <nav class="more-tools">
       <h3>Explore More Tools</h3>
       <div class="tools-grid">
@@ -668,6 +698,7 @@
     const formatOptions     = document.getElementById('format-options');
     const gifNote           = document.getElementById('gif-note');
     const pngNote           = document.getElementById('png-note');
+    const webpNote          = document.getElementById('webp-note');
 
     // ─── State ────────────────────────────────────────────────────────────
     let currentDownloadUrl    = null;  // current download blob URL
@@ -675,6 +706,18 @@
     let activeFile            = null;
     let originalImageData     = null;  // base64 data URL of original
     let debounceTimer         = null;
+
+    // ─── Feature detection: can this browser ENCODE WebP via canvas? ──────
+    // Older Safari can decode WebP but not encode it; canvas silently falls
+    // back to PNG, which would produce a larger file with a .webp name. We
+    // detect support once and hide the WebP option where it isn't real.
+    const WEBP_ENCODE_SUPPORTED = (() => {
+      try {
+        const c = document.createElement('canvas');
+        c.width = c.height = 1;
+        return c.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+      } catch (_) { return false; }
+    })();
 
     // ─── Drop zone – keyboard + click (no onclick attribute on div) ───────
     dropZone.addEventListener('click', () => imageInput.click());
@@ -723,12 +766,19 @@
       return { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mimeType] || 'jpg';
     }
 
+    // Remove any dynamically injected info notes inside the results panel so
+    // they can't stack up across repeated compressions / slider nudges.
+    function clearInjectedResultNotes() {
+      resultsDisplay.querySelectorAll('.info-note').forEach(n => n.remove());
+    }
+
     // ─── Build format options based on input type ─────────────────────────
     // Rules:
     //   JPEG input  → JPEG (default) | WebP
     //   PNG input   → PNG (default)  | JPEG | WebP  (PNG→JPEG/WebP = real compression)
     //   WebP input  → WebP (default) | JPEG
     //   GIF input   → JPEG (default) | WebP  (GIF not re-encodable as animated via canvas)
+    // WebP options are dropped entirely when the browser can't encode WebP.
     function buildFormatOptions(inputMime) {
       let options = [];
 
@@ -739,9 +789,10 @@
           { mime: 'image/webp', label: 'WebP',           checked: false },
         ];
       } else if (inputMime === 'image/webp') {
+        // If input is WebP but the browser can't ENCODE webp, default to JPEG.
         options = [
-          { mime: 'image/webp', label: 'WebP',  checked: true  },
-          { mime: 'image/jpeg', label: 'JPEG',  checked: false },
+          { mime: 'image/webp', label: 'WebP',  checked: WEBP_ENCODE_SUPPORTED },
+          { mime: 'image/jpeg', label: 'JPEG',  checked: !WEBP_ENCODE_SUPPORTED },
         ];
       } else {
         // JPEG, GIF, or anything else → default to JPEG
@@ -749,6 +800,12 @@
           { mime: 'image/jpeg', label: 'JPEG',  checked: true  },
           { mime: 'image/webp', label: 'WebP',  checked: false },
         ];
+      }
+
+      // Drop WebP options on browsers that can't encode it
+      if (!WEBP_ENCODE_SUPPORTED) {
+        options = options.filter(o => o.mime !== 'image/webp');
+        if (!options.some(o => o.checked) && options.length) options[0].checked = true;
       }
 
       formatOptions.innerHTML = options.map(o => `
@@ -762,7 +819,9 @@
     // ─── Show/hide contextual notes ───────────────────────────────────────
     function updateFormatNotes() {
       const fmt = getSelectedFormat();
-      pngNote.style.display = (fmt === 'image/png') ? 'flex' : 'none';
+      pngNote.style.display  = (fmt === 'image/png') ? 'flex' : 'none';
+      // Surface a one-time WebP-unsupported note if relevant
+      webpNote.style.display = (!WEBP_ENCODE_SUPPORTED && activeFile) ? 'flex' : 'none';
       // GIF note is set once on file load and never hidden until reset
     }
 
@@ -790,6 +849,7 @@
       safeRevoke(currentPreviewUrl);
       currentDownloadUrl = null;
       currentPreviewUrl  = null;
+      clearInjectedResultNotes();
 
       activeFile = file;
 
@@ -838,7 +898,7 @@
 
     // ─── Core compression (browser-image-compression library) ────────────
     //
-    // Why we switched from raw canvas.toBlob():
+    // Why we use the library instead of raw canvas.toBlob():
     //   The browser's built-in JPEG encoder is less efficient than the encoder
     //   that created your original photo (smartphone hardware, MozJPEG, etc.).
     //   At quality 0.8, canvas.toBlob() can produce a FILE LARGER than the
@@ -846,11 +906,14 @@
     //     1. It iterates the quality value to hit a target size range.
     //     2. We always compare and keep whichever file is smaller.
     //
-    async function compressImage(imageData) {
+    // Reads all inputs from module state (activeFile, qualityRange, the
+    // selected format) — it takes no arguments.
+    async function compressImage() {
       statusText.innerHTML       = `Compressing<span class="loading-dots"><span></span><span></span><span></span></span>`;
       compressedSize.textContent = 'Working…';
       statusArea.style.display   = 'block';
       resultsDisplay.style.display = 'none';
+      clearInjectedResultNotes();
 
       const outputMime   = getSelectedFormat();
       const qualityRaw   = qualityRange.value / 100;   // 0.1 – 1.0
@@ -897,7 +960,9 @@
         safeRevoke(currentDownloadUrl);
         currentDownloadUrl = URL.createObjectURL(finalBlob);
 
-        const ext      = getFileExtension(outputMime);
+        // If the original was kept, the file keeps its real type/extension;
+        // otherwise use the chosen output format's extension.
+        const ext      = wasKept ? getFileExtension(activeFile.type) : getFileExtension(outputMime);
         const baseName = activeFile.name.replace(/\.[^/.]+$/, '');
         downloadBtn.href     = currentDownloadUrl;
         downloadBtn.download = `compressed_${baseName}_kimosabe.${ext}`;
@@ -921,11 +986,12 @@
           </div>
         `;
 
-        // If original was returned, show a helpful note instead of "0% saved"
+        // If original was returned, show a helpful note instead of "0% saved".
+        // clearInjectedResultNotes() above guarantees this never stacks.
         if (wasKept) {
           resultsStats.insertAdjacentHTML('afterend', `
             <div class="info-note info" style="margin-top:0.75rem;">
-              <span class="note-icon">ℹ️</span>
+              <span class="note-icon" aria-hidden="true">ℹ️</span>
               <span>This image is already well-optimised. The original file was kept because re-encoding would have made it larger. Try the High compression setting or a different output format.</span>
             </div>
           `);
@@ -971,10 +1037,11 @@
       downloadBtn.style.display    = 'none';
       gifNote.style.display        = 'none';
       pngNote.style.display        = 'none';
+      webpNote.style.display       = 'none';
 
-      // Remove any dynamically injected "already optimal" note
-      const existingNote = resultsDisplay.querySelector('.info-note');
-      if (existingNote) existingNote.remove();
+      // Remove ALL dynamically injected notes (could be more than one)
+      clearInjectedResultNotes();
+
       imageInput.value             = '';
       qualityRange.value           = 80;
       qualityVal.textContent       = '80%';
