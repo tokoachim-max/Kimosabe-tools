@@ -5,7 +5,7 @@
   <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/edit-pdf.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Edit PDF Online Free – Add Text, Annotate & Whiteout PDF | Kimosabe Tools</title>
+  <title>Edit PDF Online Free – Add Text & Annotate | Kimosabe Tools</title>
   
   <meta name="description" content="Edit PDF files free in your browser. Add text anywhere, whiteout sensitive information, draw annotations, add shapes and arrows. No uploads, no registration.">
   <meta name="keywords" content="edit pdf online free, add text to pdf, pdf editor free, annotate pdf, whiteout pdf, fill pdf form, pdf annotation tool, edit pdf without uploading">
@@ -14,8 +14,16 @@
   <meta property="og:title" content="Edit PDF Online – Fill Forms & Annotate | Kimosabe Tools">
   <meta property="og:description" content="Edit PDF files 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser PDF editor">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/edit-pdf.html">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#2E75B6">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Edit PDF Online – Fill Forms & Annotate | Kimosabe Tools">
@@ -37,7 +45,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -328,13 +336,20 @@
         "provider": { "@type": "Organization", "name": "Kimosabe Tools", "url": "https://kimosabe-tools.pages.dev" }
       },
       {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Edit PDF", "item": "https://kimosabe-tools.pages.dev/tools/edit-pdf.html" }
+        ]
+      },
+      {
         "@type": "FAQPage",
         "mainEntity": [
-          { "@type": "Question", "name": "Can I fill in a PDF form using this tool?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use the Text tool to click on any form field and type your answer."} },
-          { "@type": "Question", "name": "What tools are available?", "acceptedAnswer": {"@type": "Answer", "text": "Text, whiteout, highlight, redact, freehand draw, eraser, shapes, checkmarks, crosses, links, and image insertion."} },
-          { "@type": "Question", "name": "Will added text be searchable?", "acceptedAnswer": {"@type": "Answer", "text": "No. The editor flattens annotations as images. Output is image-based."} },
-          { "@type": "Question", "name": "Can I undo changes?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Ctrl+Z to undo, Ctrl+Y to redo. Up to 50 steps."} },
-          { "@type": "Question", "name": "Can I paste images from clipboard?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Copy an image or screenshot and press Ctrl+V to paste it directly onto the PDF."} }
+          { "@type": "Question", "name": "Can I fill in a PDF form?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use the Text tool to click on any form field and type your answer."} },
+          { "@type": "Question", "name": "Will added text be searchable?", "acceptedAnswer": {"@type": "Answer", "text": "No. The editor flattens all annotations as images in the PDF."} },
+          { "@type": "Question", "name": "Can I undo my changes?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Ctrl+Z to undo, Ctrl+Y to redo. Up to 50 steps stored per session."} },
+          { "@type": "Question", "name": "Can I paste images from clipboard?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Copy any image and press Ctrl+V to paste it directly onto the page."} }
         ]
       }
     ]
@@ -365,7 +380,7 @@
       </div>
     </div>
 
-    <div class="drop-zone" id="drop-zone"><div class="drop-zone-content"><span class="icon">📄</span><p><strong>Click to upload PDF or drag and drop</strong></p><span class="file-limit">Your file stays on your device. No uploads, ever.</span></div><input type="file" id="pdf-upload" accept=".pdf" hidden></div>
+    <div class="drop-zone" id="drop-zone" role="button" tabindex="0" aria-label="Upload a PDF — click, press Enter, or drag and drop a file"><div class="drop-zone-content"><span class="icon" aria-hidden="true">📄</span><p><strong>Click to upload PDF or drag and drop</strong></p><span class="file-limit">Your file stays on your device. No uploads, ever.</span></div><input type="file" id="pdf-upload" accept=".pdf" hidden></div>
 
     <div class="editor-section" id="editor-section">
       <div class="toolbar" id="primary-toolbar">
@@ -387,10 +402,10 @@
           <input type="file" id="image-file-input" accept="image/*" hidden>
         </div>
         <div class="toolbar-group">
-          <button class="tool-btn" id="tool-rect" data-tip="Rectangle (R)" onclick="setTool('rect')" style="font-size:1rem;">▭</button>
-          <button class="tool-btn" id="tool-ellipse" data-tip="Ellipse" onclick="setTool('ellipse')" style="font-size:1rem;">⬭</button>
-          <button class="tool-btn" id="tool-line" data-tip="Line" onclick="setTool('line')" style="font-size:1rem;">╱</button>
-          <button class="tool-btn" id="tool-arrow" data-tip="Arrow" onclick="setTool('arrow')" style="font-size:1rem;">↗</button>
+          <button class="tool-btn" id="tool-rect" aria-label="Rectangle" data-tip="Rectangle (R)" onclick="setTool('rect')" style="font-size:1rem;">▭</button>
+          <button class="tool-btn" id="tool-ellipse" aria-label="Ellipse" data-tip="Ellipse" onclick="setTool('ellipse')" style="font-size:1rem;">⬭</button>
+          <button class="tool-btn" id="tool-line" aria-label="Line" data-tip="Line" onclick="setTool('line')" style="font-size:1rem;">╱</button>
+          <button class="tool-btn" id="tool-arrow" aria-label="Arrow" data-tip="Arrow" onclick="setTool('arrow')" style="font-size:1rem;">↗</button>
         </div>
         <div class="toolbar-group">
           <button class="tool-btn" data-tip="Delete selected (Del)" onclick="pdfEditor&&pdfEditor.deleteSelected()" style="color:var(--danger);border-color:var(--danger);">🗑 Del</button>
@@ -410,9 +425,9 @@
         </div>
         <div class="toolbar-group">
           <button class="tool-btn" id="btn-thumbs" data-tip="Toggle thumbnails" onclick="toggleThumbs()">⊞ Pages</button>
-          <button class="tool-btn" id="btn-prev-tb" data-tip="Previous page" onclick="changePage(-1)">‹</button>
+          <button class="tool-btn" id="btn-prev-tb" aria-label="Previous page" data-tip="Previous page" onclick="changePage(-1)">‹</button>
           <span class="page-info" id="page-info-tb" style="font-size:0.82rem;min-width:60px;">1 / 1</span>
-          <button class="tool-btn" id="btn-next-tb" data-tip="Next page" onclick="changePage(1)">›</button>
+          <button class="tool-btn" id="btn-next-tb" aria-label="Next page" data-tip="Next page" onclick="changePage(1)">›</button>
         </div>
         <div class="toolbar-group" style="margin-left:auto;">
           <button class="tool-btn" id="clear-annotations" data-tip="Clear all on this page" style="border-color:var(--warning);color:var(--warning);" onclick="clearCurrentPage()">🗑️ Clear</button>
@@ -423,8 +438,8 @@
       <div class="context-toolbar" id="context-toolbar">
         <div id="ctx-text" style="display:none;align-items:center;gap:0.4rem;flex-wrap:wrap;">
           <div class="ctx-group"><span class="ctx-label">Font</span><select id="font-family" onchange="applyTextStyle()"><option value="Helvetica, Arial, sans-serif">Helvetica</option><option value="'Times New Roman', Times, serif">Times Roman</option><option value="'Courier New', Courier, monospace">Courier</option><option value="Georgia, serif">Georgia</option><option value="Arial, Helvetica, sans-serif">Arial</option></select><input type="number" id="font-size" class="font-size-input" value="16" min="6" max="144" oninput="applyTextStyle()"><input type="color" id="text-color" class="color-picker" value="#000000" oninput="applyTextStyle()" title="Text color"></div>
-          <div class="ctx-group"><button class="tool-btn" id="btn-bold" data-tip="Bold" onclick="toggleFmt('bold')"><b>B</b></button><button class="tool-btn" id="btn-italic" data-tip="Italic" onclick="toggleFmt('italic')"><i>I</i></button><button class="tool-btn" id="btn-under" data-tip="Underline" onclick="toggleFmt('under')"><u>U</u></button></div>
-          <div class="ctx-group"><button class="tool-btn" id="btn-al" onclick="setAlign('left')">≡◂</button><button class="tool-btn" id="btn-ac" onclick="setAlign('center')">≡</button><button class="tool-btn" id="btn-ar" onclick="setAlign('right')">▸≡</button></div>
+          <div class="ctx-group"><button class="tool-btn" id="btn-bold" aria-label="Bold" data-tip="Bold" onclick="toggleFmt('bold')"><b>B</b></button><button class="tool-btn" id="btn-italic" aria-label="Italic" data-tip="Italic" onclick="toggleFmt('italic')"><i>I</i></button><button class="tool-btn" id="btn-under" aria-label="Underline" data-tip="Underline" onclick="toggleFmt('under')"><u>U</u></button></div>
+          <div class="ctx-group"><button class="tool-btn" id="btn-al" aria-label="Align left" onclick="setAlign('left')">≡◂</button><button class="tool-btn" id="btn-ac" aria-label="Align center" onclick="setAlign('center')">≡</button><button class="tool-btn" id="btn-ar" aria-label="Align right" onclick="setAlign('right')">▸≡</button></div>
           <div class="ctx-group"><span class="ctx-label">Opacity</span><input type="range" class="range-input" id="text-opacity" min="10" max="100" value="100" oninput="applyTextStyle();document.getElementById('text-opa-val').textContent=this.value+'%'"><span class="range-val" id="text-opa-val">100%</span></div>
           <div class="ctx-group"><button class="tool-btn" data-tip="Duplicate" onclick="pdfEditor&&pdfEditor.dupSel()">📋 Dup</button></div>
         </div>
@@ -580,6 +595,8 @@ function showDropZoneError(m) { const c=document.querySelector('.drop-zone-conte
 function setupUpload() {
   const dz=document.getElementById('drop-zone'), inp=document.getElementById('pdf-upload');
   dz.addEventListener('click', ()=>inp.click());
+  // Keyboard access: Enter / Space triggers the file picker
+  dz.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();inp.click();} });
   inp.addEventListener('change', e=>handleFileUpload(e.target.files[0]));
   dz.addEventListener('dragover', e=>{e.preventDefault();dz.classList.add('dragover');});
   dz.addEventListener('dragleave', ()=>dz.classList.remove('dragover'));
