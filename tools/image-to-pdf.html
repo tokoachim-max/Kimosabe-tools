@@ -5,7 +5,7 @@
   <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/image-to-pdf.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Image to PDF Converter – Combine JPG & PNG into PDF Free | Kimosabe Tools</title>
+  <title>Image to PDF – Combine JPG & PNG Free | Kimosabe Tools</title>
   
   <meta name="description" content="Convert JPG, PNG, or WebP images to PDF online for free. Combine multiple photos into one PDF document. Choose page size, orientation, and layout. No uploads.">
   <meta name="keywords" content="image to pdf, jpg to pdf, png to pdf, convert image to pdf online free, combine photos into pdf, pictures to pdf, photo to pdf converter">
@@ -14,13 +14,21 @@
   <meta property="og:title" content="Image to PDF Converter – Combine Photos into PDF | Kimosabe Tools">
   <meta property="og:description" content="Convert images to PDF 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser image to PDF converter">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/image-to-pdf.html">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Image to PDF Converter – Combine Photos into PDF | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based image to PDF conversion that keeps your photos private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
   
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
@@ -40,6 +48,7 @@
     });
   </script>
 
+  <!-- Fonts — Plus Jakarta Sans IS used here (headings, logo), so keep it. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
@@ -161,7 +170,7 @@
       position: relative; overflow: hidden;
       outline: none;   /* focus ring handled manually */
     }
-    #drop-zone:hover, #drop-zone:focus {
+    #drop-zone:hover, #drop-zone:focus-visible {
       border-color: var(--primary);
       background: rgba(67,97,238,0.05);
       transform: translateY(-4px); box-shadow: var(--shadow-hover);
@@ -216,6 +225,7 @@
     }
     .file-action-btn:hover { color: var(--primary); background: rgba(67,97,238,0.1); }
     .file-action-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .file-action-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(67,97,238,0.35); }
 
     /* limit warning */
     .limit-warning {
@@ -347,6 +357,12 @@
     .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: var(--shadow-lg); transition: all 0.3s; z-index: 1000; }
     .back-to-top:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
 
+    /* ── FAQ section ── */
+    .faq-section {
+      background: white; border-radius: 16px; padding: 2.5rem; margin-top: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid var(--gray-200);
+    }
+
     /* ── Animations ── */
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -377,7 +393,7 @@
     @media (prefers-color-scheme: dark) {
       :root { --light: #1a1a1a; --dark: #ffffff; --gray-100: #2d2d2d; --gray-200: #404040; --gray-600: #a0a0a0; --gray-800: #e0e0e0; }
       body { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: var(--gray-800); }
-      .tool-wrapper, .feature-item, .file-list-container, .pdf-options, .more-tools, .results-display { background: var(--gray-100); border-color: var(--gray-200); }
+      .tool-wrapper, .feature-item, .file-list-container, .pdf-options, .more-tools, .results-display, .faq-section { background: var(--gray-100); border-color: var(--gray-200); }
       #drop-zone { background: var(--gray-200); }
       .donate-reminder { background: linear-gradient(135deg, #2d2819, #3a321c); border-color: #d97706; }
       .sticky-nav { background: rgba(26,26,26,0.95); border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -395,7 +411,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
        crossorigin="anonymous"></script>
 
-  <!-- Structured Data: WebApplication + FAQ -->
+  <!-- Structured Data: WebApplication + BreadcrumbList + FAQ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -420,6 +436,14 @@
         }
       },
       {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Image to PDF", "item": "https://kimosabe-tools.pages.dev/tools/image-to-pdf.html" }
+        ]
+      },
+      {
         "@type": "FAQPage",
         "mainEntity": [
         {
@@ -440,7 +464,7 @@
         {
           "@type": "Question",
           "name": "Can I reorder images before converting?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Yes. After uploading, drag images up or down in the list to set the page order before converting."}
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. After uploading, use the up and down arrows on each image in the list to set the page order before converting."}
         }
         ]
       }
@@ -497,9 +521,9 @@
 
     <section class="tool-wrapper">
       <!-- Drop zone — no onclick attribute; handled in JS -->
-      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload images">
+      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload images — click, press Enter, or drag and drop">
         <div class="drop-zone-content">
-          <span class="icon">🖼️📄</span>
+          <span class="icon" aria-hidden="true">🖼️📄</span>
           <p><strong>Click to upload</strong> or drag multiple images here</p>
           <span class="file-limit">JPG, PNG, WebP • Max 50 MB per image • Max 30 images</span>
         </div>
@@ -510,22 +534,22 @@
       <div class="progress-container" id="progress-container">
         <div class="progress-bar" id="progress-bar"></div>
       </div>
-      <p class="progress-label" id="progress-label" style="display:none;"></p>
+      <p class="progress-label" id="progress-label" style="display:none;" aria-live="polite"></p>
 
       <!-- File list -->
       <div id="file-list-container" class="file-list-container">
-        <h3>Selected Images (<span id="file-count">0</span>)</h3>
+        <h3>Selected Images (<span id="file-count" aria-live="polite">0</span>)</h3>
 
         <!-- Limit warning — shown when near/at cap -->
         <div id="limit-warning" class="limit-warning" style="display:none;">
-          ⚠️ Maximum of 30 images reached. Remove an image before adding more.
+          <span aria-hidden="true">⚠️</span> Maximum of 30 images reached. Remove an image before adding more.
         </div>
 
         <ul id="file-list" class="file-list"></ul>
 
         <!-- PDF Options -->
         <div class="pdf-options">
-          <h4>⚙️ PDF Settings</h4>
+          <h4><span aria-hidden="true">⚙️</span> PDF Settings</h4>
           <div class="option-group">
             <div class="option-item">
               <label for="pageSize">Page Size</label>
@@ -562,7 +586,7 @@
       </div>
 
       <!-- Status -->
-      <div id="status-area" class="status-area">
+      <div id="status-area" class="status-area" aria-live="polite">
         <p id="status-text">Creating your PDF<span class="loading-dots"><span></span><span></span><span></span></span></p>
       </div>
 
@@ -590,7 +614,7 @@
     </section>
 
     <section class="tool-description">
-      <h2 style="text-align:center;margin-bottom:var(--space-lg);color:var(--dark);font-size:2rem;">Secure & Fast PDF Conversion</h2>
+      <h2 style="text-align:center;margin-bottom:var(--space-lg);color:var(--dark);font-size:2rem;">Secure &amp; Fast PDF Conversion</h2>
       <p style="text-align:center;max-width:700px;margin:0 auto var(--space-xl);color:var(--gray-600);font-size:1.1rem;">
         Turn your photos into professional documents. Whether you have one receipt or twenty pages of notes, this tool bundles them into a single PDF entirely inside your browser.
       </p>
@@ -600,7 +624,7 @@
           <p>Every image becomes a new page in the same PDF. Perfect for photo albums, document scans, or presentations.</p>
         </div>
         <div class="feature-item">
-          <strong><span style="font-size:1.3rem;">🔒</span> 100% Private & Local</strong>
+          <strong><span style="font-size:1.3rem;">🔒</span> 100% Private &amp; Local</strong>
           <p>Your document is generated in your browser. Your images never touch our servers.</p>
         </div>
         <div class="feature-item">
@@ -614,27 +638,26 @@
       </div>
     </section>
 
-    
     <!-- FAQ Section -->
-    <section style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200,#e5e7eb);">
-      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark,#212529);text-align:center;">
+    <section class="faq-section">
+      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">
         Frequently Asked Questions
       </h2>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">How many images can I convert to one PDF?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Up to 30 images per conversion, with a combined limit of 50 MB total.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">How many images can I convert to one PDF?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Up to 30 images per conversion, with a combined limit of 50 MB total.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">What page sizes are supported?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">A4, Letter, Legal, and Fit to Image (page sized exactly to each image).</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">What page sizes are supported?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">A4, Letter, Legal, and Fit to Image (page sized exactly to each image).</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Will the PDF have good quality?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Yes. Images are embedded at their original resolution with no re-encoding, so quality is preserved exactly.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Will the PDF have good quality?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Yes. Images are embedded at their original resolution with no re-encoding, so quality is preserved exactly.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Can I reorder images before converting?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Yes. After uploading, drag images up or down in the list to set the page order before converting.</p>
+        <div style="padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I reorder images before converting?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Yes. After uploading, use the up and down arrows on each image in the list to set the page order before converting.</p>
         </div>
     </section>
 
@@ -725,6 +748,7 @@
     // ─── State ────────────────────────────────────────────────────────────
     let selectedFiles  = [];   // array of File objects in display order
     let currentPdfUrl  = null;
+    let pendingFocus   = null; // {row, action} to restore focus after reorder
 
     // ─── Drop zone ────────────────────────────────────────────────────────
     dropZone.addEventListener('click', () => imageInput.click());
@@ -804,9 +828,9 @@
             <span class="file-size">${formatBytes(file.size)}</span>
           </div>
           <div class="file-actions">
-            <button class="file-action-btn" data-action="up"   title="Move up"   ${idx === 0                       ? 'disabled' : ''}>⬆️</button>
-            <button class="file-action-btn" data-action="down" title="Move down" ${idx === selectedFiles.length - 1 ? 'disabled' : ''}>⬇️</button>
-            <button class="file-action-btn" data-action="del"  title="Remove">🗑️</button>
+            <button class="file-action-btn" data-action="up"   aria-label="Move ${file.name} up"   title="Move up"   ${idx === 0                       ? 'disabled' : ''}>⬆️</button>
+            <button class="file-action-btn" data-action="down" aria-label="Move ${file.name} down" title="Move down" ${idx === selectedFiles.length - 1 ? 'disabled' : ''}>⬇️</button>
+            <button class="file-action-btn" data-action="del"  aria-label="Remove ${file.name}"    title="Remove">🗑️</button>
           </div>
         `;
 
@@ -815,14 +839,31 @@
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const action = btn.dataset.action;
-            if (action === 'up'   && idx > 0)                         swap(idx, idx - 1);
-            if (action === 'down' && idx < selectedFiles.length - 1)  swap(idx, idx + 1);
+            if (action === 'up'   && idx > 0)                        { pendingFocus = { row: idx - 1, action: 'up' };   swap(idx, idx - 1); }
+            if (action === 'down' && idx < selectedFiles.length - 1) { pendingFocus = { row: idx + 1, action: 'down' }; swap(idx, idx + 1); }
             if (action === 'del') { selectedFiles.splice(idx, 1); renderFileList(); }
           });
         });
 
         fileListEl.appendChild(li);
       });
+
+      // Restore focus to the moved row's matching button so keyboard users
+      // can press the same arrow repeatedly to walk an image through the list.
+      if (pendingFocus) {
+        const rows = fileListEl.querySelectorAll('li');
+        const row  = rows[pendingFocus.row];
+        if (row) {
+          let btn = row.querySelector(`[data-action="${pendingFocus.action}"]`);
+          // If that button is now disabled (reached an end), fall back to the
+          // opposite arrow so focus stays on the row.
+          if (!btn || btn.disabled) {
+            btn = row.querySelector(`[data-action="${pendingFocus.action === 'up' ? 'down' : 'up'}"]`);
+          }
+          if (btn && !btn.disabled) btn.focus();
+        }
+        pendingFocus = null;
+      }
     }
 
     function swap(a, b) {
@@ -857,7 +898,7 @@
     }
 
     // ─── Detect correct jsPDF image format from MIME type ─────────────────
-    // FIX: was always 'JPEG' — PNG transparency would render black
+    // Was always 'JPEG' — PNG transparency would render black
     function jsPdfFormat(mimeType) {
       if (mimeType === 'image/png')  return 'PNG';
       if (mimeType === 'image/webp') return 'WEBP';
@@ -914,9 +955,8 @@
           if (orient === 'auto') orient = imgW >= imgH ? 'landscape' : 'portrait';
 
           // ── Build page dimensions ──
-          // FIX: computed dimensions are now actually used; dead 'letter'/'legal'
-          // px calculations removed — jsPDF's named formats are used directly for
-          // standard sizes, and image px dimensions for 'fit' mode.
+          // jsPDF's named formats are used directly for standard sizes,
+          // and image px dimensions for 'fit' mode.
           let pageW, pageH, unit;
 
           if (isFitToImage) {
@@ -927,7 +967,6 @@
           } else {
             // jsPDF handles mm dimensions for named formats
             unit = 'mm';
-            // We'll read actual dims from the doc after creation
           }
 
           if (i === 0) {
@@ -958,18 +997,16 @@
 
           } else if (layoutVal === 'fit') {
             // Scale to fit inside margins, centred
-            // FIX: y was previously calculated using pageWidth (copy-paste bug)
             const maxW  = pw - MARGIN_MM * 2;
             const maxH  = ph - MARGIN_MM * 2;
             const scale = Math.min(maxW / imgW, maxH / imgH);
             drawW = imgW * scale;
             drawH = imgH * scale;
             x     = (pw - drawW) / 2;   // centre horizontally
-            y     = (ph - drawH) / 2;   // centre vertically  ← was (pw - drawW)/2 before
+            y     = (ph - drawH) / 2;   // centre vertically
 
           } else if (layoutVal === 'fill') {
-            // FIX: was Math.max which overflows off-page; now use clip-aware
-            // approach — scale so the shorter side fills, then centre (edges crop)
+            // Scale so the shorter side fills, then centre (edges crop)
             const scale = Math.max(pw / imgW, ph / imgH);
             drawW = imgW * scale;
             drawH = imgH * scale;
@@ -989,7 +1026,7 @@
             y = Math.max(0, y);
           }
 
-          // ── Add image with correct format — FIX: was always 'JPEG' ──
+          // ── Add image with correct format ──
           doc.addImage(imgData, jsPdfFormat(file.type), x, y, drawW, drawH);
         }
 
