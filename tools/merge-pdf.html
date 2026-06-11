@@ -5,7 +5,7 @@
   <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/merge-pdf.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Merge PDF Files Online Free – Combine Multiple PDFs into One | Kimosabe Tools</title>
+  <title>Merge PDF Files Online Free – Combine PDFs | Kimosabe Tools</title>
   
   <meta name="description" content="Merge multiple PDF files into one document in seconds. Drag to reorder pages, no file size limits per document, 100% private. Free online PDF merger, no uploads.">
   <meta name="keywords" content="merge pdf, combine pdf files, join pdf, merge pdf online free, combine multiple pdfs into one, pdf merger, merge pdfs without uploading">
@@ -14,13 +14,21 @@
   <meta property="og:title" content="Merge PDF Files Online – Combine Multiple PDFs | Kimosabe Tools">
   <meta property="og:description" content="Combine PDF documents 100% locally in your browser. No server uploads, no tracking.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser PDF merger">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/merge-pdf.html">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Merge PDF Files Online – Combine Multiple PDFs | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based PDF merging that keeps your documents private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
   
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -43,7 +51,7 @@
   <!-- PDF Library -->
   <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 
-  <!-- Fonts -->
+  <!-- Fonts — Plus Jakarta Sans IS used here (headings, logo), so keep it. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
@@ -251,7 +259,7 @@
     }
 
     #drop-zone:hover,
-    #drop-zone:focus {
+    #drop-zone:focus-visible {
       border-color: var(--primary);
       background: rgba(67, 97, 238, 0.05);
       transform: translateY(-4px);
@@ -334,7 +342,7 @@
       font-weight: 600;
     }
 
-    /* FIX: merge-ready notice shown when only 1 file is present */
+    /* merge-ready notice shown when only 1 file is present */
     .need-more-note {
       display: flex;
       align-items: center;
@@ -445,6 +453,10 @@
 
     .move-btn:hover:not(:disabled) { background: var(--primary); color: white; border-color: var(--primary); }
     .move-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .move-btn:focus-visible, .remove-btn:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.35);
+    }
 
     .remove-btn {
       background: none;
@@ -691,6 +703,16 @@
 
     .back-to-top:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
 
+    /* ── FAQ section ── */
+    .faq-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-top: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid var(--gray-200);
+    }
+
     /* ── Animations ── */
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -720,7 +742,7 @@
     @media (prefers-color-scheme: dark) {
       :root { --light: #1a1a1a; --dark: #ffffff; --gray-100: #2d2d2d; --gray-200: #404040; --gray-600: #a0a0a0; --gray-800: #e0e0e0; }
       body { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: var(--gray-800); }
-      .tool-wrapper, .feature-item, .file-list-container, .more-tools, .results-display { background: var(--gray-100); border-color: var(--gray-200); }
+      .tool-wrapper, .feature-item, .file-list-container, .more-tools, .results-display, .faq-section { background: var(--gray-100); border-color: var(--gray-200); }
       #drop-zone { background: var(--gray-200); }
       .donate-reminder { background: linear-gradient(135deg, #2d2819, #3a321c); border-color: #d97706; }
       .sticky-nav { background: rgba(26, 26, 26, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -738,7 +760,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
        crossorigin="anonymous"></script>
 
-  <!-- Structured Data: WebApplication + FAQ -->
+  <!-- Structured Data: WebApplication + BreadcrumbList + FAQ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -761,6 +783,14 @@
           "name": "Kimosabe Tools",
           "url": "https://kimosabe-tools.pages.dev"
         }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Merge PDF", "item": "https://kimosabe-tools.pages.dev/tools/merge-pdf.html" }
+        ]
       },
       {
         "@type": "FAQPage",
@@ -833,7 +863,6 @@
       <p>Combine multiple PDF files into one document safely and quickly. No file uploads, 100% browser-based merging for maximum privacy.</p>
       <div style="margin-top:var(--space-sm); display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
         <span style="background:rgba(67,97,238,0.1); color:var(--primary); padding:0.5rem 1rem; border-radius:50px; font-size:0.9rem; font-weight:500;">🔒 No Uploads</span>
-        <!-- FIX: "Unlimited Files" replaced with accurate label -->
         <span style="background:rgba(247,37,133,0.1); color:var(--accent); padding:0.5rem 1rem; border-radius:50px; font-size:0.9rem; font-weight:500;">🔗 Up to 30 Files</span>
         <span style="background:rgba(34,197,94,0.1); color:#22c55e; padding:0.5rem 1rem; border-radius:50px; font-size:0.9rem; font-weight:500;">🆓 Completely Free</span>
       </div>
@@ -842,9 +871,9 @@
     <section class="tool-wrapper">
 
       <!-- Drop zone — no onclick attr; handled in JS; keyboard accessible -->
-      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload PDF files to merge">
+      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload PDF files to merge — click, press Enter, or drag and drop">
         <div class="drop-zone-content">
-          <span class="icon">📚</span>
+          <span class="icon" aria-hidden="true">📚</span>
           <p><strong>Click to upload</strong> or drag multiple PDFs here</p>
           <span class="file-limit">PDF files only • Max 50 MB per file • Max 30 files • Max 200 MB total</span>
         </div>
@@ -856,29 +885,29 @@
 
         <div class="file-list-header">
           <h4>Files to Merge</h4>
-          <span class="file-count-badge" id="file-count-badge">0 files</span>
+          <span class="file-count-badge" id="file-count-badge" aria-live="polite">0 files</span>
         </div>
 
-        <!-- FIX: shown when only 1 file present, hidden at 2+ -->
+        <!-- shown when only 1 file present, hidden at 2+ -->
         <div id="need-more-note" class="need-more-note" style="display:none;">
-          ℹ️ Add at least one more PDF to enable merging.
+          <span aria-hidden="true">ℹ️</span> Add at least one more PDF to enable merging.
         </div>
 
-        <!-- FIX: shown when file/size cap is reached -->
+        <!-- shown when file/size cap is reached -->
         <div id="limit-warning" class="limit-warning" style="display:none;">
-          ⚠️ Limit reached. Remove a file before adding more.
+          <span aria-hidden="true">⚠️</span> Limit reached. Remove a file before adding more.
         </div>
 
         <!-- Progress bar (inside the file list panel, shown during merge) -->
         <div class="progress-container" id="progress-container">
           <div class="progress-bar" id="progress-bar"></div>
         </div>
-        <p class="progress-label" id="progress-label" style="display:none;"></p>
+        <p class="progress-label" id="progress-label" style="display:none;" aria-live="polite"></p>
 
         <ul id="file-list" class="file-list"></ul>
 
         <div class="action-buttons">
-          <!-- FIX: disabled until 2+ files present -->
+          <!-- disabled until 2+ files present -->
           <button id="mergeBtn" class="btn btn-primary" disabled>
             🔗 Merge All PDFs
           </button>
@@ -889,7 +918,7 @@
       </div>
 
       <!-- Status -->
-      <div id="status-area" class="status-area">
+      <div id="status-area" class="status-area" aria-live="polite">
         <p id="status-text">Merging your documents<span class="loading-dots"><span></span><span></span><span></span></span></p>
       </div>
 
@@ -945,27 +974,26 @@
       </div>
     </section>
 
-    
     <!-- FAQ Section -->
-    <section style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200,#e5e7eb);">
-      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark,#212529);text-align:center;">
+    <section class="faq-section">
+      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">
         Frequently Asked Questions
       </h2>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">How many PDF files can I merge at once?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Up to 30 PDF files, with a maximum combined size of 200 MB.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">How many PDF files can I merge at once?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Up to 30 PDF files, with a maximum combined size of 200 MB.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Can I reorder the PDFs before merging?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Yes. After uploading, use the up and down arrows to change the order before clicking Merge.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I reorder the PDFs before merging?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Yes. After uploading, use the up and down arrows to change the order before clicking Merge.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Will my PDFs be uploaded to a server?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">No. Merging happens entirely in your browser. Your documents are never sent to any server.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Will my PDFs be uploaded to a server?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">No. Merging happens entirely in your browser. Your documents are never sent to any server.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Can I merge password-protected PDFs?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">No. Password-protected PDFs cannot be processed. Remove the password from each file first, then merge them.</p>
+        <div style="padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I merge password-protected PDFs?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">No. Password-protected PDFs cannot be processed. Remove the password from each file first, then merge them.</p>
         </div>
     </section>
 
@@ -1055,6 +1083,7 @@
     // ─── State ────────────────────────────────────────────────────────────
     let selectedFiles    = [];
     let currentDownloadUrl = null;
+    let pendingFocus       = null;   // {row, action} to restore focus after reorder
 
     // ─── Drop zone — JS click + keyboard accessible ───────────────────────
     dropZone.addEventListener('click', () => pdfInput.click());
@@ -1079,32 +1108,32 @@
       let added     = 0;
 
       Array.from(files).forEach(file => {
-        // FIX: enforce per-file type check (not just total)
+        // enforce per-file type check (not just total)
         if (file.type !== 'application/pdf') {
           errors.push(`"${file.name}" skipped — only PDF files are supported.`);
           return;
         }
 
-        // FIX: enforce per-file size limit (was only checked as total before)
+        // enforce per-file size limit
         if (file.size > MAX_FILE_MB * 1024 * 1024) {
           errors.push(`"${file.name}" skipped — exceeds the ${MAX_FILE_MB} MB per-file limit.`);
           return;
         }
 
-        // FIX: enforce file count cap
+        // enforce file count cap
         if (selectedFiles.length >= MAX_FILES) {
           errors.push(`"${file.name}" skipped — ${MAX_FILES} file limit reached.`);
           return;
         }
 
-        // FIX: enforce total size cap — check incrementally
+        // enforce total size cap — check incrementally
         const currentTotal = selectedFiles.reduce((s, f) => s + f.size, 0);
         if (currentTotal + file.size > MAX_TOTAL_MB * 1024 * 1024) {
           errors.push(`"${file.name}" skipped — would exceed the ${MAX_TOTAL_MB} MB total limit.`);
           return;
         }
 
-        // FIX: duplicate detection (was missing entirely)
+        // duplicate detection
         const isDuplicate = selectedFiles.some(f => f.name === file.name && f.size === file.size);
         if (isDuplicate) {
           errors.push(`"${file.name}" skipped — already in the list.`);
@@ -1137,7 +1166,7 @@
 
     // ─── Full list rebuild — fixes reorder + count display on every change ─
     function renderFileList() {
-      // FIX: show list from first file, not just at 2+
+      // show list from first file, not just at 2+
       if (selectedFiles.length === 0) {
         fileListContainer.style.display = 'none';
         fileListEl.innerHTML = '';
@@ -1149,15 +1178,15 @@
       // Update header badge
       fileCountBadge.textContent = `${selectedFiles.length} file${selectedFiles.length !== 1 ? 's' : ''}`;
 
-      // FIX: "need more" note visible when only 1 file present
+      // "need more" note visible when only 1 file present
       needMoreNote.style.display = selectedFiles.length < 2 ? 'flex' : 'none';
 
-      // FIX: limit warning when at cap
+      // limit warning when at cap
       const totalBytes = selectedFiles.reduce((s, f) => s + f.size, 0);
       const atCap      = selectedFiles.length >= MAX_FILES || totalBytes >= MAX_TOTAL_MB * 1024 * 1024 * 0.95;
       limitWarning.style.display = atCap ? 'flex' : 'none';
 
-      // FIX: merge button disabled until 2+ files present
+      // merge button disabled until 2+ files present
       mergeBtn.disabled = selectedFiles.length < 2;
 
       // Rebuild list
@@ -1169,26 +1198,43 @@
         // Order number badge + info
         li.innerHTML = `
           <div class="file-info">
-            <span class="file-order">${idx + 1}</span>
-            <span class="file-icon">📄</span>
+            <span class="file-order" aria-hidden="true">${idx + 1}</span>
+            <span class="file-icon" aria-hidden="true">📄</span>
             <span class="file-name" title="${file.name}">${file.name}</span>
             <span class="file-size">${formatBytes(file.size)}</span>
           </div>
           <div class="file-actions">
-            <button class="move-btn" title="Move up"   ${idx === 0                       ? 'disabled' : ''}>↑</button>
-            <button class="move-btn" title="Move down" ${idx === selectedFiles.length - 1 ? 'disabled' : ''}>↓</button>
-            <button class="remove-btn" title="Remove">×</button>
+            <button class="move-btn" data-act="up"     aria-label="Move ${file.name} up"   title="Move up"   ${idx === 0                       ? 'disabled' : ''}>↑</button>
+            <button class="move-btn" data-act="down"   aria-label="Move ${file.name} down" title="Move down" ${idx === selectedFiles.length - 1 ? 'disabled' : ''}>↓</button>
+            <button class="remove-btn" data-act="remove" aria-label="Remove ${file.name}"   title="Remove">×</button>
           </div>
         `;
 
         // Delegate actions — no inline onclick, no reliance on global scope
         const [upBtn, downBtn, removeBtn] = li.querySelectorAll('button');
-        upBtn.addEventListener('click',    () => { swap(idx, idx - 1); });
-        downBtn.addEventListener('click',  () => { swap(idx, idx + 1); });
+        upBtn.addEventListener('click',    () => { pendingFocus = { row: idx - 1, action: 'up' };   swap(idx, idx - 1); });
+        downBtn.addEventListener('click',  () => { pendingFocus = { row: idx + 1, action: 'down' }; swap(idx, idx + 1); });
         removeBtn.addEventListener('click', () => { selectedFiles.splice(idx, 1); renderFileList(); });
 
         fileListEl.appendChild(li);
       });
+
+      // Restore focus to the moved row's matching button so keyboard users
+      // can press ↑/↓ repeatedly to walk a file through the list.
+      if (pendingFocus) {
+        const rows = fileListEl.querySelectorAll('.file-item');
+        const row  = rows[pendingFocus.row];
+        if (row) {
+          let btn = row.querySelector(`[data-act="${pendingFocus.action}"]`);
+          // If the target button is now disabled (reached an end), fall back
+          // to the opposite move button so focus stays on the row.
+          if (!btn || btn.disabled) {
+            btn = row.querySelector(`[data-act="${pendingFocus.action === 'up' ? 'down' : 'up'}"]`);
+          }
+          if (btn && !btn.disabled) btn.focus();
+        }
+        pendingFocus = null;
+      }
     }
 
     function swap(a, b) {
@@ -1237,7 +1283,7 @@
         for (let i = 0; i < selectedFiles.length; i++) {
           const file = selectedFiles[i];
 
-          // FIX: real per-file progress — user sees which file is processing
+          // real per-file progress — user sees which file is processing
           const pct = Math.round(((i + 0.5) / selectedFiles.length) * 90);
           updateProgress(pct, `Processing "${file.name}" (${i + 1} of ${selectedFiles.length})…`);
 
@@ -1249,8 +1295,10 @@
             totalPages += pdf.getPageCount();
             totalSize  += file.size;
           } catch (err) {
-            const msg = err.message && err.message.toLowerCase().includes('password')
-              ? `"${file.name}" is password-protected. Please remove the password first.`
+            // Broaden detection to catch both "password" and "encrypt(ed)"
+            const lower = (err.message || '').toLowerCase();
+            const msg = (lower.includes('password') || lower.includes('encrypt'))
+              ? `"${file.name}" is password-protected or encrypted. Please remove the password first.`
               : `Could not process "${file.name}". It may be corrupted or unsupported.`;
             throw new Error(msg);
           }
@@ -1311,7 +1359,7 @@
       } catch (err) {
         console.error(err);
 
-        // FIX: error stays visible until dismissed — no auto-hide timeout
+        // error stays visible until dismissed — no auto-hide timeout
         statusText.innerHTML            = `<span style="color:#ef4444;">⚠️ ${err.message}</span>`;
         progressContainer.style.display = 'none';
         progressLabel.style.display     = 'none';
