@@ -5,7 +5,7 @@
   <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/rotate-split-pdf.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Rotate PDF & Split PDF Online Free – Extract Pages | Kimosabe Tools</title>
+  <title>Rotate & Split PDF Online Free – Extract Pages | Kimosabe Tools</title>
   
   <meta name="description" content="Rotate PDF pages 90°, 180°, or 270°. Split PDF and extract specific pages or ranges into a new document. Free, private, no uploads required.">
   <meta name="keywords" content="rotate pdf, split pdf, extract pdf pages, rotate pdf pages online free, split pdf online, extract pages from pdf, pdf page extractor, rotate pdf without uploading">
@@ -14,13 +14,21 @@
   <meta property="og:title" content="Rotate & Split PDF Online – Manage PDF Pages | Kimosabe Tools">
   <meta property="og:description" content="Securely rotate or split your PDF files directly in your browser. No file uploads, 100% private.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser PDF rotate and split tool">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/rotate-split-pdf.html">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Rotate & Split PDF Online – Manage PDF Pages | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based PDF editing that keeps your documents private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
   
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -43,7 +51,7 @@
   <!-- PDF Library -->
   <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 
-  <!-- Fonts -->
+  <!-- Fonts — Plus Jakarta Sans IS used here (headings, logo), so keep it. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
@@ -233,7 +241,7 @@
     }
 
     #drop-zone:hover,
-    #drop-zone:focus {
+    #drop-zone:focus-visible {
       border-color: var(--primary);
       background: rgba(67, 97, 238, 0.05);
       transform: translateY(-4px);
@@ -338,6 +346,7 @@
     }
 
     .rotate-btn:hover { border-color: var(--primary); background: rgba(67, 97, 238, 0.05); transform: translateY(-2px); }
+    .rotate-btn:focus-visible { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.25); }
 
     .rotate-btn.active {
       border-color: var(--primary);
@@ -363,9 +372,9 @@
       transition: border-color 0.2s;
     }
 
-    .range-input:focus-within { border-color: var(--primary); }
+    .range-input:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.12); }
 
-    /* FIX: invalid input visual state */
+    /* invalid input visual state */
     .range-input.invalid { border-color: #ef4444; background: rgba(239, 68, 68, 0.04); }
 
     .range-input input {
@@ -409,7 +418,7 @@
 
     #status-text { font-size: 1.125rem; margin-bottom: var(--space-sm); color: var(--gray-800); font-weight: 500; }
 
-    /* FIX: dismiss button for persistent errors */
+    /* dismiss button for persistent errors */
     .dismiss-error-btn {
       display: none;
       margin-top: var(--space-sm);
@@ -536,7 +545,7 @@
     .tool-card:hover { background: var(--primary); color: white; transform: translateY(-4px); box-shadow: var(--shadow-md); }
     .tool-card .card-icon { font-size: 2rem; }
 
-    /* FIX: footer uses hardcoded colour — var(--dark) becomes white in dark mode */
+    /* footer uses hardcoded colour — var(--dark) becomes white in dark mode */
     .main-footer { background: #212529; color: white; padding: var(--space-xl) 0; margin-top: var(--space-xl); }
     .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-md); text-align: center; }
     .footer-logo { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
@@ -557,6 +566,16 @@
     }
 
     .back-to-top:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+
+    /* ── FAQ section ── */
+    .faq-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-top: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid var(--gray-200);
+    }
 
     /* ── Animations ── */
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -590,7 +609,7 @@
     @media (prefers-color-scheme: dark) {
       :root { --light: #1a1a1a; --dark: #ffffff; --gray-100: #2d2d2d; --gray-200: #404040; --gray-600: #a0a0a0; --gray-800: #e0e0e0; }
       body { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: var(--gray-800); }
-      .tool-wrapper, .feature-item, .controls-panel, .more-tools, .results-display { background: var(--gray-100); border-color: var(--gray-200); }
+      .tool-wrapper, .feature-item, .controls-panel, .more-tools, .results-display, .faq-section { background: var(--gray-100); border-color: var(--gray-200); }
       #drop-zone { background: var(--gray-200); }
       .donate-reminder { background: linear-gradient(135deg, #2d2819, #3a321c); border-color: #d97706; }
       .sticky-nav { background: rgba(26, 26, 26, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -611,7 +630,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
        crossorigin="anonymous"></script>
 
-  <!-- Structured Data: WebApplication + FAQ -->
+  <!-- Structured Data: WebApplication + BreadcrumbList + FAQ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -634,6 +653,14 @@
           "name": "Kimosabe Tools",
           "url": "https://kimosabe-tools.pages.dev"
         }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Rotate & Split PDF", "item": "https://kimosabe-tools.pages.dev/tools/rotate-split-pdf.html" }
+        ]
       },
       {
         "@type": "FAQPage",
@@ -714,9 +741,9 @@
     <section class="tool-wrapper">
 
       <!-- Drop zone — no onclick attr; JS + keyboard accessible -->
-      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload a PDF file">
+      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload a PDF file — click, press Enter, or drag and drop">
         <div class="drop-zone-content">
-          <span class="icon">📑</span>
+          <span class="icon" aria-hidden="true">📑</span>
           <p><strong>Click to upload</strong> or drag your PDF here</p>
           <span class="file-limit">PDF files only • Maximum size: 50 MB</span>
         </div>
@@ -754,20 +781,20 @@
 
           <!-- Rotate -->
           <div class="action-section">
-            <h4><span>🔄</span> Rotate PDF Pages</h4>
+            <h4><span aria-hidden="true">🔄</span> Rotate PDF Pages</h4>
             <p class="action-description">Fix upside-down scans or adjust page orientation for all pages in the document.</p>
 
-            <div class="rotate-controls" id="rotate-controls">
-              <button class="rotate-btn" data-degrees="90">
-                <span class="rotate-icon">↻</span>
+            <div class="rotate-controls" id="rotate-controls" role="group" aria-label="Rotation angle">
+              <button class="rotate-btn" data-degrees="90" aria-pressed="true" aria-label="Rotate 90 degrees clockwise">
+                <span class="rotate-icon" aria-hidden="true">↻</span>
                 <span class="rotate-angle">90° Clockwise</span>
               </button>
-              <button class="rotate-btn" data-degrees="180">
-                <span class="rotate-icon">↕</span>
+              <button class="rotate-btn" data-degrees="180" aria-pressed="false" aria-label="Rotate 180 degrees, flip">
+                <span class="rotate-icon" aria-hidden="true">↕</span>
                 <span class="rotate-angle">180° Flip</span>
               </button>
-              <button class="rotate-btn" data-degrees="270">
-                <span class="rotate-icon">↺</span>
+              <button class="rotate-btn" data-degrees="270" aria-pressed="false" aria-label="Rotate 90 degrees counter-clockwise">
+                <span class="rotate-icon" aria-hidden="true">↺</span>
                 <span class="rotate-angle">90° Counter-CW</span>
               </button>
             </div>
@@ -779,18 +806,18 @@
 
           <!-- Split -->
           <div class="action-section">
-            <h4><span>✂️</span> Split &amp; Extract Pages</h4>
+            <h4><span aria-hidden="true">✂️</span> Split &amp; Extract Pages</h4>
             <p class="action-description">Extract specific pages or ranges into a new PDF document.</p>
 
             <div class="split-controls">
               <div class="range-input" id="range-input-wrapper">
-                <input type="text" id="page-range" placeholder="e.g. 1-5 or 2,4,7" autocomplete="off">
+                <input type="text" id="page-range" placeholder="e.g. 1-5 or 2,4,7" autocomplete="off" aria-label="Pages to extract" aria-describedby="range-validation-error">
                 <span>of <span id="max-pages">0</span> pages</span>
               </div>
             </div>
 
-            <!-- FIX: validation error shown inline, stays until corrected -->
-            <div id="range-validation-error" class="validation-error">
+            <!-- validation error shown inline, stays until corrected, announced -->
+            <div id="range-validation-error" class="validation-error" role="alert">
               <span id="range-error-text"></span>
             </div>
 
@@ -806,9 +833,9 @@
       </div>
 
       <!-- Status -->
-      <div id="status-area" class="status-area">
+      <div id="status-area" class="status-area" aria-live="polite">
         <p id="status-text">Processing PDF<span class="loading-dots"><span></span><span></span><span></span></span></p>
-        <!-- FIX: dismiss button shown only on error, hidden during normal processing -->
+        <!-- dismiss button shown only on error, hidden during normal processing -->
         <button id="dismiss-error-btn" class="dismiss-error-btn" onclick="dismissError()">Dismiss</button>
       </div>
 
@@ -860,27 +887,26 @@
       </div>
     </section>
 
-    
     <!-- FAQ Section -->
-    <section style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200,#e5e7eb);">
-      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark,#212529);text-align:center;">
+    <section class="faq-section">
+      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">
         Frequently Asked Questions
       </h2>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Can I rotate only some pages, not all?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Currently the rotation tool applies to all pages in the document. To rotate only some pages, split the PDF into sections first, rotate each section, then merge them back together.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I rotate only some pages, not all?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Currently the rotation tool applies to all pages in the document. To rotate only some pages, split the PDF into sections first, rotate each section, then merge them back together.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">How do I extract specific pages from a PDF?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Enter the page numbers in the Split section using formats like '1-5' for a range, '2,5,7' for specific pages, or '3' for a single page.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">How do I extract specific pages from a PDF?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Enter the page numbers in the Split section using formats like '1-5' for a range, '2,5,7' for specific pages, or '3' for a single page.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Will rotating a PDF change the file size?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">Slightly. Rotation is metadata-only in PDF, so the file size change is minimal.</p>
+        <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Will rotating a PDF change the file size?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Slightly. Rotation is metadata-only in PDF, so the file size change is minimal.</p>
         </div>
-        <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
-          <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;cursor:pointer;">Can I split a password-protected PDF?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">No. Remove the password protection first, then use this tool.</p>
+        <div style="padding:1.25rem 0;">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I split a password-protected PDF?</h3>
+          <p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">No. Remove the password protection first, then use this tool.</p>
         </div>
     </section>
 
@@ -967,9 +993,9 @@
     const rotateBtns           = document.querySelectorAll('.rotate-btn');
 
     // ─── State ────────────────────────────────────────────────────────────
-    // FIX: store the File object, not a raw ArrayBuffer.
-    // ArrayBuffer can be detached after first PDFLib.load() call in some
-    // environments. Re-calling file.arrayBuffer() each time is always safe.
+    // Store the File object, not a raw ArrayBuffer. ArrayBuffer can be
+    // detached after the first PDFLib.load() call in some environments.
+    // Re-calling file.arrayBuffer() each time is always safe.
     let activeFile         = null;
     let originalFileName   = '';
     let pageCount          = 0;
@@ -978,7 +1004,7 @@
     let isErrorState       = false;
 
     // ─── Rotation label map ───────────────────────────────────────────────
-    // FIX: 180° was incorrectly labelled "Clockwise" — it's a flip
+    // 180° is a flip, not "Clockwise"
     const ROTATION_LABELS = { 90: 'Clockwise', 180: 'Flip', 270: 'Counter-Clockwise' };
 
     // ─── Drop zone — JS click + keyboard ──────────────────────────────────
@@ -997,11 +1023,12 @@
       if (e.target.files[0]) await handlePDFFile(e.target.files[0]);
     });
 
-    // ─── Rotate button selection ──────────────────────────────────────────
+    // ─── Rotate button selection (real radio-group semantics) ─────────────
     rotateBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        rotateBtns.forEach(b => b.classList.remove('active'));
+        rotateBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         selectedDegrees = parseInt(btn.dataset.degrees);
       });
     });
@@ -1037,7 +1064,6 @@
     }
 
     // ─── Show a persistent error (no auto-hide) ───────────────────────────
-    // FIX: removed setTimeout auto-hide — error stays until dismissed
     function showError(message) {
       isErrorState = true;
       statusArea.style.display      = 'block';
@@ -1071,7 +1097,7 @@
         const bytes  = await file.arrayBuffer();
         const pdfDoc = await PDFLib.PDFDocument.load(bytes);
 
-        // FIX: store File object, not the ArrayBuffer
+        // Store File object, not the ArrayBuffer
         activeFile       = file;
         originalFileName = file.name.replace(/\.pdf$/i, '');
         pageCount        = pdfDoc.getPageCount();
@@ -1119,7 +1145,7 @@
       donateReminder.style.display = 'none';
 
       try {
-        // FIX: fresh arrayBuffer from File each time — no detachment risk
+        // fresh arrayBuffer from File each time — no detachment risk
         const bytes  = await activeFile.arrayBuffer();
         const pdfDoc = await PDFLib.PDFDocument.load(bytes);
         const pages  = pdfDoc.getPages();
@@ -1139,7 +1165,7 @@
         resultFilename.textContent = fileName;
         downloadBtn.style.display = 'inline-flex';
 
-        // FIX: correct label for each rotation angle
+        // correct label for each rotation angle
         const rotLabel = ROTATION_LABELS[selectedDegrees] || `${selectedDegrees}°`;
 
         actionResults.innerHTML = `
@@ -1189,7 +1215,7 @@
         return;
       }
 
-      // FIX: validate range and surface ALL invalid parts to the user
+      // validate range and surface ALL invalid parts to the user
       const { pages: pagesToExtract, invalidParts } = parsePageRange(rangeText, pageCount);
 
       if (invalidParts.length > 0) {
@@ -1219,7 +1245,7 @@
       donateReminder.style.display = 'none';
 
       try {
-        // FIX: fresh arrayBuffer from File each time
+        // fresh arrayBuffer from File each time
         const bytes     = await activeFile.arrayBuffer();
         const sourceDoc = await PDFLib.PDFDocument.load(bytes);
         const newDoc    = await PDFLib.PDFDocument.create();
@@ -1231,7 +1257,7 @@
         const blob           = new Blob([extractedBytes], { type: 'application/pdf' });
         currentDownloadUrl   = URL.createObjectURL(blob);
 
-        // FIX: safe filename — strip spaces, use cleaned range string
+        // safe filename — strip spaces, use cleaned range string
         const safeRange = buildSafeRangeString(pagesToExtract);
         const fileName  = `${originalFileName}_pages_${safeRange}.pdf`;
         downloadBtn.href     = currentDownloadUrl;
@@ -1239,7 +1265,7 @@
         resultFilename.textContent = fileName;
         downloadBtn.style.display = 'inline-flex';
 
-        // FIX: formatPageList now shows actual pages for non-contiguous sets
+        // formatPageList shows actual pages for non-contiguous sets
         actionResults.innerHTML = `
           <div class="result-item">
             <span class="result-label">Action</span>
@@ -1286,7 +1312,7 @@
     }
 
     // ─── Parse page range — returns pages AND list of invalid parts ───────
-    // FIX: no longer silently drops invalid entries; surfaces them to caller
+    // Does not silently drop invalid entries; surfaces them to caller
     function parsePageRange(rangeText, maxPages) {
       const pages        = new Set();
       const invalidParts = [];
@@ -1320,7 +1346,6 @@
     }
 
     // ─── Format page list for display — non-contiguous shows all numbers ──
-    // FIX: was showing "1-10" for pages [1,3,7,10] implying a full range
     function formatPageList(pages) {
       if (pages.length === 0) return '—';
       if (pages.length <= 6)  return pages.join(', ');
@@ -1329,7 +1354,6 @@
     }
 
     // ─── Build a clean string safe to use in a filename ───────────────────
-    // FIX: original code left spaces in filenames from ", " joins
     function buildSafeRangeString(pages) {
       if (pages.length === 0) return 'extracted';
       if (pages.length === 1) return `${pages[0]}`;
@@ -1363,8 +1387,9 @@
       rangeInputWrapper.classList.remove('invalid');
       rangeValidationError.style.display = 'none';
 
-      rotateBtns.forEach(b => b.classList.remove('active'));
+      rotateBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       rotateBtns[0].classList.add('active');
+      rotateBtns[0].setAttribute('aria-pressed', 'true');
     }
 
     // ─── Back to top ──────────────────────────────────────────────────────
