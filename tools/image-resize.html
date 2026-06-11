@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/image-resize.html">
   
-  <title>Resize Image Online Free – Change Image Dimensions in Pixels | Kimosabe Tools</title>
+  <title>Resize Image Online Free – Change Dimensions | Kimosabe Tools</title>
   
   <meta name="description" content="Resize images online for free. Set exact pixel dimensions, maintain aspect ratio, or use social media presets. JPG, PNG & WebP. No uploads — 100% private.">
   <meta name="keywords" content="resize image online free, image resizer, change image dimensions, resize photo, resize jpg online, resize png online, image size changer, reduce image dimensions">
@@ -14,13 +14,21 @@
   <meta property="og:title" content="Resize Image Online Free – Change Image Dimensions | Kimosabe Tools">
   <meta property="og:description" content="Resize images 100% locally in your browser. Set exact pixel dimensions, no uploads, no registration.">
   <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser image resizer">
   <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/image-resize.html">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Resize Image Online Free – Change Image Dimensions | Kimosabe Tools">
   <meta name="twitter:description" content="Secure, browser-based image resizer that keeps your photos private.">
   <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
   
   <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
@@ -31,7 +39,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
        crossorigin="anonymous"></script>
 
-  <!-- Structured Data -->
+  <!-- Structured Data: WebApplication + BreadcrumbList + FAQ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -43,8 +51,17 @@
         "description": "Resize JPG, PNG, and WebP images to exact pixel dimensions. Maintains aspect ratio, includes social media presets. 100% browser-based, no uploads.",
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Any",
+        "browserRequirements": "Requires a modern web browser with JavaScript enabled",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "provider": { "@type": "Organization", "name": "Kimosabe Tools", "url": "https://kimosabe-tools.pages.dev" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Resize Image", "item": "https://kimosabe-tools.pages.dev/tools/image-resize.html" }
+        ]
       },
       {
         "@type": "FAQPage",
@@ -52,22 +69,22 @@
           {
             "@type": "Question",
             "name": "Can I resize an image without losing quality?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Enlarging an image always involves some quality loss since pixels must be created from nothing. Reducing an image generally preserves quality well. Our tool uses the browser's high-quality smoothing algorithm for the best result in both cases." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Reducing an image generally preserves quality well. Enlarging always involves some quality loss since new pixels must be interpolated. Our tool uses the browser's high-quality smoothing algorithm for the sharpest results in both cases." }
           },
           {
             "@type": "Question",
             "name": "Will resizing change the file format?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. JPG images are saved as JPG, PNG as PNG, and WebP as WebP. The format is preserved unless you explicitly convert using our Image Converter tool." }
+            "acceptedAnswer": { "@type": "Answer", "text": "No. JPG images are saved as JPG, PNG as PNG, and WebP as WebP. If you also want to change format, use our Image Converter tool after resizing." }
           },
           {
             "@type": "Question",
             "name": "How do I resize an image for Instagram?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Use the Instagram preset (1080×1080) for square posts. Upload your image, click the Instagram preset, then click Resize. The tool automatically adjusts dimensions while maintaining your chosen aspect ratio lock setting." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Upload your image, then click the Instagram preset (1080×1080). The dimensions fill in automatically. Click Resize and download. For Stories (1080×1920) enter the dimensions manually." }
           },
           {
             "@type": "Question",
-            "name": "Is there a maximum image size I can resize?",
-            "acceptedAnswer": { "@type": "Answer", "text": "The upload limit is 50 MB. Output dimensions are capped at 10,000 × 10,000 pixels to protect your browser from running out of memory." }
+            "name": "Is there a maximum size I can resize to?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Upload limit is 50 MB. Output dimensions are capped at 10,000 × 10,000 pixels to protect your browser from running out of memory on very large canvases." }
           }
         ]
       }
@@ -86,6 +103,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Plus Jakarta Sans IS used here (headings, logo) — keep it. -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -273,7 +291,7 @@
     }
 
     #drop-zone:hover,
-    #drop-zone:focus {
+    #drop-zone:focus-visible {
       border-color: var(--primary);
       background: rgba(67, 97, 238, 0.05);
       transform: translateY(-4px);
@@ -361,6 +379,7 @@
     }
 
     .aspect-toggle:hover { border-color: var(--primary); background: rgba(67, 97, 238, 0.05); }
+    .aspect-toggle:focus-visible { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.25); }
     .aspect-toggle.active { background: var(--primary); color: white; border-color: var(--primary); }
     .aspect-toggle .icon { font-size: 1.5rem; }
 
@@ -381,6 +400,7 @@
     }
 
     .preset-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); border-color: var(--primary); }
+    .preset-item:focus-visible { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.25); }
     .preset-item.active { border-color: var(--primary); background: rgba(67, 97, 238, 0.1); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1); }
     .preset-name { font-weight: 600; color: var(--dark); display: block; margin-bottom: 0.25rem; }
     .preset-dimensions { font-size: 0.85rem; color: var(--gray-600); font-family: monospace; }
@@ -396,8 +416,9 @@
     .quality-slider { flex: 1; height: 8px; background: linear-gradient(to right, #ef4444, #f59e0b, #22c55e); border-radius: 4px; outline: none; -webkit-appearance: none; }
     .quality-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: white; border: 3px solid var(--primary); cursor: pointer; box-shadow: var(--shadow-md); transition: all 0.2s; }
     .quality-slider::-webkit-slider-thumb:hover { transform: scale(1.1); box-shadow: var(--shadow-hover); }
+    .quality-slider:focus-visible { box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.35); }
+    .quality-slider:disabled { opacity: 0.4; cursor: not-allowed; }
 
-    /* FIX: shown only when output is a lossy format */
     .quality-note { font-size: 0.82rem; color: var(--gray-600); text-align: center; margin-top: 0.5rem; }
 
     .info-note {
@@ -412,6 +433,7 @@
     }
 
     .info-note.info { background: rgba(67,97,238,0.06); border: 1px solid rgba(67,97,238,0.18); color: #1e3a8a; }
+    .info-note.warn { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); color: #92400e; }
 
     /* ── Status / results / donate ── */
     .status-area {
@@ -498,7 +520,7 @@
     .tool-card:hover { background: var(--primary); color: white; transform: translateY(-4px); box-shadow: var(--shadow-md); }
     .tool-card .card-icon { font-size: 2rem; }
 
-    /* FIX: hardcoded footer bg — var(--dark) becomes white in dark mode override */
+    /* hardcoded footer bg — var(--dark) becomes white in dark mode override */
     .main-footer { background: #212529; color: white; padding: var(--space-xl) 0; margin-top: var(--space-xl); }
     .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-md); text-align: center; }
     .footer-logo { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
@@ -615,9 +637,9 @@
     <section class="tool-wrapper">
 
       <!-- Drop zone — no onclick attr; JS + keyboard accessible -->
-      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload an image to resize">
+      <div id="drop-zone" role="button" tabindex="0" aria-label="Upload an image to resize — click, press Enter, or drag and drop">
         <div class="drop-zone-content">
-          <span class="icon">📐</span>
+          <span class="icon" aria-hidden="true">📐</span>
           <p><strong>Click to upload</strong> or drag your image here</p>
           <span class="file-limit">JPG, PNG, WebP • Maximum size: 50 MB</span>
         </div>
@@ -639,9 +661,9 @@
           </div>
 
           <div class="aspect-lock">
-            <label style="font-size:0.85rem; color:var(--gray-600);">Aspect Ratio</label>
-            <div id="aspectToggle" class="aspect-toggle active" title="Maintain aspect ratio">
-              <span class="icon">🔗</span>
+            <label style="font-size:0.85rem; color:var(--gray-600);" id="aspectLabel">Aspect Ratio</label>
+            <div id="aspectToggle" class="aspect-toggle active" role="button" tabindex="0" aria-pressed="true" aria-labelledby="aspectLabel" aria-label="Maintain aspect ratio" title="Maintain aspect ratio">
+              <span class="icon" aria-hidden="true">🔗</span>
             </div>
           </div>
 
@@ -657,26 +679,30 @@
         <!-- Preset sizes -->
         <div class="preset-sizes">
           <h4>Common Sizes</h4>
-          <div class="preset-grid">
-            <div class="preset-item" data-width="1080" data-height="1080"><span class="preset-name">Instagram</span><span class="preset-dimensions">1080×1080</span></div>
-            <div class="preset-item" data-width="1200" data-height="630"><span class="preset-name">Facebook</span><span class="preset-dimensions">1200×630</span></div>
-            <div class="preset-item" data-width="1280" data-height="720"><span class="preset-name">HD Video</span><span class="preset-dimensions">1280×720</span></div>
-            <div class="preset-item" data-width="1920" data-height="1080"><span class="preset-name">Full HD</span><span class="preset-dimensions">1920×1080</span></div>
-            <div class="preset-item" data-width="150" data-height="150"><span class="preset-name">Thumbnail</span><span class="preset-dimensions">150×150</span></div>
-            <div class="preset-item" data-width="800" data-height="600"><span class="preset-name">Web Standard</span><span class="preset-dimensions">800×600</span></div>
+          <div class="preset-grid" role="group" aria-label="Preset sizes">
+            <div class="preset-item" role="button" tabindex="0" aria-label="Instagram 1080 by 1080" data-width="1080" data-height="1080"><span class="preset-name">Instagram</span><span class="preset-dimensions">1080×1080</span></div>
+            <div class="preset-item" role="button" tabindex="0" aria-label="Facebook 1200 by 630" data-width="1200" data-height="630"><span class="preset-name">Facebook</span><span class="preset-dimensions">1200×630</span></div>
+            <div class="preset-item" role="button" tabindex="0" aria-label="HD Video 1280 by 720" data-width="1280" data-height="720"><span class="preset-name">HD Video</span><span class="preset-dimensions">1280×720</span></div>
+            <div class="preset-item" role="button" tabindex="0" aria-label="Full HD 1920 by 1080" data-width="1920" data-height="1080"><span class="preset-name">Full HD</span><span class="preset-dimensions">1920×1080</span></div>
+            <div class="preset-item" role="button" tabindex="0" aria-label="Thumbnail 150 by 150" data-width="150" data-height="150"><span class="preset-name">Thumbnail</span><span class="preset-dimensions">150×150</span></div>
+            <div class="preset-item" role="button" tabindex="0" aria-label="Web Standard 800 by 600" data-width="800" data-height="600"><span class="preset-name">Web Standard</span><span class="preset-dimensions">800×600</span></div>
           </div>
         </div>
 
-        <!-- Quality control — FIX: shown only for lossy output, hidden for PNG -->
+        <!-- Quality control — shown only for lossy output, disabled note for PNG -->
         <div class="quality-control" id="quality-control">
           <h4>Output Quality: <span id="quality-value">90%</span></h4>
           <div class="quality-slider-container">
-            <input type="range" id="quality-slider" class="quality-slider" min="10" max="100" value="90">
+            <input type="range" id="quality-slider" class="quality-slider" min="10" max="100" value="90" aria-label="Output quality">
           </div>
           <p class="quality-note">Higher quality = larger file size. Lower quality = smaller file size.</p>
           <!-- Shown when PNG is loaded -->
           <div id="png-lossless-note" class="info-note info" style="display:none;">
             ℹ️ PNG uses lossless compression — the quality slider has no effect. For smaller PNG output, convert to JPEG or WebP using our Image Converter.
+          </div>
+          <!-- Shown when target dimensions exceed the original (upscaling) -->
+          <div id="upscale-note" class="info-note warn" style="display:none;">
+            ⚠️ You're enlarging beyond the original size. New pixels are interpolated, so the result may look soft. For best quality, keep dimensions at or below the original.
           </div>
         </div>
 
@@ -688,7 +714,7 @@
       <!-- Preview area -->
       <div id="preview-area" class="preview-area" style="display:none;">
         <div class="preview-box">
-          <h4><span>📤</span> Original</h4>
+          <h4><span aria-hidden="true">📤</span> Original</h4>
           <img id="original-preview" class="preview-image" alt="Original image">
           <div class="preview-info">
             <div id="original-dimensions">0 × 0 px</div>
@@ -696,7 +722,7 @@
           </div>
         </div>
         <div class="preview-box">
-          <h4><span>📥</span> Resized</h4>
+          <h4><span aria-hidden="true">📥</span> Resized</h4>
           <img id="resized-preview" class="preview-image" alt="Resized image">
           <div class="preview-info">
             <div id="resized-dimensions">—</div>
@@ -844,6 +870,7 @@
     const qualityValue     = document.getElementById('quality-value');
     const qualityControl   = document.getElementById('quality-control');
     const pngLosslessNote  = document.getElementById('png-lossless-note');
+    const upscaleNote      = document.getElementById('upscale-note');
     const resizeBtn        = document.getElementById('resizeBtn');
     const statusArea       = document.getElementById('status-area');
     const statusText       = document.getElementById('status-text');
@@ -863,7 +890,7 @@
 
     // ─── State ────────────────────────────────────────────────────────────
     let currentDownloadUrl = null;
-    let currentPreviewUrl  = null;   // FIX: tracked separately to avoid blob leak
+    let currentPreviewUrl  = null;   // tracked separately to avoid blob leak
     let activeFile         = null;
     let originalImageData  = null;
     let originalWidth      = 0;
@@ -888,12 +915,19 @@
     });
     imageInput.addEventListener('change', (e) => { if (e.target.files[0]) handleImageFile(e.target.files[0]); });
 
-    // ─── Aspect ratio toggle ──────────────────────────────────────────────
-    aspectToggle.addEventListener('click', () => {
+    // ─── Aspect ratio toggle (mouse + keyboard) ───────────────────────────
+    function toggleAspect() {
       maintainAspectRatio = !maintainAspectRatio;
       aspectToggle.classList.toggle('active', maintainAspectRatio);
+      aspectToggle.setAttribute('aria-pressed', String(maintainAspectRatio));
       aspectToggle.querySelector('.icon').textContent = maintainAspectRatio ? '🔗' : '🔓';
-      aspectToggle.title = maintainAspectRatio ? 'Maintain aspect ratio' : 'Free resize (aspect ratio unlocked)';
+      const lbl = maintainAspectRatio ? 'Maintain aspect ratio' : 'Free resize (aspect ratio unlocked)';
+      aspectToggle.title = lbl;
+      aspectToggle.setAttribute('aria-label', lbl);
+    }
+    aspectToggle.addEventListener('click', toggleAspect);
+    aspectToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleAspect(); }
     });
 
     // ─── Width input — update height when locked ──────────────────────────
@@ -902,6 +936,7 @@
         heightInput.value = Math.max(1, Math.round(parseInt(widthInput.value) / aspectRatio));
       }
       clearPresets();
+      updateUpscaleNote();
     });
 
     // ─── Height input — update width when locked ──────────────────────────
@@ -910,6 +945,7 @@
         widthInput.value = Math.max(1, Math.round(parseInt(heightInput.value) * aspectRatio));
       }
       clearPresets();
+      updateUpscaleNote();
     });
 
     // ─── Quality slider ───────────────────────────────────────────────────
@@ -917,18 +953,33 @@
       qualityValue.textContent = `${e.target.value}%`;
     });
 
-    // ─── Preset sizes ─────────────────────────────────────────────────────
+    // ─── Preset sizes (mouse + keyboard) ──────────────────────────────────
+    function applyPreset(item) {
+      presetItems.forEach(p => { p.classList.remove('active'); p.setAttribute('aria-pressed', 'false'); });
+      item.classList.add('active');
+      item.setAttribute('aria-pressed', 'true');
+      widthInput.value  = item.dataset.width;
+      heightInput.value = item.dataset.height;
+      updateUpscaleNote();
+    }
     presetItems.forEach(item => {
-      item.addEventListener('click', () => {
-        presetItems.forEach(p => p.classList.remove('active'));
-        item.classList.add('active');
-        widthInput.value  = item.dataset.width;
-        heightInput.value = item.dataset.height;
+      item.setAttribute('aria-pressed', 'false');
+      item.addEventListener('click', () => applyPreset(item));
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); applyPreset(item); }
       });
     });
 
     function clearPresets() {
-      presetItems.forEach(p => p.classList.remove('active'));
+      presetItems.forEach(p => { p.classList.remove('active'); p.setAttribute('aria-pressed', 'false'); });
+    }
+
+    // ─── Upscale warning: show when target exceeds the original ───────────
+    function updateUpscaleNote() {
+      if (!activeFile || !originalWidth || !originalHeight) { upscaleNote.style.display = 'none'; return; }
+      const w = parseInt(widthInput.value)  || 0;
+      const h = parseInt(heightInput.value) || 0;
+      upscaleNote.style.display = (w > originalWidth || h > originalHeight) ? 'flex' : 'none';
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────
@@ -960,9 +1011,13 @@
 
       activeFile = file;
 
-      // FIX: show/hide PNG lossless note and quality slider relevance
+      // PNG is lossless — the quality slider has no effect, so note it and
+      // disable the slider to make that obvious.
       const isPng = file.type === 'image/png';
       pngLosslessNote.style.display = isPng ? 'flex' : 'none';
+      qualitySlider.disabled        = isPng;
+      qualitySlider.style.opacity   = isPng ? '0.4' : '1';
+      upscaleNote.style.display     = 'none';
 
       controls.style.display      = 'block';
       resultsDisplay.style.display = 'none';
@@ -990,6 +1045,7 @@
           originalDimsEl.textContent   = `${originalWidth} × ${originalHeight} px`;
           originalSizeEl.textContent   = formatBytes(file.size);
           previewArea.style.display    = 'flex';
+          updateUpscaleNote();
 
           if (typeof gtag !== 'undefined') {
             gtag('event', 'image_uploaded', {
@@ -1035,7 +1091,7 @@
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
 
-        // FIX: fill white for JPEG to prevent black transparent areas
+        // Fill white for JPEG to prevent black transparent areas
         const outputMime = activeFile.type === 'image/png' ? 'image/png' : activeFile.type === 'image/webp' ? 'image/webp' : 'image/jpeg';
         if (outputMime === 'image/jpeg') {
           ctx.fillStyle = '#ffffff';
@@ -1044,7 +1100,7 @@
 
         ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
-        // FIX: quality param only meaningful for lossy formats; undefined for PNG
+        // Quality param only meaningful for lossy formats; undefined for PNG
         const quality = outputMime === 'image/png' ? undefined : qualitySlider.value / 100;
 
         canvas.toBlob((blob) => {
@@ -1056,7 +1112,7 @@
           const isSmaller = rawDiff > 0;
           const absPct    = Math.abs((rawDiff / oldSize) * 100).toFixed(1);
 
-          // FIX: track preview URL separately so it can be revoked before next resize
+          // Track preview URL separately so it can be revoked before next resize
           currentPreviewUrl            = URL.createObjectURL(blob);
           resizedPreview.src           = currentPreviewUrl;
           resizedDimsEl.textContent    = `${targetWidth} × ${targetHeight} px`;
@@ -1128,17 +1184,22 @@
       previewArea.style.display    = 'none';
       downloadBtn.style.display    = 'none';
       pngLosslessNote.style.display = 'none';
+      upscaleNote.style.display     = 'none';
+      qualitySlider.disabled        = false;
+      qualitySlider.style.opacity   = '1';
       imageInput.value              = '';
       widthInput.value              = '';
       heightInput.value             = '';
       maintainAspectRatio           = true;
       aspectToggle.classList.add('active');
+      aspectToggle.setAttribute('aria-pressed', 'true');
       aspectToggle.querySelector('.icon').textContent = '🔗';
       aspectToggle.title = 'Maintain aspect ratio';
+      aspectToggle.setAttribute('aria-label', 'Maintain aspect ratio');
       qualitySlider.value          = 90;
       qualityValue.textContent     = '90%';
 
-      presetItems.forEach(p => p.classList.remove('active'));
+      clearPresets();
       originalPreview.src = '';
       resizedPreview.src  = '';
       originalDimsEl.textContent = '0 × 0 px';
