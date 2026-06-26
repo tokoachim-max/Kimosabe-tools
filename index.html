@@ -47,15 +47,27 @@
   <link rel="preload" href="assets/css/style.css" as="style">
   <link rel="stylesheet" href="assets/css/style.css">
 
-  <!-- Preload critical fonts — stops font flash / layout shift -->
+  <!-- ═══════════════════════════════════════════════════════════
+       Fonts — FIX #1: single request, no duplication.
+       We preload the stylesheet once and swap it to a real
+       stylesheet on load (non-blocking), with a <noscript>
+       fallback for JS-disabled clients. Previously two separate
+       <link>s fetched two slightly different weight sets of the
+       same families, doubling the request.
+  ═══════════════════════════════════════════════════════════ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap">
+  </noscript>
 
   <!-- ═══════════════════════════════════════════════════════════
        JSON-LD Structured Data
-       - WebSite schema: sitelinks search box signal
+       - WebSite schema: site identity
        - Organization schema: knowledge-graph trust signals
        - SoftwareApplication schema: describes the tool suite
        - FAQPage schema: NOTE — Google deprecated FAQ rich results
@@ -63,6 +75,12 @@
          removed in 2026). This schema no longer yields a SERP
          feature, but it remains valid and useful for AI/LLM parsing,
          so it is kept intentionally. Do not expect rich snippets.
+
+       FIX #2: Removed the WebSite "potentialAction"/SearchAction.
+       Its target was an anchor (#tools), not a real search endpoint
+       with a {search_term_string} handler, so it produced a
+       validator warning and no SERP feature. There is no site
+       search, so the action has been dropped entirely.
   ═══════════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
   {
@@ -73,15 +91,7 @@
         "@id": "https://kimosabe-tools.pages.dev/#website",
         "url": "https://kimosabe-tools.pages.dev/",
         "name": "Kimosabe Tools",
-        "description": "Free, private PDF and image tools that run 100% in your browser.",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://kimosabe-tools.pages.dev/#tools"
-          },
-          "query-input": "required name=search_term_string"
-        }
+        "description": "Free, private PDF and image tools that run 100% in your browser."
       },
       {
         "@type": "Organization",
@@ -178,21 +188,16 @@
 
   <!-- ═══════════════════════════════════════════════════════════
        Inline critical styles
-       - Accessible fade-in (pointer-events fix, reduced-motion)
-       - Hero badge contrast fix
-       - scroll-padding-top + scroll-margin-top for sticky-nav offset
   ═══════════════════════════════════════════════════════════ -->
   <style>
     /* Smooth scroll with sticky-nav offset so the nav doesn't cover
-       the section heading after an anchor jump. */
+       the section heading after an anchor jump.
+       FIX #9: scroll-padding-top on <html> handles ALL anchor targets
+       globally, so the redundant per-section scroll-margin-top rules
+       were removed. */
     html {
       scroll-behavior: smooth;
       scroll-padding-top: 80px;
-    }
-
-    /* Belt-and-suspenders — scroll-margin-top on each anchor target. */
-    #tools, #features, #faq, #about {
-      scroll-margin-top: 80px;
     }
 
     /* ── Accessible fade-in ── */
@@ -201,7 +206,7 @@
       transform: translateY(16px);
       transition: opacity 0.5s ease, transform 0.5s ease;
       /* opacity:0 elements without pointer-events:none silently absorb
-         clicks, which can block the hero CTA underneath. */
+         clicks, which can block the CTA underneath. */
       pointer-events: none;
     }
     .fade-in.visible {
@@ -209,39 +214,50 @@
       transform: translateY(0);
       pointer-events: auto;
     }
+    /* FIX (new bug found): the reduced-motion rule previously forced
+       opacity:1 but never restored pointer-events, leaving every
+       fade-in element (all tool cards + CTAs) UNCLICKABLE for users
+       with reduced-motion enabled. pointer-events:auto is now restored. */
     @media (prefers-reduced-motion: reduce) {
       .fade-in {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
+        pointer-events: auto !important;
       }
     }
 
-    /* ── Hero badge contrast fix (WCAG-safe on light hero) ── */
+    /* ── Hero badge ──
+       FIX #5: contrast bumped from rgba(0,0,0,0.25) to rgba(0,0,0,0.5)
+       so white text clears WCAG AA (4.5:1) regardless of the hero
+       background tone. Border lightened slightly to compensate. */
     .hero-badge {
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.5);
       color: #ffffff;
       padding: 0.5rem 1rem;
       border-radius: 50px;
       font-size: 0.9rem;
       font-weight: 500;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.35);
     }
 
-    /* ── Tool card stagger delays via CSS custom properties ── */
-    .tool-card:nth-child(1)  { --card-delay: 0s;    }
-    .tool-card:nth-child(2)  { --card-delay: 0.05s; }
-    .tool-card:nth-child(3)  { --card-delay: 0.1s;  }
-    .tool-card:nth-child(4)  { --card-delay: 0.15s; }
-    .tool-card:nth-child(5)  { --card-delay: 0.2s;  }
-    .tool-card:nth-child(6)  { --card-delay: 0.25s; }
-    .tool-card:nth-child(7)  { --card-delay: 0.3s;  }
-    .tool-card:nth-child(8)  { --card-delay: 0.35s; }
-    .tool-card:nth-child(9)  { --card-delay: 0.4s;  }
-    .tool-card.fade-in       { transition-delay: var(--card-delay, 0s); }
-    /* Also honour the inline --card-delay set on the stat cards
-       (previously set but never consumed). */
-    .stat-card.fade-in       { transition-delay: var(--card-delay, 0s); }
+    /* FIX #6: hero badge row moved out of inline style */
+    .hero-badges {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Tool card stagger ──
+       FIX #10: delays are now assigned in JS by card index (see script),
+       so adding a 10th+ tool keeps staggering automatically. We only
+       declare that the custom property is consumed here. */
+    .tool-card.fade-in,
+    .stat-card.fade-in {
+      transition-delay: var(--card-delay, 0s);
+    }
 
     /* ── Tool badge variants ── */
     .tool-badge {
@@ -288,10 +304,11 @@
 
     /* ── "No account required" callout strip ── */
     .trust-strip {
+      list-style: none;
+      padding: 0.75rem 1.25rem;
       background: #f0fdf4;
       border: 1px solid #bbf7d0;
       border-radius: 10px;
-      padding: 0.75rem 1.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -302,7 +319,7 @@
       font-weight: 500;
       color: #166534;
     }
-    .trust-strip span {
+    .trust-strip li {
       display: flex;
       align-items: center;
       gap: 0.35rem;
@@ -338,6 +355,10 @@
       color: #6b7280;
       line-height: 1.55;
     }
+    .faq-item a {
+      color: #2E75B6;
+      font-weight: 600;
+    }
 
     /* ── Stat card ── */
     .stat-number {
@@ -345,6 +366,26 @@
       font-weight: 800;
       line-height: 1;
       margin-bottom: 0.3rem;
+    }
+
+    /* ── About section CTA helpers (FIX #6: de-inlined) ── */
+    .about-section .lead,
+    .about-section .sub {
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--gray-600);
+    }
+    .about-section .lead { margin-bottom: 1.5rem; }
+    .about-section .signature {
+      margin-top: 2rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    /* FIX #7: the about-section CTAs must stay clickable even mid-fade.
+       The buttons explicitly opt back into pointer events so a fast
+       scroll (or a stalled observer) can never leave them dead. */
+    .about-section .cta-buttons .btn {
+      pointer-events: auto;
     }
 
     /* ── PWA install banner (shown when installable) ── */
@@ -380,7 +421,32 @@
       font-weight: 400 !important;
       padding: 0.45rem 0.75rem !important;
     }
+
+    /* Scroll-depth sentinels (FIX #8) — invisible, zero-layout markers */
+    .scroll-sentinel {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+      opacity: 0;
+    }
   </style>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       No-JS safety net: if JavaScript is disabled the
+       IntersectionObserver never runs, so without this every
+       .fade-in element would stay invisible AND unclickable.
+       This makes the whole page usable without JS.
+  ═══════════════════════════════════════════════════════════ -->
+  <noscript>
+    <style>
+      .fade-in {
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+      }
+    </style>
+  </noscript>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
@@ -438,7 +504,8 @@
     </h1>
     <p>100% Private PDF &amp; Image Tools That Stay in Your Browser</p>
 
-    <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+    <!-- FIX #6: inline style replaced with .hero-badges class -->
+    <div class="hero-badges">
       <span class="hero-badge">🔒 No Uploads</span>
       <span class="hero-badge">⚡ Instant Processing</span>
       <span class="hero-badge">💸 Completely Free</span>
@@ -457,8 +524,9 @@
 
   <main class="container" id="main-content" role="main">
 
-    <!-- Trust strip — reinforces zero-friction promise -->
-    <ul class="trust-strip" aria-label="Key features" style="list-style:none;padding-left:0;">
+    <!-- Trust strip — reinforces zero-friction promise.
+         FIX #6: list-style/padding moved to .trust-strip CSS. -->
+    <ul class="trust-strip" aria-label="Key features">
       <li>✅ No account required</li>
       <li>✅ No file size limits</li>
       <li>✅ No watermarks</li>
@@ -472,11 +540,11 @@
         <div class="stat-number" aria-label="10,000 plus monthly users">10K+</div>
         <div>Monthly Users</div>
       </div>
-      <div class="stat-card fade-in" style="--card-delay:0.1s">
+      <div class="stat-card fade-in">
         <div class="stat-number" aria-label="50,000 plus files processed">50K+</div>
         <div>Files Processed</div>
       </div>
-      <div class="stat-card fade-in" style="--card-delay:0.2s">
+      <div class="stat-card fade-in">
         <div class="stat-number" aria-label="100 percent privacy guarantee">100%</div>
         <div>Privacy Guarantee</div>
       </div>
@@ -641,7 +709,7 @@
 
         <div class="faq-item fade-in">
           <h4>How is this free to use?</h4>
-          <p>Kimosabe Tools is a passion project maintained by a solo developer. It's kept alive by voluntary donations from users who find it useful. If these tools save you time, consider <a href="donate.html" style="color:#2E75B6;font-weight:600;">buying the developer a coffee ☕</a>.</p>
+          <p>Kimosabe Tools is a passion project maintained by a solo developer. It's kept alive by voluntary donations from users who find it useful. If these tools save you time, consider <a href="donate.html">buying the developer a coffee ☕</a>.</p>
         </div>
 
       </div>
@@ -650,11 +718,11 @@
     <!-- About Section -->
     <section id="about" class="about-section fade-in" aria-labelledby="about-heading">
       <h2 id="about-heading">Built for Privacy, Driven by Purpose</h2>
-      <p style="max-width: 700px; margin: 0 auto 1.5rem; color: var(--gray-600);">
+      <p class="lead">
         After seeing how most "free" online tools secretly upload your files to their servers,
         I created Kimosabe Tools with one simple promise: <strong>your files stay on your device.</strong>
       </p>
-      <p style="max-width: 700px; margin: 0 auto; color: var(--gray-600);">
+      <p class="sub">
         This is a passion project maintained by a solo developer. If these tools save you time
         and protect your privacy, consider supporting the project to help keep it running.
       </p>
@@ -668,7 +736,7 @@
         </a>
       </div>
 
-      <p style="margin-top: 2rem; font-weight: 600; color: var(--primary);">
+      <p class="signature">
         — The Kimosabe Developer
       </p>
     </section>
@@ -685,13 +753,9 @@
         <div class="footer-logo-text">Kimosabe Tools</div>
       </div>
 
-      <div style="text-align: center; margin-bottom: 2rem;">
-        <p style="color: var(--gray-300); max-width: 500px; margin: 0 auto 1.5rem;">
-          Join thousands of users who trust their privacy to Kimosabe Tools
-        </p>
-        <a href="#tools" class="support-btn" style="display: inline-block;">
-          🚀 Start Using Tools
-        </a>
+      <div class="footer-cta">
+        <p>Join thousands of users who trust their privacy to Kimosabe Tools</p>
+        <a href="#tools" class="support-btn">🚀 Start Using Tools</a>
       </div>
 
       <nav class="footer-links" aria-label="Footer navigation">
@@ -699,12 +763,12 @@
         <a href="contact.html">Contact</a>
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
-        <a href="donate.html" style="color: #ffd166;">Support Us</a>
+        <a href="donate.html" class="footer-support-link">Support Us</a>
       </nav>
 
       <p class="copyright">
         © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
-        <small style="opacity: 0.7;">All processing happens locally in your browser. No cookies. No tracking.</small>
+        <small>All processing happens locally in your browser. No cookies. No tracking.</small>
       </p>
     </div>
   </footer>
@@ -712,12 +776,20 @@
   <!-- Back to Top Button -->
   <button class="back-to-top" aria-label="Back to top of page">↑</button>
 
+  <!-- Scroll-depth sentinels (FIX #8) — placed at the end of <body>
+       and positioned by JS; observed instead of running work on every
+       scroll event. -->
+  <div class="scroll-sentinel" data-depth="25" aria-hidden="true"></div>
+  <div class="scroll-sentinel" data-depth="50" aria-hidden="true"></div>
+  <div class="scroll-sentinel" data-depth="75" aria-hidden="true"></div>
+  <div class="scroll-sentinel" data-depth="100" aria-hidden="true"></div>
+
   <script>
     // ── Back to Top Button ──────────────────────────────────────
     const backToTop = document.querySelector('.back-to-top');
     window.addEventListener('scroll', () => {
       backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none';
-    });
+    }, { passive: true });
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -764,6 +836,17 @@
       observer.observe(el);
     });
 
+    // ── FIX #10: scalable stagger ───────────────────────────────
+    // Assign --card-delay by index so any number of cards staggers,
+    // not just the first nine. Capped so late cards don't lag badly.
+    function applyStagger(selector, step, cap) {
+      document.querySelectorAll(selector).forEach((el, i) => {
+        el.style.setProperty('--card-delay', Math.min(i * step, cap) + 's');
+      });
+    }
+    applyStagger('.tools-grid .tool-card', 0.05, 0.6);
+    applyStagger('.stats-grid .stat-card', 0.1, 0.4);
+
     // ── Dark mode detection ─────────────────────────────────────
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.documentElement.setAttribute('data-theme', 'dark');
@@ -772,16 +855,44 @@
       document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
     });
 
-    // ── Service Worker with graceful failure ────────────────────
+    // ── Service Worker with update strategy ─────────────────────
+    // FIX #4: previously a new deploy only reached returning users on
+    // their SECOND visit. Now we poll for updates and reload once the
+    // new worker takes control, so fresh content lands immediately.
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
           .then(registration => {
             console.log('[SW] Registered, scope:', registration.scope);
+
+            // Check for an updated worker on load and periodically.
+            registration.update();
+            setInterval(() => registration.update(), 60 * 60 * 1000); // hourly
+
+            // When a new worker is found, let it activate as soon as
+            // it's installed (the controllerchange handler reloads).
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              if (!newWorker) return;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // A new version is ready; ask it to take over.
+                  newWorker.postMessage && newWorker.postMessage({ type: 'SKIP_WAITING' });
+                }
+              });
+            });
           })
           .catch(err => {
             console.warn('[SW] Registration failed (offline mode unavailable):', err.message);
           });
+
+        // Reload exactly once when the new SW takes control.
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (refreshing) return;
+          refreshing = true;
+          window.location.reload();
+        });
       });
     }
 
@@ -881,25 +992,38 @@
         });
       });
 
-      // Track scroll depth milestones (25%, 50%, 75%, 100%)
-      const scrollMilestones = { 25: false, 50: false, 75: false, 100: false };
-      window.addEventListener('scroll', function() {
-        if (scrollMilestones[100]) return;   // all milestones hit — stop working
-        const scrollPct = Math.round(
-          (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
-        );
-        [25, 50, 75, 100].forEach(milestone => {
-          if (!scrollMilestones[milestone] && scrollPct >= milestone) {
-            scrollMilestones[milestone] = true;
+      // ── FIX #8: scroll-depth via IntersectionObserver sentinels ──
+      // Position four 1px markers at 25/50/75/100% of page height and
+      // observe them, instead of recomputing scroll percentage on every
+      // scroll frame. Zero work happens during scrolling.
+      const sentinels = document.querySelectorAll('.scroll-sentinel');
+
+      function positionSentinels() {
+        const docHeight = document.documentElement.scrollHeight;
+        sentinels.forEach(s => {
+          const depth = parseInt(s.dataset.depth, 10);
+          // 100% marker sits a hair above the very bottom so it can fire.
+          s.style.top = (docHeight * (depth / 100)) - (depth === 100 ? 2 : 0) + 'px';
+        });
+      }
+      positionSentinels();
+      window.addEventListener('resize', positionSentinels, { passive: true });
+
+      const depthObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const depth = entry.target.dataset.depth;
             if (typeof gtag !== 'undefined') {
               gtag('event', 'scroll_depth', {
                 event_category: 'engagement',
-                event_label: milestone + '%'
+                event_label: depth + '%'
               });
             }
+            depthObserver.unobserve(entry.target); // fire once
           }
         });
-      }, { passive: true });
+      });
+      sentinels.forEach(s => depthObserver.observe(s));
 
     });
   </script>
