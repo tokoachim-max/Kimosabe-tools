@@ -388,6 +388,31 @@
       pointer-events: auto;
     }
 
+    /* ── Footer CTA block ──
+       FIX: these classes replaced inline styles during the de-inlining
+       pass but their CSS was never written, so the footer "Join
+       thousands…" text and the Start Using Tools button lost their
+       centering and spacing. Rules restored here. */
+    .footer-cta {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .footer-cta p {
+      color: var(--gray-300, #d1d5db);
+      max-width: 500px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.5;
+    }
+    .footer-cta .support-btn {
+      display: inline-block;
+    }
+    .footer-support-link {
+      color: #ffd166;
+    }
+    .copyright small {
+      opacity: 0.7;
+    }
+
     /* ── PWA install banner (shown when installable) ── */
     #pwa-install-bar {
       display: none;
