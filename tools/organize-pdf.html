@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/organize-pdf.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Organize PDF – Delete, Reorder & Extract Pages Free | Kimosabe Tools</title>
+
+  <meta name="description" content="Rearrange, delete, rotate, and extract PDF pages online for free in your browser. Drag pages to reorder, remove the ones you don't need, and save. No uploads.">
+  <meta name="keywords" content="organize pdf, delete pdf pages, reorder pdf pages, extract pdf pages, rearrange pdf, remove pages from pdf online free">
+  <meta name="author" content="Kimosabe Tools">
+
+  <meta property="og:title" content="Organize PDF – Delete, Reorder & Extract Pages | Kimosabe Tools">
+  <meta property="og:description" content="Rearrange and remove PDF pages 100% locally in your browser. No server uploads, no tracking.">
+  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser PDF page organizer">
+  <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/organize-pdf.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Organize PDF – Delete, Reorder & Extract Pages | Kimosabe Tools">
+  <meta name="twitter:description" content="Secure, browser-based PDF page organizing that keeps your files private.">
+  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
+  <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q', { 'anonymize_ip': true, 'allow_google_signals': false, 'allow_ad_personalization_signals': false });
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- pdf.js (thumbnails) + pdf-lib (rebuild) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+  <style>
+    #drop-zone:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    .toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: space-between; margin-bottom: var(--space-md); padding: 0.85rem 1rem; background: rgba(67,97,238,0.04); border: 1px solid rgba(67,97,238,0.12); border-radius: var(--radius-md); }
+    .toolbar .tb-group { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+    .tb-btn { background: white; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); padding: 0.5rem 0.85rem; font-size: 0.85rem; font-weight: 600; color: var(--gray-800); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .tb-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+    .tb-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .tb-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(67,97,238,0.35); }
+    .tb-count { font-size: 0.85rem; color: var(--gray-600); }
+
+    .pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+    .page-tile { position: relative; background: var(--gray-100); border: 2px solid var(--gray-200); border-radius: var(--radius-md); padding: 0.5rem; text-align: center; cursor: grab; transition: border-color 0.15s, opacity 0.15s, box-shadow 0.15s; }
+    .page-tile:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
+    .page-tile.selected { border-color: var(--accent); background: rgba(247,37,133,0.06); }
+    .page-tile.dragging { opacity: 0.4; }
+    .page-tile.drag-over { border-color: var(--primary); border-style: dashed; }
+    .page-tile:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(67,97,238,0.4); }
+    .page-tile canvas { width: 100%; height: auto; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); background: white; display: block; transition: transform 0.2s; }
+    .page-tile .pg-num { font-size: 0.78rem; color: var(--gray-700); font-weight: 600; margin-top: 0.4rem; }
+    .page-tile .pg-actions { display: flex; justify-content: center; gap: 0.2rem; margin-top: 0.3rem; }
+    .pg-act { background: none; border: none; cursor: pointer; font-size: 0.85rem; padding: 0.2rem 0.3rem; border-radius: var(--radius-sm); line-height: 1; }
+    .pg-act:hover { background: rgba(67,97,238,0.1); }
+    .pg-act:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(67,97,238,0.5); }
+    .sel-badge { position: absolute; top: 6px; left: 6px; width: 20px; height: 20px; border-radius: 50%; background: white; border: 2px solid var(--gray-300); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: white; }
+    .page-tile.selected .sel-badge { background: var(--accent); border-color: var(--accent); }
+    .empty-note { text-align: center; color: var(--gray-600); padding: 2rem; font-size: 0.95rem; }
+    .hint-line { font-size: 0.82rem; color: var(--gray-600); margin: 0.25rem 0 0.75rem; text-align: center; }
+  </style>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Organize PDF",
+        "url": "https://kimosabe-tools.pages.dev/tools/organize-pdf.html",
+        "description": "Reorder, delete, rotate and extract pages from a PDF in your browser, then save the result. 100% browser-based, no uploads.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires a modern web browser with JavaScript enabled",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "provider": { "@type": "Organization", "name": "Kimosabe Tools", "url": "https://kimosabe-tools.pages.dev" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Organize PDF", "item": "https://kimosabe-tools.pages.dev/tools/organize-pdf.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "How do I reorder pages?", "acceptedAnswer": {"@type": "Answer", "text": "Drag any page thumbnail to a new spot, or use the left and right arrow buttons on each page. The new order is used when you save."} },
+          { "@type": "Question", "name": "Can I delete or extract only some pages?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Select the pages you want, then either delete them or choose 'Keep selected only' to extract just those pages into a new PDF."} },
+          { "@type": "Question", "name": "Can I rotate individual pages?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Each page thumbnail has a rotate button, and the rotation is baked into the saved PDF."} },
+          { "@type": "Question", "name": "Is my PDF uploaded to a server?", "acceptedAnswer": {"@type": "Answer", "text": "No. Pages are rendered and rebuilt inside your browser using JavaScript. Your file never leaves your device."} }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="sticky-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="nav-logo-img"><img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40"></div>
+        <span>Kimosabe Tools</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#tools">All Tools</a>
+        <a href="../index.html#features">Features</a>
+        <a href="../about.html">About</a>
+        <a href="../donate.html" class="support-btn">☕ Support</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div style="max-width:1200px;margin:0 auto 1.5rem;padding:0 1.5rem;text-align:center;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="TOP_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-breadcrumb">
+        <a href="../index.html">Home</a> / <a href="../index.html#tools">Tools</a> / <span>Organize PDF</span>
+      </div>
+      <h1>Organize PDF</h1>
+      <p>Reorder, delete, rotate and extract pages, then save a fresh PDF. 100% private — files never leave your browser.</p>
+      <div style="margin-top:var(--space-sm);display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+        <span style="background:rgba(67,97,238,0.1);color:var(--primary);padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🔒 No Uploads</span>
+        <span style="background:rgba(247,37,133,0.1);color:var(--accent);padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🔀 Drag to Reorder</span>
+        <span style="background:rgba(34,197,94,0.1);color:#22c55e;padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🆓 Completely Free</span>
+      </div>
+    </div>
+
+    <section class="tool-wrapper">
+      <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Upload PDF file — click, press Enter, or drag and drop">
+        <div class="drop-zone-content">
+          <span class="icon" aria-hidden="true">🗂️</span>
+          <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
+          <span class="file-limit">Maximum size: 50 MB • PDF files only</span>
+        </div>
+        <input type="file" id="file-input" accept=".pdf" hidden />
+      </div>
+
+      <div id="editor" style="display:none;">
+        <div class="toolbar">
+          <div class="tb-group">
+            <button class="tb-btn" id="select-all-btn">☑️ Select all</button>
+            <button class="tb-btn" id="clear-sel-btn">✖️ Clear selection</button>
+            <span class="tb-count" id="sel-count" aria-live="polite">0 selected</span>
+          </div>
+          <div class="tb-group">
+            <button class="tb-btn" id="rotate-sel-btn" disabled>🔄 Rotate selected</button>
+            <button class="tb-btn" id="delete-sel-btn" disabled>🗑️ Delete selected</button>
+            <button class="tb-btn" id="keep-sel-btn" disabled>📑 Keep selected only</button>
+          </div>
+        </div>
+        <p class="hint-line">Drag pages to reorder · click a page to select · use each page's ↶ ↷ ← → 🗑️ buttons for keyboard control</p>
+
+        <div class="pages-grid" id="pages-grid" aria-label="PDF pages"></div>
+
+        <div class="action-buttons">
+          <button id="reset-btn2" class="btn btn-secondary">🗑️ Start Over</button>
+          <button id="save-btn" class="btn btn-primary">💾 Save PDF</button>
+        </div>
+      </div>
+
+      <div class="progress-container" id="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+      <p class="hint-line" id="thumb-progress" style="display:none;" aria-live="polite"></p>
+
+      <div id="status-area" class="status-area" aria-live="polite">
+        <p id="status-text">Building your PDF<span class="loading-dots"><span></span><span></span><span></span></span></p>
+      </div>
+
+      <div id="results-display" class="results-display">
+        <div class="results-header">
+          <div class="success-icon">✓</div>
+          <div>
+            <h3 style="margin:0;color:#10b981;font-size:1.5rem;">PDF Saved!</h3>
+            <p style="margin:0.25rem 0 0;color:var(--gray-600);font-size:0.95rem;" id="result-summary"></p>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <a href="#" id="download-btn" class="btn btn-success" style="display:none;">⬇️ Download PDF</a>
+          <button class="btn btn-secondary" id="reset-btn">🔄 Organize Another</button>
+        </div>
+      </div>
+
+      <div id="donate-reminder" class="donate-reminder">
+        <p>💖 Saved you some time? Consider buying me a coffee to keep this tool free!</p>
+        <a href="../donate.html" class="donate-link">☕ Support Kimosabe Tools</a>
+      </div>
+    </section>
+
+    <section class="tool-description">
+      <h2 style="text-align:center;margin-bottom:var(--space-lg);color:var(--dark);font-size:2rem;">Rearrange Pages Visually</h2>
+      <p style="text-align:center;max-width:700px;margin:0 auto var(--space-xl);color:var(--gray-600);font-size:1.1rem;">
+        See every page as a thumbnail, then drag to reorder, remove the ones you don't need, rotate the sideways ones, or extract just a few — all in your browser, nothing uploaded.
+      </p>
+      <div class="privacy-graphic">
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🔒</span> 100% Private</strong><p>Pages are rendered and rebuilt in your browser. Your PDF never touches our servers.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🔀</span> Drag to Reorder</strong><p>Grab a page and drop it anywhere, or use the arrow buttons for precise control.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">✂️</span> Delete or Extract</strong><p>Remove unwanted pages, or keep only the ones you select as a new PDF.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🆓</span> Free Forever</strong><p>No watermarks, no file limits, no registration needed.</p></div>
+      </div>
+    </section>
+
+    <section class="faq-section" style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200);">
+      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">Frequently Asked Questions</h2>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">How do I reorder pages?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Drag any page thumbnail to a new spot, or use the left and right arrow buttons on each page. The new order is used when you save.</p></div>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I delete or extract only some pages?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Yes. Select the pages you want, then either delete them or choose "Keep selected only" to extract just those pages into a new PDF.</p></div>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I rotate individual pages?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Yes. Each page thumbnail has a rotate button, and the rotation is baked into the saved PDF.</p></div>
+      <div style="padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Is my PDF uploaded to a server?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">No. Pages are rendered and rebuilt inside your browser using JavaScript. Your file never leaves your device.</p></div>
+    </section>
+
+    <nav class="more-tools">
+      <h3>Other Handy Tools</h3>
+      <div class="tools-grid">
+        <a href="rotate-split-pdf.html" class="tool-card"><div class="card-icon">✂️</div><span>Rotate &amp; Split</span></a>
+        <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+        <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+        <a href="pdf-to-images.html" class="tool-card"><div class="card-icon">🖼️</div><span>PDF to Images</span></a>
+        <a href="edit-pdf.html" class="tool-card"><div class="card-icon">✏️</div><span>Edit PDF</span></a>
+        <a href="sign-pdf.html" class="tool-card"><div class="card-icon">✍️</div><span>Sign PDF</span></a>
+      </div>
+    </nav>
+
+    <div style="max-width:1200px;margin:2rem auto 0;padding:0 1.5rem;text-align:center;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="BOTTOM_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-img"><img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60"></div>
+        <div class="footer-logo-text">Kimosabe Tools</div>
+      </div>
+      <div style="text-align:center;margin-bottom:2rem;">
+        <p style="color:var(--gray-300);max-width:500px;margin:0 auto 1.5rem;">Join thousands of users who trust their privacy to Kimosabe Tools</p>
+        <a href="../index.html#tools" class="support-btn" style="display:inline-block;">🚀 Explore All Tools</a>
+      </div>
+      <nav class="footer-links">
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../donate.html" style="color:#ffd166;">Support Us</a>
+      </nav>
+      <p class="copyright">© 2026 Kimosabe Tools. Built with ❤️ for privacy.<br><small style="opacity:0.7;">All file processing happens locally in your browser — your files are never uploaded.</small></p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const { PDFDocument, degrees } = PDFLib;
+
+    const dropZone       = document.getElementById('drop-zone');
+    const fileInput      = document.getElementById('file-input');
+    const editor         = document.getElementById('editor');
+    const pagesGrid      = document.getElementById('pages-grid');
+    const selCount       = document.getElementById('sel-count');
+    const selectAllBtn   = document.getElementById('select-all-btn');
+    const clearSelBtn    = document.getElementById('clear-sel-btn');
+    const rotateSelBtn   = document.getElementById('rotate-sel-btn');
+    const deleteSelBtn   = document.getElementById('delete-sel-btn');
+    const keepSelBtn     = document.getElementById('keep-sel-btn');
+    const saveBtn        = document.getElementById('save-btn');
+    const resetBtn       = document.getElementById('reset-btn');
+    const resetBtn2      = document.getElementById('reset-btn2');
+    const statusArea     = document.getElementById('status-area');
+    const statusText     = document.getElementById('status-text');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar    = document.getElementById('progress-bar');
+    const thumbProgress  = document.getElementById('thumb-progress');
+    const resultsDisplay = document.getElementById('results-display');
+    const resultSummary  = document.getElementById('result-summary');
+    const downloadBtn    = document.getElementById('download-btn');
+    const donateReminder = document.getElementById('donate-reminder');
+
+    let cachedPdfBytes = null;
+    let originalName   = '';
+    let pdfJsDoc = null;
+    let currentDownloadUrl = null;
+    // Model: array of { origIndex, rotation, selected, thumbUrl }
+    let pages = [];
+    let dragFrom = null;
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+    fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+    selectAllBtn.addEventListener('click', () => { pages.forEach(p => p.selected = true); render(); });
+    clearSelBtn.addEventListener('click', () => { pages.forEach(p => p.selected = false); render(); });
+    rotateSelBtn.addEventListener('click', () => { pages.forEach(p => { if (p.selected) p.rotation = (p.rotation + 90) % 360; }); render(); });
+    deleteSelBtn.addEventListener('click', () => {
+      const remaining = pages.filter(p => !p.selected);
+      if (!remaining.length) { alert('That would delete every page. Deselect at least one to keep.'); return; }
+      pages = remaining; render();
+    });
+    keepSelBtn.addEventListener('click', () => {
+      const kept = pages.filter(p => p.selected);
+      if (!kept.length) { alert('Select at least one page to keep.'); return; }
+      kept.forEach(p => p.selected = false);
+      pages = kept; render();
+    });
+    saveBtn.addEventListener('click', save);
+    resetBtn.addEventListener('click', resetTool);
+    resetBtn2.addEventListener('click', resetTool);
+
+    function formatBytes(b){ if(b===0)return '0 Bytes'; const k=1024,s=['Bytes','KB','MB','GB'],i=Math.floor(Math.log(b)/Math.log(k)); return parseFloat((b/Math.pow(k,i)).toFixed(2))+' '+s[i]; }
+    function isPasswordError(err){ if(!err) return false; if(err.name==='PasswordException') return true; const m=(err.message||'').toLowerCase(); return m.includes('password')||m.includes('encrypt'); }
+
+    async function handleFile(file) {
+      if (!file || file.type !== 'application/pdf') { alert('Please upload a valid PDF file.'); return; }
+      if (file.size > 50 * 1024 * 1024) { alert(`File is ${formatBytes(file.size)}. Maximum allowed size is 50 MB.`); return; }
+      try {
+        cachedPdfBytes = new Uint8Array(await file.arrayBuffer());
+        originalName = file.name.replace(/\.pdf$/i, '');
+        editor.style.display = 'none';
+        resultsDisplay.style.display = 'none';
+        donateReminder.style.display = 'none';
+        statusArea.style.display = 'none';
+        progressContainer.style.display = 'block';
+        thumbProgress.style.display = 'block';
+        progressBar.style.width = '0%';
+
+        pdfJsDoc = await pdfjsLib.getDocument({ data: cachedPdfBytes.slice(0) }).promise;
+        const total = pdfJsDoc.numPages;
+        pages = [];
+        for (let i = 1; i <= total; i++) {
+          thumbProgress.textContent = `Rendering thumbnails ${i} of ${total}…`;
+          progressBar.style.width = Math.round((i/total)*100) + '%';
+          const page = await pdfJsDoc.getPage(i);
+          const base = page.getViewport({ scale: 1 });
+          const scale = Math.min(200 / base.width, 1);
+          const vp = page.getViewport({ scale });
+          const canvas = document.createElement('canvas');
+          canvas.width = vp.width; canvas.height = vp.height;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#fff'; ctx.fillRect(0,0,vp.width,vp.height);
+          await page.render({ canvasContext: ctx, viewport: vp }).promise;
+          pages.push({ origIndex: i - 1, rotation: 0, selected: false, thumbUrl: canvas.toDataURL('image/jpeg', 0.7) });
+        }
+
+        progressContainer.style.display = 'none';
+        thumbProgress.style.display = 'none';
+        editor.style.display = 'block';
+        render();
+
+        if (typeof gtag !== 'undefined') gtag('event', 'pdf_loaded', { event_category: 'tool_usage', event_label: 'organize_pdf', value: total, transport_type: 'beacon' });
+      } catch (err) {
+        console.error(err);
+        progressContainer.style.display = 'none';
+        thumbProgress.style.display = 'none';
+        alert(isPasswordError(err) ? 'This PDF is password-protected. Please remove the password first (try our Unlock PDF tool).' : 'Could not read this PDF. It may be corrupted or unsupported.');
+      }
+    }
+
+    function render() {
+      pagesGrid.innerHTML = '';
+      if (!pages.length) { pagesGrid.innerHTML = '<div class="empty-note">No pages left. Start over to load another PDF.</div>'; updateToolbar(); return; }
+
+      pages.forEach((pg, idx) => {
+        const tile = document.createElement('div');
+        tile.className = 'page-tile' + (pg.selected ? ' selected' : '');
+        tile.setAttribute('draggable', 'true');
+        tile.dataset.index = idx;
+        tile.tabIndex = 0;
+        tile.setAttribute('role', 'button');
+        tile.setAttribute('aria-pressed', pg.selected ? 'true' : 'false');
+        tile.setAttribute('aria-label', `Page ${idx + 1}${pg.selected ? ', selected' : ''}. Enter to select, use buttons to rotate, move or delete.`);
+
+        tile.innerHTML = `
+          <div class="sel-badge" aria-hidden="true">${pg.selected ? '✓' : ''}</div>
+          <canvas class="tile-canvas"></canvas>
+          <div class="pg-num">Page ${idx + 1}</div>
+          <div class="pg-actions">
+            <button class="pg-act" data-act="rot-left"  title="Rotate left"  aria-label="Rotate page ${idx + 1} left">↶</button>
+            <button class="pg-act" data-act="rot-right" title="Rotate right" aria-label="Rotate page ${idx + 1} right">↷</button>
+            <button class="pg-act" data-act="move-left" title="Move left" aria-label="Move page ${idx + 1} left" ${idx === 0 ? 'disabled' : ''}>←</button>
+            <button class="pg-act" data-act="move-right" title="Move right" aria-label="Move page ${idx + 1} right" ${idx === pages.length - 1 ? 'disabled' : ''}>→</button>
+            <button class="pg-act" data-act="delete" title="Delete" aria-label="Delete page ${idx + 1}">🗑️</button>
+          </div>`;
+
+        // Draw thumbnail respecting rotation
+        const cv = tile.querySelector('.tile-canvas');
+        const img = new Image();
+        img.onload = () => {
+          const r = pg.rotation % 360;
+          if (r === 90 || r === 270) { cv.width = img.height; cv.height = img.width; }
+          else { cv.width = img.width; cv.height = img.height; }
+          const cx = cv.getContext('2d');
+          cx.save();
+          cx.translate(cv.width / 2, cv.height / 2);
+          cx.rotate(r * Math.PI / 180);
+          cx.drawImage(img, -img.width / 2, -img.height / 2);
+          cx.restore();
+        };
+        img.src = pg.thumbUrl;
+
+        // Select on tile click (not when clicking an action button)
+        tile.addEventListener('click', e => { if (e.target.closest('.pg-act')) return; pg.selected = !pg.selected; render(); });
+        tile.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pg.selected = !pg.selected; render(); }
+        });
+
+        // Action buttons
+        tile.querySelectorAll('.pg-act').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const act = btn.dataset.act;
+            if (act === 'rot-left')  { pg.rotation = (pg.rotation + 270) % 360; render(); }
+            if (act === 'rot-right') { pg.rotation = (pg.rotation + 90) % 360; render(); }
+            if (act === 'move-left'  && idx > 0)               { [pages[idx-1], pages[idx]] = [pages[idx], pages[idx-1]]; renderThenFocus(idx-1); }
+            if (act === 'move-right' && idx < pages.length-1)  { [pages[idx+1], pages[idx]] = [pages[idx], pages[idx+1]]; renderThenFocus(idx+1); }
+            if (act === 'delete') { pages.splice(idx, 1); render(); }
+          });
+        });
+
+        // Drag reorder
+        tile.addEventListener('dragstart', e => { dragFrom = idx; tile.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; });
+        tile.addEventListener('dragend', () => { tile.classList.remove('dragging'); document.querySelectorAll('.page-tile').forEach(t => t.classList.remove('drag-over')); });
+        tile.addEventListener('dragover', e => { e.preventDefault(); tile.classList.add('drag-over'); });
+        tile.addEventListener('dragleave', () => tile.classList.remove('drag-over'));
+        tile.addEventListener('drop', e => {
+          e.preventDefault(); tile.classList.remove('drag-over');
+          const to = idx;
+          if (dragFrom === null || dragFrom === to) return;
+          const [moved] = pages.splice(dragFrom, 1);
+          pages.splice(to, 0, moved);
+          dragFrom = null;
+          render();
+        });
+
+        pagesGrid.appendChild(tile);
+      });
+
+      updateToolbar();
+    }
+
+    function renderThenFocus(targetIdx) {
+      render();
+      const tiles = pagesGrid.querySelectorAll('.page-tile');
+      if (tiles[targetIdx]) {
+        const btn = tiles[targetIdx].querySelector(`[data-act="${targetIdx === 0 ? 'move-right' : (targetIdx === pages.length-1 ? 'move-left' : 'move-left')}"]`);
+        if (btn && !btn.disabled) btn.focus(); else tiles[targetIdx].focus();
+      }
+    }
+
+    function updateToolbar() {
+      const selected = pages.filter(p => p.selected).length;
+      selCount.textContent = `${selected} selected`;
+      rotateSelBtn.disabled = selected === 0;
+      deleteSelBtn.disabled = selected === 0;
+      keepSelBtn.disabled = selected === 0;
+      saveBtn.disabled = pages.length === 0;
+    }
+
+    async function save() {
+      if (!pages.length) { alert('There are no pages to save.'); return; }
+      statusArea.style.display = 'block';
+      editor.style.display = 'block';
+      resultsDisplay.style.display = 'none';
+      donateReminder.style.display = 'none';
+      progressContainer.style.display = 'block';
+      progressBar.style.width = '10%';
+      saveBtn.disabled = true;
+
+      try {
+        const src = await PDFDocument.load(cachedPdfBytes.slice(0), { ignoreEncryption: true });
+        const out = await PDFDocument.create();
+        const indices = pages.map(p => p.origIndex);
+        const copied = await out.copyPages(src, indices);
+        copied.forEach((page, i) => {
+          progressBar.style.width = (10 + Math.round((i/copied.length)*80)) + '%';
+          const extra = pages[i].rotation % 360;
+          if (extra) {
+            const current = page.getRotation().angle || 0;
+            page.setRotation(degrees((current + extra) % 360));
+          }
+          out.addPage(page);
+        });
+
+        progressBar.style.width = '95%';
+        const bytes = await out.save();
+        progressBar.style.width = '100%';
+
+        if (currentDownloadUrl) URL.revokeObjectURL(currentDownloadUrl);
+        const blob = new Blob([bytes], { type: 'application/pdf' });
+        currentDownloadUrl = URL.createObjectURL(blob);
+        const fileName = `${originalName}_organized.pdf`;
+        downloadBtn.href = currentDownloadUrl;
+        downloadBtn.download = fileName;
+        downloadBtn.style.display = 'inline-flex';
+        resultSummary.textContent = `${pages.length} page${pages.length !== 1 ? 's' : ''} • ${formatBytes(blob.size)}`;
+
+        progressContainer.style.display = 'none';
+        statusArea.style.display = 'none';
+        resultsDisplay.style.display = 'block';
+        donateReminder.style.display = 'block';
+
+        if (typeof gtag !== 'undefined') gtag('event', 'pdf_organized', { event_category: 'tool_usage', event_label: 'organize_pdf', value: pages.length, transport_type: 'beacon' });
+      } catch (err) {
+        console.error(err);
+        statusText.innerHTML = `<span style="color:#ef4444;">⚠️ ${err.message || 'Something went wrong. Please try again.'}</span>`;
+        progressContainer.style.display = 'none';
+      } finally {
+        saveBtn.disabled = false;
+      }
+    }
+
+    function resetTool() {
+      if (currentDownloadUrl) { URL.revokeObjectURL(currentDownloadUrl); currentDownloadUrl = null; }
+      cachedPdfBytes = null; originalName = ''; pdfJsDoc = null; pages = []; dragFrom = null;
+      editor.style.display = 'none';
+      pagesGrid.innerHTML = '';
+      statusArea.style.display = 'none';
+      resultsDisplay.style.display = 'none';
+      donateReminder.style.display = 'none';
+      progressContainer.style.display = 'none';
+      thumbProgress.style.display = 'none';
+      progressBar.style.width = '0%';
+      downloadBtn.style.display = 'none';
+      fileInput.value = '';
+    }
+
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => { backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none'; });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    document.addEventListener('DOMContentLoaded', () => { if (typeof gtag !== 'undefined') gtag('event', 'page_view', { page_title: 'Organize PDF', page_location: window.location.href }); });
+  </script>
+</body>
+</html>
