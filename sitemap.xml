@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://kimosabe-tools.pages.dev/</loc>
     <priority>1.00</priority>
   </url>
-
   <url>
     <loc>https://kimosabe-tools.pages.dev/tools/image-compressor.html</loc>
     <priority>0.80</priority>
@@ -19,10 +17,17 @@
     <priority>0.80</priority>
   </url>
   <url>
+    <loc>https://kimosabe-tools.pages.dev/tools/image-editor.html</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://kimosabe-tools.pages.dev/tools/image-to-pdf.html</loc>
     <priority>0.80</priority>
   </url>
-
+  <url>
+    <loc>https://kimosabe-tools.pages.dev/tools/pdf-to-images.html</loc>
+    <priority>0.80</priority>
+  </url>
   <url>
     <loc>https://kimosabe-tools.pages.dev/tools/edit-pdf.html</loc>
     <priority>0.90</priority>
@@ -36,6 +41,10 @@
     <priority>0.90</priority>
   </url>
   <url>
+    <loc>https://kimosabe-tools.pages.dev/tools/organize-pdf.html</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
     <loc>https://kimosabe-tools.pages.dev/tools/compress-pdf.html</loc>
     <priority>0.90</priority>
   </url>
@@ -43,7 +52,22 @@
     <loc>https://kimosabe-tools.pages.dev/tools/sign-pdf.html</loc>
     <priority>0.90</priority>
   </url>
-
+  <url>
+    <loc>https://kimosabe-tools.pages.dev/tools/unlock-pdf.html</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://kimosabe-tools.pages.dev/tools/watermark-pdf.html</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://kimosabe-tools.pages.dev/tools/page-numbers-pdf.html</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://kimosabe-tools.pages.dev/tools/qr-code-generator.html</loc>
+    <priority>0.80</priority>
+  </url>
   <url>
     <loc>https://kimosabe-tools.pages.dev/about.html</loc>
     <priority>0.50</priority>
@@ -53,8 +77,15 @@
     <priority>0.50</priority>
   </url>
   <url>
+    <loc>https://kimosabe-tools.pages.dev/donate.html</loc>
+    <priority>0.50</priority>
+  </url>
+  <url>
     <loc>https://kimosabe-tools.pages.dev/privacy.html</loc>
     <priority>0.30</priority>
   </url>
-
+  <url>
+    <loc>https://kimosabe-tools.pages.dev/terms.html</loc>
+    <priority>0.30</priority>
+  </url>
 </urlset>
