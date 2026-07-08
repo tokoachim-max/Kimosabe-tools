@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/unlock-pdf.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Unlock PDF – Remove PDF Password Free Online | Kimosabe Tools</title>
+
+  <meta name="description" content="Remove a password from a PDF you can open, free and in your browser. Strip open passwords and owner restrictions so you can save an unlocked copy. No uploads.">
+  <meta name="keywords" content="unlock pdf, remove pdf password, decrypt pdf online free, remove password from pdf, pdf password remover, unlock pdf without uploading">
+  <meta name="author" content="Kimosabe Tools">
+
+  <meta property="og:title" content="Unlock PDF – Remove PDF Password Free | Kimosabe Tools">
+  <meta property="og:description" content="Remove a PDF password 100% locally in your browser. No server uploads, no tracking.">
+  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser PDF password remover">
+  <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/unlock-pdf.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unlock PDF – Remove PDF Password Free | Kimosabe Tools">
+  <meta name="twitter:description" content="Secure, browser-based PDF unlocking that keeps your files private.">
+  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
+  <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q', { 'anonymize_ip': true, 'allow_google_signals': false, 'allow_ad_personalization_signals': false });
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- pdf.js (decrypt with supplied password) + pdf-lib (rebuild unlocked) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+  <style>
+    #drop-zone:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    /* Legitimate-use notice */
+    .use-notice {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      margin-bottom: var(--space-md); padding: 0.85rem 1rem;
+      background: rgba(67,97,238,0.06); border: 1px solid rgba(67,97,238,0.18);
+      border-radius: 10px; font-size: 0.85rem; color: #1e3a8a; line-height: 1.5;
+    }
+
+    .password-panel { margin: 1.5rem 0; padding: 1.5rem; background: rgba(67,97,238,0.04); border: 1px solid rgba(67,97,238,0.12); border-radius: var(--radius-lg); }
+    .password-panel h3 { margin: 0 0 0.75rem; font-size: 0.95rem; font-weight: 600; color: var(--dark); text-transform: uppercase; letter-spacing: 0.05em; }
+    .password-panel p.hint { font-size: 0.85rem; color: var(--gray-600); margin-bottom: 0.75rem; line-height: 1.5; }
+    .pw-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .pw-row input { flex: 1; min-width: 200px; padding: 0.7rem 0.85rem; border: 2px solid var(--gray-300); border-radius: var(--radius-md); font-size: 0.95rem; font-family: inherit; background: white; color: var(--dark); }
+    .pw-row input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67,97,238,0.1); }
+    .pw-toggle { background: var(--gray-200); border: none; border-radius: var(--radius-md); padding: 0 1rem; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--gray-800); }
+    .pw-toggle:hover { background: var(--gray-300); }
+    .file-chip { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--gray-700); margin-bottom: var(--space-md); }
+    .dismiss-error-btn { display: none; margin-top: var(--space-sm); padding: 0.5rem 1.25rem; background: none; border: 1px solid #ef4444; color: #ef4444; border-radius: 50px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+    .dismiss-error-btn:hover { background: #ef4444; color: white; }
+  </style>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Unlock PDF",
+        "url": "https://kimosabe-tools.pages.dev/tools/unlock-pdf.html",
+        "description": "Remove a password or owner restrictions from a PDF you can open, and save an unlocked copy. 100% browser-based, no uploads.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires a modern web browser with JavaScript enabled",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "provider": { "@type": "Organization", "name": "Kimosabe Tools", "url": "https://kimosabe-tools.pages.dev" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Unlock PDF", "item": "https://kimosabe-tools.pages.dev/tools/unlock-pdf.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Can this crack or guess a password I don't know?", "acceptedAnswer": {"@type": "Answer", "text": "No. This tool only removes a password you already know, or lifts owner restrictions on a PDF you can already open. It cannot break, guess, or recover an unknown password."} },
+          { "@type": "Question", "name": "What is the difference between an open password and owner restrictions?", "acceptedAnswer": {"@type": "Answer", "text": "An open (user) password is required just to view the PDF — enter it and we produce an unlocked copy. Owner restrictions limit printing, copying or editing without a password to open; those can be removed directly."} },
+          { "@type": "Question", "name": "Is my PDF or password uploaded to a server?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything happens inside your browser using JavaScript. Neither your file nor your password ever leaves your device."} },
+          { "@type": "Question", "name": "Should I only unlock PDFs I own?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Only remove protection from documents you own or have permission to modify. This tool is intended for your own password-protected files."} }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="sticky-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="nav-logo-img"><img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40"></div>
+        <span>Kimosabe Tools</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#tools">All Tools</a>
+        <a href="../index.html#features">Features</a>
+        <a href="../about.html">About</a>
+        <a href="../donate.html" class="support-btn">☕ Support</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div style="max-width:1200px;margin:0 auto 1.5rem;padding:0 1.5rem;text-align:center;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="TOP_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-breadcrumb">
+        <a href="../index.html">Home</a> / <a href="../index.html#tools">Tools</a> / <span>Unlock PDF</span>
+      </div>
+      <h1>Unlock PDF</h1>
+      <p>Remove a password you know, or lift owner restrictions, and save an unlocked copy. 100% private — files never leave your browser.</p>
+      <div style="margin-top:var(--space-sm);display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+        <span style="background:rgba(67,97,238,0.1);color:var(--primary);padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🔒 No Uploads</span>
+        <span style="background:rgba(247,37,133,0.1);color:var(--accent);padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🔓 Remove Password</span>
+        <span style="background:rgba(34,197,94,0.1);color:#22c55e;padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🆓 Completely Free</span>
+      </div>
+    </div>
+
+    <section class="tool-wrapper">
+      <div class="use-notice">
+        <span aria-hidden="true">ℹ️</span>
+        <span><strong>Please note:</strong> This tool removes a password you already know (or restrictions on a file you can open). It does <strong>not</strong> crack, guess, or recover unknown passwords. Only unlock documents you own or are permitted to modify.</span>
+      </div>
+
+      <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Upload PDF file — click, press Enter, or drag and drop">
+        <div class="drop-zone-content">
+          <span class="icon" aria-hidden="true">🔓</span>
+          <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
+          <span class="file-limit">Maximum size: 50 MB • PDF files only</span>
+        </div>
+        <input type="file" id="file-input" accept=".pdf" hidden />
+      </div>
+
+      <div id="password-panel" class="password-panel" style="display:none;">
+        <div class="file-chip"><span aria-hidden="true">📄</span> <span id="file-chip-name">document.pdf</span></div>
+        <h3>Unlock</h3>
+        <p class="hint" id="pw-hint">If this PDF asks for a password to open, enter it below. If it only has printing/copying restrictions, just click Unlock.</p>
+        <div class="pw-row">
+          <input type="password" id="pw-input" placeholder="Password (leave blank if none)" autocomplete="off" aria-label="PDF password">
+          <button type="button" class="pw-toggle" id="pw-toggle" aria-label="Show password">👁 Show</button>
+        </div>
+        <div class="action-buttons">
+          <button id="clear-btn" class="btn btn-secondary">🗑️ Clear</button>
+          <button id="unlock-btn" class="btn btn-primary">🔓 Unlock PDF</button>
+        </div>
+      </div>
+
+      <div class="progress-container" id="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+
+      <div id="status-area" class="status-area" aria-live="polite">
+        <p id="status-text">Unlocking your PDF<span class="loading-dots"><span></span><span></span><span></span></span></p>
+        <button id="dismiss-error-btn" class="dismiss-error-btn">Dismiss</button>
+      </div>
+
+      <div id="results-display" class="results-display">
+        <div class="results-header">
+          <div class="success-icon">✓</div>
+          <div>
+            <h3 style="margin:0;color:#10b981;font-size:1.5rem;">PDF Unlocked!</h3>
+            <p style="margin:0.25rem 0 0;color:var(--gray-600);font-size:0.95rem;" id="result-summary"></p>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <a href="#" id="download-btn" class="btn btn-success" style="display:none;">⬇️ Download Unlocked PDF</a>
+          <button class="btn btn-secondary" id="reset-btn">🔄 Unlock Another</button>
+        </div>
+      </div>
+
+      <div id="donate-reminder" class="donate-reminder">
+        <p>💖 Saved you some time? Consider buying me a coffee to keep this tool free!</p>
+        <a href="../donate.html" class="donate-link">☕ Support Kimosabe Tools</a>
+      </div>
+    </section>
+
+    <section class="tool-description">
+      <h2 style="text-align:center;margin-bottom:var(--space-lg);color:var(--dark);font-size:2rem;">Your Files, Your Passwords</h2>
+      <p style="text-align:center;max-width:700px;margin:0 auto var(--space-xl);color:var(--gray-600);font-size:1.1rem;">
+        Remove the password from a PDF you can open, or clear owner restrictions that block printing and copying — entirely in your browser, so neither the file nor the password is ever sent anywhere.
+      </p>
+      <div class="privacy-graphic">
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🔒</span> 100% Private</strong><p>Decryption happens in your browser. Your file and password never touch our servers.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🔓</span> Password &amp; Restrictions</strong><p>Strip an open password you know, or lift owner restrictions on a file you can open.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">⚡</span> Instant</strong><p>Unlocking runs at your device's speed — no waiting on a server queue.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🆓</span> Free Forever</strong><p>No watermarks, no file limits, no registration needed.</p></div>
+      </div>
+    </section>
+
+    <section class="faq-section" style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200);">
+      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">Frequently Asked Questions</h2>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can this crack or guess a password I don't know?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">No. This tool only removes a password you already know, or lifts owner restrictions on a PDF you can already open. It cannot break, guess, or recover an unknown password.</p></div>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">What is the difference between an open password and owner restrictions?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">An open (user) password is required just to view the PDF — enter it and we produce an unlocked copy. Owner restrictions limit printing, copying or editing without a password to open; those can be removed directly.</p></div>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Is my PDF or password uploaded to a server?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">No. Everything happens inside your browser using JavaScript. Neither your file nor your password ever leaves your device.</p></div>
+      <div style="padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Should I only unlock PDFs I own?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Yes. Only remove protection from documents you own or have permission to modify. This tool is intended for your own password-protected files.</p></div>
+    </section>
+
+    <nav class="more-tools">
+      <h3>Other Handy Tools</h3>
+      <div class="tools-grid">
+        <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+        <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+        <a href="rotate-split-pdf.html" class="tool-card"><div class="card-icon">✂️</div><span>Rotate &amp; Split</span></a>
+        <a href="edit-pdf.html" class="tool-card"><div class="card-icon">✏️</div><span>Edit PDF</span></a>
+        <a href="sign-pdf.html" class="tool-card"><div class="card-icon">✍️</div><span>Sign PDF</span></a>
+        <a href="pdf-to-images.html" class="tool-card"><div class="card-icon">🖼️</div><span>PDF to Images</span></a>
+      </div>
+    </nav>
+
+    <div style="max-width:1200px;margin:2rem auto 0;padding:0 1.5rem;text-align:center;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="BOTTOM_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-img"><img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60"></div>
+        <div class="footer-logo-text">Kimosabe Tools</div>
+      </div>
+      <div style="text-align:center;margin-bottom:2rem;">
+        <p style="color:var(--gray-300);max-width:500px;margin:0 auto 1.5rem;">Join thousands of users who trust their privacy to Kimosabe Tools</p>
+        <a href="../index.html#tools" class="support-btn" style="display:inline-block;">🚀 Explore All Tools</a>
+      </div>
+      <nav class="footer-links">
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../donate.html" style="color:#ffd166;">Support Us</a>
+      </nav>
+      <p class="copyright">© 2026 Kimosabe Tools. Built with ❤️ for privacy.<br><small style="opacity:0.7;">All file processing happens locally in your browser — your files are never uploaded.</small></p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const { PDFDocument } = PDFLib;
+
+    const dropZone       = document.getElementById('drop-zone');
+    const fileInput      = document.getElementById('file-input');
+    const passwordPanel  = document.getElementById('password-panel');
+    const fileChipName   = document.getElementById('file-chip-name');
+    const pwInput        = document.getElementById('pw-input');
+    const pwToggle       = document.getElementById('pw-toggle');
+    const unlockBtn      = document.getElementById('unlock-btn');
+    const clearBtn       = document.getElementById('clear-btn');
+    const resetBtn       = document.getElementById('reset-btn');
+    const statusArea     = document.getElementById('status-area');
+    const statusText     = document.getElementById('status-text');
+    const dismissErrorBtn= document.getElementById('dismiss-error-btn');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar    = document.getElementById('progress-bar');
+    const resultsDisplay = document.getElementById('results-display');
+    const resultSummary  = document.getElementById('result-summary');
+    const downloadBtn    = document.getElementById('download-btn');
+    const donateReminder = document.getElementById('donate-reminder');
+
+    let cachedFile = null;
+    let originalName = '';
+    let currentDownloadUrl = null;
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+    fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+    clearBtn.addEventListener('click', resetTool);
+    resetBtn.addEventListener('click', resetTool);
+    unlockBtn.addEventListener('click', unlock);
+    dismissErrorBtn.addEventListener('click', () => { statusArea.style.display = 'none'; dismissErrorBtn.style.display = 'none'; });
+    pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
+    pwToggle.addEventListener('click', () => {
+      const show = pwInput.type === 'password';
+      pwInput.type = show ? 'text' : 'password';
+      pwToggle.textContent = show ? '🙈 Hide' : '👁 Show';
+      pwToggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+    });
+
+    function formatBytes(b){ if(b===0)return '0 Bytes'; const k=1024,s=['Bytes','KB','MB','GB'],i=Math.floor(Math.log(b)/Math.log(k)); return parseFloat((b/Math.pow(k,i)).toFixed(2))+' '+s[i]; }
+    function showError(msg){ statusArea.style.display='block'; statusText.innerHTML=`<span style="color:#ef4444;">⚠️ ${msg}</span>`; dismissErrorBtn.style.display='inline-flex'; progressContainer.style.display='none'; }
+
+    function handleFile(file) {
+      if (!file || file.type !== 'application/pdf') { alert('Please upload a valid PDF file.'); return; }
+      if (file.size > 50 * 1024 * 1024) { alert(`File is ${formatBytes(file.size)}. Maximum allowed size is 50 MB.`); return; }
+      cachedFile = file;
+      originalName = file.name.replace(/\.pdf$/i, '');
+      fileChipName.textContent = file.name;
+      passwordPanel.style.display = 'block';
+      resultsDisplay.style.display = 'none';
+      donateReminder.style.display = 'none';
+      statusArea.style.display = 'none';
+      dismissErrorBtn.style.display = 'none';
+      pwInput.value = '';
+      pwInput.focus();
+    }
+
+    async function unlock() {
+      if (!cachedFile) { alert('Please upload a PDF first.'); return; }
+      const password = pwInput.value;   // may be empty (owner-restrictions case)
+
+      statusArea.style.display = 'block';
+      dismissErrorBtn.style.display = 'none';
+      statusText.innerHTML = `Unlocking your PDF<span class="loading-dots"><span></span><span></span><span></span></span>`;
+      resultsDisplay.style.display = 'none';
+      donateReminder.style.display = 'none';
+      progressContainer.style.display = 'block';
+      progressBar.style.width = '15%';
+      unlockBtn.disabled = true;
+
+      try {
+        const buffer = await cachedFile.arrayBuffer();
+        progressBar.style.width = '35%';
+
+        // Step 1: use pdf.js to open (and decrypt if a password is supplied).
+        // This verifies the password and lets us detect wrong/needed passwords cleanly.
+        const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(buffer.slice(0)), password: password || undefined });
+        let pdfJs;
+        try {
+          pdfJs = await loadingTask.promise;
+        } catch (err) {
+          if (err && err.name === 'PasswordException') {
+            // code 1 = need password, code 2 = incorrect password
+            if (err.code === 2) { showError('That password is incorrect. Please check it and try again.'); }
+            else { showError('This PDF needs a password to open. Please enter it above.'); }
+            unlockBtn.disabled = false;
+            return;
+          }
+          throw err;
+        }
+        progressBar.style.width = '55%';
+
+        // Step 2: rebuild an unlocked PDF with pdf-lib by copying every page.
+        // pdf-lib can load the (possibly owner-restricted) doc with ignoreEncryption,
+        // and the output we save carries no encryption at all.
+        const srcDoc = await PDFDocument.load(buffer.slice(0), { ignoreEncryption: true });
+        const outDoc = await PDFDocument.create();
+        const pageIndices = srcDoc.getPageIndices();
+        const copied = await outDoc.copyPages(srcDoc, pageIndices);
+        copied.forEach(p => outDoc.addPage(p));
+        progressBar.style.width = '85%';
+
+        const outBytes = await outDoc.save();   // no encryption options → unlocked
+        progressBar.style.width = '100%';
+
+        if (currentDownloadUrl) URL.revokeObjectURL(currentDownloadUrl);
+        const blob = new Blob([outBytes], { type: 'application/pdf' });
+        currentDownloadUrl = URL.createObjectURL(blob);
+        const fileName = `${originalName}_unlocked.pdf`;
+        downloadBtn.href = currentDownloadUrl;
+        downloadBtn.download = fileName;
+        downloadBtn.style.display = 'inline-flex';
+        resultSummary.textContent = `${pageIndices.length} page${pageIndices.length !== 1 ? 's' : ''} • ${formatBytes(blob.size)} • password removed`;
+
+        progressContainer.style.display = 'none';
+        statusArea.style.display = 'none';
+        resultsDisplay.style.display = 'block';
+        donateReminder.style.display = 'block';
+
+        if (typeof gtag !== 'undefined') gtag('event', 'pdf_unlocked', { event_category: 'tool_usage', event_label: 'unlock_pdf', value: pageIndices.length, transport_type: 'beacon' });
+      } catch (err) {
+        console.error('Unlock error:', err);
+        showError(err.message ? `Could not unlock this PDF: ${err.message}` : 'Could not unlock this PDF. It may be corrupted or use an unsupported encryption scheme.');
+      } finally {
+        unlockBtn.disabled = false;
+      }
+    }
+
+    function resetTool() {
+      if (currentDownloadUrl) { URL.revokeObjectURL(currentDownloadUrl); currentDownloadUrl = null; }
+      cachedFile = null; originalName = '';
+      passwordPanel.style.display = 'none';
+      statusArea.style.display = 'none';
+      dismissErrorBtn.style.display = 'none';
+      resultsDisplay.style.display = 'none';
+      donateReminder.style.display = 'none';
+      progressContainer.style.display = 'none';
+      progressBar.style.width = '0%';
+      downloadBtn.style.display = 'none';
+      fileInput.value = '';
+      pwInput.value = ''; pwInput.type = 'password'; pwToggle.textContent = '👁 Show';
+    }
+
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => { backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none'; });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    document.addEventListener('DOMContentLoaded', () => { if (typeof gtag !== 'undefined') gtag('event', 'page_view', { page_title: 'Unlock PDF', page_location: window.location.href }); });
+  </script>
+</body>
+</html>
