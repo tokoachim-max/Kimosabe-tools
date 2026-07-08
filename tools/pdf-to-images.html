@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/pdf-to-images.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>PDF to Images – Convert PDF to JPG or PNG Free | Kimosabe Tools</title>
+
+  <meta name="description" content="Convert each page of a PDF into a JPG or PNG image, free and in your browser. Download pages individually or all at once as a ZIP. No uploads, no registration.">
+  <meta name="keywords" content="pdf to jpg, pdf to png, pdf to image, convert pdf to images online free, extract images from pdf, pdf page to image">
+  <meta name="author" content="Kimosabe Tools">
+
+  <meta property="og:title" content="PDF to Images – Convert PDF to JPG or PNG | Kimosabe Tools">
+  <meta property="og:description" content="Turn PDF pages into images 100% locally in your browser. No server uploads, no tracking.">
+  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser PDF to image converter">
+  <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/pdf-to-images.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PDF to Images – Convert PDF to JPG or PNG | Kimosabe Tools">
+  <meta name="twitter:description" content="Secure, browser-based PDF to image conversion that keeps your files private.">
+  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
+  <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q', { 'anonymize_ip': true, 'allow_google_signals': false, 'allow_ad_personalization_signals': false });
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- pdf.js (render pages) + JSZip (bundle downloads) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <style>
+    /* Page-specific UI, themed with shared CSS variables */
+    #drop-zone:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    .format-selector { margin: 1.5rem 0; padding: 1.5rem; background: rgba(67,97,238,0.04); border: 1px solid rgba(67,97,238,0.12); border-radius: var(--radius-lg); }
+    .format-selector h3 { margin: 0 0 1rem; font-size: 0.95rem; font-weight: 600; color: var(--dark); text-transform: uppercase; letter-spacing: 0.05em; }
+    .format-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1rem; }
+    .format-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .format-option label { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 1rem; border: 2px solid rgba(67,97,238,0.2); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s; background: white; text-align: center; }
+    .format-option label:hover { border-color: var(--primary); background: rgba(67,97,238,0.04); }
+    .format-option input[type="radio"]:checked + label { border-color: var(--primary); background: rgba(67,97,238,0.08); box-shadow: 0 0 0 3px rgba(67,97,238,0.15); }
+    .format-option input[type="radio"]:focus-visible + label { box-shadow: 0 0 0 3px rgba(67,97,238,0.35); }
+    .format-option .fmt-name { font-weight: 600; color: var(--dark); }
+    .format-option .fmt-desc { font-size: 0.78rem; color: var(--gray-600); line-height: 1.3; }
+
+    .quality-row { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+    .quality-row label { font-size: 0.9rem; color: var(--gray-700); font-weight: 500; min-width: 130px; }
+    .quality-row input[type="range"] { flex: 1; accent-color: var(--primary); cursor: pointer; min-width: 160px; }
+    .quality-row #quality-value { min-width: 48px; text-align: right; font-weight: 600; color: var(--primary); }
+    .quality-row.disabled { opacity: 0.45; }
+
+    .thumbs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+    .thumb-card { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 0.5rem; text-align: center; }
+    .thumb-card img { width: 100%; height: auto; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); background: white; display: block; }
+    .thumb-card .thumb-meta { font-size: 0.78rem; color: var(--gray-600); margin: 0.4rem 0; }
+    .thumb-card a.thumb-dl { display: inline-block; font-size: 0.8rem; font-weight: 600; color: var(--primary); text-decoration: none; padding: 0.3rem 0.6rem; border-radius: var(--radius-sm); }
+    .thumb-card a.thumb-dl:hover { background: rgba(67,97,238,0.1); }
+    .page-progress-label { font-size: 0.85rem; color: var(--gray-600); margin-top: 0.5rem; text-align: center; }
+  </style>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "PDF to Images Converter",
+        "url": "https://kimosabe-tools.pages.dev/tools/pdf-to-images.html",
+        "description": "Convert each page of a PDF into a JPG or PNG image directly in your browser. Download individually or as a ZIP. 100% browser-based, no uploads.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires a modern web browser with JavaScript enabled",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "provider": { "@type": "Organization", "name": "Kimosabe Tools", "url": "https://kimosabe-tools.pages.dev" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "PDF to Images", "item": "https://kimosabe-tools.pages.dev/tools/pdf-to-images.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What image formats can I export to?", "acceptedAnswer": {"@type": "Answer", "text": "You can export each PDF page as a JPG or a PNG. JPG is smaller and best for photos; PNG is lossless and best for text or line art."} },
+          { "@type": "Question", "name": "Can I download all pages at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Once conversion finishes you can download every page in a single ZIP file, or save individual pages one at a time."} },
+          { "@type": "Question", "name": "Is my PDF uploaded to a server?", "acceptedAnswer": {"@type": "Answer", "text": "No. Every page is rendered inside your browser using JavaScript. Your file never leaves your device."} },
+          { "@type": "Question", "name": "Can I control the image resolution?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. A resolution slider lets you render pages at higher DPI for sharper images, or lower DPI for smaller files."} }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="sticky-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="nav-logo-img"><img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40"></div>
+        <span>Kimosabe Tools</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#tools">All Tools</a>
+        <a href="../index.html#features">Features</a>
+        <a href="../about.html">About</a>
+        <a href="../donate.html" class="support-btn">☕ Support</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Ad: above tool -->
+    <div style="max-width:1200px;margin:0 auto 1.5rem;padding:0 1.5rem;text-align:center;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="TOP_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-breadcrumb">
+        <a href="../index.html">Home</a> / <a href="../index.html#tools">Tools</a> / <span>PDF to Images</span>
+      </div>
+      <h1>PDF to Images</h1>
+      <p>Turn every page of your PDF into a JPG or PNG. 100% private — files never leave your browser.</p>
+      <div style="margin-top:var(--space-sm);display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+        <span style="background:rgba(67,97,238,0.1);color:var(--primary);padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🔒 No Uploads</span>
+        <span style="background:rgba(247,37,133,0.1);color:var(--accent);padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🖼️ JPG &amp; PNG</span>
+        <span style="background:rgba(34,197,94,0.1);color:#22c55e;padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🆓 Completely Free</span>
+      </div>
+    </div>
+
+    <section class="tool-wrapper">
+      <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Upload PDF file — click, press Enter, or drag and drop">
+        <div class="drop-zone-content">
+          <span class="icon" aria-hidden="true">📄➡️🖼️</span>
+          <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
+          <span class="file-limit">Maximum size: 50 MB • PDF files only</span>
+        </div>
+        <input type="file" id="file-input" accept=".pdf" hidden />
+      </div>
+
+      <!-- Options -->
+      <div id="options" class="format-selector" style="display:none;">
+        <h3>Output Format</h3>
+        <div class="format-options" role="radiogroup" aria-label="Image format">
+          <div class="format-option">
+            <input type="radio" name="format" id="fmt-jpg" value="jpg" checked>
+            <label for="fmt-jpg"><span class="fmt-name">JPG</span><span class="fmt-desc">Smaller files, best for photos</span></label>
+          </div>
+          <div class="format-option">
+            <input type="radio" name="format" id="fmt-png" value="png">
+            <label for="fmt-png"><span class="fmt-name">PNG</span><span class="fmt-desc">Lossless, best for text &amp; line art</span></label>
+          </div>
+        </div>
+
+        <div class="quality-row" id="quality-row">
+          <label for="resolution">Resolution (DPI)</label>
+          <input type="range" id="resolution" min="72" max="300" value="150" step="6" aria-label="Render resolution in DPI">
+          <span id="quality-value">150</span>
+        </div>
+        <div class="quality-row" id="jpg-quality-row" style="margin-top:0.75rem;">
+          <label for="jpg-quality">JPG Quality</label>
+          <input type="range" id="jpg-quality" min="50" max="100" value="85" step="1" aria-label="JPEG quality percent">
+          <span id="jpg-quality-value">85%</span>
+        </div>
+
+        <div class="action-buttons">
+          <button id="clear-btn" class="btn btn-secondary">🗑️ Clear</button>
+          <button id="convert-btn" class="btn btn-primary">🖼️ Convert to Images</button>
+        </div>
+      </div>
+
+      <div class="progress-container" id="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+      <p class="page-progress-label" id="page-progress-label" style="display:none;" aria-live="polite"></p>
+
+      <div id="status-area" class="status-area" aria-live="polite">
+        <p id="status-text">Rendering your PDF<span class="loading-dots"><span></span><span></span><span></span></span></p>
+      </div>
+
+      <div id="results-display" class="results-display">
+        <div class="results-header">
+          <div class="success-icon">✓</div>
+          <div>
+            <h3 style="margin:0;color:#10b981;font-size:1.5rem;">Conversion Complete!</h3>
+            <p style="margin:0.25rem 0 0;color:var(--gray-600);font-size:0.95rem;" id="result-summary"></p>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button id="download-zip-btn" class="btn btn-success">⬇️ Download All (ZIP)</button>
+          <button class="btn btn-secondary" id="reset-btn">🔄 Convert Another</button>
+        </div>
+        <div class="thumbs-grid" id="thumbs-grid"></div>
+      </div>
+
+      <div id="donate-reminder" class="donate-reminder">
+        <p>💖 Saved you some time? Consider buying me a coffee to keep this tool free!</p>
+        <a href="../donate.html" class="donate-link">☕ Support Kimosabe Tools</a>
+      </div>
+    </section>
+
+    <section class="tool-description">
+      <h2 style="text-align:center;margin-bottom:var(--space-lg);color:var(--dark);font-size:2rem;">Every Page, Your Format</h2>
+      <p style="text-align:center;max-width:700px;margin:0 auto var(--space-xl);color:var(--gray-600);font-size:1.1rem;">
+        Render each page of a PDF at the resolution you choose and save them as JPG or PNG — entirely inside your browser, with a one-click ZIP for the whole document.
+      </p>
+      <div class="privacy-graphic">
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🔒</span> 100% Private</strong><p>Pages are rendered in your browser. Your PDF never touches our servers.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🎚️</span> Adjustable DPI</strong><p>Render sharp high-resolution images or smaller low-DPI ones to suit your use.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">📦</span> ZIP Download</strong><p>Grab every page at once in a single ZIP, or save pages individually.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🆓</span> Free Forever</strong><p>No watermarks, no file limits, no registration needed.</p></div>
+      </div>
+    </section>
+
+    <section class="faq-section" style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200);">
+      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">Frequently Asked Questions</h2>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">What image formats can I export to?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">You can export each PDF page as a JPG or a PNG. JPG is smaller and best for photos; PNG is lossless and best for text or line art.</p></div>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I download all pages at once?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Yes. Once conversion finishes you can download every page in a single ZIP file, or save individual pages one at a time.</p></div>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Is my PDF uploaded to a server?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">No. Every page is rendered inside your browser using JavaScript. Your file never leaves your device.</p></div>
+      <div style="padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I control the image resolution?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Yes. A resolution slider lets you render pages at higher DPI for sharper images, or lower DPI for smaller files.</p></div>
+    </section>
+
+    <nav class="more-tools">
+      <h3>Other Handy Tools</h3>
+      <div class="tools-grid">
+        <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
+        <a href="compress-pdf.html" class="tool-card"><div class="card-icon">📉</div><span>Compress PDF</span></a>
+        <a href="merge-pdf.html" class="tool-card"><div class="card-icon">🔗</div><span>Merge PDF</span></a>
+        <a href="rotate-split-pdf.html" class="tool-card"><div class="card-icon">✂️</div><span>Rotate &amp; Split</span></a>
+        <a href="edit-pdf.html" class="tool-card"><div class="card-icon">✏️</div><span>Edit PDF</span></a>
+        <a href="sign-pdf.html" class="tool-card"><div class="card-icon">✍️</div><span>Sign PDF</span></a>
+      </div>
+    </nav>
+
+    <!-- Ad: below results -->
+    <div style="max-width:1200px;margin:2rem auto 0;padding:0 1.5rem;text-align:center;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="BOTTOM_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-img"><img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60"></div>
+        <div class="footer-logo-text">Kimosabe Tools</div>
+      </div>
+      <div style="text-align:center;margin-bottom:2rem;">
+        <p style="color:var(--gray-300);max-width:500px;margin:0 auto 1.5rem;">Join thousands of users who trust their privacy to Kimosabe Tools</p>
+        <a href="../index.html#tools" class="support-btn" style="display:inline-block;">🚀 Explore All Tools</a>
+      </div>
+      <nav class="footer-links">
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../donate.html" style="color:#ffd166;">Support Us</a>
+      </nav>
+      <p class="copyright">© 2026 Kimosabe Tools. Built with ❤️ for privacy.<br><small style="opacity:0.7;">All file processing happens locally in your browser — your files are never uploaded.</small></p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    const dropZone        = document.getElementById('drop-zone');
+    const fileInput       = document.getElementById('file-input');
+    const optionsEl       = document.getElementById('options');
+    const convertBtn      = document.getElementById('convert-btn');
+    const clearBtn        = document.getElementById('clear-btn');
+    const statusArea      = document.getElementById('status-area');
+    const statusText      = document.getElementById('status-text');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar     = document.getElementById('progress-bar');
+    const pageProgressLabel = document.getElementById('page-progress-label');
+    const resultsDisplay  = document.getElementById('results-display');
+    const resultSummary   = document.getElementById('result-summary');
+    const thumbsGrid      = document.getElementById('thumbs-grid');
+    const donateReminder  = document.getElementById('donate-reminder');
+    const downloadZipBtn  = document.getElementById('download-zip-btn');
+    const resetBtn        = document.getElementById('reset-btn');
+    const resolutionEl    = document.getElementById('resolution');
+    const qualityValue    = document.getElementById('quality-value');
+    const jpgQualityRow   = document.getElementById('jpg-quality-row');
+    const jpgQualityEl    = document.getElementById('jpg-quality');
+    const jpgQualityValue = document.getElementById('jpg-quality-value');
+
+    let cachedPdfBytes = null;
+    let originalName   = '';
+    let renderedPages  = [];   // { blob, url, name, w, h }
+    const objectUrls   = [];
+
+    function fmt() { return document.querySelector('input[name="format"]:checked').value; }
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+    fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+    clearBtn.addEventListener('click', resetTool);
+    resetBtn.addEventListener('click', resetTool);
+    convertBtn.addEventListener('click', convert);
+    downloadZipBtn.addEventListener('click', downloadZip);
+
+    resolutionEl.addEventListener('input', () => { qualityValue.textContent = resolutionEl.value; });
+    jpgQualityEl.addEventListener('input', () => { jpgQualityValue.textContent = jpgQualityEl.value + '%'; });
+    document.querySelectorAll('input[name="format"]').forEach(r => r.addEventListener('change', () => {
+      // JPG quality only relevant for JPG
+      const isJpg = fmt() === 'jpg';
+      jpgQualityRow.style.display = isJpg ? 'flex' : 'none';
+    }));
+
+    function formatBytes(b){ if(b===0)return '0 Bytes'; const k=1024,s=['Bytes','KB','MB','GB'],i=Math.floor(Math.log(b)/Math.log(k)); return parseFloat((b/Math.pow(k,i)).toFixed(2))+' '+s[i]; }
+    function updateProgress(p){ progressBar.style.width = p+'%'; }
+    function isPasswordError(err){ if(!err) return false; if(err.name==='PasswordException') return true; const m=(err.message||'').toLowerCase(); return m.includes('password')||m.includes('encrypt'); }
+
+    async function handleFile(file) {
+      if (!file || file.type !== 'application/pdf') { alert('Please upload a valid PDF file.'); return; }
+      if (file.size > 50 * 1024 * 1024) { alert(`File is ${formatBytes(file.size)}. Maximum allowed size is 50 MB.`); return; }
+      cachedPdfBytes = new Uint8Array(await file.arrayBuffer());
+      originalName = file.name.replace(/\.pdf$/i, '');
+      optionsEl.style.display = 'block';
+      resultsDisplay.style.display = 'none';
+      donateReminder.style.display = 'none';
+      statusArea.style.display = 'none';
+      jpgQualityRow.style.display = fmt() === 'jpg' ? 'flex' : 'none';
+    }
+
+    async function convert() {
+      if (!cachedPdfBytes) { alert('Please upload a PDF first.'); return; }
+      clearRendered();
+
+      statusArea.style.display = 'block';
+      resultsDisplay.style.display = 'none';
+      donateReminder.style.display = 'none';
+      progressContainer.style.display = 'block';
+      pageProgressLabel.style.display = 'block';
+      updateProgress(0);
+
+      const format = fmt();
+      const mime = format === 'png' ? 'image/png' : 'image/jpeg';
+      const ext  = format === 'png' ? 'png' : 'jpg';
+      const dpi  = parseInt(resolutionEl.value, 10);
+      const scale = dpi / 72;   // pdf.js default is 72 DPI
+      const jpgQ = parseInt(jpgQualityEl.value, 10) / 100;
+
+      try {
+        const pdf = await pdfjsLib.getDocument({ data: cachedPdfBytes.slice(0) }).promise;
+        const total = pdf.numPages;
+
+        for (let i = 1; i <= total; i++) {
+          updateProgress(Math.round(((i - 1) / total) * 95));
+          pageProgressLabel.textContent = `Rendering page ${i} of ${total}…`;
+          statusText.innerHTML = `Rendering page ${i} of ${total}<span class="loading-dots"><span></span><span></span><span></span></span>`;
+
+          const page = await pdf.getPage(i);
+          const viewport = page.getViewport({ scale });
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.floor(viewport.width);
+          canvas.height = Math.floor(viewport.height);
+          const ctx = canvas.getContext('2d');
+          // White background so JPG (no alpha) doesn't render black
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          await page.render({ canvasContext: ctx, viewport }).promise;
+
+          const blob = await new Promise(res => canvas.toBlob(res, mime, format === 'jpg' ? jpgQ : undefined));
+          const url = URL.createObjectURL(blob);
+          objectUrls.push(url);
+          const name = `${originalName}_page_${String(i).padStart(2, '0')}.${ext}`;
+          renderedPages.push({ blob, url, name, w: canvas.width, h: canvas.height });
+        }
+
+        updateProgress(100);
+        buildResults(format, dpi);
+
+        if (typeof gtag !== 'undefined') gtag('event', 'pdf_to_images', { event_category: 'tool_usage', event_label: 'pdf_to_images', value: total, transport_type: 'beacon' });
+      } catch (err) {
+        console.error('Render error:', err);
+        const msg = isPasswordError(err) ? 'This PDF is password-protected. Please remove the password first (try our Unlock PDF tool).' : (err.message || 'This PDF might be corrupted or unsupported.');
+        statusText.innerHTML = `<span style="color:#ef4444;">⚠️ ${msg}</span>`;
+        progressContainer.style.display = 'none';
+        pageProgressLabel.style.display = 'none';
+      }
+    }
+
+    function buildResults(format, dpi) {
+      thumbsGrid.innerHTML = '';
+      renderedPages.forEach((p, idx) => {
+        const card = document.createElement('div');
+        card.className = 'thumb-card';
+        card.innerHTML = `
+          <img src="${p.url}" alt="Page ${idx + 1} preview" loading="lazy">
+          <div class="thumb-meta">Page ${idx + 1} • ${formatBytes(p.blob.size)}</div>
+          <a class="thumb-dl" href="${p.url}" download="${p.name}">⬇️ Save</a>`;
+        thumbsGrid.appendChild(card);
+      });
+      const totalBytes = renderedPages.reduce((s, p) => s + p.blob.size, 0);
+      resultSummary.textContent = `${renderedPages.length} ${format.toUpperCase()} image${renderedPages.length !== 1 ? 's' : ''} at ${dpi} DPI • ${formatBytes(totalBytes)} total`;
+
+      progressContainer.style.display = 'none';
+      pageProgressLabel.style.display = 'none';
+      statusArea.style.display = 'none';
+      resultsDisplay.style.display = 'block';
+      donateReminder.style.display = 'block';
+    }
+
+    async function downloadZip() {
+      if (!renderedPages.length) return;
+      downloadZipBtn.disabled = true;
+      const original = downloadZipBtn.textContent;
+      downloadZipBtn.textContent = '📦 Zipping…';
+      try {
+        const zip = new JSZip();
+        renderedPages.forEach(p => zip.file(p.name, p.blob));
+        const content = await zip.generateAsync({ type: 'blob' });
+        const url = URL.createObjectURL(content);
+        const a = document.createElement('a');
+        a.href = url; a.download = `${originalName}_images.zip`;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+        if (typeof gtag !== 'undefined') gtag('event', 'pdf_images_zip', { event_category: 'tool_usage', event_label: 'pdf_to_images', value: renderedPages.length, transport_type: 'beacon' });
+      } catch (e) {
+        console.error('ZIP error:', e); alert('Could not build the ZIP file. You can still save pages individually.');
+      } finally {
+        downloadZipBtn.disabled = false; downloadZipBtn.textContent = original;
+      }
+    }
+
+    function clearRendered() { objectUrls.forEach(u => URL.revokeObjectURL(u)); objectUrls.length = 0; renderedPages = []; }
+
+    function resetTool() {
+      clearRendered();
+      cachedPdfBytes = null; originalName = '';
+      optionsEl.style.display = 'none';
+      statusArea.style.display = 'none';
+      resultsDisplay.style.display = 'none';
+      donateReminder.style.display = 'none';
+      progressContainer.style.display = 'none';
+      pageProgressLabel.style.display = 'none';
+      updateProgress(0);
+      fileInput.value = '';
+      resolutionEl.value = 150; qualityValue.textContent = '150';
+      jpgQualityEl.value = 85; jpgQualityValue.textContent = '85%';
+      document.getElementById('fmt-jpg').checked = true;
+    }
+
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => { backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none'; });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    document.addEventListener('DOMContentLoaded', () => { if (typeof gtag !== 'undefined') gtag('event', 'page_view', { page_title: 'PDF to Images', page_location: window.location.href }); });
+  </script>
+</body>
+</html>
