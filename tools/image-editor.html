@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="canonical" href="https://kimosabe-tools.pages.dev/tools/image-editor.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Image Editor – Crop, Rotate & Flip Images Free | Kimosabe Tools</title>
+
+  <meta name="description" content="Crop, rotate, and flip images online for free in your browser. Drag to select a crop area, use aspect presets, and download as JPG or PNG. No uploads, no signup.">
+  <meta name="keywords" content="crop image, rotate image, flip image, image editor online free, crop photo, rotate photo online, image crop tool no upload">
+  <meta name="author" content="Kimosabe Tools">
+
+  <meta property="og:title" content="Image Editor – Crop, Rotate & Flip Free | Kimosabe Tools">
+  <meta property="og:description" content="Crop, rotate and flip images 100% locally in your browser. No server uploads, no tracking.">
+  <meta property="og:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kimosabe Tools — free in-browser image crop, rotate and flip editor">
+  <meta property="og:url" content="https://kimosabe-tools.pages.dev/tools/image-editor.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kimosabe Tools">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Image Editor – Crop, Rotate & Flip Free | Kimosabe Tools">
+  <meta name="twitter:description" content="Secure, browser-based image editing that keeps your photos private.">
+  <meta name="twitter:image" content="https://kimosabe-tools.pages.dev/og-image.png">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#4361ee">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://kimosabe-tools.pages.dev/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kimosabe-tools.pages.dev/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://kimosabe-tools.pages.dev/favicon-16x16.png">
+  <link rel="manifest" href="https://kimosabe-tools.pages.dev/site.webmanifest">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H50NB3F51Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H50NB3F51Q', { 'anonymize_ip': true, 'allow_google_signals': false, 'allow_ad_personalization_signals': false });
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <style>
+    #drop-zone:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    .editor-toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: var(--space-md); }
+    .et-btn { background: white; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); padding: 0.55rem 0.9rem; font-size: 0.85rem; font-weight: 600; color: var(--gray-800); cursor: pointer; font-family: inherit; transition: all 0.15s; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .et-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .et-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(67,97,238,0.35); }
+
+    .aspect-row { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin-bottom: var(--space-md); }
+    .aspect-btn { background: var(--gray-100); border: 1px solid var(--gray-300); border-radius: 50px; padding: 0.4rem 0.85rem; font-size: 0.82rem; font-weight: 600; color: var(--gray-700); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .aspect-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .aspect-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+    .aspect-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(67,97,238,0.35); }
+
+    .stage-wrap { text-align: center; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: var(--space-md); overflow: auto; }
+    .stage { position: relative; display: inline-block; line-height: 0; touch-action: none; }
+    #img-canvas { max-width: 100%; height: auto; border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); background:
+      repeating-conic-gradient(#e9ecef 0% 25%, #ffffff 0% 50%) 50% / 20px 20px; }
+
+    /* Crop overlay */
+    .crop-box { position: absolute; border: 2px solid var(--primary); box-shadow: 0 0 0 9999px rgba(0,0,0,0.4); cursor: move; box-sizing: border-box; }
+    .crop-handle { position: absolute; width: 14px; height: 14px; background: white; border: 2px solid var(--primary); border-radius: 50%; }
+    .crop-handle.nw { top: -8px; left: -8px; cursor: nwse-resize; }
+    .crop-handle.ne { top: -8px; right: -8px; cursor: nesw-resize; }
+    .crop-handle.sw { bottom: -8px; left: -8px; cursor: nesw-resize; }
+    .crop-handle.se { bottom: -8px; right: -8px; cursor: nwse-resize; }
+
+    .dims-note { font-size: 0.85rem; color: var(--gray-600); margin-top: 0.5rem; text-align: center; }
+    .fmt-row { display: flex; gap: 0.5rem; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: var(--space-md); }
+    .fmt-row label { font-size: 0.85rem; color: var(--gray-700); font-weight: 500; }
+    .fmt-row select { padding: 0.5rem 0.75rem; border: 2px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit; background: white; color: var(--dark); }
+    .fmt-row select:focus { outline: none; border-color: var(--primary); }
+  </style>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Image Editor — Crop, Rotate & Flip",
+        "url": "https://kimosabe-tools.pages.dev/tools/image-editor.html",
+        "description": "Crop, rotate and flip images in your browser, then download as JPG or PNG. 100% browser-based, no uploads.",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires a modern web browser with JavaScript enabled",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "provider": { "@type": "Organization", "name": "Kimosabe Tools", "url": "https://kimosabe-tools.pages.dev" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kimosabe-tools.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://kimosabe-tools.pages.dev/index.html#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Image Editor", "item": "https://kimosabe-tools.pages.dev/tools/image-editor.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "How do I crop an image?", "acceptedAnswer": {"@type": "Answer", "text": "Drag on the image to draw a crop area, resize it with the corner handles, then click Apply Crop. You can also pick an aspect ratio like 1:1 or 16:9."} },
+          { "@type": "Question", "name": "Can I rotate and flip as well?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Rotate the image left or right in 90-degree steps, and flip it horizontally or vertically, before or after cropping."} },
+          { "@type": "Question", "name": "What formats can I download?", "acceptedAnswer": {"@type": "Answer", "text": "You can download your edited image as a JPG or a PNG. PNG preserves transparency."} },
+          { "@type": "Question", "name": "Is my image uploaded to a server?", "acceptedAnswer": {"@type": "Answer", "text": "No. All editing happens inside your browser using the Canvas API. Your image never leaves your device."} }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="sticky-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="nav-logo-img"><img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40"></div>
+        <span>Kimosabe Tools</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#tools">All Tools</a>
+        <a href="../index.html#features">Features</a>
+        <a href="../about.html">About</a>
+        <a href="../donate.html" class="support-btn">☕ Support</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div style="max-width:1200px;margin:0 auto 1.5rem;padding:0 1.5rem;text-align:center;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="TOP_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-breadcrumb">
+        <a href="../index.html">Home</a> / <a href="../index.html#tools">Tools</a> / <span>Image Editor</span>
+      </div>
+      <h1>Image Editor</h1>
+      <p>Crop, rotate and flip your images with a live canvas. 100% private — photos never leave your browser.</p>
+      <div style="margin-top:var(--space-sm);display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+        <span style="background:rgba(67,97,238,0.1);color:var(--primary);padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🔒 No Uploads</span>
+        <span style="background:rgba(247,37,133,0.1);color:var(--accent);padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">✂️ Crop · Rotate · Flip</span>
+        <span style="background:rgba(34,197,94,0.1);color:#22c55e;padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;font-weight:500;">🆓 Completely Free</span>
+      </div>
+    </div>
+
+    <section class="tool-wrapper">
+      <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Upload image — click, press Enter, or drag and drop">
+        <div class="drop-zone-content">
+          <span class="icon" aria-hidden="true">🖼️✂️</span>
+          <p><strong>Click to upload</strong> or drag and drop an image here</p>
+          <span class="file-limit">JPG, PNG, WebP • Max 30 MB</span>
+        </div>
+        <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" hidden />
+      </div>
+
+      <div id="editor" style="display:none;">
+        <div class="editor-toolbar">
+          <button class="et-btn" id="rot-left"><span aria-hidden="true">↶</span> Rotate left</button>
+          <button class="et-btn" id="rot-right"><span aria-hidden="true">↷</span> Rotate right</button>
+          <button class="et-btn" id="flip-h"><span aria-hidden="true">↔️</span> Flip horizontal</button>
+          <button class="et-btn" id="flip-v"><span aria-hidden="true">↕️</span> Flip vertical</button>
+          <button class="et-btn" id="toggle-crop"><span aria-hidden="true">✂️</span> Crop</button>
+        </div>
+
+        <div class="aspect-row" id="aspect-row" role="group" aria-label="Crop aspect ratio" style="display:none;">
+          <button class="aspect-btn active" data-ar="free">Free</button>
+          <button class="aspect-btn" data-ar="1:1">1:1</button>
+          <button class="aspect-btn" data-ar="4:3">4:3</button>
+          <button class="aspect-btn" data-ar="3:2">3:2</button>
+          <button class="aspect-btn" data-ar="16:9">16:9</button>
+          <button class="aspect-btn" data-ar="apply" style="background:var(--primary);color:white;border-color:var(--primary);">✓ Apply Crop</button>
+        </div>
+
+        <div class="stage-wrap">
+          <div class="stage" id="stage">
+            <canvas id="img-canvas"></canvas>
+            <div class="crop-box" id="crop-box" style="display:none;">
+              <div class="crop-handle nw" data-h="nw"></div>
+              <div class="crop-handle ne" data-h="ne"></div>
+              <div class="crop-handle sw" data-h="sw"></div>
+              <div class="crop-handle se" data-h="se"></div>
+            </div>
+          </div>
+        </div>
+        <p class="dims-note" id="dims-note"></p>
+
+        <div class="fmt-row">
+          <label for="out-format">Download as</label>
+          <select id="out-format"><option value="png">PNG</option><option value="jpg">JPG</option></select>
+        </div>
+
+        <div class="action-buttons">
+          <button id="reset-btn2" class="btn btn-secondary">🗑️ Start Over</button>
+          <button id="download-btn" class="btn btn-success">⬇️ Download Image</button>
+        </div>
+      </div>
+
+      <div id="donate-reminder" class="donate-reminder">
+        <p>💖 Find this handy? Consider buying me a coffee to keep this tool free!</p>
+        <a href="../donate.html" class="donate-link">☕ Support Kimosabe Tools</a>
+      </div>
+    </section>
+
+    <section class="tool-description">
+      <h2 style="text-align:center;margin-bottom:var(--space-lg);color:var(--dark);font-size:2rem;">Quick Edits, Fully Private</h2>
+      <p style="text-align:center;max-width:700px;margin:0 auto var(--space-xl);color:var(--gray-600);font-size:1.1rem;">
+        Straighten a photo, crop to a clean ratio, or flip a scan — all on a live canvas in your browser, with nothing uploaded and no quality lost to a server round-trip.
+      </p>
+      <div class="privacy-graphic">
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🔒</span> 100% Private</strong><p>Edits happen in your browser via the Canvas API. Your image never touches our servers.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">✂️</span> Precise Crop</strong><p>Drag a crop box with corner handles, or lock it to ratios like 1:1 and 16:9.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🔄</span> Rotate &amp; Flip</strong><p>Rotate in 90° steps and flip horizontally or vertically in a click.</p></div>
+        <div class="feature-item"><strong><span style="font-size:1.3rem;">🆓</span> Free Forever</strong><p>No watermarks, no limits, no registration needed.</p></div>
+      </div>
+    </section>
+
+    <section class="faq-section" style="background:white;border-radius:16px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid var(--gray-200);">
+      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;color:var(--dark);text-align:center;">Frequently Asked Questions</h2>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">How do I crop an image?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Click Crop, then drag on the image to draw a crop area, resize it with the corner handles, and click Apply Crop. You can also pick an aspect ratio like 1:1 or 16:9.</p></div>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Can I rotate and flip as well?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">Yes. Rotate the image left or right in 90-degree steps, and flip it horizontally or vertically, before or after cropping.</p></div>
+      <div style="border-bottom:1px solid var(--gray-200);padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">What formats can I download?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">You can download your edited image as a JPG or a PNG. PNG preserves transparency.</p></div>
+      <div style="padding:1.25rem 0;"><h3 style="font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Is my image uploaded to a server?</h3><p style="color:var(--gray-600);font-size:0.95rem;line-height:1.6;">No. All editing happens inside your browser using the Canvas API. Your image never leaves your device.</p></div>
+    </section>
+
+    <nav class="more-tools">
+      <h3>Other Handy Tools</h3>
+      <div class="tools-grid">
+        <a href="image-resize.html" class="tool-card"><div class="card-icon">📐</div><span>Resize Image</span></a>
+        <a href="image-compressor.html" class="tool-card"><div class="card-icon">📁</div><span>Compress Image</span></a>
+        <a href="image-converter.html" class="tool-card"><div class="card-icon">🔄</div><span>Convert Image</span></a>
+        <a href="image-to-pdf.html" class="tool-card"><div class="card-icon">📄</div><span>Image to PDF</span></a>
+        <a href="qr-code-generator.html" class="tool-card"><div class="card-icon">🔳</div><span>QR Generator</span></a>
+        <a href="pdf-to-images.html" class="tool-card"><div class="card-icon">🖼️</div><span>PDF to Images</span></a>
+      </div>
+    </nav>
+
+    <div style="max-width:1200px;margin:2rem auto 0;padding:0 1.5rem;text-align:center;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="BOTTOM_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-img"><img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60"></div>
+        <div class="footer-logo-text">Kimosabe Tools</div>
+      </div>
+      <div style="text-align:center;margin-bottom:2rem;">
+        <p style="color:var(--gray-300);max-width:500px;margin:0 auto 1.5rem;">Join thousands of users who trust their privacy to Kimosabe Tools</p>
+        <a href="../index.html#tools" class="support-btn" style="display:inline-block;">🚀 Explore All Tools</a>
+      </div>
+      <nav class="footer-links">
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../donate.html" style="color:#ffd166;">Support Us</a>
+      </nav>
+      <p class="copyright">© 2026 Kimosabe Tools. Built with ❤️ for privacy.<br><small style="opacity:0.7;">All image editing happens locally in your browser — your images are never uploaded.</small></p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script>
+    const dropZone   = document.getElementById('drop-zone');
+    const fileInput  = document.getElementById('file-input');
+    const editor     = document.getElementById('editor');
+    const canvas     = document.getElementById('img-canvas');
+    const ctx        = canvas.getContext('2d');
+    const stage      = document.getElementById('stage');
+    const cropBox    = document.getElementById('crop-box');
+    const aspectRow  = document.getElementById('aspect-row');
+    const dimsNote   = document.getElementById('dims-note');
+    const outFormat  = document.getElementById('out-format');
+    const donateReminder = document.getElementById('donate-reminder');
+
+    // Working bitmap lives in an offscreen canvas at full resolution
+    let work = document.createElement('canvas');
+    let cropMode = false;
+    let aspect = 'free';    // 'free' or w/h number
+    let crop = null;        // {x,y,w,h} in displayed (CSS) px
+    let drag = null;        // {type:'move'|'new'|handle, startX, startY, orig}
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+    fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+    document.getElementById('rot-left').addEventListener('click', () => rotate(-90));
+    document.getElementById('rot-right').addEventListener('click', () => rotate(90));
+    document.getElementById('flip-h').addEventListener('click', () => flip('h'));
+    document.getElementById('flip-v').addEventListener('click', () => flip('v'));
+    document.getElementById('toggle-crop').addEventListener('click', toggleCrop);
+    document.getElementById('download-btn').addEventListener('click', download);
+    document.getElementById('reset-btn2').addEventListener('click', resetTool);
+
+    // Aspect buttons
+    aspectRow.querySelectorAll('.aspect-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.ar === 'apply') { applyCrop(); return; }
+        aspectRow.querySelectorAll('.aspect-btn').forEach(b => { if (b.dataset.ar !== 'apply') b.classList.remove('active'); });
+        btn.classList.add('active');
+        aspect = btn.dataset.ar;
+        initCropBox();
+      });
+    });
+
+    function handleFile(file) {
+      if (!file || !file.type.startsWith('image/')) { alert('Please upload a JPG, PNG or WebP image.'); return; }
+      if (file.size > 30 * 1024 * 1024) { alert('Image exceeds the 30 MB limit.'); return; }
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        work.width = img.naturalWidth; work.height = img.naturalHeight;
+        work.getContext('2d').drawImage(img, 0, 0);
+        URL.revokeObjectURL(url);
+        cropMode = false; cropBox.style.display = 'none'; aspectRow.style.display = 'none';
+        editor.style.display = 'block';
+        paint();
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); alert('Could not load that image.'); };
+      img.src = url;
+    }
+
+    // Fit the working bitmap into the visible canvas (max 720 CSS px wide)
+    function paint() {
+      const maxW = Math.min(720, stage.parentElement.clientWidth - 8);
+      const scale = Math.min(maxW / work.width, 1);
+      canvas.width = work.width; canvas.height = work.height;   // full-res backing store
+      canvas.style.width = (work.width * scale) + 'px';
+      canvas.style.height = (work.height * scale) + 'px';
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(work, 0, 0);
+      dimsNote.textContent = `${work.width} × ${work.height} px`;
+    }
+
+    function rotate(deg) {
+      const w = work.width, h = work.height;
+      const tmp = document.createElement('canvas');
+      const rad = deg * Math.PI / 180;
+      if (Math.abs(deg) === 90) { tmp.width = h; tmp.height = w; } else { tmp.width = w; tmp.height = h; }
+      const tctx = tmp.getContext('2d');
+      tctx.translate(tmp.width / 2, tmp.height / 2);
+      tctx.rotate(rad);
+      tctx.drawImage(work, -w / 2, -h / 2);
+      work = tmp;
+      if (cropMode) initCropBox();
+      paint();
+    }
+
+    function flip(dir) {
+      const tmp = document.createElement('canvas');
+      tmp.width = work.width; tmp.height = work.height;
+      const tctx = tmp.getContext('2d');
+      if (dir === 'h') { tctx.translate(tmp.width, 0); tctx.scale(-1, 1); }
+      else { tctx.translate(0, tmp.height); tctx.scale(1, -1); }
+      tctx.drawImage(work, 0, 0);
+      work = tmp;
+      paint();
+    }
+
+    function toggleCrop() {
+      cropMode = !cropMode;
+      aspectRow.style.display = cropMode ? 'flex' : 'none';
+      cropBox.style.display = cropMode ? 'block' : 'none';
+      if (cropMode) initCropBox();
+    }
+
+    function dispW() { return parseFloat(canvas.style.width); }
+    function dispH() { return parseFloat(canvas.style.height); }
+
+    function initCropBox() {
+      const W = dispW(), H = dispH();
+      let cw, ch;
+      if (aspect === 'free') { cw = W * 0.7; ch = H * 0.7; }
+      else {
+        const [aw, ah] = aspect.split(':').map(Number);
+        // fit ratio within 80% of the display
+        cw = W * 0.8; ch = cw * (ah / aw);
+        if (ch > H * 0.8) { ch = H * 0.8; cw = ch * (aw / ah); }
+      }
+      crop = { x: (W - cw) / 2, y: (H - ch) / 2, w: cw, h: ch };
+      drawCrop();
+    }
+
+    function drawCrop() {
+      if (!crop) return;
+      cropBox.style.left = crop.x + 'px';
+      cropBox.style.top = crop.y + 'px';
+      cropBox.style.width = crop.w + 'px';
+      cropBox.style.height = crop.h + 'px';
+    }
+
+    // Pointer handling for crop create / move / resize
+    stage.addEventListener('pointerdown', e => {
+      if (!cropMode) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left, y = e.clientY - rect.top;
+      const handle = e.target.closest('.crop-handle');
+      if (handle) { drag = { type: handle.dataset.h, startX: x, startY: y, orig: { ...crop } }; }
+      else if (e.target === cropBox || cropBox.contains(e.target)) { drag = { type: 'move', startX: x, startY: y, orig: { ...crop } }; }
+      else { crop = { x, y, w: 0, h: 0 }; drag = { type: 'new', startX: x, startY: y, orig: { ...crop } }; }
+      stage.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    stage.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, dispW()));
+      const y = Math.max(0, Math.min(e.clientY - rect.top, dispH()));
+      const dx = x - drag.startX, dy = y - drag.startY;
+      const o = drag.orig;
+      const ar = aspect === 'free' ? null : (() => { const [a, b] = aspect.split(':').map(Number); return a / b; })();
+
+      if (drag.type === 'move') {
+        crop.x = Math.max(0, Math.min(o.x + dx, dispW() - o.w));
+        crop.y = Math.max(0, Math.min(o.y + dy, dispH() - o.h));
+      } else if (drag.type === 'new') {
+        let w = Math.abs(dx), h = Math.abs(dy);
+        if (ar) h = w / ar;
+        crop.x = Math.min(drag.startX, drag.startX + dx);
+        crop.y = Math.min(drag.startY, drag.startY + (dy < 0 ? -h : h));
+        crop.w = w; crop.h = h;
+      } else {
+        // corner resize
+        let nx = o.x, ny = o.y, nw = o.w, nh = o.h;
+        if (drag.type.includes('e')) nw = o.w + dx;
+        if (drag.type.includes('s')) nh = o.h + dy;
+        if (drag.type.includes('w')) { nw = o.w - dx; nx = o.x + dx; }
+        if (drag.type.includes('n')) { nh = o.h - dy; ny = o.y + dy; }
+        if (ar) nh = nw / ar;
+        if (nw > 20 && nh > 20) { crop.x = nx; crop.y = ny; crop.w = nw; crop.h = nh; }
+      }
+      // clamp within canvas
+      crop.w = Math.min(crop.w, dispW() - crop.x);
+      crop.h = Math.min(crop.h, dispH() - crop.y);
+      drawCrop();
+    });
+    stage.addEventListener('pointerup', e => { if (drag) { drag = null; try { stage.releasePointerCapture(e.pointerId); } catch (_) {} } });
+
+    function applyCrop() {
+      if (!crop || crop.w < 5 || crop.h < 5) { alert('Draw a crop area first.'); return; }
+      const sx = work.width / dispW();   // scale display px → real px
+      const sy = work.height / dispH();
+      const rx = Math.round(crop.x * sx), ry = Math.round(crop.y * sy);
+      const rw = Math.round(crop.w * sx), rh = Math.round(crop.h * sy);
+      const tmp = document.createElement('canvas');
+      tmp.width = rw; tmp.height = rh;
+      tmp.getContext('2d').drawImage(work, rx, ry, rw, rh, 0, 0, rw, rh);
+      work = tmp;
+      cropMode = false; cropBox.style.display = 'none'; aspectRow.style.display = 'none';
+      paint();
+      if (typeof gtag !== 'undefined') gtag('event', 'image_cropped', { event_category: 'tool_usage', event_label: 'image_editor', transport_type: 'beacon' });
+    }
+
+    function download() {
+      const fmt = outFormat.value;
+      const mime = fmt === 'jpg' ? 'image/jpeg' : 'image/png';
+      let src = work;
+      if (fmt === 'jpg') {
+        // flatten transparency onto white for JPG
+        const flat = document.createElement('canvas');
+        flat.width = work.width; flat.height = work.height;
+        const fx = flat.getContext('2d');
+        fx.fillStyle = '#ffffff'; fx.fillRect(0, 0, flat.width, flat.height);
+        fx.drawImage(work, 0, 0);
+        src = flat;
+      }
+      src.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `edited-image.${fmt}`;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+        donateReminder.style.display = 'block';
+        if (typeof gtag !== 'undefined') gtag('event', 'image_downloaded', { event_category: 'tool_usage', event_label: 'image_editor', method: fmt, transport_type: 'beacon' });
+      }, mime, fmt === 'jpg' ? 0.92 : undefined);
+    }
+
+    function resetTool() {
+      work = document.createElement('canvas');
+      cropMode = false; crop = null; drag = null; aspect = 'free';
+      editor.style.display = 'none';
+      cropBox.style.display = 'none'; aspectRow.style.display = 'none';
+      donateReminder.style.display = 'none';
+      fileInput.value = '';
+      aspectRow.querySelectorAll('.aspect-btn').forEach(b => { if (b.dataset.ar === 'free') b.classList.add('active'); else if (b.dataset.ar !== 'apply') b.classList.remove('active'); });
+      outFormat.value = 'png';
+    }
+
+    window.addEventListener('resize', () => { if (editor.style.display !== 'none' && work.width) { paint(); if (cropMode) initCropBox(); } });
+
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => { backToTop.style.display = window.pageYOffset > 300 ? 'flex' : 'none'; });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    document.addEventListener('DOMContentLoaded', () => { if (typeof gtag !== 'undefined') gtag('event', 'page_view', { page_title: 'Image Editor', page_location: window.location.href }); });
+  </script>
+</body>
+</html>
