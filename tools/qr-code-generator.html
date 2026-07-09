@@ -50,8 +50,9 @@
 
   <link rel="stylesheet" href="../assets/css/style.css">
 
-  <!-- node-qrcode (browser build) — renders to canvas (PNG) and SVG string -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
+  <!-- qrcode-generator (self-contained, verified asset) — we render the matrix
+       to canvas (PNG) and build the SVG ourselves, with full colour control -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 
   <style>
     .qr-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-lg); align-items: start; }
@@ -364,53 +365,120 @@
       return '';
     }
 
+    // ── QR building (qrcode-generator matrix API) ──
+    // Use UTF-8 byte encoding so accents/emoji in Wi-Fi names or text survive.
+    if (typeof qrcode !== 'undefined' && qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs['UTF-8']) {
+      qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+    }
+
+    const QUIET_ZONE = 2;   // modules of margin around the code
+
+    function buildMatrix(data, ecl) {
+      const qr = qrcode(0, ecl);   // type 0 = auto-size to fit the data
+      qr.addData(data, 'Byte');
+      qr.make();
+      return qr;
+    }
+
+    function drawMatrixToCanvas(cv, qr, sizePx, fg, bg) {
+      const n = qr.getModuleCount();
+      const total = n + QUIET_ZONE * 2;
+      cv.width = sizePx; cv.height = sizePx;
+      const c2d = cv.getContext('2d');
+      c2d.fillStyle = bg; c2d.fillRect(0, 0, sizePx, sizePx);
+      c2d.fillStyle = fg;
+      const cell = sizePx / total;
+      for (let r = 0; r < n; r++) {
+        for (let c = 0; c < n; c++) {
+          if (qr.isDark(r, c)) {
+            // ceil the cell edge slightly so adjacent modules never show hairline gaps
+            c2d.fillRect(Math.floor((c + QUIET_ZONE) * cell), Math.floor((r + QUIET_ZONE) * cell), Math.ceil(cell), Math.ceil(cell));
+          }
+        }
+      }
+    }
+
+    function matrixToSvg(qr, fg, bg) {
+      const n = qr.getModuleCount();
+      const t = n + QUIET_ZONE * 2;
+      let path = '';
+      for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (qr.isDark(r, c)) path += 'M' + (c + QUIET_ZONE) + ' ' + (r + QUIET_ZONE) + 'h1v1h-1z';
+      return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + t + ' ' + t + '" shape-rendering="crispEdges"><rect width="' + t + '" height="' + t + '" fill="' + bg + '"/><path d="' + path + '" fill="' + fg + '"/></svg>';
+    }
+
+    function showQrError(msg) {
+      canvasBox.style.display = 'none';
+      qrEmpty.style.display = 'block';
+      qrEmpty.textContent = msg;
+      dlPng.disabled = true;
+      dlSvg.disabled = true;
+      currentQr = null;
+    }
+
+    let currentQr = null;   // last successfully built matrix
+
     // ── Generate / render ──
     function generate() {
       const data = buildData();
       lastData = data;
-      const hasData = data.length > 0;
-      canvasBox.style.display = hasData ? 'inline-block' : 'none';
-      qrEmpty.style.display = hasData ? 'none' : 'block';
-      dlPng.disabled = !hasData;
-      dlSvg.disabled = !hasData;
-      if (!hasData) return;
 
-      const opts = {
-        errorCorrectionLevel: eccSelect.value,
-        margin: 2,
-        width: 480,   // hi-res backing; CSS scales down to 240
-        color: { dark: fgColor.value, light: bgColor.value }
-      };
-      QRCode.toCanvas(canvas, data, opts, err => { if (err) console.error('QR render error:', err); });
+      if (typeof qrcode === 'undefined') {
+        showQrError('The QR library failed to load. Please check your connection and refresh the page.');
+        return;
+      }
+
+      const hasData = data.length > 0;
+      if (!hasData) {
+        canvasBox.style.display = 'none';
+        qrEmpty.style.display = 'block';
+        qrEmpty.textContent = 'Enter something on the left to generate a QR code.';
+        dlPng.disabled = true;
+        dlSvg.disabled = true;
+        currentQr = null;
+        return;
+      }
+
+      try {
+        currentQr = buildMatrix(data, eccSelect.value);
+      } catch (e) {
+        // qrcode-generator throws a plain string on overflow
+        const msg = String((e && e.message) || e);
+        showQrError(msg.indexOf('overflow') !== -1
+          ? 'That content is too long for a QR code at this error-correction level. Shorten it or lower the error correction.'
+          : 'Could not generate a QR code from that content.');
+        return;
+      }
+
+      canvasBox.style.display = 'inline-block';
+      qrEmpty.style.display = 'none';
+      dlPng.disabled = false;
+      dlSvg.disabled = false;
+      drawMatrixToCanvas(canvas, currentQr, 480, fgColor.value, bgColor.value);   // hi-res backing; CSS scales to 240
     }
 
     // ── Downloads ──
     dlPng.addEventListener('click', () => {
-      if (!lastData) return;
+      if (!currentQr) return;
       // Render at a large fixed size for a crisp PNG
       const tmp = document.createElement('canvas');
-      QRCode.toCanvas(tmp, lastData, { errorCorrectionLevel: eccSelect.value, margin: 2, width: 1024, color: { dark: fgColor.value, light: bgColor.value } }, err => {
-        if (err) { console.error(err); return; }
-        const a = document.createElement('a');
-        a.href = tmp.toDataURL('image/png');
-        a.download = 'qr-code.png';
-        document.body.appendChild(a); a.click(); a.remove();
-        if (typeof gtag !== 'undefined') gtag('event', 'qr_download', { event_category: 'tool_usage', event_label: 'png', transport_type: 'beacon' });
-      });
+      drawMatrixToCanvas(tmp, currentQr, 1024, fgColor.value, bgColor.value);
+      const a = document.createElement('a');
+      a.href = tmp.toDataURL('image/png');
+      a.download = 'qr-code.png';
+      document.body.appendChild(a); a.click(); a.remove();
+      if (typeof gtag !== 'undefined') gtag('event', 'qr_download', { event_category: 'tool_usage', event_label: 'png', transport_type: 'beacon' });
     });
 
     dlSvg.addEventListener('click', () => {
-      if (!lastData) return;
-      QRCode.toString(lastData, { type: 'svg', errorCorrectionLevel: eccSelect.value, margin: 2, color: { dark: fgColor.value, light: bgColor.value } }, (err, svg) => {
-        if (err) { console.error(err); return; }
-        const blob = new Blob([svg], { type: 'image/svg+xml' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = 'qr-code.svg';
-        document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 4000);
-        if (typeof gtag !== 'undefined') gtag('event', 'qr_download', { event_category: 'tool_usage', event_label: 'svg', transport_type: 'beacon' });
-      });
+      if (!currentQr) return;
+      const svg = matrixToSvg(currentQr, fgColor.value, bgColor.value);
+      const blob = new Blob([svg], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'qr-code.svg';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+      if (typeof gtag !== 'undefined') gtag('event', 'qr_download', { event_category: 'tool_usage', event_label: 'svg', transport_type: 'beacon' });
     });
 
     // ── Live updates ──
