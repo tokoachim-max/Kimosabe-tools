@@ -82,6 +82,11 @@
     .page-tile.selected .sel-badge { background: var(--accent); border-color: var(--accent); }
     .empty-note { text-align: center; color: var(--gray-600); padding: 2rem; font-size: 0.95rem; }
     .hint-line { font-size: 0.82rem; color: var(--gray-600); margin: 0.25rem 0 0.75rem; text-align: center; }
+    /* ── Dark-mode fix: toolbar buttons must not stay white when text colors flip light ── */
+    @media (prefers-color-scheme: dark) {
+      .tb-btn { background: var(--gray-200); }
+      /* page-tile canvases stay white intentionally — they show the rendered PDF pages */
+    }
   </style>
 
   <!-- Google AdSense -->
