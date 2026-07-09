@@ -82,6 +82,11 @@
     .thumb-card a.thumb-dl { display: inline-block; font-size: 0.8rem; font-weight: 600; color: var(--primary); text-decoration: none; padding: 0.3rem 0.6rem; border-radius: var(--radius-sm); }
     .thumb-card a.thumb-dl:hover { background: rgba(67,97,238,0.1); }
     .page-progress-label { font-size: 0.85rem; color: var(--gray-600); margin-top: 0.5rem; text-align: center; }
+    /* ── Dark-mode fix: format labels must not stay white when --dark flips to white ── */
+    @media (prefers-color-scheme: dark) {
+      .format-option label { background: var(--gray-200); }
+      /* page thumbnails stay white intentionally — they show the rendered PDF page */
+    }
   </style>
 
   <!-- Google AdSense -->
