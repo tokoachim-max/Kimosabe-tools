@@ -566,6 +566,12 @@ function getWrapperScale() {
   return m ? parseFloat(m[1]) : 1;
 }
 
+// FIX(review): warn-on-leave registered ONCE globally instead of once per
+// upload — previously each file opened stacked another beforeunload listener.
+window.addEventListener('beforeunload', e => {
+  if (pdfEditor && pdfEditor.isDirty) { e.preventDefault(); e.returnValue = ''; }
+});
+
 // ═══════════════════════════════════════════════════════════════
 // LIBRARY LOADER
 // ═══════════════════════════════════════════════════════════════
@@ -581,13 +587,20 @@ async function initializeApp() {
     for (const src of ['https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js','https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js']) {
       try { await loadScript(src); await waitFor(() => typeof PDFLib !== 'undefined', 5000); break; } catch(e) { console.warn('Trying next CDN...'); }
     }
-    if (!pdfjsLib || !PDFLib) throw new Error('Required libraries unavailable');
+    // FIX(review): use typeof checks — bare identifiers would throw a
+    // ReferenceError (masked by the catch) rather than test availability.
+    if (typeof pdfjsLib === 'undefined' || typeof PDFLib === 'undefined') throw new Error('Required libraries unavailable');
     resetDropZone(); setupUpload();
   } catch(err) { showDropZoneError(err.message); }
 }
 function showDropZoneLoading(m) { const c=document.querySelector('.drop-zone-content'); if(c) c.innerHTML=`<div class="spinner" style="margin:0 auto 1rem;"></div><p><strong>${m}</strong></p><span class="file-limit">Please wait...</span>`; }
 function resetDropZone() { const c=document.querySelector('.drop-zone-content'); if(c) c.innerHTML=`<span class="icon">📄</span><p><strong>Click to upload PDF or drag and drop</strong></p><span class="file-limit">Your file stays on your device. No uploads, ever.</span>`; }
-function showDropZoneError(m) { const c=document.querySelector('.drop-zone-content'); if(c) c.innerHTML=`<span class="icon">⚠️</span><p><strong>Failed to Load</strong></p><span class="file-limit" style="color:var(--danger);">${m}<br><br>Check connection and refresh.</span><button onclick="location.reload()" class="tool-btn" style="margin-top:1rem;">🔄 Refresh</button>`; }
+// FIX(review): escape the error message before injecting into innerHTML.
+function showDropZoneError(m) {
+  const safe = String(m).replace(/[<>&"]/g, s => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[s]));
+  const c=document.querySelector('.drop-zone-content');
+  if(c) c.innerHTML=`<span class="icon">⚠️</span><p><strong>Failed to Load</strong></p><span class="file-limit" style="color:var(--danger);">${safe}<br><br>Check connection and refresh.</span><button onclick="location.reload()" class="tool-btn" style="margin-top:1rem;">🔄 Refresh</button>`;
+}
 
 // ═══════════════════════════════════════════════════════════════
 // UPLOAD
@@ -612,18 +625,17 @@ async function handleFileUpload(file) {
     const buf=await file.arrayBuffer(), buf2=buf.slice(0);
     const pdfDoc=await pdfjsLib.getDocument({data:buf}).promise;
     const pdfLibDoc=await PDFLib.PDFDocument.load(buf2);
+    // FIX(review): UI switches to the editor only AFTER a successful load, so
+    // cancelling the picker from "Open new PDF" never strands the user.
     document.getElementById('drop-zone').style.display='none';
     document.getElementById('editor-section').classList.add('active');
     document.getElementById('privacy-badge').classList.add('show');
     pdfEditor=new PDFEditor(pdfDoc,pdfLibDoc,file.name);
     window.pdfEditor=pdfEditor;
     setTool('select');
-    window.addEventListener('beforeunload',e=>{if(pdfEditor&&pdfEditor.isDirty){e.preventDefault();e.returnValue='';}});
     if(typeof gtag!=='undefined')gtag('event','pdf_uploaded',{event_category:'tool_usage',event_label:'edit_pdf'});
   } catch(err) {
-    // FIX: Detect password-protected PDFs reliably via the exception name
-    // (pdf.js throws a PasswordException) and pdf-lib's encryption error,
-    // instead of fragile substring matching on err.message.
+    // Detect password-protected PDFs reliably via the exception name
     let msg='Error loading PDF.';
     if(err && (err.name==='PasswordException' || /password/i.test(err.message||'') || /encrypt/i.test(err.message||'')))
       msg='This PDF is password-protected or encrypted. Please remove the password and try again.';
@@ -632,11 +644,11 @@ async function handleFileUpload(file) {
     alert(msg);
   } finally { showLoader(false); }
 }
+// FIX(review): don't hide the editor before the picker opens — cancelling the
+// file dialog previously left the user with no visible document and no way
+// back. Now the UI only changes once a new file actually loads.
 function openNewFile() {
   if(pdfEditor&&pdfEditor.isDirty&&!confirm('You have unsaved changes. Open a new file anyway?')) return;
-  document.getElementById('drop-zone').style.display='';
-  document.getElementById('editor-section').classList.remove('active');
-  document.getElementById('privacy-badge').classList.remove('show');
   const inp=document.getElementById('pdf-upload'); inp.value=''; inp.click();
 }
 
@@ -646,7 +658,11 @@ function openNewFile() {
 const ALL_TOOLS=['select','text','whiteout','highlight','redact','check','cross','link','image','draw','eraser','rect','ellipse','line','arrow'];
 const CTX_IDS={text:'ctx-text',whiteout:'ctx-whiteout',redact:'ctx-whiteout',highlight:'ctx-highlight',check:'ctx-stamp',cross:'ctx-stamp',link:'ctx-link',image:'ctx-image',draw:'ctx-draw',eraser:'ctx-eraser',rect:'ctx-shape',ellipse:'ctx-shape',line:'ctx-shape',arrow:'ctx-shape'};
 
-function setTool(tool) {
+// FIX(review): optional keepSelection flag. selectAnn() switches tools to show
+// the right context toolbar — previously the trailing deselect() here wiped
+// the selection it had just made, so style controls (font, colour, opacity,
+// fills…) silently did nothing until a second click on the annotation.
+function setTool(tool, keepSelection) {
   currentTool=tool;
   ALL_TOOLS.forEach(t=>{const b=document.getElementById('tool-'+t);if(b)b.classList.toggle('active',t===tool);});
   const ctx=document.getElementById('context-toolbar');
@@ -659,7 +675,7 @@ function setTool(tool) {
   if(['text','whiteout','highlight','redact','check','cross','link','image','select'].includes(tool))annLayer.classList.add('active');
   else if(['draw','eraser','rect','ellipse','line','arrow'].includes(tool))drawCanvas.classList.add('active');
   document.getElementById('status-tool').textContent=tool?(tool.charAt(0).toUpperCase()+tool.slice(1)):'Ready';
-  if(pdfEditor)pdfEditor.deselect();
+  if(pdfEditor && !keepSelection)pdfEditor.deselect();
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -712,7 +728,7 @@ function openLinkModal(x,y){_pendingLinkPos={x,y};document.getElementById('link-
 function closeLinkModal(){document.getElementById('link-modal').classList.remove('active');_pendingLinkPos=null;}
 function confirmAddLink(){const t=document.getElementById('link-modal-text').value.trim()||'Link',h=document.getElementById('link-modal-url').value.trim();if(!h){alert('Please enter a URL.');return;}closeLinkModal();if(_pendingLinkPos&&pdfEditor){pdfEditor.saveState();pdfEditor.addLink(_pendingLinkPos.x,_pendingLinkPos.y,{text:t,href:h});}}
 function applyLinkUrl(){if(!pdfEditor||!pdfEditor.selectedAnn||pdfEditor.selectedAnn.type!=='link')return;pdfEditor.selectedAnn.href=document.getElementById('link-url-input').value.trim();showHint('🔗 URL updated');}
-// FIX: open links with noopener so the opened tab can't reach back via window.opener
+// open links with noopener so the opened tab can't reach back via window.opener
 function openLinkInTab(){if(!pdfEditor||!pdfEditor.selectedAnn||pdfEditor.selectedAnn.type!=='link')return;if(pdfEditor.selectedAnn.href)window.open(pdfEditor.selectedAnn.href,'_blank','noopener');}
 function clearCurrentPage(){if(!pdfEditor||!confirm('Clear all annotations on this page?'))return;pdfEditor.saveState();pdfEditor.clearPage();showHint('🗑️ Page cleared');}
 function setDirty(v){document.getElementById('status-unsaved').style.display=v?'':'none';document.getElementById('status-dot').classList.toggle('unsaved',v);if(pdfEditor)pdfEditor.isDirty=v;}
@@ -733,11 +749,14 @@ function showHint(m){const ex=document.getElementById('hint-toast');if(ex)ex.rem
 function showLoader(s){document.getElementById('loader').classList.toggle('active',s);}
 document.addEventListener('mousemove',function(e){const w=document.getElementById('canvas-wrapper');if(!w)return;const r=w.getBoundingClientRect(),sc=getWrapperScale();const x=Math.round((e.clientX-r.left)/sc),y=Math.round((e.clientY-r.top)/sc);if(x>=0&&y>=0)document.getElementById('status-coords').textContent='x: '+x+'  y: '+y;});
 
-// FIX: Escape closes modals
+// FIX(review): when Escape closes a modal, stop the event so the editor's own
+// Escape handling (deselect + switch to Select tool) doesn't also fire.
 document.addEventListener('keydown', e => {
   if(e.key==='Escape'){
-    if(document.getElementById('export-modal').classList.contains('active'))closeExportModal();
-    if(document.getElementById('link-modal').classList.contains('active'))closeLinkModal();
+    let closed=false;
+    if(document.getElementById('export-modal').classList.contains('active')){closeExportModal();closed=true;}
+    if(document.getElementById('link-modal').classList.contains('active')){closeLinkModal();closed=true;}
+    if(closed)e.stopImmediatePropagation();
   }
 });
 
@@ -786,11 +805,11 @@ class PDFEditor {
     this.selectedAnn=null; this.isDirty=false;
     this.isDrawing=false; this.curPath=null; this.shapeStart=null;
     this._lastPos=null;
-    // FIX: deferred saveState flag for drawing
+    // deferred saveState flag for drawing
     this._drawStateSaved=false;
     this.setupDrawCanvas();
     this.setupKeys();
-    this.setupClipboardPaste(); // NEW: clipboard paste support
+    this.setupClipboardPaste(); // clipboard paste support
     this.renderPage();
     this.buildThumbnails();
     this.setupImageInput();
@@ -798,6 +817,9 @@ class PDFEditor {
 
   // ── RENDER ─────────────────────────────────────────────
   async renderPage() {
+    // FIX(review): drop selection when the page changes so arrow keys / Delete
+    // can't act on an annotation that's no longer visible.
+    this.deselect();
     const page=await this.pdfDoc.getPage(this.currentPage);
     const vp=page.getViewport({scale:DISPLAY_SCALE});
     const cv=document.getElementById('pdf-canvas');
@@ -836,7 +858,7 @@ class PDFEditor {
   // ── DRAWING CANVAS ─────────────────────────────────────
   setupDrawCanvas() {
     const dc=document.getElementById('drawing-canvas');
-    // FIX: Use pointer events for unified mouse+touch
+    // Pointer events for unified mouse+touch
     dc.addEventListener('pointerdown',e=>{e.preventDefault();dc.setPointerCapture(e.pointerId);this.drawStart(e);});
     dc.addEventListener('pointermove',e=>{e.preventDefault();this.drawMove(e);});
     dc.addEventListener('pointerup',e=>{this.drawEnd(e);});
@@ -851,7 +873,7 @@ class PDFEditor {
   drawStart(e) {
     const t=currentTool;
     if(!['draw','eraser','rect','ellipse','line','arrow'].includes(t))return;
-    // FIX: defer saveState — only save when actual drawing happens
+    // defer saveState — only save when actual drawing happens
     this._drawStateSaved=false;
     const p=this.canvasPos(e);
     this._lastPos=p; this.isDrawing=true;
@@ -885,7 +907,7 @@ class PDFEditor {
     if(!this.isDrawing)return;
     const t=currentTool;
     if(t==='draw'&&this.curPath){
-      // FIX: Only commit if there was actual movement
+      // Only commit if there was actual movement
       if(this.curPath.pts.length>1){
         this._ensureDrawState();
         if(!this.drawPaths.has(this.currentPage))this.drawPaths.set(this.currentPage,[]);
@@ -962,7 +984,12 @@ class PDFEditor {
   // ── CLIPBOARD PASTE ────────────────────────────────────
   setupClipboardPaste() {
     document.addEventListener('paste', e => {
-      if (!pdfEditor || document.activeElement.classList.contains('text-annotation')) return;
+      // FIX(review): ignore stale editors after "Open new PDF" (each instance
+      // registers a document-level listener that previously lived forever),
+      // and don't hijack paste while typing in inputs/textareas or a text box.
+      if (window.pdfEditor !== this) return;
+      const ae = document.activeElement;
+      if (ae && (ae.classList.contains('text-annotation') || ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA')) return;
       const items = e.clipboardData && e.clipboardData.items;
       if (!items) return;
       for (const item of items) {
@@ -1019,7 +1046,17 @@ class PDFEditor {
     layer.addEventListener('click',handleClick);canvas.addEventListener('click',handleClick);
 
     document.addEventListener('keydown',e=>{
+      // FIX(review): ignore stale editors after "Open new PDF" — otherwise
+      // Ctrl+Z on the second document also ran undo() on the first editor,
+      // whose restoreState() rebuilt ITS annotations into the live page.
+      if(window.pdfEditor!==this)return;
       const ae=document.activeElement,editing=ae&&ae.classList.contains('text-annotation')&&ae.dataset.editing==='true';
+      // FIX(review): typing in real form fields (link URL, page jump, font
+      // size, modal inputs…) must not trigger editor shortcuts. Previously
+      // 't' in the URL field switched tools mid-keystroke, Backspace DELETED
+      // the selected annotation, and arrow keys moved it instead of the caret.
+      const inField=ae&&(ae.tagName==='INPUT'||ae.tagName==='TEXTAREA'||ae.tagName==='SELECT');
+      if(inField)return;
       if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();this.undo();}
       if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.shiftKey&&e.key==='z'))){e.preventDefault();this.redo();}
       if((e.ctrlKey||e.metaKey)&&e.key==='d'&&this.selectedAnn){e.preventDefault();this.dupSel();}
@@ -1065,14 +1102,13 @@ class PDFEditor {
 
     const trh=document.createElement('div'); trh.className='text-resize-handle'; el.appendChild(trh);
 
-    // FIX: strip zero-width space from getText
     const ann={type:'text',element:el,x,y,fontSize:fs,fontFamily:ff,color:fc,opacity:opts.opacity||100,bold:!!opts.bold,italic:!!opts.italic,under:!!opts.under,align:opts.align||'left',width:opts.width||null,rotation:opts.rotation||0,
       getText:()=>el.textContent.replace(/\u200B/g,'')};
     this.makeDraggable(el,ann); this.makeTextResizable(el,ann,trh);
     el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
     el.addEventListener('dblclick',e=>{e.stopPropagation();el.dataset.editing='true';el.focus();try{const r=document.caretRangeFromPoint(e.clientX,e.clientY);if(r){const s=window.getSelection();s.removeAllRanges();s.addRange(r);}}catch(_){}this.selectAnn(ann);});
     el.addEventListener('focus',()=>{el.dataset.editing='true';this.selectAnn(ann);});
-    // FIX: On blur, drop the box if it is empty — prevents stray empty dashed
+    // On blur, drop the box if it is empty — prevents stray empty dashed
     // boxes lingering when a user clicks Text then clicks away without typing.
     el.addEventListener('blur',()=>{
       el.dataset.editing='false';
@@ -1084,14 +1120,14 @@ class PDFEditor {
     this.positionDelBtn(el,delBtn);
     if(!this.annotations.has(this.currentPage))this.annotations.set(this.currentPage,[]);
     this.annotations.get(this.currentPage).push(ann);
-    // FIX: Only auto-focus a genuinely NEW blank box (opts.text===undefined).
+    // Only auto-focus a genuinely NEW blank box (opts.text===undefined).
     // During undo/redo restore, _rebuildAnn passes text:'' for empty boxes, so
     // they must NOT grab focus or get the \u200B placeholder mid-restore.
     if(opts.text===undefined){el.innerHTML='\u200B';setTimeout(()=>{el.focus();const r=document.createRange();r.selectNodeContents(el);const s=window.getSelection();s.removeAllRanges();s.addRange(r);},30);}
     setDirty(true);updateAnnCount();
   }
 
-  // FIX: Pointer-event based text resize
+  // Pointer-event based text resize
   makeTextResizable(el,ann,handle) {
     handle.addEventListener('pointerdown',e=>{
       e.preventDefault();e.stopPropagation();handle.setPointerCapture(e.pointerId);
@@ -1158,7 +1194,10 @@ class PDFEditor {
     const el=document.createElement('div');el.className='text-annotation';el.contentEditable='false';el.spellcheck=false;
     el.style.left=TX+'px';el.style.top=TY+'px';el.style.fontSize=size+'px';el.style.fontFamily='Arial, Helvetica, sans-serif';
     el.style.color=color;el.style.fontWeight='700';el.style.opacity='1';el.textContent=char;el.dataset.editing='false';
-    const ann={type:'text',element:el,x:TX,y:TY,fontSize:size,fontFamily:'Arial, Helvetica, sans-serif',color,opacity:100,bold:true,italic:false,under:false,align:'left',rotation:0,width:null,getText:()=>el.textContent.replace(/\u200B/g,'')};
+    // FIX(review): tag the annotation as a stamp so undo/redo and duplicate
+    // rebuild it as a real stamp — previously restores turned ✓/✗ into
+    // ordinary editable text boxes.
+    const ann={type:'text',stamp:stampType,element:el,x:TX,y:TY,fontSize:size,fontFamily:'Arial, Helvetica, sans-serif',color,opacity:100,bold:true,italic:false,under:false,align:'left',rotation:0,width:null,getText:()=>el.textContent.replace(/\u200B/g,'')};
     this.makeDraggable(el,ann);el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
     const db=this.makeDelBtn(()=>this.removeAnn(ann));ann._delBtn=db;
     layer.appendChild(el);layer.appendChild(db);this.positionDelBtn(el,db);
@@ -1178,7 +1217,6 @@ class PDFEditor {
     const ann={type:'link',element:el,x:TX,y:TY,fontSize:opts.fontSize||16,fontFamily:opts.fontFamily||'Helvetica, Arial, sans-serif',color:'#2563eb',opacity:100,bold:false,italic:false,under:true,align:'left',href:opts.href||'',rotation:opts.rotation||0,width:null,getText:()=>el.textContent.replace(/\u200B/g,'')};
     this.makeDraggable(el,ann);
     el.addEventListener('click',e=>{e.stopPropagation();this.selectAnn(ann);});
-    // FIX: open link with noopener
     el.addEventListener('dblclick',()=>{if(ann.href)window.open(ann.href,'_blank','noopener');});
     el.addEventListener('focus',()=>{el.dataset.editing='true';this.selectAnn(ann);});
     el.addEventListener('blur',()=>{el.dataset.editing='false';});
@@ -1209,7 +1247,7 @@ class PDFEditor {
 
   makeDelBtn(cb){const btn=document.createElement('button');btn.className='annotation-delete-btn';btn.innerHTML='×';btn.addEventListener('mousedown',e=>e.stopPropagation());btn.addEventListener('click',e=>{e.stopPropagation();this.saveState();cb();});return btn;}
 
-  // FIX: Direct positioning — no MutationObserver overhead
+  // Direct positioning — no MutationObserver overhead
   positionDelBtn(el,btn) {
     const layer=document.getElementById('annotation-layer');
     if(!layer||!el.parentNode)return;
@@ -1218,7 +1256,7 @@ class PDFEditor {
     btn.style.top=((er.top-lr.top)/sc-13)+'px';
   }
 
-  // FIX: Update delete button position during drag — called from makeDraggable
+  // Update delete button position during drag — called from makeDraggable
   _updateDelBtnFor(ann){if(ann&&ann._delBtn&&ann.element.parentNode)this.positionDelBtn(ann.element,ann._delBtn);}
 
   removeAnn(ann) {
@@ -1231,6 +1269,8 @@ class PDFEditor {
 
   selectAnn(ann) {
     this.deselect();this.selectedAnn=ann;ann.element.classList.add('selected');
+    // FIX(review): every setTool(...) below passes keepSelection=true so the
+    // selection made two lines up survives the tool switch (see setTool).
     if(ann.type==='text'||ann.type==='link'){
       document.getElementById('font-size').value=parseInt(ann.fontSize);
       document.getElementById('font-family').value=ann.fontFamily;
@@ -1241,25 +1281,27 @@ class PDFEditor {
       document.getElementById('btn-italic').classList.toggle('active',!!ann.italic);
       document.getElementById('btn-under').classList.toggle('active',!!ann.under);
       ['al','ac','ar'].forEach(k=>document.getElementById('btn-'+k).classList.toggle('active',{al:'left',ac:'center',ar:'right'}[k]===(ann.align||'left')));
-      if(ann.type==='link'){document.getElementById('link-url-input').value=ann.href||'';if(currentTool!=='link'){setTool('link');document.getElementById('ctx-link').style.display='flex';document.getElementById('context-toolbar').classList.add('visible');}}
-      else{if(currentTool!=='text'){setTool('text');document.getElementById('ctx-text').style.display='flex';document.getElementById('context-toolbar').classList.add('visible');}}
+      if(ann.type==='link'){document.getElementById('link-url-input').value=ann.href||'';if(currentTool!=='link'){setTool('link',true);}}
+      else{if(currentTool!=='text'){setTool('text',true);}}
     } else if(ann.type==='whiteout'){
       document.getElementById('whiteout-color').value=ann.color||'#ffffff';
-      if(currentTool!=='whiteout'&&currentTool!=='redact'){setTool('whiteout');document.getElementById('ctx-whiteout').style.display='flex';document.getElementById('context-toolbar').classList.add('visible');}
+      if(currentTool!=='whiteout'&&currentTool!=='redact'){setTool('whiteout',true);}
     } else if(ann.type==='highlight'){
       document.getElementById('hl-color').value=ann.hlColor||'#ffff00';
       document.getElementById('hl-opacity').value=Math.round((ann.hlOpacity||0.4)*100);
       document.getElementById('hl-opa-val').textContent=Math.round((ann.hlOpacity||0.4)*100)+'%';
-      if(currentTool!=='highlight'){setTool('highlight');document.getElementById('ctx-highlight').style.display='flex';document.getElementById('context-toolbar').classList.add('visible');}
+      if(currentTool!=='highlight'){setTool('highlight',true);}
     } else if(ann.type==='image'){
       const d=document.getElementById('img-ann-dims');if(d)d.textContent=Math.round(ann.w)+'×'+Math.round(ann.h)+' px';
-      if(currentTool!=='image'){setTool('image');document.getElementById('ctx-image').style.display='flex';document.getElementById('context-toolbar').classList.add('visible');}
+      if(currentTool!=='image'){setTool('image',true);}
     }
   }
   deselect(){if(this.selectedAnn){this.selectedAnn.element.classList.remove('selected');this.selectedAnn=null;}}
   dupSel(){
     if(!this.selectedAnn)return;const a=this.selectedAnn;this.saveState();
-    if(a.type==='text')this.addText(a.x+20,a.y+20,{text:a.getText(),fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,width:a.width,rotation:a.rotation});
+    // FIX(review): duplicate stamps as stamps, not as editable text boxes.
+    if(a.type==='text'&&a.stamp)this.addStamp(a.x+26,a.y+24,a.stamp,{color:a.color,size:parseInt(a.fontSize)});
+    else if(a.type==='text')this.addText(a.x+20,a.y+20,{text:a.getText(),fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,width:a.width,rotation:a.rotation});
     else if(a.type==='link')this.addLink(a.x+20,a.y+20,{text:a.getText(),href:a.href,rotation:a.rotation});
     else if(a.type==='whiteout')this.addWhiteout(a.x+20,a.y+20,{w:a.w,h:a.h,color:a.color});
     else if(a.type==='highlight')this.addHighlight(a.x+20,a.y+20,{w:a.w,h:a.h,hlColor:a.hlColor,hlOpacity:a.hlOpacity});
@@ -1272,7 +1314,6 @@ class PDFEditor {
   rotateSelected(deg){if(!this.selectedAnn)return;this.saveState();const a=this.selectedAnn;a.rotation=((a.rotation||0)+deg)%360;a.element.style.transform=`rotate(${a.rotation}deg)`;setDirty(true);}
 
   // ── DRAG / RESIZE — POINTER EVENTS ─────────────────────
-  // FIX: Full pointer event support for mouse + touch + pen
   makeDraggable(el, ann) {
     let ox,oy,sx,sy,moved,sc;
     el.addEventListener('pointerdown', e => {
@@ -1295,7 +1336,6 @@ class PDFEditor {
     });
   }
 
-  // FIX: Pointer-event based resizing
   makeResizable(el, ann) {
     const rh=el.querySelector('.resize-handle');if(!rh)return;
     rh.addEventListener('pointerdown', e => {
@@ -1308,14 +1348,12 @@ class PDFEditor {
   }
 
   // ── UNDO / REDO ────────────────────────────────────────
-  // FIX: Redo was broken — saveState() (called inside the old redo) clears
-  // redoStack, so redo could never pop a state. Reworked around a shared
-  // _snapshot() helper. undo()/redo() push the *current* state onto the
-  // opposite stack before restoring, and only saveState() (used for fresh
-  // edits) clears the redo history.
+  // undo()/redo() push the *current* state onto the opposite stack before
+  // restoring, and only saveState() (used for fresh edits) clears redo.
   _snapshot() {
     const st={pg:this.currentPage,a:new Map(),p:new Map()};
-    this.annotations.forEach((arr,pg)=>st.a.set(pg,arr.map(a=>({type:a.type,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation,width:a.width}))));
+    // FIX(review): snapshot includes `stamp` so ✓/✗ survive undo/redo intact.
+    this.annotations.forEach((arr,pg)=>st.a.set(pg,arr.map(a=>({type:a.type,stamp:a.stamp,x:a.x,y:a.y,fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,text:a.getText?a.getText():'',w:a.w,h:a.h,href:a.href,dataUrl:a.dataUrl,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation,width:a.width}))));
     this.drawPaths.forEach((arr,pg)=>st.p.set(pg,JSON.parse(JSON.stringify(arr))));
     return st;
   }
@@ -1357,8 +1395,11 @@ class PDFEditor {
   _rebuildAnn(type, a, pg) {
     const savedPage=this.currentPage;
     this.currentPage=pg;
-    if(type==='text')this.addText(a.x,a.y,{text:a.text||'',fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,width:a.width,rotation:a.rotation});
-    else if(type==='link')this.addLink(a.x,a.y,{text:a.text||'',href:a.href,fontSize:a.fontSize,fontFamily:a.fontFamily,rotation:a.rotation,width:a.width});
+    // FIX(review): stamps rebuild via addStamp (offset-compensated: addStamp
+    // subtracts 6/4 from the click point, so add them back here).
+    if(type==='text'&&a.stamp)this.addStamp(a.x+6,a.y+4,a.stamp,{color:a.color,size:parseInt(a.fontSize)});
+    else if(type==='text')this.addText(a.x,a.y,{text:a.text||'',fontSize:a.fontSize,fontFamily:a.fontFamily,color:a.color,opacity:a.opacity,bold:a.bold,italic:a.italic,under:a.under,align:a.align,width:a.width,rotation:a.rotation});
+    else if(type==='link')this.addLink(a.x+6,a.y+4,{text:a.text||'',href:a.href,fontSize:a.fontSize,fontFamily:a.fontFamily,rotation:a.rotation});
     else if(type==='whiteout')this.addWhiteout(a.x,a.y,{w:a.w,h:a.h,color:a.color});
     else if(type==='highlight')this.addHighlight(a.x,a.y,{w:a.w,h:a.h,hlColor:a.hlColor,hlOpacity:a.hlOpacity,rotation:a.rotation});
     else if(type==='image')this.addImageAnn(a.x,a.y,a.dataUrl,a.w||200,a.h||150);
@@ -1373,7 +1414,7 @@ class PDFEditor {
   }
 
   // ═══════════════════════════════════════════════════════
-  // FLATTEN PAGE — FIXED TEXT POSITIONING + WORD WRAP
+  // FLATTEN PAGE — text positioning (border + half-leading) + word wrap
   // ═══════════════════════════════════════════════════════
   async flattenPage(pgNum) {
     const page=await this.pdfDoc.getPage(pgNum);
@@ -1385,7 +1426,6 @@ class PDFEditor {
     const R=EXPORT_SCALE/DISPLAY_SCALE;
 
     // CSS on .text-annotation: padding 4px 6px + border 2px (box-sizing:border-box).
-    // The text content therefore starts at x + border + padding.
     const PAD_X=6, PAD_Y=4, BORDER=2;
 
     // 1. Highlights
@@ -1425,7 +1465,7 @@ class PDFEditor {
       ctx.restore();
     });
 
-    // 5. Text — FIXED positioning (border + half-leading) + word wrap
+    // 5. Text — positioning (border + half-leading) + word wrap
     (this.annotations.get(pgNum)||[]).forEach(a=>{
       if(a.type!=='text'&&a.type!=='link')return;
 
@@ -1438,26 +1478,19 @@ class PDFEditor {
       const lineH=fs*1.4;                       // matches CSS line-height:1.4
       const align=a.align||'left';
 
-      // FIX: content origin = annotation pos + (border + padding), scaled by R
       const boxX=a.x*R;
       const boxY=a.y*R;
       const padX=(PAD_X+BORDER)*R;
       const padY=(PAD_Y+BORDER)*R;
-      // FIX: CSS centers each line within its 1.4 line-box; with textBaseline
-      // 'top' we must add half the leading so the first glyph isn't too high.
       const halfLeading=(lineH-fs)/2;
 
       ctx.save();
       ctx.globalAlpha=parseFloat(a.opacity||100)/100;
       ctx.fillStyle=fc;
       ctx.font=fontStr;
-      // Always left-align in canvas; compute x manually to avoid double-centering
       ctx.textAlign='left';
       ctx.textBaseline='top';
 
-      // Determine effective wrap width.
-      // FIX: when no explicit width, cap at the CSS max-width (800px) so export
-      // wraps at the same place the editor does.
       const hasExplicitWidth=a.width&&a.width>0;
       const MAX_W=800;
       const wrapWidth=hasExplicitWidth
@@ -1466,7 +1499,6 @@ class PDFEditor {
 
       const lines=wrapTextLines(ctx,text,wrapWidth);
 
-      // Handle rotation around annotation center
       if(a.rotation){
         const maxLW=hasExplicitWidth?a.width*R:Math.max(...lines.map(l=>ctx.measureText(l).width))+padX*2;
         const totalH=lines.length*lineH+padY*2;
@@ -1474,7 +1506,6 @@ class PDFEditor {
         ctx.translate(cx,cy);ctx.rotate(a.rotation*Math.PI/180);ctx.translate(-cx,-cy);
       }
 
-      // Draw each line. Alignment is computed within the CONTENT box.
       lines.forEach((line,i)=>{
         const lw=ctx.measureText(line).width;
         let drawX=boxX+padX; // left
@@ -1486,7 +1517,6 @@ class PDFEditor {
         const drawY=boxY+padY+halfLeading+i*lineH;
         ctx.fillText(line,drawX,drawY);
 
-        // Underline
         if(a.under){
           ctx.beginPath();ctx.moveTo(drawX,drawY+fs);ctx.lineTo(drawX+lw,drawY+fs);
           ctx.strokeStyle=fc;ctx.lineWidth=1.5*R;ctx.stroke();
@@ -1503,7 +1533,6 @@ class PDFEditor {
     showLoader(true);
     try {
       const{PDFDocument}=PDFLib;const newDoc=await PDFDocument.create();
-      const srcPages=this.pdfLibDoc.getPages();
       const mode=document.getElementById('pdf-pages-select').value;
       const pages=mode==='current'?[this.currentPage]:Array.from({length:this.totalPages},(_,i)=>i+1);
       for(const pg of pages){
@@ -1511,8 +1540,13 @@ class PDFEditor {
         const imgData=flat.toDataURL('image/png');
         const imgBytes=await fetch(imgData).then(r=>r.arrayBuffer());
         const img=await newDoc.embedPng(imgBytes);
-        const{width,height}=srcPages[pg-1].getSize();
-        const np=newDoc.addPage([width,height]);np.drawImage(img,{x:0,y:0,width,height});
+        // FIX(review): size the output page from the pdf.js viewport (which
+        // applies page /Rotate) instead of pdf-lib's unrotated MediaBox —
+        // otherwise landscape-rotated source pages exported squeezed into
+        // portrait dimensions.
+        const srcPage=await this.pdfDoc.getPage(pg);
+        const v1=srcPage.getViewport({scale:1});
+        const np=newDoc.addPage([v1.width,v1.height]);np.drawImage(img,{x:0,y:0,width:v1.width,height:v1.height});
       }
       const bytes=await newDoc.save();
       const suffix=pages.length===1?'_p'+pages[0]:'';
