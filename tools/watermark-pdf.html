@@ -88,6 +88,13 @@
     .wm-preview { position: sticky; top: 90px; text-align: center; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: var(--space-md); }
     .wm-preview canvas { max-width: 100%; height: auto; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); background: white; }
     .wm-preview .note { font-size: 0.8rem; color: var(--gray-600); margin-top: 0.5rem; }
+    /* ── Dark-mode fixes: inputs must not stay white when --dark flips to white ── */
+    @media (prefers-color-scheme: dark) {
+      .field input[type="text"], .field select { background: var(--gray-200); border-color: var(--gray-300); }
+      .mode-tab.active { background: var(--gray-300); }
+      .mode-tab:hover { background: rgba(255,255,255,0.08); }
+      /* preview canvas + logo preview stay white intentionally — they show the rendered page/image */
+    }
   </style>
 
   <!-- Google AdSense -->
