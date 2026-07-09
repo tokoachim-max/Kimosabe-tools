@@ -79,6 +79,12 @@
     .preview-wrap { margin-top: var(--space-md); text-align: center; }
     .preview-wrap canvas { max-width: 100%; height: auto; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); box-shadow: var(--shadow-md); background: white; }
     .preview-note { font-size: 0.82rem; color: var(--gray-600); margin-top: 0.5rem; }
+    /* ── Dark-mode fixes: inputs must not stay white when --dark flips to white ── */
+    @media (prefers-color-scheme: dark) {
+      .opt-item select, .opt-item input[type="number"] { background: var(--gray-200); border-color: var(--gray-300); }
+      .pos-cell { background: var(--gray-200); }
+      /* preview canvas stays white intentionally — it shows the rendered PDF page */
+    }
   </style>
 
   <!-- Google AdSense -->
