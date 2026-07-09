@@ -82,6 +82,12 @@
     .fmt-row label { font-size: 0.85rem; color: var(--gray-700); font-weight: 500; }
     .fmt-row select { padding: 0.5rem 0.75rem; border: 2px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit; background: white; color: var(--dark); }
     .fmt-row select:focus { outline: none; border-color: var(--primary); }
+    /* ── Dark-mode fixes: controls must not stay white when text colors flip light ── */
+    @media (prefers-color-scheme: dark) {
+      .et-btn { background: var(--gray-200); }
+      .fmt-row select { background: var(--gray-200); border-color: var(--gray-300); }
+      /* crop handles stay white intentionally — they must be visible over any image */
+    }
   </style>
 
   <!-- Google AdSense -->
