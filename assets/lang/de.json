@@ -14,7 +14,8 @@
     "terms": "Nutzungsbedingungen",
     "donate": "☕ Unterstützen",
     "language": "🌐",
-    "explore_tools": "🚀 Alle Tools erkunden"
+    "explore_tools": "🚀 Alle Tools erkunden",
+    "faq": "FAQ"
   },
   "hero": {
     "title": "Kimosabe Tools",
@@ -22,7 +23,13 @@
     "tagline": "🔒 Keine Uploads ⚡ Sofortige Verarbeitung 💸 Komplett kostenlos",
     "tagline_1": "🔒 Keine Uploads",
     "tagline_2": "⚡ Sofortige Verarbeitung",
-    "tagline_3": "💸 Komplett kostenlos"
+    "tagline_3": "💸 Komplett kostenlos",
+    "badge_no_uploads": "🔒 Keine Uploads",
+    "badge_instant": "⚡ Sofortige Verarbeitung",
+    "badge_free": "💸 Komplett kostenlos",
+    "badge_no_account": "🚫 Kein Konto nötig",
+    "badge_offline": "📶 Funktioniert offline",
+    "cta": "Alle Tools durchsuchen"
   },
   "stats": {
     "monthly_users": "Monatliche Nutzer",
@@ -74,10 +81,39 @@
     "sign_pdf": {
       "title": "PDF signieren",
       "desc": "Digitale Signaturen sicher hinzufügen"
+    },
+    "organize_pdf": {
+      "title": "PDF organisieren",
+      "desc": "Seiten neu ordnen, löschen, drehen & extrahieren"
+    },
+    "pdf_to_images": {
+      "title": "PDF zu Bildern",
+      "desc": "PDF-Seiten in JPG oder PNG umwandeln",
+      "category": "Konverter"
+    },
+    "unlock_pdf": {
+      "title": "PDF entsperren",
+      "desc": "Ein bekanntes Passwort entfernen"
+    },
+    "watermark_pdf": {
+      "title": "PDF-Wasserzeichen",
+      "desc": "Text oder Logo auf jede Seite stempeln"
+    },
+    "page_numbers_pdf": {
+      "title": "Seitenzahlen hinzufügen",
+      "desc": "Nummerieren Sie Ihre PDF-Seiten"
+    },
+    "image_editor": {
+      "title": "Bild-Editor",
+      "desc": "Bilder zuschneiden, drehen & spiegeln"
+    },
+    "qr_code_generator": {
+      "title": "QR-Code-Generator",
+      "desc": "QR-Codes für Links & mehr erstellen"
     }
   },
   "features": {
-    "title": "Leistungsstarke, datenschutzorientierte Tools",
+    "title": "Warum Kimosabe Tools wählen?",
     "subtitle": "Wir sind anders als traditionelle Online-Tools",
     "description": "Die gesamte Verarbeitung findet lokal in Ihrem Browser statt – Ihre Dateien verlassen nie Ihr Gerät.",
     "privacy": {
@@ -104,21 +140,28 @@
     "signature": "— Der Kimosabe-Entwickler",
     "about_title": "Über Kimosabe Tools",
     "about_desc": "Kimosabe Tools wurde von einem Einzelentwickler erstellt, der Datenschutz über alles stellt. Wir glauben an Tools, die Ihre digitalen Rechte respektieren.",
-    "cta": "Erfahren Sie mehr über unsere Mission"
+    "cta": "Erfahren Sie mehr über unsere Mission",
+    "lead": "Nachdem ich gesehen habe, wie die meisten 'kostenlosen' Online-Tools heimlich Ihre Dateien hochladen, habe ich Kimosabe Tools mit einem Versprechen erstellt: Ihre Dateien bleiben bei Ihnen.",
+    "cta_privacy": "📖 Unser Datenschutzversprechen",
+    "cta_support": "☕ Projekt unterstützen",
+    "sub": "Dies ist ein Leidenschaftsprojekt eines Einzelentwicklers. Wenn diese Tools Ihnen Zeit sparen und Ihre Privatsphäre schützen, erwägen Sie bitte eine Unterstützung, um das Projekt am Laufen zu halten."
   },
   "tool_categories": {
-    "pdf_tools": "PDF-Tools",
-    "image_tools": "Bild-Tools"
+    "pdf_tools": "PDF-Tool",
+    "image_tools": "Bild-Tool",
+    "generator": "Generator"
   },
   "footer": {
     "tagline": "Schließen Sie sich Tausenden von Nutzern an, die Kimosabe Tools vertrauen",
     "built_with": "Mit ❤️ für Datenschutz gebaut",
-    "processing": "Alle Verarbeitung erfolgt lokal in Ihrem Browser. Keine Cookies. Kein Tracking.",
+    "processing": "Alle Verarbeitung erfolgt lokal in Ihrem Browser.",
     "open_source": "Open Source",
     "report_issue": "Problem melden",
     "contact_dev": "Entwickler kontaktieren",
     "share": "Diese Tools teilen",
-    "copyright": "© 2026 Kimosabe Tools. Mit ❤️ für Datenschutz gebaut."
+    "copyright": "© 2026 Kimosabe Tools. Mit ❤️ für Datenschutz gebaut.",
+    "start": "🚀 Jetzt Tools nutzen",
+    "support_us": "Unterstütze uns"
   },
   "ui_common": {
     "upload_file": "Datei hochladen",
@@ -190,5 +233,56 @@
     "unsupported_format": "Nicht unterstütztes Format",
     "browser_not_supported": "Browser nicht unterstützt",
     "update_browser": "Bitte aktualisieren Sie Ihren Browser"
+  },
+  "tools_section": {
+    "title": "Leistungsstarke, datenschutzorientierte Tools",
+    "subtitle": "Die gesamte Verarbeitung findet lokal in Ihrem Browser statt – Ihre Dateien verlassen nie Ihr Gerät."
+  },
+  "trust": {
+    "no_account": "✅ Kein Konto erforderlich",
+    "no_limits": "✅ Keine Dateigrößen-Limits",
+    "no_watermarks": "✅ Keine Wasserzeichen",
+    "offline": "✅ Funktioniert offline nach dem ersten Laden",
+    "local": "✅ Dateien verlassen nie Ihren Browser"
+  },
+  "badge": {
+    "popular": "⭐ Beliebt",
+    "new": "🆕 Neu",
+    "updated": "🆕 Aktualisiert"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Alles, was Sie vor dem Start wissen müssen",
+    "q_uploads": {
+      "q": "Werden meine Dateien auf einen Server hochgeladen?",
+      "a": "Nein — niemals. Jedes Tool läuft vollständig in Ihrem Browser mit JavaScript. Ihre Dateien werden im Speicher Ihres eigenen Geräts verarbeitet und nirgendwohin übertragen. Sie können dies im Netzwerk-Tab der DevTools überprüfen."
+    },
+    "q_account": {
+      "q": "Muss ich ein Konto erstellen?",
+      "a": "Kein Konto, keine E-Mail, keine Registrierung. Öffnen Sie ein Tool und legen Sie sofort los. Es gibt nichts zu installieren oder zu registrieren."
+    },
+    "q_limits": {
+      "q": "Gibt es Dateigrößen-Limits?",
+      "a": "Es gibt keine festen Limits — wir kontrollieren die Dateigröße nicht, da Dateien nie unsere Server berühren. Große Dateien können je nach Hardware Ihres Geräts langsamer verarbeitet werden."
+    },
+    "q_offline": {
+      "q": "Funktionieren die Tools offline?",
+      "a": "Ja. Nach Ihrem ersten Besuch installiert Kimosabe Tools einen Service Worker, der die Seiten zwischenspeichert. Danach können Sie alle Tools ohne Internetverbindung nutzen."
+    },
+    "q_watermarks": {
+      "q": "Gibt es Wasserzeichen auf den Ausgabedateien?",
+      "a": "Absolut nicht. Ihre Ausgabedateien sind sauber, unverändert (abgesehen von Ihren Bearbeitungen) und enthalten kein Branding und keine Wasserzeichen von uns."
+    },
+    "q_free": {
+      "q": "Wie kann das kostenlos sein?",
+      "a": "Kimosabe Tools ist ein Leidenschaftsprojekt eines Einzelentwicklers. Es lebt von freiwilligen Spenden von Nutzern, denen es hilft. Wenn diese Tools Ihnen Zeit sparen,",
+      "link": "spendieren Sie dem Entwickler einen Kaffee ☕"
+    }
+  },
+  "pwa": {
+    "title": "Zum Startbildschirm hinzufügen",
+    "desc": "— Nutzen Sie Kimosabe Tools offline, wie eine App",
+    "install": "Installieren",
+    "dismiss": "Nicht jetzt"
   }
 }
