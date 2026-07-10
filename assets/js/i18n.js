@@ -25,8 +25,12 @@
     { code: 'zh', label: '中文',      rtl: false }
   ];
 
-  // 2. Where the JSON files live. Absolute path works from any folder depth.
-  var LANG_PATH = '/lang/';           // e.g. /lang/ar.json
+  // 2. Where the JSON files live. The loader AUTO-DISCOVERS the folder by
+  //    trying these candidates in order (first one that serves en.json wins),
+  //    so it works whether your folder is named lang/, languages/, etc.
+  //    If yours isn't listed, add it first.
+  var LANG_PATH_CANDIDATES = ['/lang/', '/languages/', '/language/', '/assets/lang/', '/locales/'];
+  var LANG_PATH = null;               // resolved at init
   var DEFAULT_LANG = 'en';
   var STORAGE_KEY = 'kimosabe_lang';
 
@@ -54,7 +58,33 @@
 
   function fetchLang(code) {
     return fetch(LANG_PATH + code + '.json', { cache: 'no-cache' })
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status + ' for ' + LANG_PATH + code + '.json'); return r.json(); });
+  }
+
+  // Try each candidate folder until en.json loads. Resolves with the English
+  // dictionary; rejects (with a LOUD console error) if no folder works.
+  function discoverLangPath() {
+    var i = 0;
+    function tryNext() {
+      if (i >= LANG_PATH_CANDIDATES.length) {
+        console.error(
+          '[i18n] Could not find the language files. Tried: ' + LANG_PATH_CANDIDATES.join(', ') + '\n' +
+          '[i18n] Make sure en.json (and the other languages) are deployed in one of those folders, ' +
+          'or add your folder name to LANG_PATH_CANDIDATES at the top of i18n.js.'
+        );
+        return Promise.reject(new Error('no language folder found'));
+      }
+      var base = LANG_PATH_CANDIDATES[i++];
+      return fetch(base + 'en.json', { cache: 'no-cache' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          LANG_PATH = base;
+          console.log('[i18n] language files found at', base);
+          return r.json();
+        })
+        .catch(function () { return tryNext(); });
+    }
+    return tryNext();
   }
 
   // ---- DOM application --------------------------------------------------
@@ -92,8 +122,12 @@
   // ---- public: switch language -----------------------------------------
   function setLanguage(code) {
     var langObj = supported(code) || supported(DEFAULT_LANG);
+    if (!LANG_PATH) {
+      console.error('[i18n] setLanguage("' + code + '") called but no language folder was found — see the error above.');
+      return Promise.resolve();
+    }
     var loadActive = (langObj.code === 'en')
-      ? Promise.resolve(enDict)   // english already loaded below; avoid double fetch
+      ? Promise.resolve(enDict)   // english already loaded at init; avoid double fetch
       : fetchLang(langObj.code);
 
     return loadActive
@@ -106,7 +140,8 @@
         document.dispatchEvent(new CustomEvent('i18n:changed', { detail: { code: langObj.code } }));
       })
       .catch(function (err) {
-        console.warn('i18n: failed to load "' + code + '":', err.message);
+        console.error('[i18n] Failed to load "' + code + '": ' + err.message + '\n' +
+          '[i18n] Check that ' + LANG_PATH + langObj.code + '.json is deployed and is valid JSON.');
         // stay on whatever is currently shown (English fallback already in DOM)
       });
   }
@@ -145,11 +180,11 @@
 
   function init() {
     buildSwitcher();
-    // Always load English first as the fallback dictionary, then the active language.
-    fetchLang('en')
-      .then(function (data) { enDict = data; dict = data; })
-      .catch(function () { enDict = {}; dict = {}; })   // page keeps its hardcoded English text
-      .then(function () { return setLanguage(detectInitial()); });
+    // Discover the folder + load English (the fallback dictionary), then the
+    // saved / browser-preferred language.
+    discoverLangPath()
+      .then(function (data) { enDict = data; dict = data; return setLanguage(detectInitial()); })
+      .catch(function () { enDict = {}; dict = {}; });   // page keeps its hardcoded English text
   }
 
   if (document.readyState === 'loading') {
