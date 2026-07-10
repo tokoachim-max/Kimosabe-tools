@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Free Online PDF & Image Tools — No Uploads Required | Kimosabe Tools</title>
+  <title data-i18n="meta.title">Free Online PDF &amp; Image Tools — No Uploads Required | Kimosabe Tools</title>
 
-  <meta name="description" content="Free, private PDF and image tools that run 100% in your browser. Edit, merge, compress, sign, and split PDFs. Compress and convert images. No uploads, no account, no limits.">
-  <meta name="keywords" content="PDF tools, image compressor, privacy tools, online utilities, PDF editor, image converter, edit PDF online, compress PDF, merge PDF, sign PDF, no upload PDF tool">
+  <meta name="description" data-i18n-attr="content:meta.description" content="Free, private PDF and image tools that run 100% in your browser. Edit, merge, compress, sign, and split PDFs. Compress and convert images. No uploads, no account, no limits.">
+  <meta name="keywords" data-i18n-attr="content:meta.keywords" content="PDF tools, image compressor, privacy tools, online utilities, PDF editor, image converter, edit PDF online, compress PDF, merge PDF, sign PDF, no upload PDF tool">
   <meta name="author" content="Kimosabe Tools">
 
   <!-- Canonical URL — prevents duplicate content penalties -->
@@ -81,6 +81,10 @@
        with a {search_term_string} handler, so it produced a
        validator warning and no SERP feature. There is no site
        search, so the action has been dropped entirely.
+
+       i18n NOTE: JSON-LD deliberately stays ENGLISH-ONLY. Crawlers
+       read it from the raw HTML before JS runs, so runtime
+       translation would do nothing for SEO and risks schema drift.
   ═══════════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
   {
@@ -462,6 +466,56 @@
       pointer-events: none;
       opacity: 0;
     }
+
+    /* ═══════════════════════════════════════════════════════════
+       i18n ADDITIONS (language switcher + RTL support)
+    ═══════════════════════════════════════════════════════════ */
+
+    /* ── Language switcher ──
+       Styled as a pill so it sits flush with the ☕ Support button:
+       same 50px radius, same 0.5rem vertical padding, and the
+       .nav-links flex row centres them on one line. appearance:none
+       removes the mismatched native chrome; an inline-SVG ▾ keeps it
+       recognisable as a dropdown. */
+    #lang-switcher {
+      display: inline-flex;
+      align-items: center;
+    }
+    #lang-switcher select {
+      -webkit-appearance: none;
+      appearance: none;
+      padding: 0.5rem 2rem 0.5rem 1rem;
+      border: 2px solid var(--gray-200, #e5e7eb);
+      border-radius: 50px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.2;               /* matches .support-btn text height */
+      color: var(--gray-600, #4b5563);
+      background: #fff url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236b7280' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 0.8rem center;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    #lang-switcher select:hover,
+    #lang-switcher select:focus {
+      border-color: var(--primary, #2E75B6);
+      color: var(--primary, #2E75B6);
+      outline: none;
+    }
+
+    /* ── RTL support (Arabic) ──
+       Flex, grid and text-align follow the [dir] attribute
+       automatically; these rules cover only the pieces that need
+       explicit mirroring. i18n.js sets dir="rtl" on <html> when the
+       active language is flagged rtl. */
+    html[dir="rtl"] .nav-links,
+    html[dir="rtl"] .footer-links { flex-direction: row-reverse; }
+    html[dir="rtl"] .tool-badge   { margin-left: 0; margin-right: 6px; }
+    html[dir="rtl"] .faq-item     { border-left: none; border-right: 3px solid #2E75B6; }
+    html[dir="rtl"] #lang-switcher select {
+      padding: 0.5rem 1rem 0.5rem 2rem;
+      background-position: left 0.8rem center;
+    }
   </style>
 
   <!-- ═══════════════════════════════════════════════════════════
@@ -498,10 +552,10 @@
 
   <!-- PWA Install Banner (shown only when browser fires beforeinstallprompt) -->
   <div id="pwa-install-bar" role="region" aria-label="Install app prompt">
-    <span>📱 <strong>Add to Home Screen</strong> — Use Kimosabe Tools offline, like an app</span>
+    <span>📱 <strong data-i18n="pwa.title">Add to Home Screen</strong> <span data-i18n="pwa.desc">— Use Kimosabe Tools offline, like an app</span></span>
     <div style="display:flex;gap:0.5rem;">
-      <button id="pwa-install-btn">Install</button>
-      <button id="pwa-install-dismiss">Not now</button>
+      <button id="pwa-install-btn" data-i18n="pwa.install">Install</button>
+      <button id="pwa-install-dismiss" data-i18n="pwa.dismiss">Not now</button>
     </div>
   </div>
 
@@ -515,11 +569,13 @@
         <span>Kimosabe Tools</span>
       </a>
       <div class="nav-links">
-        <a href="#tools">Tools</a>
-        <a href="#features">Features</a>
-        <a href="#faq">FAQ</a>
-        <a href="about.html">About</a>
-        <a href="donate.html" class="support-btn">☕ Support</a>
+        <a href="#tools" data-i18n="nav.tools">Tools</a>
+        <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="donate.html" class="support-btn" data-i18n="nav.donate">☕ Support</a>
+        <!-- i18n: language dropdown mounts here (built by i18n.js) -->
+        <span id="lang-switcher"></span>
       </div>
     </div>
   </nav>
@@ -532,17 +588,17 @@
       </div>
     </div>
     <h1>
-      <span>Kimosabe Tools</span>
+      <span data-i18n="hero.title">Kimosabe Tools</span>
     </h1>
-    <p>100% Private PDF &amp; Image Tools That Stay in Your Browser</p>
+    <p data-i18n="hero.subtitle">100% Private PDF &amp; Image Tools That Stay in Your Browser</p>
 
     <!-- FIX #6: inline style replaced with .hero-badges class -->
     <div class="hero-badges">
-      <span class="hero-badge">🔒 No Uploads</span>
-      <span class="hero-badge">⚡ Instant Processing</span>
-      <span class="hero-badge">💸 Completely Free</span>
-      <span class="hero-badge">🚫 No Account Needed</span>
-      <span class="hero-badge">📶 Works Offline</span>
+      <span class="hero-badge" data-i18n="hero.badge_no_uploads">🔒 No Uploads</span>
+      <span class="hero-badge" data-i18n="hero.badge_instant">⚡ Instant Processing</span>
+      <span class="hero-badge" data-i18n="hero.badge_free">💸 Completely Free</span>
+      <span class="hero-badge" data-i18n="hero.badge_no_account">🚫 No Account Needed</span>
+      <span class="hero-badge" data-i18n="hero.badge_offline">📶 Works Offline</span>
     </div>
 
     <!-- Hero CTA button — reduces scroll drop-off -->
@@ -550,7 +606,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
         <polyline points="6 9 12 15 18 9"/>
       </svg>
-      Browse All Tools
+      <span data-i18n="hero.cta">Browse All Tools</span>
     </a>
   </header>
 
@@ -559,34 +615,34 @@
     <!-- Trust strip — reinforces zero-friction promise.
          FIX #6: list-style/padding moved to .trust-strip CSS. -->
     <ul class="trust-strip" aria-label="Key features">
-      <li>✅ No account required</li>
-      <li>✅ No file size limits</li>
-      <li>✅ No watermarks</li>
-      <li>✅ Works offline after first load</li>
-      <li>✅ Files never leave your browser</li>
+      <li data-i18n="trust.no_account">✅ No account required</li>
+      <li data-i18n="trust.no_limits">✅ No file size limits</li>
+      <li data-i18n="trust.no_watermarks">✅ No watermarks</li>
+      <li data-i18n="trust.offline">✅ Works offline after first load</li>
+      <li data-i18n="trust.local">✅ Files never leave your browser</li>
     </ul>
 
     <!-- Stats -->
     <div class="stats-grid" aria-label="Usage statistics">
       <div class="stat-card fade-in">
         <div class="stat-number" aria-label="10,000 plus monthly users">10K+</div>
-        <div>Monthly Users</div>
+        <div data-i18n="stats.monthly_users">Monthly Users</div>
       </div>
       <div class="stat-card fade-in">
         <div class="stat-number" aria-label="50,000 plus files processed">50K+</div>
-        <div>Files Processed</div>
+        <div data-i18n="stats.files_processed">Files Processed</div>
       </div>
       <div class="stat-card fade-in">
         <div class="stat-number" aria-label="100 percent privacy guarantee">100%</div>
-        <div>Privacy Guarantee</div>
+        <div data-i18n="stats.privacy_guarantee">Privacy Guarantee</div>
       </div>
     </div>
 
     <!-- Tools Section -->
     <section id="tools" aria-labelledby="tools-heading">
       <div class="section-header">
-        <h2 id="tools-heading">Powerful Privacy-First Tools</h2>
-        <p>All processing happens locally in your browser—your files never leave your device</p>
+        <h2 id="tools-heading" data-i18n="tools_section.title">Powerful Privacy-First Tools</h2>
+        <p data-i18n="tools_section.subtitle">All processing happens locally in your browser—your files never leave your device</p>
       </div>
 
       <div class="tools-grid" role="list">
@@ -595,131 +651,131 @@
         <a href="tools/image-compressor.html" class="tool-card fade-in" role="listitem"
            aria-label="Image Compressor — Reduce image file size without quality loss">
           <div class="card-icon" aria-hidden="true">📁</div>
-          <h3>Image Compressor <span class="tool-badge popular">⭐ Popular</span></h3>
-          <p>Reduce image size without quality loss</p>
-          <span class="tool-tag">Image Tool</span>
+          <h3><span data-i18n="tools.image_compressor.title">Image Compressor</span> <span class="tool-badge popular" data-i18n="badge.popular">⭐ Popular</span></h3>
+          <p data-i18n="tools.image_compressor.desc">Reduce image size without quality loss</p>
+          <span class="tool-tag" data-i18n="tool_categories.image_tools">Image Tool</span>
         </a>
 
         <a href="tools/image-resize.html" class="tool-card fade-in" role="listitem"
            aria-label="Resize Image — Adjust dimensions for any platform">
           <div class="card-icon" aria-hidden="true">📐</div>
-          <h3>Resize Image</h3>
-          <p>Adjust dimensions for any platform</p>
-          <span class="tool-tag">Image Tool</span>
+          <h3 data-i18n="tools.image_resize.title">Resize Image</h3>
+          <p data-i18n="tools.image_resize.desc">Adjust dimensions for any platform</p>
+          <span class="tool-tag" data-i18n="tool_categories.image_tools">Image Tool</span>
         </a>
 
         <a href="tools/image-converter.html" class="tool-card fade-in" role="listitem"
            aria-label="Image Converter — Convert between image formats instantly">
           <div class="card-icon" aria-hidden="true">🔄</div>
-          <h3>Image Converter</h3>
-          <p>Convert between formats instantly</p>
-          <span class="tool-tag">Image Tool</span>
+          <h3 data-i18n="tools.image_converter.title">Image Converter</h3>
+          <p data-i18n="tools.image_converter.desc">Convert between formats instantly</p>
+          <span class="tool-tag" data-i18n="tool_categories.image_tools">Image Tool</span>
         </a>
 
         <!-- PDF Tools -->
         <a href="tools/edit-pdf.html" class="tool-card fade-in" role="listitem"
            aria-label="Edit PDF — Add text, shapes, annotations, and whiteout to PDFs">
           <div class="card-icon" aria-hidden="true">📝</div>
-          <h3>Edit PDF <span class="tool-badge new">🆕 Updated</span></h3>
-          <p>Add text, shapes, annotations, and whiteout</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3><span data-i18n="tools.edit_pdf.title">Edit PDF</span> <span class="tool-badge new" data-i18n="badge.updated">🆕 Updated</span></h3>
+          <p data-i18n="tools.edit_pdf.desc">Add text, shapes, annotations, and whiteout</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/merge-pdf.html" class="tool-card fade-in" role="listitem"
            aria-label="Merge PDF — Combine multiple PDF documents into one">
           <div class="card-icon" aria-hidden="true">🔗</div>
-          <h3>Merge PDF <span class="tool-badge popular">⭐ Popular</span></h3>
-          <p>Combine multiple documents</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3><span data-i18n="tools.merge_pdf.title">Merge PDF</span> <span class="tool-badge popular" data-i18n="badge.popular">⭐ Popular</span></h3>
+          <p data-i18n="tools.merge_pdf.desc">Combine multiple documents</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/rotate-split-pdf.html" class="tool-card fade-in" role="listitem"
            aria-label="Rotate and Split PDF — Fix page orientation or extract specific pages">
           <div class="card-icon" aria-hidden="true">✂️</div>
-          <h3>Rotate &amp; Split PDF</h3>
-          <p>Fix orientation or extract pages</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3 data-i18n="tools.rotate_split_pdf.title">Rotate &amp; Split PDF</h3>
+          <p data-i18n="tools.rotate_split_pdf.desc">Fix orientation or extract pages</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/image-to-pdf.html" class="tool-card fade-in" role="listitem"
            aria-label="Image to PDF — Convert photos and images into a PDF document">
           <div class="card-icon" aria-hidden="true">📄</div>
-          <h3>Image to PDF</h3>
-          <p>Convert photos to documents</p>
-          <span class="tool-tag">Converter</span>
+          <h3 data-i18n="tools.image_to_pdf.title">Image to PDF</h3>
+          <p data-i18n="tools.image_to_pdf.desc">Convert photos to documents</p>
+          <span class="tool-tag" data-i18n="tools.image_to_pdf.category">Converter</span>
         </a>
 
         <a href="tools/compress-pdf.html" class="tool-card fade-in" role="listitem"
            aria-label="Compress PDF — Reduce PDF file size for email and storage">
           <div class="card-icon" aria-hidden="true">📉</div>
-          <h3>Compress PDF</h3>
-          <p>Reduce document size</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3 data-i18n="tools.compress_pdf.title">Compress PDF</h3>
+          <p data-i18n="tools.compress_pdf.desc">Reduce document size</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/sign-pdf.html" class="tool-card fade-in" role="listitem"
            aria-label="Sign PDF — Add an electronic signature to PDF documents">
           <div class="card-icon" aria-hidden="true">✍️</div>
-          <h3>Sign PDF</h3>
-          <p>Add an electronic signature</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3 data-i18n="tools.sign_pdf.title">Sign PDF</h3>
+          <p data-i18n="tools.sign_pdf.desc">Add an electronic signature</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <!-- ── New tools ── -->
         <a href="tools/organize-pdf.html" class="tool-card fade-in" role="listitem"
            aria-label="Organize PDF — Reorder, delete, rotate and extract PDF pages">
           <div class="card-icon" aria-hidden="true">🗂️</div>
-          <h3>Organize PDF <span class="tool-badge new">🆕 New</span></h3>
-          <p>Reorder, delete, rotate &amp; extract pages</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3><span data-i18n="tools.organize_pdf.title">Organize PDF</span> <span class="tool-badge new" data-i18n="badge.new">🆕 New</span></h3>
+          <p data-i18n="tools.organize_pdf.desc">Reorder, delete, rotate &amp; extract pages</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/pdf-to-images.html" class="tool-card fade-in" role="listitem"
            aria-label="PDF to Images — Convert PDF pages to JPG or PNG">
           <div class="card-icon" aria-hidden="true">🖼️</div>
-          <h3>PDF to Images <span class="tool-badge new">🆕 New</span></h3>
-          <p>Convert PDF pages to JPG or PNG</p>
-          <span class="tool-tag">Converter</span>
+          <h3><span data-i18n="tools.pdf_to_images.title">PDF to Images</span> <span class="tool-badge new" data-i18n="badge.new">🆕 New</span></h3>
+          <p data-i18n="tools.pdf_to_images.desc">Convert PDF pages to JPG or PNG</p>
+          <span class="tool-tag" data-i18n="tools.pdf_to_images.category">Converter</span>
         </a>
 
         <a href="tools/unlock-pdf.html" class="tool-card fade-in" role="listitem"
            aria-label="Unlock PDF — Remove a password you know from a PDF">
           <div class="card-icon" aria-hidden="true">🔓</div>
-          <h3>Unlock PDF <span class="tool-badge new">🆕 New</span></h3>
-          <p>Remove a password you know</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3><span data-i18n="tools.unlock_pdf.title">Unlock PDF</span> <span class="tool-badge new" data-i18n="badge.new">🆕 New</span></h3>
+          <p data-i18n="tools.unlock_pdf.desc">Remove a password you know</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/watermark-pdf.html" class="tool-card fade-in" role="listitem"
            aria-label="Watermark PDF — Add a text or logo watermark to a PDF">
           <div class="card-icon" aria-hidden="true">💧</div>
-          <h3>Watermark PDF <span class="tool-badge new">🆕 New</span></h3>
-          <p>Stamp text or a logo on every page</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3><span data-i18n="tools.watermark_pdf.title">Watermark PDF</span> <span class="tool-badge new" data-i18n="badge.new">🆕 New</span></h3>
+          <p data-i18n="tools.watermark_pdf.desc">Stamp text or a logo on every page</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/page-numbers-pdf.html" class="tool-card fade-in" role="listitem"
            aria-label="Add Page Numbers — Number the pages of a PDF">
           <div class="card-icon" aria-hidden="true">🔢</div>
-          <h3>Add Page Numbers <span class="tool-badge new">🆕 New</span></h3>
-          <p>Number your PDF pages</p>
-          <span class="tool-tag">PDF Tool</span>
+          <h3><span data-i18n="tools.page_numbers_pdf.title">Add Page Numbers</span> <span class="tool-badge new" data-i18n="badge.new">🆕 New</span></h3>
+          <p data-i18n="tools.page_numbers_pdf.desc">Number your PDF pages</p>
+          <span class="tool-tag" data-i18n="tool_categories.pdf_tools">PDF Tool</span>
         </a>
 
         <a href="tools/image-editor.html" class="tool-card fade-in" role="listitem"
            aria-label="Image Editor — Crop, rotate and flip images">
           <div class="card-icon" aria-hidden="true">✂️</div>
-          <h3>Image Editor <span class="tool-badge new">🆕 New</span></h3>
-          <p>Crop, rotate &amp; flip images</p>
-          <span class="tool-tag">Image Tool</span>
+          <h3><span data-i18n="tools.image_editor.title">Image Editor</span> <span class="tool-badge new" data-i18n="badge.new">🆕 New</span></h3>
+          <p data-i18n="tools.image_editor.desc">Crop, rotate &amp; flip images</p>
+          <span class="tool-tag" data-i18n="tool_categories.image_tools">Image Tool</span>
         </a>
 
         <a href="tools/qr-code-generator.html" class="tool-card fade-in" role="listitem"
            aria-label="QR Code Generator — Create QR codes for links, text and Wi-Fi">
           <div class="card-icon" aria-hidden="true">🔳</div>
-          <h3>QR Code Generator <span class="tool-badge new">🆕 New</span></h3>
-          <p>Create QR codes for links &amp; more</p>
-          <span class="tool-tag">Generator</span>
+          <h3><span data-i18n="tools.qr_code_generator.title">QR Code Generator</span> <span class="tool-badge new" data-i18n="badge.new">🆕 New</span></h3>
+          <p data-i18n="tools.qr_code_generator.desc">Create QR codes for links &amp; more</p>
+          <span class="tool-tag" data-i18n="tool_categories.generator">Generator</span>
         </a>
 
       </div>
@@ -728,33 +784,33 @@
     <!-- Features -->
     <section id="features" aria-labelledby="features-heading">
       <div class="section-header">
-        <h2 id="features-heading">Why Choose Kimosabe Tools?</h2>
-        <p>We're different from traditional online tools</p>
+        <h2 id="features-heading" data-i18n="features.title">Why Choose Kimosabe Tools?</h2>
+        <p data-i18n="features.subtitle">We're different from traditional online tools</p>
       </div>
 
       <div class="features-grid">
         <div class="feature-card fade-in" role="article">
           <div class="feature-icon" aria-hidden="true">🔒</div>
-          <h3>Complete Privacy</h3>
-          <p>Your files never leave your device. No uploads to our servers means maximum security for sensitive documents.</p>
+          <h3 data-i18n="features.privacy.title">Complete Privacy</h3>
+          <p data-i18n="features.privacy.desc">Your files never leave your device. No uploads to our servers means maximum security for sensitive documents.</p>
         </div>
 
         <div class="feature-card fade-in" role="article">
           <div class="feature-icon" aria-hidden="true">⚡</div>
-          <h3>Blazing Fast</h3>
-          <p>Process files at local device speed. No waiting for uploads or downloads to remote servers.</p>
+          <h3 data-i18n="features.speed.title">Blazing Fast</h3>
+          <p data-i18n="features.speed.desc">Process files at local device speed. No waiting for uploads or downloads to remote servers.</p>
         </div>
 
         <div class="feature-card fade-in" role="article">
           <div class="feature-icon" aria-hidden="true">🎯</div>
-          <h3>No Limits</h3>
-          <p>No file size limits, no watermarks, no registration required. All tools are completely free to use.</p>
+          <h3 data-i18n="features.limits.title">No Limits</h3>
+          <p data-i18n="features.limits.desc">No file size limits, no watermarks, no registration required. All tools are completely free to use.</p>
         </div>
 
         <div class="feature-card fade-in" role="article">
           <div class="feature-icon" aria-hidden="true">🌐</div>
-          <h3>Works Everywhere</h3>
-          <p>Use on any device with a modern browser. No installation required—just open and start using. Works offline too.</p>
+          <h3 data-i18n="features.accessibility.title">Works Everywhere</h3>
+          <p data-i18n="features.accessibility.desc">Use on any device with a modern browser. No installation required—just open and start using. Works offline too.</p>
         </div>
       </div>
     </section>
@@ -766,39 +822,42 @@
     ═══════════════════════════════════════════════════════════ -->
     <section id="faq" class="faq-section" aria-labelledby="faq-heading">
       <div class="section-header">
-        <h2 id="faq-heading">Frequently Asked Questions</h2>
-        <p>Everything you need to know before you start</p>
+        <h2 id="faq-heading" data-i18n="faq.title">Frequently Asked Questions</h2>
+        <p data-i18n="faq.subtitle">Everything you need to know before you start</p>
       </div>
       <div class="faq-grid">
 
         <div class="faq-item fade-in">
-          <h4>Are my files uploaded to a server?</h4>
-          <p>No — never. Every tool runs entirely inside your browser using JavaScript. Your files are processed in memory on your own device and are never transmitted anywhere. You can verify this by watching your network tab in DevTools.</p>
+          <h4 data-i18n="faq.q_uploads.q">Are my files uploaded to a server?</h4>
+          <p data-i18n="faq.q_uploads.a">No — never. Every tool runs entirely inside your browser using JavaScript. Your files are processed in memory on your own device and are never transmitted anywhere. You can verify this by watching your network tab in DevTools.</p>
         </div>
 
         <div class="faq-item fade-in">
-          <h4>Do I need to create an account?</h4>
-          <p>No account, no email, no sign-up. Open a tool and start using it immediately. There is nothing to install or register.</p>
+          <h4 data-i18n="faq.q_account.q">Do I need to create an account?</h4>
+          <p data-i18n="faq.q_account.a">No account, no email, no sign-up. Open a tool and start using it immediately. There is nothing to install or register.</p>
         </div>
 
         <div class="faq-item fade-in">
-          <h4>Are there file size limits?</h4>
-          <p>There are no imposed limits — we don't control file size because files never touch our servers. Processing large files may be slower depending on your device's hardware.</p>
+          <h4 data-i18n="faq.q_limits.q">Are there file size limits?</h4>
+          <p data-i18n="faq.q_limits.a">There are no imposed limits — we don't control file size because files never touch our servers. Processing large files may be slower depending on your device's hardware.</p>
         </div>
 
         <div class="faq-item fade-in">
-          <h4>Do the tools work offline?</h4>
-          <p>Yes. After your first visit, Kimosabe Tools installs a service worker that caches the pages. You can use all tools without an internet connection from then on.</p>
+          <h4 data-i18n="faq.q_offline.q">Do the tools work offline?</h4>
+          <p data-i18n="faq.q_offline.a">Yes. After your first visit, Kimosabe Tools installs a service worker that caches the pages. You can use all tools without an internet connection from then on.</p>
         </div>
 
         <div class="faq-item fade-in">
-          <h4>Are there watermarks on output files?</h4>
-          <p>Absolutely not. Your output files are clean, unmodified (except for the edits you made), and contain no branding or watermarks from us.</p>
+          <h4 data-i18n="faq.q_watermarks.q">Are there watermarks on output files?</h4>
+          <p data-i18n="faq.q_watermarks.a">Absolutely not. Your output files are clean, unmodified (except for the edits you made), and contain no branding or watermarks from us.</p>
         </div>
 
         <div class="faq-item fade-in">
-          <h4>How is this free to use?</h4>
-          <p>Kimosabe Tools is a passion project maintained by a solo developer. It's kept alive by voluntary donations from users who find it useful. If these tools save you time, consider <a href="donate.html">buying the developer a coffee ☕</a>.</p>
+          <h4 data-i18n="faq.q_free.q">How is this free to use?</h4>
+          <!-- i18n: answer split into text + link spans so the donate link
+               survives translation (a plain textContent swap on the <p>
+               would destroy the <a> element). -->
+          <p><span data-i18n="faq.q_free.a">Kimosabe Tools is a passion project maintained by a solo developer. It's kept alive by voluntary donations from users who find it useful. If these tools save you time, consider</span> <a href="donate.html" data-i18n="faq.q_free.link">buying the developer a coffee ☕</a>.</p>
         </div>
 
       </div>
@@ -806,26 +865,29 @@
 
     <!-- About Section -->
     <section id="about" class="about-section fade-in" aria-labelledby="about-heading">
-      <h2 id="about-heading">Built for Privacy, Driven by Purpose</h2>
-      <p class="lead">
+      <h2 id="about-heading" data-i18n="about.title">Built for Privacy, Driven by Purpose</h2>
+      <!-- i18n: the <strong> inside the original lead was flattened into
+           the translation string; textContent swapping cannot preserve
+           child markup. Visual emphasis traded for translatability. -->
+      <p class="lead" data-i18n="about.lead">
         After seeing how most "free" online tools secretly upload your files to their servers,
-        I created Kimosabe Tools with one simple promise: <strong>your files stay on your device.</strong>
+        I created Kimosabe Tools with one simple promise: your files stay on your device.
       </p>
-      <p class="sub">
+      <p class="sub" data-i18n="about.sub">
         This is a passion project maintained by a solo developer. If these tools save you time
         and protect your privacy, consider supporting the project to help keep it running.
       </p>
 
       <div class="cta-buttons">
-        <a href="privacy.html" class="btn btn-primary">
+        <a href="privacy.html" class="btn btn-primary" data-i18n="about.cta_privacy">
           📖 Read Our Privacy Promise
         </a>
-        <a href="donate.html" class="btn btn-secondary">
+        <a href="donate.html" class="btn btn-secondary" data-i18n="about.cta_support">
           ☕ Support the Project
         </a>
       </div>
 
-      <p class="signature">
+      <p class="signature" data-i18n="about.signature">
         — The Kimosabe Developer
       </p>
     </section>
@@ -843,21 +905,25 @@
       </div>
 
       <div class="footer-cta">
-        <p>Join thousands of users who trust their privacy to Kimosabe Tools</p>
-        <a href="#tools" class="support-btn">🚀 Start Using Tools</a>
+        <p data-i18n="footer.tagline">Join thousands of users who trust their privacy to Kimosabe Tools</p>
+        <a href="#tools" class="support-btn" data-i18n="footer.start">🚀 Start Using Tools</a>
       </div>
 
       <nav class="footer-links" aria-label="Footer navigation">
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="donate.html" class="footer-support-link">Support Us</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="privacy.html" data-i18n="nav.privacy">Privacy</a>
+        <a href="terms.html" data-i18n="nav.terms">Terms</a>
+        <a href="donate.html" class="footer-support-link" data-i18n="footer.support_us">Support Us</a>
       </nav>
 
+      <!-- i18n + ads-prep: the small print now reads "All processing happens
+           locally in your browser." The previous "No cookies. No tracking."
+           claim was inaccurate (GA runs) and would break with AdSense; the
+           JSON strings for every language must use the corrected wording. -->
       <p class="copyright">
-        © 2026 Kimosabe Tools. Built with ❤️ for privacy.<br>
-        <small>All processing happens locally in your browser. No cookies. No tracking.</small>
+        <span data-i18n="footer.copyright">© 2026 Kimosabe Tools. Built with ❤️ for privacy.</span><br>
+        <small data-i18n="footer.processing">All processing happens locally in your browser.</small>
       </p>
     </div>
   </footer>
@@ -872,6 +938,10 @@
   <div class="scroll-sentinel" data-depth="50" aria-hidden="true"></div>
   <div class="scroll-sentinel" data-depth="75" aria-hidden="true"></div>
   <div class="scroll-sentinel" data-depth="100" aria-hidden="true"></div>
+
+  <!-- i18n engine — loads /lang/<code>.json, swaps data-i18n text,
+       sets dir="rtl" for Arabic, builds the switcher, remembers choice -->
+  <script src="/assets/js/i18n.js" defer></script>
 
   <script>
     // ── Back to Top Button ──────────────────────────────────────
