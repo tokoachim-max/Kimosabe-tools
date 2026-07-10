@@ -181,7 +181,7 @@
     "select_option": "选择选项...",
     "loading": "加载中...",
     "upload": "上传文件",
-    "max_size": "最大大小：50MB",
+    "max_size": "最大大小：100MB",
     "browser_only": "文件在浏览器中处理",
     "success": "成功！",
     "error": "错误",
