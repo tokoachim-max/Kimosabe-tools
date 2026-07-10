@@ -14,7 +14,8 @@
     "terms": "Conditions",
     "donate": "☕ Soutenir",
     "language": "🌐",
-    "explore_tools": "🚀 Explorer tous les outils"
+    "explore_tools": "🚀 Explorer tous les outils",
+    "faq": "FAQ"
   },
   "hero": {
     "title": "Kimosabe Tools",
@@ -22,7 +23,13 @@
     "tagline": "🔒 Aucun transfert ⚡ Traitement instantané 💸 Complètement gratuit",
     "tagline_1": "🔒 Aucun transfert",
     "tagline_2": "⚡ Traitement instantané",
-    "tagline_3": "💸 Complètement gratuit"
+    "tagline_3": "💸 Complètement gratuit",
+    "badge_no_uploads": "🔒 Aucun transfert",
+    "badge_instant": "⚡ Traitement instantané",
+    "badge_free": "💸 Complètement gratuit",
+    "badge_no_account": "🚫 Sans compte",
+    "badge_offline": "📶 Fonctionne hors ligne",
+    "cta": "Parcourir tous les outils"
   },
   "stats": {
     "monthly_users": "Utilisateurs mensuels",
@@ -74,10 +81,39 @@
     "sign_pdf": {
       "title": "Signer PDF",
       "desc": "Ajouter des signatures numériques en toute sécurité"
+    },
+    "organize_pdf": {
+      "title": "Organiser PDF",
+      "desc": "Réordonner, supprimer, tourner et extraire des pages"
+    },
+    "pdf_to_images": {
+      "title": "PDF en images",
+      "desc": "Convertir les pages PDF en JPG ou PNG",
+      "category": "Convertisseur"
+    },
+    "unlock_pdf": {
+      "title": "Déverrouiller PDF",
+      "desc": "Retirer un mot de passe connu"
+    },
+    "watermark_pdf": {
+      "title": "Filigrane PDF",
+      "desc": "Apposer un texte ou un logo sur chaque page"
+    },
+    "page_numbers_pdf": {
+      "title": "Numéroter les pages",
+      "desc": "Numérotez les pages de votre PDF"
+    },
+    "image_editor": {
+      "title": "Éditeur d'images",
+      "desc": "Recadrer, tourner et retourner des images"
+    },
+    "qr_code_generator": {
+      "title": "Générateur de QR codes",
+      "desc": "Créer des QR codes pour liens et plus"
     }
   },
   "features": {
-    "title": "Des outils performants axés sur la confidentialité",
+    "title": "Pourquoi choisir Kimosabe Tools ?",
     "subtitle": "Nous sommes différents des outils en ligne traditionnels",
     "description": "Tous les traitements se font localement dans votre navigateur - vos fichiers ne quittent jamais votre appareil.",
     "privacy": {
@@ -104,21 +140,28 @@
     "signature": "— Le développeur de Kimosabe",
     "about_title": "À propos de Kimosabe Tools",
     "about_desc": "Kimosabe Tools a été créé par un développeur indépendant valorisant la confidentialité. Nous croyons en des outils respectant vos droits numériques.",
-    "cta": "Découvrez notre mission"
+    "cta": "Découvrez notre mission",
+    "lead": "Après avoir vu comment la plupart des outils en ligne 'gratuits' transfèrent secrètement vos fichiers, j'ai créé Kimosabe Tools avec une promesse simple : vos fichiers restent chez vous.",
+    "cta_privacy": "📖 Lire notre promesse de confidentialité",
+    "cta_support": "☕ Soutenir le projet",
+    "sub": "C'est un projet passionné entretenu par un développeur solo. Si ces outils vous font gagner du temps et protègent votre vie privée, envisagez de soutenir le projet pour l'aider à continuer."
   },
   "tool_categories": {
-    "pdf_tools": "Outils PDF",
-    "image_tools": "Outils d'image"
+    "pdf_tools": "Outil PDF",
+    "image_tools": "Outil d'image",
+    "generator": "Générateur"
   },
   "footer": {
     "tagline": "Rejoignez des milliers d'utilisateurs qui font confiance à Kimosabe Tools",
     "built_with": "Construit avec ❤️ pour la confidentialité",
-    "processing": "Traitement local dans votre navigateur. Aucun cookie. Aucun suivi.",
+    "processing": "Tout le traitement se fait localement dans votre navigateur.",
     "open_source": "Open Source",
     "report_issue": "Signaler un problème",
     "contact_dev": "Contacter le développeur",
     "share": "Partager ces outils",
-    "copyright": "© 2026 Kimosabe Tools. Construit avec ❤️ pour la confidentialité."
+    "copyright": "© 2026 Kimosabe Tools. Construit avec ❤️ pour la confidentialité.",
+    "start": "🚀 Commencer à utiliser les outils",
+    "support_us": "Soutenez-nous"
   },
   "ui_common": {
     "upload_file": "Choisir un fichier",
@@ -190,5 +233,56 @@
     "unsupported_format": "Format non supporté",
     "browser_not_supported": "Navigateur non supporté",
     "update_browser": "Veuillez mettre à jour votre navigateur"
+  },
+  "tools_section": {
+    "title": "Des outils performants axés sur la confidentialité",
+    "subtitle": "Tous les traitements se font localement dans votre navigateur - vos fichiers ne quittent jamais votre appareil."
+  },
+  "trust": {
+    "no_account": "✅ Aucun compte requis",
+    "no_limits": "✅ Aucune limite de taille",
+    "no_watermarks": "✅ Aucun filigrane",
+    "offline": "✅ Fonctionne hors ligne après le premier chargement",
+    "local": "✅ Vos fichiers ne quittent jamais votre navigateur"
+  },
+  "badge": {
+    "popular": "⭐ Populaire",
+    "new": "🆕 Nouveau",
+    "updated": "🆕 Mis à jour"
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "subtitle": "Tout ce qu'il faut savoir avant de commencer",
+    "q_uploads": {
+      "q": "Mes fichiers sont-ils envoyés sur un serveur ?",
+      "a": "Non — jamais. Chaque outil fonctionne entièrement dans votre navigateur grâce à JavaScript. Vos fichiers sont traités en mémoire sur votre propre appareil et ne sont jamais transmis. Vous pouvez le vérifier dans l'onglet réseau des DevTools."
+    },
+    "q_account": {
+      "q": "Dois-je créer un compte ?",
+      "a": "Pas de compte, pas d'e-mail, pas d'inscription. Ouvrez un outil et utilisez-le immédiatement. Rien à installer ni à enregistrer."
+    },
+    "q_limits": {
+      "q": "Y a-t-il des limites de taille de fichier ?",
+      "a": "Aucune limite imposée — nous ne contrôlons pas la taille car les fichiers ne touchent jamais nos serveurs. Le traitement de gros fichiers peut être plus lent selon votre matériel."
+    },
+    "q_offline": {
+      "q": "Les outils fonctionnent-ils hors ligne ?",
+      "a": "Oui. Après votre première visite, Kimosabe Tools installe un service worker qui met les pages en cache. Vous pouvez ensuite utiliser tous les outils sans connexion internet."
+    },
+    "q_watermarks": {
+      "q": "Y a-t-il des filigranes sur les fichiers produits ?",
+      "a": "Absolument pas. Vos fichiers de sortie sont propres, non modifiés (hormis vos propres éditions) et ne contiennent aucun filigrane ni marque de notre part."
+    },
+    "q_free": {
+      "q": "Comment cela peut-il être gratuit ?",
+      "a": "Kimosabe Tools est un projet passionné entretenu par un développeur solo. Il vit grâce aux dons volontaires des utilisateurs qui le trouvent utile. Si ces outils vous font gagner du temps, pensez à",
+      "link": "offrir un café au développeur ☕"
+    }
+  },
+  "pwa": {
+    "title": "Ajouter à l'écran d'accueil",
+    "desc": "— Utilisez Kimosabe Tools hors ligne, comme une app",
+    "install": "Installer",
+    "dismiss": "Plus tard"
   }
 }
