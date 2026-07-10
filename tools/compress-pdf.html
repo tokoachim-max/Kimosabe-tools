@@ -243,6 +243,10 @@
       .compression-options { grid-template-columns: 1fr; }
       .results-stats { grid-template-columns: 1fr; }
     }
+    /* ── Dark-mode fix: level labels must not stay white when --dark flips to white ── */
+    @media (prefers-color-scheme: dark) {
+      .compression-option label { background: var(--gray-200); }
+    }
   </style>
 
   <!-- Google AdSense -->
@@ -297,7 +301,7 @@
         {
           "@type": "Question",
           "name": "What is the maximum PDF size I can compress?",
-          "acceptedAnswer": {"@type": "Answer", "text": "You can compress PDF files up to 50 MB. For larger files, consider splitting the PDF first using our Rotate & Split PDF tool."}
+          "acceptedAnswer": {"@type": "Answer", "text": "You can compress PDF files up to 100 MB. For larger files, consider splitting the PDF first using our Rotate & Split PDF tool."}
         },
         {
           "@type": "Question",
@@ -420,7 +424,7 @@
         <div class="drop-zone-content">
           <span class="icon" aria-hidden="true">📄</span>
           <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
-          <span id="file-name-label" class="file-limit">Maximum size: 50 MB • PDF files only</span>
+          <span id="file-name-label" class="file-limit">Maximum size: 100 MB • PDF files only</span>
         </div>
         <input type="file" id="file-input" accept=".pdf" hidden />
       </div>
@@ -516,7 +520,7 @@
         </div>
         <div style="border-bottom:1px solid var(--gray-200,#e5e7eb);padding:1.25rem 0;">
           <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">What is the maximum PDF size I can compress?</h3>
-          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">You can compress PDF files up to 50 MB. For larger files, consider splitting the PDF first using our Rotate &amp; Split PDF tool.</p>
+          <p style="color:var(--gray-600,#6c757d);font-size:0.95rem;line-height:1.6;">You can compress PDF files up to 100 MB. For larger files, consider splitting the PDF first using our Rotate &amp; Split PDF tool.</p>
         </div>
         <div style="padding:1.25rem 0;">
           <h3 style="font-size:1rem;font-weight:600;color:var(--dark,#212529);margin-bottom:0.5rem;">Why is my compressed PDF larger than the original?</h3>
@@ -686,7 +690,7 @@
       keptOriginalNote.style.display  = 'none';
       updateProgress(0);
       fileInput.value    = '';
-      fileNameLabel.textContent = 'Maximum size: 50 MB • PDF files only';
+      fileNameLabel.textContent = 'Maximum size: 100 MB • PDF files only';
     }
 
     // ─── Core: render one page to a JPEG data-URL ─────────────────────────
@@ -728,10 +732,10 @@
         return;
       }
 
-      // ── 1. File-size guard (real 50 MB enforcement) ──
-      const MAX_BYTES = 50 * 1024 * 1024;
+      // ── 1. File-size guard (real 100 MB enforcement) ──
+      const MAX_BYTES = 100 * 1024 * 1024;
       if (file.size > MAX_BYTES) {
-        alert(`File is ${formatBytes(file.size)}. Maximum allowed size is 50 MB.`);
+        alert(`File is ${formatBytes(file.size)}. Maximum allowed size is 100 MB.`);
         return;
       }
 
