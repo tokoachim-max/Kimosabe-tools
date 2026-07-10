@@ -14,7 +14,8 @@
     "terms": "条款",
     "donate": "☕ 支持",
     "language": "🌐",
-    "explore_tools": "🚀 探索所有工具"
+    "explore_tools": "🚀 探索所有工具",
+    "faq": "常见问题"
   },
   "hero": {
     "title": "Kimosabe Tools",
@@ -22,7 +23,13 @@
     "tagline": "🔒 无需上传 ⚡ 即时处理 💸 完全免费",
     "tagline_1": "🔒 无需上传",
     "tagline_2": "⚡ 即时处理",
-    "tagline_3": "💸 完全免费"
+    "tagline_3": "💸 完全免费",
+    "badge_no_uploads": "🔒 无需上传",
+    "badge_instant": "⚡ 即时处理",
+    "badge_free": "💸 完全免费",
+    "badge_no_account": "🚫 无需账户",
+    "badge_offline": "📶 支持离线",
+    "cta": "浏览所有工具"
   },
   "stats": {
     "monthly_users": "月度用户",
@@ -74,10 +81,39 @@
     "sign_pdf": {
       "title": "签署PDF",
       "desc": "安全添加数字签名"
+    },
+    "organize_pdf": {
+      "title": "整理PDF",
+      "desc": "重新排序、删除、旋转和提取页面"
+    },
+    "pdf_to_images": {
+      "title": "PDF转图片",
+      "desc": "将PDF页面转换为JPG或PNG",
+      "category": "转换器"
+    },
+    "unlock_pdf": {
+      "title": "解锁PDF",
+      "desc": "移除您已知的密码"
+    },
+    "watermark_pdf": {
+      "title": "PDF水印",
+      "desc": "在每页添加文字或Logo水印"
+    },
+    "page_numbers_pdf": {
+      "title": "添加页码",
+      "desc": "为您的PDF页面编号"
+    },
+    "image_editor": {
+      "title": "图片编辑器",
+      "desc": "裁剪、旋转和翻转图片"
+    },
+    "qr_code_generator": {
+      "title": "二维码生成器",
+      "desc": "为链接等内容创建二维码"
     }
   },
   "features": {
-    "title": "强大的隐私优先工具",
+    "title": "为什么选择 Kimosabe Tools？",
     "subtitle": "我们与传统的在线工具不同",
     "description": "所有处理都在您本地浏览器中进行 — 您的文件永远不会离开您的设备",
     "privacy": {
@@ -104,21 +140,28 @@
     "signature": "— Kimosabe 开发者",
     "about_title": "关于 Kimosabe Tools",
     "about_desc": "Kimosabe Tools 由一位重视隐私的独立开发者创建。在这个数据不断被收集和销售的世界中，我们致力于提供尊重您数字权利的工具。",
-    "cta": "了解我们的使命"
+    "cta": "了解我们的使命",
+    "lead": "在目睹大多数'免费'在线工具如何悄悄将您的文件上传到他们的服务器后，我创建了 Kimosabe Tools，并许下一个简单的承诺：您的文件将留在您的设备上。",
+    "cta_privacy": "📖 阅读我们的隐私承诺",
+    "cta_support": "☕ 支持本项目",
+    "sub": "这是一个由独立开发者维护的热情项目。如果这些工具为您节省了时间并保护了您的隐私，请考虑支持该项目以帮助其持续运行。"
   },
   "tool_categories": {
     "pdf_tools": "PDF 工具",
-    "image_tools": "图片工具"
+    "image_tools": "图片工具",
+    "generator": "生成器"
   },
   "footer": {
     "tagline": "加入成千上万信任 Kimosabe Tools 隐私保护的用户",
     "built_with": "为隐私而建 ❤️",
-    "processing": "所有处理都在您本地浏览器中进行。无Cookie，无追踪。",
+    "processing": "所有处理都在您本地浏览器中进行。",
     "open_source": "开源",
     "report_issue": "报告问题",
     "contact_dev": "联系开发者",
     "share": "分享这些工具",
-    "copyright": "© 2026 Kimosabe Tools。为隐私而建 ❤️"
+    "copyright": "© 2026 Kimosabe Tools。为隐私而建 ❤️",
+    "start": "🚀 开始使用工具",
+    "support_us": "支持我们"
   },
   "ui_common": {
     "upload_file": "上传文件",
@@ -192,5 +235,56 @@
     "unsupported_format": "不支持的文件格式",
     "browser_not_supported": "浏览器不支持",
     "update_browser": "请更新您的浏览器"
+  },
+  "tools_section": {
+    "title": "强大的隐私优先工具",
+    "subtitle": "所有处理都在您本地浏览器中进行 — 您的文件永远不会离开您的设备"
+  },
+  "trust": {
+    "no_account": "✅ 无需账户",
+    "no_limits": "✅ 无文件大小限制",
+    "no_watermarks": "✅ 无水印",
+    "offline": "✅ 首次加载后可离线使用",
+    "local": "✅ 文件绝不离开您的浏览器"
+  },
+  "badge": {
+    "popular": "⭐ 热门",
+    "new": "🆕 新",
+    "updated": "🆕 已更新"
+  },
+  "faq": {
+    "title": "常见问题",
+    "subtitle": "开始使用前您需要了解的一切",
+    "q_uploads": {
+      "q": "我的文件会上传到服务器吗？",
+      "a": "不会——绝不。每个工具都完全在您的浏览器中通过 JavaScript 运行。文件仅在您自己设备的内存中处理，绝不会被传输到任何地方。您可以在开发者工具的网络面板中验证这一点。"
+    },
+    "q_account": {
+      "q": "我需要注册账户吗？",
+      "a": "无需账户、无需邮箱、无需注册。打开工具即可立即使用，无需安装任何东西。"
+    },
+    "q_limits": {
+      "q": "有文件大小限制吗？",
+      "a": "没有强制限制——因为文件从不经过我们的服务器，我们不控制文件大小。处理大文件的速度取决于您设备的硬件性能。"
+    },
+    "q_offline": {
+      "q": "这些工具可以离线使用吗？",
+      "a": "可以。首次访问后，Kimosabe Tools 会安装一个 Service Worker 来缓存页面。之后您无需网络连接即可使用所有工具。"
+    },
+    "q_watermarks": {
+      "q": "输出文件上有水印吗？",
+      "a": "完全没有。您的输出文件干净无损（除了您自己所做的编辑），不含我们的任何品牌标识或水印。"
+    },
+    "q_free": {
+      "q": "为什么可以免费使用？",
+      "a": "Kimosabe Tools 是一位独立开发者维护的热情项目，依靠觉得它有用的用户自愿捐助来维持。如果这些工具为您节省了时间，欢迎",
+      "link": "请开发者喝杯咖啡 ☕"
+    }
+  },
+  "pwa": {
+    "title": "添加到主屏幕",
+    "desc": "— 像应用一样离线使用 Kimosabe Tools",
+    "install": "安装",
+    "dismiss": "暂不"
   }
 }
