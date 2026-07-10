@@ -168,7 +168,7 @@
         <div class="drop-zone-content">
           <span class="icon" aria-hidden="true">🗂️</span>
           <p><strong>Click to upload</strong> or drag and drop your PDF here</p>
-          <span class="file-limit">Maximum size: 50 MB • PDF files only</span>
+          <span class="file-limit">Maximum size: 100 MB • PDF files only</span>
         </div>
         <input type="file" id="file-input" accept=".pdf" hidden />
       </div>
@@ -350,7 +350,7 @@
 
     async function handleFile(file) {
       if (!file || file.type !== 'application/pdf') { alert('Please upload a valid PDF file.'); return; }
-      if (file.size > 50 * 1024 * 1024) { alert(`File is ${formatBytes(file.size)}. Maximum allowed size is 50 MB.`); return; }
+      if (file.size > 100 * 1024 * 1024) { alert(`File is ${formatBytes(file.size)}. Maximum allowed size is 100 MB.`); return; }
       try {
         cachedPdfBytes = new Uint8Array(await file.arrayBuffer());
         originalName = file.name.replace(/\.pdf$/i, '');
