@@ -181,7 +181,7 @@
     "select_option": "Seleccionar una opción...",
     "loading": "Cargando...",
     "upload": "Subir archivo",
-    "max_size": "Tamaño máximo: 50MB",
+    "max_size": "Tamaño máximo: 100MB",
     "browser_only": "Los archivos se procesan en su navegador",
     "success": "¡Éxito!",
     "error": "Error",
