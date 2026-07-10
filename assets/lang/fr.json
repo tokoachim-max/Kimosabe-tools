@@ -180,7 +180,7 @@
     "max_file_size": "Taille maximale",
     "select_option": "Sélectionner une option...",
     "loading": "Chargement...",
-    "max_size": "Taille maximale : 50 Mo",
+    "max_size": "Taille maximale : 100 Mo",
     "browser_only": "Fichiers traités localement",
     "success": "Succès !",
     "error": "Erreur",
