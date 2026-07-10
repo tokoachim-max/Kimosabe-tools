@@ -192,7 +192,7 @@
   "ui_common": {
     "upload_file": "Upload File",
     "drag_drop": "Drag & drop or click to upload",
-    "max_size": "Maximum size: 50MB",
+    "max_size": "Maximum size: 100MB",
     "browser_only": "Files are processed in your browser",
     "apply": "Apply Changes",
     "download": "Download",
