@@ -316,6 +316,24 @@
       .thumbnail-sidebar { display: none !important; }
       .export-cards { grid-template-columns: 1fr; }
     }
+  
+    /* ── i18n additions: language switcher pill + RTL (appended) ── */
+    #lang-switcher { display: inline-flex; align-items: center; }
+    #lang-switcher select {
+      -webkit-appearance: none; appearance: none;
+      padding: 0.5rem 2rem 0.5rem 1rem;
+      border: 2px solid var(--gray-200, #e5e7eb); border-radius: 50px;
+      font-family: inherit; font-size: 0.9rem; font-weight: 600; line-height: 1.2;
+      color: var(--gray-600, #4b5563); cursor: pointer;
+      background: #fff url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236b7280' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 0.8rem center;
+    }
+    #lang-switcher select:hover, #lang-switcher select:focus { border-color: var(--primary, #2E75B6); color: var(--primary, #2E75B6); outline: none; }
+    /* dark mode: don't leave a white pill (vars flip via each page's dark block) */
+    @media (prefers-color-scheme: dark) {
+      #lang-switcher select { background-color: var(--gray-200, #404040); color: var(--gray-800, #e5e5e5); border-color: var(--gray-300, #525252); }
+    }
+    html[dir="rtl"] .nav-links, html[dir="rtl"] .footer-links { flex-direction: row-reverse; }
+    html[dir="rtl"] #lang-switcher select { padding: 0.5rem 1rem 0.5rem 2rem; background-position: left 0.8rem center; }
   </style>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
@@ -360,7 +378,8 @@
 
   <nav class="sticky-nav"><div class="nav-container">
     <a href="../index.html" class="nav-logo"><div class="nav-logo-img"><img src="https://kimosabe-tools.pages.dev/favicon-16x16.png" alt="Kimosabe Tools Logo" width="40" height="40"></div><span>Kimosabe Tools</span></a>
-    <div class="nav-links"><a href="../index.html#tools">All Tools</a><a href="../index.html#features">Features</a><a href="../about.html">About</a><a href="../donate.html" class="support-btn">☕ Support</a></div>
+    <div class="nav-links"><a href="../index.html#tools" data-i18n="nav.all_tools">All Tools</a><a href="../index.html#features" data-i18n="nav.features">Features</a><a href="../about.html" data-i18n="nav.about">About</a><a href="../donate.html" class="support-btn" data-i18n="nav.donate">☕ Support</a>
+        <span id="lang-switcher"></span></div>
   </div></nav>
 
   <main class="container">
@@ -370,9 +389,9 @@
   </div>
 
     <div class="tool-header">
-      <div class="tool-breadcrumb"><a href="../index.html">Home</a> / <a href="../index.html#tools">Tools</a> / <span>Edit PDF</span></div>
-      <h1>✏️ Edit PDF</h1>
-      <p>Add text, annotations, shapes, and whiteout to your PDF — 100% private in your browser</p>
+      <div class="tool-breadcrumb"><a href="../index.html" data-i18n="nav.home">Home</a> / <a href="../index.html#tools" data-i18n="nav.tools">Tools</a> / <span data-i18n="tools.edit_pdf.title">Edit PDF</span></div>
+      <h1>✏️ <span data-i18n="tools.edit_pdf.title">Edit PDF</span></h1>
+      <p data-i18n="tool_pages.edit_pdf.subtitle">Add text, annotations, shapes, and whiteout to your PDF — 100% private in your browser</p>
       <div style="margin-top:1.5rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
         <span style="background:rgba(46,117,182,0.1);padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;">🔒 No Uploads</span>
         <span style="background:rgba(16,185,129,0.1);padding:0.5rem 1rem;border-radius:50px;font-size:0.9rem;">⚡ Instant Processing</span>
@@ -527,9 +546,9 @@
 
   <footer class="main-footer"><div class="footer-content">
     <div class="footer-logo"><div><img src="https://kimosabe-tools.pages.dev/favicon-32x32.png" alt="Kimosabe Tools Logo" width="60" height="60"></div><div class="footer-logo-text">Kimosabe Tools</div></div>
-    <div style="text-align:center;margin-bottom:2rem;"><p style="color:var(--gray-300);max-width:500px;margin:0 auto 1.5rem;">Join thousands of users who trust their privacy to Kimosabe Tools</p><a href="../index.html#tools" class="support-btn" style="display:inline-block;">🚀 Start Using Tools</a></div>
-    <nav class="footer-links"><a href="../about.html">About</a><a href="../contact.html">Contact</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../donate.html" style="color:#ffd166;">Support Us</a></nav>
-    <p class="copyright">© 2026 Kimosabe Tools. Built with ❤️ for privacy.<br><small style="opacity:0.7;">All processing happens locally in your browser.</small></p>
+    <div style="text-align:center;margin-bottom:2rem;"><p style="color:var(--gray-300);max-width:500px;margin:0 auto 1.5rem;" data-i18n="footer.tagline">Join thousands of users who trust their privacy to Kimosabe Tools</p><a href="../index.html#tools" class="support-btn" style="display:inline-block;" data-i18n="footer.start">🚀 Start Using Tools</a></div>
+    <nav class="footer-links"><a href="../about.html" data-i18n="nav.about">About</a><a href="../contact.html" data-i18n="nav.contact">Contact</a><a href="../privacy.html" data-i18n="nav.privacy">Privacy</a><a href="../terms.html" data-i18n="nav.terms">Terms</a><a href="../donate.html" style="color:#ffd166;" data-i18n="footer.support_us">Support Us</a></nav>
+    <p class="copyright"><span data-i18n="footer.copyright">© 2026 Kimosabe Tools. Built with ❤️ for privacy.</span><br><small style="opacity:0.7;" data-i18n="footer.processing">All processing happens locally in your browser.</small></p>
   </div></footer>
 
   <button class="back-to-top" aria-label="Back to top">↑</button>
@@ -1593,5 +1612,7 @@ backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initializeApp);
 else initializeApp();
 </script>
+  <!-- i18n engine: loads /lang/*.json, swaps data-i18n text, RTL, switcher -->
+  <script src="/assets/js/i18n.js" defer></script>
 </body>
 </html>
