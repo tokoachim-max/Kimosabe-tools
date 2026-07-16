@@ -15,7 +15,8 @@
     "donate": "☕ Apoyar",
     "language": "🌐",
     "explore_tools": "🚀 Explorar todas las herramientas",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "all_tools": "Todas las herramientas"
   },
   "hero": {
     "title": "Kimosabe Tools",
@@ -286,5 +287,55 @@
     "desc": "— Use Kimosabe Tools sin conexión, como una app",
     "install": "Instalar",
     "dismiss": "Ahora no"
+  },
+  "tool_pages": {
+    "compress_pdf": {
+      "subtitle": "Reduzca de verdad sus PDF mediante recompresión de imágenes página por página. 100% privado — sus archivos nunca salen de su navegador."
+    },
+    "edit_pdf": {
+      "subtitle": "Agregue texto, anotaciones, formas y corrector a su PDF — 100% privado en su navegador"
+    },
+    "image_editor": {
+      "subtitle": "Recorte, rote y voltee sus imágenes en un lienzo en vivo. 100% privado — sus fotos nunca salen de su navegador."
+    },
+    "organize_pdf": {
+      "subtitle": "Reordene, elimine, rote y extraiga páginas, y guarde un PDF nuevo. 100% privado — sus archivos nunca salen de su navegador."
+    },
+    "page_numbers_pdf": {
+      "subtitle": "Numere las páginas de su PDF con control total de posición y formato. 100% privado — sus archivos nunca salen de su navegador."
+    },
+    "pdf_to_images": {
+      "subtitle": "Convierta cada página de su PDF en JPG o PNG. 100% privado — sus archivos nunca salen de su navegador."
+    },
+    "qr_code_generator": {
+      "subtitle": "Cree códigos QR para enlaces, texto, Wi-Fi y más. 100% privado — sus datos nunca salen de su navegador."
+    },
+    "unlock_pdf": {
+      "subtitle": "Elimine una contraseña que conoce o quite restricciones y guarde una copia desbloqueada. 100% privado — sus archivos nunca salen de su navegador."
+    },
+    "watermark_pdf": {
+      "subtitle": "Estampe texto o un logo en cada página de su PDF. 100% privado — sus archivos nunca salen de su navegador."
+    },
+    "image_compressor": {
+      "subtitle": "Reduzca el tamaño de sus imágenes sin pérdida visible de calidad. 100% privado — sus fotos nunca salen de su navegador."
+    },
+    "image_resize": {
+      "subtitle": "Cambie el tamaño de las imágenes a dimensiones exactas para cualquier plataforma. 100% privado — sus fotos nunca salen de su navegador."
+    },
+    "image_converter": {
+      "subtitle": "Convierta imágenes entre JPG, PNG, WebP y más. 100% privado — sus fotos nunca salen de su navegador."
+    },
+    "image_to_pdf": {
+      "subtitle": "Combine sus fotos e imágenes en un solo documento PDF. 100% privado — sus archivos nunca salen de su navegador."
+    },
+    "merge_pdf": {
+      "subtitle": "Combine varios documentos PDF en uno, en el orden que elija. 100% privado — sus archivos nunca salen de su navegador."
+    },
+    "rotate_split_pdf": {
+      "subtitle": "Corrija la orientación de las páginas o divida su PDF en archivos separados. 100% privado — sus archivos nunca salen de su navegador."
+    },
+    "sign_pdf": {
+      "subtitle": "Dibuje o escriba su firma y colóquela en cualquier página. 100% privado — sus archivos nunca salen de su navegador."
+    }
   }
 }
