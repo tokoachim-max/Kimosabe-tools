@@ -15,7 +15,8 @@
     "donate": "☕ Unterstützen",
     "language": "🌐",
     "explore_tools": "🚀 Alle Tools erkunden",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "all_tools": "Alle Tools"
   },
   "hero": {
     "title": "Kimosabe Tools",
@@ -284,5 +285,55 @@
     "desc": "— Nutzen Sie Kimosabe Tools offline, wie eine App",
     "install": "Installieren",
     "dismiss": "Nicht jetzt"
+  },
+  "tool_pages": {
+    "compress_pdf": {
+      "subtitle": "Verkleinern Sie Ihre PDFs wirklich – durch seitenweise Bild-Neukompression. 100% privat — Dateien verlassen nie Ihren Browser."
+    },
+    "edit_pdf": {
+      "subtitle": "Fügen Sie Text, Anmerkungen, Formen und Tipp-Ex zu Ihrem PDF hinzu — 100% privat in Ihrem Browser"
+    },
+    "image_editor": {
+      "subtitle": "Zuschneiden, Drehen und Spiegeln Ihrer Bilder auf einer Live-Leinwand. 100% privat — Fotos verlassen nie Ihren Browser."
+    },
+    "organize_pdf": {
+      "subtitle": "Seiten neu ordnen, löschen, drehen und extrahieren, dann als neues PDF speichern. 100% privat — Dateien verlassen nie Ihren Browser."
+    },
+    "page_numbers_pdf": {
+      "subtitle": "Nummerieren Sie Ihre PDF-Seiten mit voller Kontrolle über Position und Format. 100% privat — Dateien verlassen nie Ihren Browser."
+    },
+    "pdf_to_images": {
+      "subtitle": "Verwandeln Sie jede Seite Ihres PDFs in ein JPG oder PNG. 100% privat — Dateien verlassen nie Ihren Browser."
+    },
+    "qr_code_generator": {
+      "subtitle": "Erstellen Sie QR-Codes für Links, Text, WLAN und mehr. 100% privat — Ihre Daten verlassen nie Ihren Browser."
+    },
+    "unlock_pdf": {
+      "subtitle": "Entfernen Sie ein bekanntes Passwort oder heben Sie Beschränkungen auf und speichern Sie eine entsperrte Kopie. 100% privat — Dateien verlassen nie Ihren Browser."
+    },
+    "watermark_pdf": {
+      "subtitle": "Stempeln Sie Text oder ein Logo auf jede Seite Ihres PDFs. 100% privat — Dateien verlassen nie Ihren Browser."
+    },
+    "image_compressor": {
+      "subtitle": "Reduzieren Sie die Dateigröße Ihrer Bilder ohne sichtbaren Qualitätsverlust. 100% privat — Fotos verlassen nie Ihren Browser."
+    },
+    "image_resize": {
+      "subtitle": "Ändern Sie die Bildgröße auf exakte Abmessungen für jede Plattform. 100% privat — Fotos verlassen nie Ihren Browser."
+    },
+    "image_converter": {
+      "subtitle": "Konvertieren Sie Bilder zwischen JPG, PNG, WebP und mehr. 100% privat — Fotos verlassen nie Ihren Browser."
+    },
+    "image_to_pdf": {
+      "subtitle": "Kombinieren Sie Ihre Fotos und Bilder zu einem einzigen PDF-Dokument. 100% privat — Dateien verlassen nie Ihren Browser."
+    },
+    "merge_pdf": {
+      "subtitle": "Kombinieren Sie mehrere PDF-Dokumente zu einem, in Ihrer Wunschreihenfolge. 100% privat — Dateien verlassen nie Ihren Browser."
+    },
+    "rotate_split_pdf": {
+      "subtitle": "Korrigieren Sie die Seitenausrichtung oder teilen Sie Ihr PDF in separate Dateien. 100% privat — Dateien verlassen nie Ihren Browser."
+    },
+    "sign_pdf": {
+      "subtitle": "Zeichnen oder tippen Sie Ihre Unterschrift und platzieren Sie sie auf jeder Seite. 100% privat — Dateien verlassen nie Ihren Browser."
+    }
   }
 }
