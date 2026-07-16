@@ -15,7 +15,8 @@
     "donate": "☕ 支持",
     "language": "🌐",
     "explore_tools": "🚀 探索所有工具",
-    "faq": "常见问题"
+    "faq": "常见问题",
+    "all_tools": "所有工具"
   },
   "hero": {
     "title": "Kimosabe Tools",
@@ -286,5 +287,55 @@
     "desc": "— 像应用一样离线使用 Kimosabe Tools",
     "install": "安装",
     "dismiss": "暂不"
+  },
+  "tool_pages": {
+    "compress_pdf": {
+      "subtitle": "通过逐页图像重压缩真正缩小您的PDF。100% 私密 — 文件绝不离开您的浏览器。"
+    },
+    "edit_pdf": {
+      "subtitle": "为您的PDF添加文字、注释、形状和涂白 — 100% 私密，全在您的浏览器中"
+    },
+    "image_editor": {
+      "subtitle": "在实时画布上裁剪、旋转和翻转图片。100% 私密 — 照片绝不离开您的浏览器。"
+    },
+    "organize_pdf": {
+      "subtitle": "重新排序、删除、旋转和提取页面，然后保存为新PDF。100% 私密 — 文件绝不离开您的浏览器。"
+    },
+    "page_numbers_pdf": {
+      "subtitle": "为PDF页面添加页码，位置和格式完全可控。100% 私密 — 文件绝不离开您的浏览器。"
+    },
+    "pdf_to_images": {
+      "subtitle": "将PDF的每一页转换为JPG或PNG。100% 私密 — 文件绝不离开您的浏览器。"
+    },
+    "qr_code_generator": {
+      "subtitle": "为链接、文字、Wi-Fi等创建二维码。100% 私密 — 您的数据绝不离开浏览器。"
+    },
+    "unlock_pdf": {
+      "subtitle": "移除您已知的密码或解除权限限制，并保存解锁副本。100% 私密 — 文件绝不离开您的浏览器。"
+    },
+    "watermark_pdf": {
+      "subtitle": "在PDF的每一页上添加文字或Logo水印。100% 私密 — 文件绝不离开您的浏览器。"
+    },
+    "image_compressor": {
+      "subtitle": "在不损失可见质量的情况下减小图片文件大小。100% 私密 — 照片绝不离开您的浏览器。"
+    },
+    "image_resize": {
+      "subtitle": "将图片调整为适合任何平台的精确尺寸。100% 私密 — 照片绝不离开您的浏览器。"
+    },
+    "image_converter": {
+      "subtitle": "在JPG、PNG、WebP等格式之间转换图片。100% 私密 — 照片绝不离开您的浏览器。"
+    },
+    "image_to_pdf": {
+      "subtitle": "将您的照片和图片合并为一个PDF文档。100% 私密 — 文件绝不离开您的浏览器。"
+    },
+    "merge_pdf": {
+      "subtitle": "按您选择的顺序将多个PDF文档合并为一个。100% 私密 — 文件绝不离开您的浏览器。"
+    },
+    "rotate_split_pdf": {
+      "subtitle": "修正页面方向或将PDF拆分为多个文件。100% 私密 — 文件绝不离开您的浏览器。"
+    },
+    "sign_pdf": {
+      "subtitle": "手绘或输入您的签名并放置到任意页面。100% 私密 — 文件绝不离开您的浏览器。"
+    }
   }
 }
