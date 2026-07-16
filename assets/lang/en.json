@@ -13,7 +13,8 @@
     "contact": "Contact",
     "privacy": "Privacy",
     "terms": "Terms",
-    "donate": "☕ Support"
+    "donate": "☕ Support",
+    "all_tools": "All Tools"
   },
   "hero": {
     "title": "Kimosabe Tools",
@@ -257,5 +258,55 @@
     "de": "Deutsch",
     "zh": "中文",
     "ar": "العربية"
+  },
+  "tool_pages": {
+    "compress_pdf": {
+      "subtitle": "Genuinely shrink your PDFs using page-by-page image recompression. 100% private — files never leave your browser."
+    },
+    "edit_pdf": {
+      "subtitle": "Add text, annotations, shapes, and whiteout to your PDF — 100% private in your browser"
+    },
+    "image_editor": {
+      "subtitle": "Crop, rotate and flip your images with a live canvas. 100% private — photos never leave your browser."
+    },
+    "organize_pdf": {
+      "subtitle": "Reorder, delete, rotate and extract pages, then save a fresh PDF. 100% private — files never leave your browser."
+    },
+    "page_numbers_pdf": {
+      "subtitle": "Number your PDF pages with full control over position and format. 100% private — files never leave your browser."
+    },
+    "pdf_to_images": {
+      "subtitle": "Turn every page of your PDF into a JPG or PNG. 100% private — files never leave your browser."
+    },
+    "qr_code_generator": {
+      "subtitle": "Create QR codes for links, text, Wi-Fi and more. 100% private — your data never leaves your browser."
+    },
+    "unlock_pdf": {
+      "subtitle": "Remove a password you know, or lift owner restrictions, and save an unlocked copy. 100% private — files never leave your browser."
+    },
+    "watermark_pdf": {
+      "subtitle": "Stamp text or a logo across every page of your PDF. 100% private — files never leave your browser."
+    },
+    "image_compressor": {
+      "subtitle": "Reduce your image file sizes without visible quality loss. 100% private — photos never leave your browser."
+    },
+    "image_resize": {
+      "subtitle": "Resize images to exact dimensions for any platform. 100% private — photos never leave your browser."
+    },
+    "image_converter": {
+      "subtitle": "Convert images between JPG, PNG, WebP and more. 100% private — photos never leave your browser."
+    },
+    "image_to_pdf": {
+      "subtitle": "Combine your photos and images into a single PDF document. 100% private — files never leave your browser."
+    },
+    "merge_pdf": {
+      "subtitle": "Combine multiple PDF documents into one, in the order you choose. 100% private — files never leave your browser."
+    },
+    "rotate_split_pdf": {
+      "subtitle": "Fix page orientation or split your PDF into separate files. 100% private — files never leave your browser."
+    },
+    "sign_pdf": {
+      "subtitle": "Draw or type your signature and place it on any page. 100% private — files never leave your browser."
+    }
   }
 }
