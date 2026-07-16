@@ -15,7 +15,8 @@
     "donate": "☕ Soutenir",
     "language": "🌐",
     "explore_tools": "🚀 Explorer tous les outils",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "all_tools": "Tous les outils"
   },
   "hero": {
     "title": "Kimosabe Tools",
@@ -284,5 +285,55 @@
     "desc": "— Utilisez Kimosabe Tools hors ligne, comme une app",
     "install": "Installer",
     "dismiss": "Plus tard"
+  },
+  "tool_pages": {
+    "compress_pdf": {
+      "subtitle": "Réduisez vraiment vos PDF grâce à la recompression des images page par page. 100% privé — vos fichiers ne quittent jamais votre navigateur."
+    },
+    "edit_pdf": {
+      "subtitle": "Ajoutez du texte, des annotations, des formes et du correcteur à votre PDF — 100% privé dans votre navigateur"
+    },
+    "image_editor": {
+      "subtitle": "Recadrez, tournez et retournez vos images sur un canevas en direct. 100% privé — vos photos ne quittent jamais votre navigateur."
+    },
+    "organize_pdf": {
+      "subtitle": "Réordonnez, supprimez, tournez et extrayez des pages, puis enregistrez un nouveau PDF. 100% privé — vos fichiers ne quittent jamais votre navigateur."
+    },
+    "page_numbers_pdf": {
+      "subtitle": "Numérotez les pages de votre PDF avec un contrôle total de la position et du format. 100% privé — vos fichiers ne quittent jamais votre navigateur."
+    },
+    "pdf_to_images": {
+      "subtitle": "Transformez chaque page de votre PDF en JPG ou PNG. 100% privé — vos fichiers ne quittent jamais votre navigateur."
+    },
+    "qr_code_generator": {
+      "subtitle": "Créez des QR codes pour liens, texte, Wi-Fi et plus. 100% privé — vos données ne quittent jamais votre navigateur."
+    },
+    "unlock_pdf": {
+      "subtitle": "Retirez un mot de passe connu ou levez les restrictions, puis enregistrez une copie déverrouillée. 100% privé — vos fichiers ne quittent jamais votre navigateur."
+    },
+    "watermark_pdf": {
+      "subtitle": "Apposez un texte ou un logo sur chaque page de votre PDF. 100% privé — vos fichiers ne quittent jamais votre navigateur."
+    },
+    "image_compressor": {
+      "subtitle": "Réduisez la taille de vos images sans perte visible de qualité. 100% privé — vos photos ne quittent jamais votre navigateur."
+    },
+    "image_resize": {
+      "subtitle": "Redimensionnez vos images aux dimensions exactes pour n'importe quelle plateforme. 100% privé — vos photos ne quittent jamais votre navigateur."
+    },
+    "image_converter": {
+      "subtitle": "Convertissez vos images entre JPG, PNG, WebP et plus. 100% privé — vos photos ne quittent jamais votre navigateur."
+    },
+    "image_to_pdf": {
+      "subtitle": "Combinez vos photos et images en un seul document PDF. 100% privé — vos fichiers ne quittent jamais votre navigateur."
+    },
+    "merge_pdf": {
+      "subtitle": "Combinez plusieurs documents PDF en un seul, dans l'ordre de votre choix. 100% privé — vos fichiers ne quittent jamais votre navigateur."
+    },
+    "rotate_split_pdf": {
+      "subtitle": "Corrigez l’orientation des pages ou divisez votre PDF en fichiers séparés. 100% privé — vos fichiers ne quittent jamais votre navigateur."
+    },
+    "sign_pdf": {
+      "subtitle": "Dessinez ou tapez votre signature et placez-la sur n'importe quelle page. 100% privé — vos fichiers ne quittent jamais votre navigateur."
+    }
   }
 }
