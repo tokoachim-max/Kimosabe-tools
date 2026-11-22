@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Replace 'kimosabe-tools' with your actual Cloudflare project name
-Sitemap: https://kimosabe-tools.pages.dev/sitemap.xml
+Sitemap: https://kimosabetools.com/sitemap.xml
