@@ -1,5 +1,5 @@
 # 🛠️ Kimosabe Tools - Privacy-First Web Suite
-**Live Site:** [https://kimosabe-tools.pages.dev/](https://kimosabe-tools.pages.dev/)
+**Live Site:** [https://kimosabetools.com/](https://kimosabetools.com/)
 
 Kimosabe Tools is an all-in-one, browser-based utility suite designed for speed and absolute privacy. Unlike other online tools, **your files never leave your device.** All processing happens locally in your browser using JavaScript.
 
